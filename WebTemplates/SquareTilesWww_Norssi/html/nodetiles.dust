@@ -80,18 +80,7 @@
             </div>
             {:else}
                 {@eq key=TechnicalSource value="EMBEDDEDCONTENT"}
-                    <script type="text/javascript" src="http://mmp.streamuk.com/p/2000147/sp/200014700/embedIframeJs/uiconf_id/11170182/partner_id/2000147"></script>
-                    <object id="kaltura_player_1389787001{ID}" name="kaltura_player_1389787001{ID}" type="application/x-shockwave-flash" allowFullScreen="true"
-                            allowNetworking="all" allowScriptAccess="always" class="embedimage" bgcolor="#000000"
-                            resource="http://mmp.streamuk.com/index.php/kwidget/cache_st/1389787001{ID}/wid/_2000147/uiconf_id/11170182/entry_id/{ActualContentUrl}"
-                            data="http://mmp.streamuk.com/index.php/kwidget/cache_st/1389787001{ID}/wid/_2000147/uiconf_id/11170182/entry_id/{ActualContentUrl}">
-                        <param name="allowFullScreen" value="true" />
-                        <param name="allowNetworking" value="all" />
-                        <param name="allowScriptAccess" value="always" />
-                        <param name="bgcolor" value="#000000" />
-                        <param name="flashVars" value="" />
-                        <param name="movie" value="http://mmp.streamuk.com/index.php/kwidget/cache_st/1389787001{ID}/wid/_2000147/uiconf_id/11170182/entry_id/{ActualContentUrl}" />
-                    </object>
+                    <iframe style="width: 100%;height: 100%" {ActualContentUrl|s}></iframe>
                 {/eq}
             {/ImageBaseUrl}
             <div class="entry-summary">
