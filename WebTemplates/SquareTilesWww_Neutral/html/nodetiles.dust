@@ -10,9 +10,9 @@
             <li class="isotope-sort-item"><a href="#"  class="filter badge catMaps" data-filter-value=".Maps">Maps</a></li>
             <li class="isotope-sort-item"><a href="#"  class="filter badge catAbout" data-filter-value=".catAbout">About</a></li>
             !}
-            <li class="isotope-sort-item"><a href="#" class="filter badge active " style="color: black;font-size: large" data-filter-value=".nodetile"><i class="icon-home"></i></a></li>
+            <li class="isotope-sort-item"><a href="#" class="filter badge active " style="color: black;font-size:medium" data-filter-value=".nodetile"><i class="icon-home"></i></a></li>
             {#RootCategories}
-                <li class="isotope-sort-item"><a href="#"  class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}; font-size: large"
+                <li class="isotope-sort-item"><a href="#"  class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}; font-size: medium"
                                                  data-filter-value=".{CategoryName}">{Title}</a></li>
             {/RootCategories}
         </ul>
@@ -27,7 +27,7 @@
         margin: 9px;
         border: solid;
         padding: 5px;
-        border: 1px solid lightgreen;
+        border: 1px solid gold;
         /*border-radius: 7px;*/
         background-color: #f8fff8;
         /*background-color: blue;*/

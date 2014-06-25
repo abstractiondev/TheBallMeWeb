@@ -64,12 +64,7 @@
 <div class="navbar navbar-static-top">
     <div>
         <div class="subnavbar-inner" style="background-color">
-            <!--
             <div id="logocontainer" class="container logo-only">
-            </div>
-                        -->
-            <div id="logotemplatefixed" class="container logo-only">
-                <img width="50%" src="../assets/img/no_image.gif"><span class="pull-right"></span>
             </div>
         </div>
         <div class="container powered-by">
@@ -372,7 +367,7 @@
             var imageData = CurrGroupContainer.GroupProfile.ProfileImage.ImageData;
             if(imageData != null)
             {
-                $("#logocontainer").html("<img src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+                $("#logocontainer").html("<img height='20%' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
             }
 
             var myObj = nodeSummary;
