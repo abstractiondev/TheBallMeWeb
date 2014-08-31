@@ -1,0 +1,1 @@
+<div {?modal_id}id="{modal_id}" {/modal_id}{?modal_name}name="{modal_name}" {/modal_name}class="reveal-modal medium oip-controller-modal" data-reveal>

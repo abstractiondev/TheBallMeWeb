@@ -13,8 +13,6 @@
 
     <script src="../assets/controlpanel/js/modernizr.js"></script>
     <script src="../assets/controlpanel/js/jquery.js"></script>
-    <script src="../assets/controlpanel/js/oipdynamicreplacer.js"></script>
-
     <script src="../assets/controlpanel/js/foundation.min.js"></script>
     <script src="../assets/controlpanel/js/jquery.isotope.js" type="text/javascript"></script>
     <script src="../assets/controlpanel/js/jquery.form.min.js"></script>
@@ -33,11 +31,6 @@
     <script src="../assets/controlpanel/modules/ModuleCustomGlue.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
     <script type="text/javascript" src="//s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
-
-    <style>
-        .oip-dropdown-button { padding: 14px !important;
-            color: white !important; margin: 2px;}
-    </style>
 
     <script>
         var wnd = window;
@@ -83,65 +76,27 @@
 <div class="inner-wrap">
 <nav class="tab-bar">
     <section class="left-small"><a class="left-off-canvas-toggle menu-icon"><span></span></a></section>
-    <section class="middle tab-bar-section"><h1 class="title">The Ball - Open Innovation Platform</h1></section>
+    <section class="middle tab-bar-section"><h1 class="title">Open Innovation Platform from Aalto Global Impact</h1></section>
 </nav>
 <aside class="left-off-canvas-menu">
     <ul class="off-canvas-list">
-        <li><label>Manage Posts</label></li>
-        <li><a href="#" id="addEditContentMenuAnchor" class="offCanvasMenuAnchor">Add or Edit Posts</a></li>
-        <li><a href="#" id="manageCategoriesMenuAnchor" class="offCanvasMenuAnchor">Add or Edit Categories</a></li>
-        <li><a href="#" id="fileManagerMenuAnchor" class="offCanvasMenuAnchor">File Manager</a></li>
-        <li><a href="#" id="connectionsMenuAnchor" class="offCanvasMenuAnchor">Connections to Other Groups</a></li>
-        <!--
-        <li><a href="#" id="timelineMenuAnchor" class="offCanvasMenuAnchor">View data as timeline</a></li>
-        -->
-        <li><label>Manage Pages</label></li>
-        <li><a href="#" id="dynamicContentMenuAnchor" class="offCanvasMenuAnchor">Dynamic Page Content</a></li>
-
-        <li><label>General Options</label></li>
-        <li><a href="#" id="groupInfoMenuAnchor" class="offCanvasMenuAnchor">Group</a></li>
-        <li><a href="#" id="groupMembersMenuAnchor" class="offCanvasMenuAnchor">Group Members</a></li>
-        <li><a href="/auth/account/cpanel/html/account.html">My Personal Account</a></li>
-        <li><a href="../../categoriesandcontent/html/group.html">Old Group UI</a></li>
+        <li><label>Collaboration</label></li>
+        <li><a href="#" id="groupsMenuAnchor" data-section-id="groupsSection" class="offCanvasMenuAnchor">My Groups</a></li>
+        <li><label>Me</label></li>
+        <li><a href="#" id="personalMenuAnchor" data-section-id="personalSection" class="offCanvasMenuAnchor">Personal Identity</a></li>
+        <li><a href="/TheBallLogin.aspx?SignOut=true">Logout</a></li>
     </ul>
 </aside>
 
 <section class="main-section">
 <div class="row" id="canvasMainSectionRow">
-<div class="large-12 columns contentSwitchableSection activeSection" id="addEditContentSection">
-    <p>Loading Content...</p>
+<div class="large-12 columns contentSwitchableSection activeSection" id="groupsSection">
+    <p>Loading Group List...</p>
 </div>
 
-<div class="large-12 columns contentSwitchableSection" id="categoriesSection">
-    <p>Loading Categories...</p>
+<div class="large-12 columns contentSwitchableSection" id="personalSection">
+    <p>Loading Personal Stuff...</p>
 </div>
-
-<div class="large-12 columns contentSwitchableSection" id="fileManagerSection">
-    <h3>Loading Files...</h3>
-</div>
-
-<div class="large-12 columns contentSwitchableSection" id="connectionsSection">
-    <h3>Loading Connections...</h3>
-</div>
-
-<div class="large-12 columns contentSwitchableSection" id="groupSection">
-    <h3>Loading Group Data...</h3>
-</div>
-
-<div class="large-12 columns contentSwitchableSection" id="groupMembersSection">
-    <h3>Loading Group Members...</h3>
-</div>
-
-<div class="large-12 columns contentSwitchableSection" id="dynamicContentSection">
-    <h3>Loading Dynamic Content Editor...</h3>
-</div>
-
-<!--
-<div class="large-12 columns contentSwitchableSection" id="timelineSection">
-    <div class="row"><div class="small-12 medium-12 large-12 columns"><h4 class="boldieText">Timeline</h4></div></div>
-    <div class="row"><div class="small-12 medium-12 large-12 columns"><div id="my-timeline"></div></div></div>
-</div>
--->
 
 </div>
 <!--Closes the Main Section Div, where the content (switchable) goes-->
@@ -205,12 +160,76 @@
         return timestamp.toISOString();
     }
 
+    var switchActiveCanvasSection = function(event) {
+        var sectionItemID = $(this).attr("data-section-id");
+        var currentactive = $(".activeSection").attr("id");
+        $("#" + currentactive).removeClass("activeSection");
+        $("#" + sectionItemID).addClass("activeSection");
+    };
+
+    $(".offCanvasMenuAnchor").on('click', switchActiveCanvasSection);
+
+    var start_isotope = function(){
+        //var $container = $('.portfolioContainer');
+        var $container = $("#contentDivContainer");
+        $container.isotope({
+            filter: '*',
+            animationOptions: {
+                duration: 750,
+                easing: 'linear',
+                queue: false
+            }
+        });
+
+        $('.portfolioFilter a').click(function(){
+            $('.portfolioFilter .current').removeClass('current');
+            $(this).addClass('current');
+
+            var selector = $(this).attr('data-filter');
+            $container.isotope({
+                filter: selector,
+                animationOptions: {
+                    duration: 750,
+                    easing: 'linear',
+                    queue: false
+                }
+            });
+            return false;
+        });
+    }//closes function Start_isotope
+
+    var reLayout_isotope = function() {
+        var $container = $('#contentDivContainer');
+        $container.isotope( 'reLayout');
+    };
+
+    var initializeAll = function () {
+
+        $(document).foundation(
+                {
+                    reveal: {
+                        animation: 'fadeAndPop',
+                        animation_speed: 250,
+                        close_on_background_click: false,
+                        close_on_esc: false
+                    }
+
+                }
+        );
+
+        $.ajaxSetup({cache: true});
+    }
+
+
+    initializeAll();
 
     var tUI = TheBall.Interface.UI;
     var tDCM = new tUI.DataConnectionManager();
     var tOP = new tUI.OperationManager(tDCM);
     var tUDG = new tUI.UpdatingDataGetter();
 
+
+    /*
     tUDG.RegisterDataURL("CATEGORYTREE", function (args) {
         var nodeSummaryContainer = args[0];
         var categoriesWithChildren = AppScripts.Common.ConvertCategoriesFromParentToChildren(nodeSummaryContainer.NodeSourceCategories.CollectionContent);
@@ -218,25 +237,8 @@
     }, [ "../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json" ]);
 
     tUDG.RegisterDataURL("../../AaltoGlobalImpact.OIP/GroupContainer/default.json", function (args) {
+        alert("Kau!");
     });
-
-    tUDG.RegisterDataURL("../../AaltoGlobalImpact.OIP/DynamicContentCollection/MasterCollection.json", function(args) {
-    });
-
-    tUDG.RegisterDataURL("DYNAMICVIEWCONTENT", function(args) {
-        var dynamicContentCollection = args[0];
-        dynamicContentCollection.CollectionContent.sort(function(a, b) {
-            if(a.HostName == b.HostName)
-                return 0;
-            if(!a.HostName)
-                return -1;
-            var firstCompare = a.HostName.localeCompare(b.HostName);
-            if(!firstCompare)
-                return a.Description.localeCompare(b.Description);
-            return firstCompare;
-        });
-        return dynamicContentCollection;
-    }, [ "../../AaltoGlobalImpact.OIP/DynamicContentCollection/MasterCollection.json"] );
 
     tUDG.RegisterDataURL("MAINCONTENT", function (args) {
         var textContentCollection = args[0][0];
@@ -251,97 +253,67 @@
         var categoryCollection = args[1][0];
         var commentCollection = args[2][0];
         var binaryFileCollection = args[3][0];
-        var linkToContentCollection = args[4][0];
-        var embeddedContentCollection = args[5][0];
-        var connectionCollection = args[6][0];
-        var groupContainer = args[7][0];
         return {
             TextContents: textContentCollection,
             Categories: categoryCollection,
             Comments: commentCollection,
-            BinaryFiles: binaryFileCollection,
-            LinkToContents: linkToContentCollection,
-            EmbeddedContents: embeddedContentCollection,
-            Connections: connectionCollection,
-            GroupContainer: groupContainer
+            BinaryFiles : binaryFileCollection
         };
     }, [ "../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json",
         "../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json",
         "../../AaltoGlobalImpact.OIP/CommentCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/BinaryFileCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/LinkToContentCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/EmbeddedContentCollection/MasterCollection.json",
-        "../../TheBall.Interface/ConnectionCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/GroupContainer/default.json"
+        "../../AaltoGlobalImpact.OIP/BinaryFileCollection/MasterCollection.json"
     ]);
 
     tUDG.RegisterDataURL("FILEMANAGERCONTENT", function(args) {
         var binaryFileCollection = args[0][0];
         var imageCollection = args[1][0];
-        var categoryCollection = args[2][0];
         return {
             BinaryFiles : binaryFileCollection,
             ImageFiles : imageCollection,
-            Categories : categoryCollection
         };
     }, [  "../../AaltoGlobalImpact.OIP/BinaryFileCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/ImageCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json"
+        "../../AaltoGlobalImpact.OIP/ImageCollection/MasterCollection.json"
     ]);
+    */
 
-    tUDG.RegisterDataURL("CONNECTIONCONTENT", function(args) {
-        var connectionCollection = args[0][0];
-        var authenticatedAsDeviceCollection = args[1][0];
+
+    tUDG.RegisterDataURL("PERSONALINFO", function(args) {
+        var accountContainer = args[0];
+        return accountContainer;
+    }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
+
+    tUDG.RegisterDataURL("GROUPS", function(args) {
+        var accountContainer = args[0];
+        var accountProfile = accountContainer.AccountModule.Profile;
+        var defaultGroup = null;
+        var roles = accountContainer.AccountModule.Roles;
+        var defaultGroupID = accountProfile.SimplifiedAccountGroupID;
+        if(defaultGroupID) {
+            var moderatorIn = roles.ModeratorInGroups ? roles.ModeratorInGroups.CollectionContent : [];
+            var memberIn = roles.MemberInGroups ? roles.MemberInGroups.CollectionContent : [];
+            var mergedArray = $.merge(moderatorIn, memberIn);
+            defaultGroup = $.grep(mergedArray, function(item) {
+                return item.URL.substr(10,36) === defaultGroupID;
+            })[0];
+        }
         return {
-            Connections : connectionCollection,
-            AuthenticatedAsDevices : authenticatedAsDeviceCollection,
-            //Categories : categoryCollection
+            "DefaultGroup": defaultGroup,
+            "Roles": accountContainer.AccountModule.Roles
         };
-    }, [  "../../TheBall.Interface/ConnectionCollection/MasterCollection.json",
-        "../../TheBall.CORE/AuthenticatedAsActiveDeviceCollection/MasterCollection.json"
-    ]);
+    }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
 
-
-    require(["GroupInfoView/GroupInfoViewController"], function (vcClass) {
-        var vc = new vcClass("groupSection", tOP, tUDG);
-        vc.Initialize("../../AaltoGlobalImpact.OIP/GroupContainer/default.json");
-        vc.VisibleTemplateRender();
-    });
-    require(["CategoryView/CategoryViewController"], function (vcClass) {
-        var vc = new vcClass("categoriesSection", tOP, tUDG);
-        vc.Initialize("CATEGORYTREE");
-        vc.VisibleTemplateRender();
-    });
-    require(["GroupMemberView/GroupMemberViewController"], function (vcClass) {
-        var vc = new vcClass("groupMembersSection", tOP, tUDG);
-        vc.Initialize("../../AaltoGlobalImpact.OIP/GroupContainer/default.json");
-        vc.VisibleTemplateRender();
-    });
-    require(["MainContentView/MainContentViewController"], function (vcClass) {
-        var vc = new vcClass("addEditContentSection", tOP, tUDG);
-        vc.Initialize("MAINCONTENT");
+    require(["GroupsView/GroupsViewController"], function (vcClass) {
+        var vc = new vcClass("groupsSection", tOP, tUDG);
+        vc.Initialize("GROUPS");
         vc.VisibleTemplateRender();
     });
 
-    require(["FileManagerView/FileManagerViewController"], function(vcClass) {
-        var vc = new vcClass("fileManagerSection", tOP, tUDG);
-        vc.Initialize("FILEMANAGERCONTENT");
+    require(["PersonalInfoView/PersonalInfoViewController"], function (vcClass) {
+        var vc = new vcClass("personalSection", tOP, tUDG);
+        vc.Initialize("PERSONALINFO");
         vc.VisibleTemplateRender();
     });
-
-    require(["ConnectionView/ConnectionViewController"], function(vcClass) {
-        var vc = new vcClass("connectionsSection", tOP, tUDG);
-        vc.Initialize("CONNECTIONCONTENT");
-        vc.VisibleTemplateRender();
-    });
-
-    require(["DynamicContentView/DynamicContentViewController"], function(vcClass) {
-        var vc = new vcClass("dynamicContentSection", tOP, tUDG);
-        vc.Initialize("DYNAMICVIEWCONTENT");
-        vc.VisibleTemplateRender();
-    });
-
-
 </script>
 
 </body>

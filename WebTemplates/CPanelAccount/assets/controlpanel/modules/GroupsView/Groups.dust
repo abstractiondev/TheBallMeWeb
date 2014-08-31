@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns">
+        <h4 class="boldieText">My Groups</h4>
+{?DefaultGroup}
+    <div>
+    <table style="text-align: left;">
+        <tr>
+            <th style="color: green">Default Group</th>
+            <th style="color: green">Role</th>
+            <th style="color: green">URL</th>
+            <th style="color: green">Clear Default</th>
+        </tr>
+{#DefaultGroup}
+        <tr>
+            <td style="text-transform: none !important;"><a href="{URL}">{Title}</a></td>
+            <td style="text-transform: none !important; font-style: italic;">Moderator</td>
+            <td style="text-transform: none !important; font-style: italic;">{URL}</td>
+            <td>{>"command_button_begin.dust" nobutton="true" command="ClearDefaultGroup" /}
+                {>"command_button_end.dust" icon_class_name="icon-star-empty" /}
+            </td>
+        </tr>
+{/DefaultGroup}
+    </table>
+    </div>
+{/DefaultGroup}
+        <div>
+            <table id="collaborators-table" style="text-align: left;">
+                <tr>
+                    <th>Group</th>
+                    <th>Role</th>
+                    <th>URL</th>
+                    <th>Make Default</th>
+                </tr>
+{#Roles}
+{#ModeratorInGroups}
+    {#CollectionContent}
+        <tr>
+            <td style="text-transform: none !important;"><a href="{URL}">{Title}</a></td>
+            <td style="text-transform: none !important; font-style: italic;">Moderator</td>
+            <td style="text-transform: none !important; font-style: italic;">{URL}</td>
+            <td>{>"command_button_begin.dust" nobutton="true" command="SetAsDefaultGroup" /}
+                data-groupurl="{URL}"
+                {>"command_button_end.dust" icon_class_name="icon-star" /}
+            </td>
+        </tr>
+    {/CollectionContent}
+{/ModeratorInGroups}
+{#MemberInGroups}
+    {#CollectionContent}
+        <tr>
+            <td style="text-transform: none !important;"><a href="{URL}">{Title}</a></td>
+            <td style="text-transform: none !important; font-style: italic;">Member</td>
+            <td style="text-transform: none !important; font-style: italic;">{URL}</td>
+            <td>{>"command_button_begin.dust" nobutton="true" command="SetAsDefaultGroup" /}
+                data-groupurl="{URL}"
+                {>"command_button_end.dust" icon_class_name="icon-share" /}
+            </td>
+        </tr>
+    {/CollectionContent}
+{/MemberInGroups}
+{/Roles}
+            </table>
+        </div>
+    </div>
+    <div class="small-12 medium-6 large-6 columns show-for-medium-up"></div>
+</div>
+

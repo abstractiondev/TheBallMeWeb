@@ -1,0 +1,1 @@
+This folder is for controlpanel.html template (and it's relative htmls - if any).
