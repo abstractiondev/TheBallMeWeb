@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="small-12 medium-12 large-12 columns"><h4 class="boldieText">Group Settings</h4></div>
+    <div class="small-6 medium-3 large-3 columns discreetTextColor" id="groupSettings-groupPictureDiv">
+        <label class="boldieText darkTextColor">Image</label>
+        <img class="oipfile" data-oipfile-filegroupid="groupProfileImage" data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg" style="width: auto;height:auto;">
+        <input type="file" name="tmpProfileImage">
+    </div>
+    <div class="small-6 medium-3 large-3 columns discreetTextColor" id="groupSettings-groupIconDiv">
+        <label class="boldieText darkTextColor">Icon</label>
+        <img class="oipfile" data-oipfile-filegroupid="groupIconImage" data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg" style="width: auto;height:auto;">
+        <input type ="file" name="tmpIconImage">
+    </div>
+    <div class="small-12 medium-6 large-6 columns" id="groupSettings-groupNameDiv">
+        <label class="boldieText darkTextColor">Name<input type="text" class="pageEditingInputField" name="GroupName" /></label>
+    </div>
+    <div class="small-12 medium-6 large-6 columns" id="groupSettings-groupDescriptionDiv">
+        <label class="boldieText darkTextColor">Description<textarea class="pageEditingTextArea" name="Description" style="height:auto;min-height:195px;resize: none;"/></label>
+    </div>
+</div>
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns" id="groupSettings-groupSiteToPublishDiv">
+        <label class="boldieText darkTextColor">WWW site to publish content<input type="text" class="pageEditingInputField" name="WwwSiteToPublishTo"/></label>
+    </div>
+    <div class="small-12 medium-6 large-6 columns"></div>
+</div>
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns" id="groupSettings-groupLinkedOrganizationsDiv"><label class="boldieText darkTextColor">Linked organizations<textarea class="pageEditingTextArea" name="OrganizationsAndGroupsLinkedToUs" style="height:auto;resize: none;"/></textarea></label></div>
+    <div class="small-12 medium-6 large-6 columns"></div>
+</div>
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns"><h4 class="boldieText"><a href="#">Add custom UI</a></h4></div>
+    <div class="small-12 medium-6 large-6 columns"></div>
+</div>
+<div class="row" id="groupSettings-buttonsRow">
+    <div class="small-8 medium-3 large-4 columns"><a class="button oip-controller-command" data-oip-command="Save" style="float: right;">Save Changes</a></div>
+    <div class="small-12 medium-6 large-6 columns"></div>
+</div> <!--Closes categoriesSection-hierarchyModal-buttonsRow-->
+
+<div class="modal hide fade" id="execute-IdentityDeleteCustomUI">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Delete Custom UI</h3></div>
+    <div class="modal-body">
+        <form class="form-horizontal" enctype="multipart/form-data" method="post">
+            <fieldset><input name="ExecuteOperation" type="hidden" value="DeleteCustomUI"><input name="CustomUIName"
+                                                                                                 type="hidden">
+            </fieldset>
+            <div class="modal-footer">
+                <button class="btn" aria-hidden="true" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary">Delete!</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal hide fade" id="execute-IdentityCreateOrUpdateCustomUI">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3></h3></div>
+    <div class="modal-body">
+        <form class="form-horizontal" enctype="multipart/form-data" method="post">
+            <fieldset><input name="ExecuteOperation" type="hidden" value="CreateOrUpdateCustomUI">
+
+                <div class="control-group"><label class="control-label" for="IdentityCreateCustomUI_CustomUIName">Custom
+                    UI name</label>
+
+                    <div class="controls"><input name="CustomUIName" id="IdentityCreateCustomUI_CustomUIName"
+                                                 type="text"></div>
+                </div>
+                <input name="CustomUIContents" type="file"></fieldset>
+            <div class="modal-footer">
+                <button class="btn" aria-hidden="true" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary">Upload Custom UI!</button>
+            </div>
+        </form>
+    </div>
+</div>

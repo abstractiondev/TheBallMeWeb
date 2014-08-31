@@ -1,0 +1,8 @@
+{>"FileUploadPanel.dust" /}
+<div class="row">
+    <div class="large-12 columns" id="fileTableDivContainer">
+        {>"Filelist.dust" /}
+    </div>
+</div>
+
+{>"FileManagerModals.dust" /}

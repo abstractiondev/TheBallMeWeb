@@ -1,0 +1,9 @@
+<tr>
+    <td>{>"command_icon.dust" command="EditCategory" command_args="{ID}" icon_class_name="icon-edit" /}</td>
+    <td style='text-transform:none !important;' class='fancyTextColor'>{?title_prefix}{title_prefix} {/title_prefix}{Title}</td>
+    <td style='text-transform:none !important;font-style:italic;font-size: 12px;'>{Excerpt}</td>
+    <td>{>"objectdeleteicon.dust" object_delete_title="{Title}" /}</td>
+</tr>
+{#UI_ChildrenCategories}
+    {>"category_rowitem.dust" title_prefix="=> " /}
+{/UI_ChildrenCategories}

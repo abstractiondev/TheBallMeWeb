@@ -1,0 +1,176 @@
+{>"modal_begin.dust" modal_name="AddNewContentModal" /}
+<h2>Adding a new update</h2>
+
+<div class="row">
+    <div class="large-6 columns">
+        <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
+                <input type="file" name="ImageData">
+                <a class="button small oipfile" data-oipfile-filegroupid="imageDataImage" data-oipfile-buttontype="select">Select</a>
+                <a class="button small oipfile" data-oipfile-filegroupid="imageDataImage" data-oipfile-buttontype="remove">Remove</a>
+                <img class="oipfile" style="max-height: 247;width: 100%" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="imageDataImage">
+            </div>
+        </div>
+    </div>
+    <div class="large-6 columns">
+        <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <form id="form-addNewContentModal" method='POST' enctype='multipart/form-data' data-abide="ajax">
+                <div class="title-field"><label>Title<input type="text" name="Title" required/></label><small class="error">A title to this update is required.</small></div>
+                <div class="published-field hide"><label>Published<input type="text" name="Published" required/></label><small class="error">Published date this update is required.</small></div>
+                <div class="author-field"><label>Author<input type="text" name="Author" required/></label><small class="error">Please type the author of this update.</small></div>
+                <!--<div class="categories-field"><label>Categories</label> <input type="text" id="addNewContentModal-categories"/></div>-->
+                <div class="categories-field">
+                    <label>Categories
+                        <select name="Categories" multiple style="height: 120px; background-image: none">
+                        </select>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="excerpt-field">
+            <label>Excerpt
+                <textarea rows="5" name="Excerpt"/>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns right textAreaEditorDiv"><label>Content</label>
+        <!--
+                                            <textarea id="addNewContentModal-content" cols="50"style="height: 300px;"></textarea>
+                                           <textarea cols="50" id="area4">HTML <b>content</b> <i>default</i> in textarea</textarea>
+        -->
+        <div name="textareaDivHolder"><textarea name="Content" style="height: 300px;"></textarea></div>
+    </div>
+</div>
+
+<div class="row" name="attachmentRow" style="margin:10px auto 0 auto;background-color: rgb(244, 244, 244); width:95% !important;">
+    <div class="small-6 medium-6 large-6 columns">
+        <div>Attachments can be added after post is initially saved and opened for edit.</div>
+    </div>
+</div> <!--Closes addNewPost-attachmenRow-->
+
+<div class="row" style="margin-top: 20px;">
+    <div class="large-12 columns">
+        {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}<div style="width: 10px;float: right;">&nbsp;</div>
+        {>"insidemodal_button.dust" command="SaveNewContent" button_label="Save" style="float:right;font-color:Green" /}
+    </div>
+</div>
+{>"modal_end.dust" /}
+
+{>"modal_begin.dust" modal_name="EditContentModal" /}
+<h2>Editing content</h2>
+<div class="row">
+    <div class="large-6 columns" style="padding-right: 0;">
+        <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
+            <input type="file" name="ImageDataFileInput">
+            <a class="button small oipfile" data-oipfile-filegroupid="editModal" data-oipfile-buttontype="select">Select</a>
+            <a class="button small oipfile" data-oipfile-filegroupid="editModal" data-oipfile-buttontype="remove">Remove</a>
+            <img class="oipfile" style="max-height: 247;width: 100%" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="editModal">
+        </div>
+    </div>
+    <div class="large-6 columns">
+        <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <form id="form-editContentModal" method='POST' enctype='multipart/form-data' data-abide="ajax">
+                <div class="title-field"><label>Title<input type="text" name="Title"required/></label><small class="error">A title to this update is required.</small></div>
+                <div class="published-field"><label>Published<input type="text" name="Published" required/></label><small class="error">A published date is required.</small></div>
+                <div class="author-field"><label>Author<input type="text" name="Author"></label></div>
+                <div class="categories-field">
+                    <label>Categories
+                        <select name="Categories" multiple style="height: 100px; background-image: none">
+                        </select>
+                    </label>
+                </div>
+                <input type="hidden" name="ID"/>
+                <input type="hidden" name="ETag"/>
+                <input type="hidden" name="RelativeLocation"/>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="excerpt-field">
+            <label>Excerpt
+                <textarea rows="5" name="Excerpt"/>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row"><div class="large-12 columns right textAreaEditorDiv"><label>Content</label><div name="TextAreaDivHolder"></div></div></div>
+
+
+<div class="row" name="attachmentRow" style="margin:10px auto 0 auto;background-color: rgb(244, 244, 244); width:95% !important;">
+    <div class="large-12 columns" name="AttachmentListDiv">
+    </div>
+    <div class="small-6 medium-6 large-6 columns">
+        <div><label>Attachment</label><input type="file" name="AttachmentBinaryData"></div>
+    </div>
+    <div class="small-6 medium-6 large-6 columns" style="vertical-align: middle; display: inline-block;">
+        {>"insidemodal_button.dust" command="EditContentUploadAttachment" style="margin-top:5%;" button_label="Upload" /}
+    </div>
+</div> <!--Closes addNewPost-attachmenRow-->
+
+
+<div class="row" style="margin-top: 20px;">
+    <div class="large-12 columns">
+        {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}<div style="width: 10px;float: right;">&nbsp;</div>
+        {>"insidemodal_button.dust" command="SaveExistingContent" button_label="Save" style="float:right;font-color:Green" /}
+    </div>
+</div>
+{>"modal_end.dust" /}
+
+{>"modal_begin.dust" modal_name="ViewContentModal" /}
+<div class="row">
+    <div class="large-4 columns" id="viewContentModal-image"></div>
+    <div class="large-8 columns">
+        <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><span
+                id="viewContentModal-categories" class="fancyTagBig"></span></div>
+        <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><i
+                class='icon-pencil fancyTextColor font80'></i>&nbsp;<span id="viewContentModal-Author"
+                                                                          class="discreetLinks"></span></div>
+        <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><i
+                class='icon-calendaralt-cronjobs fancyTextColor font80'></i>&nbsp;<span id="viewContentModal-Date"
+                                                                                        class="discreetLinks"></span>
+        </div>
+    </div>
+    <div class="large-8 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;">
+        <div class="content-card-line">
+            <hr>
+        </div>
+    </div>
+    <div class="large-8 columns" style="padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span
+            name="Title" class="hugeTitleText"></span></strong><br></div>
+    <div class="large-8 columns" style="padding-right:15px;"><span id="viewContentModal-excerpt"
+                                                                   class="contentCardExcerpt bigTitleText discreetTextColor"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns" style="height:20px;"></div>
+</div>
+<div class="row">
+    <div class="large-12 columns articleText" id="viewContentModal-content"
+         style="padding-left: 15px !important; padding-right: 15px !important;"></div>
+</div>
+<div class="row">
+    <div id="viewContentModal-attachments"></div>
+</div>
+<br>
+<div class="row" id="viewModalcommentarea-row">
+    <div class="large-12 columns">
+        <div id="viewmodalcommentareaph"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12">
+        <br>
+        {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Close" style="float:right !important;" /}
+    </div>
+</div>
+{>"modal_end.dust" /}
+
