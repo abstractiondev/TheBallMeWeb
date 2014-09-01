@@ -182,6 +182,11 @@
         return timestamp;
     };
 
+    var ParseRawTimestampToSortableNumber = function(value) {
+        var timeStamp = parseRawTimestampToDate(value);
+        return timeStamp.getTime();
+    };
+
     var ParseRawTimestampToDateString = function (value) {
         //return timestamp.toISOString();
         var timestamp = parseRawTimestampToDate(value);

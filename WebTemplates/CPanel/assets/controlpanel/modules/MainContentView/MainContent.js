@@ -26,7 +26,8 @@ var initializeTextContents = function(contentData, commentData)
         var currentTitle=currentObject.Title ? currentObject.Title : "";
         var currentExcerpt=currentObject.Excerpt;
         var currentAuthor=currentObject.Author;
-        var currentPublishedDate=ParseRawTimestampToDateString(currentObject.Published);
+        //var currentPublishedDate=ParseRawTimestampToDateString(currentObject.Published);
+        var currentPublishedDate = ParseRawTimestampToSortableNumber(currentObject.Published);
         var imageSizeString="256";
 
         var currentImagePath=currentObject.ImageData
@@ -57,7 +58,7 @@ var initializeTextContents = function(contentData, commentData)
             }
         }
 
-        user_content+="<div class='content-card "+currentMainCategory+"' id='contentCardDataId-"+currentID+"'>";
+        user_content+="<div class='content-card "+currentMainCategory+"' id='contentCardDataId-"+currentID+"' data-published='" + currentPublishedDate + "'>";
         if(currentImagePath)
             user_content+="<img src='"+currentImagePath+"' alt='image' id='contentCardImage-dataID-"+currentID+"'/>";
         user_content+="<div class='content-card-title' style='font-size:95%; font-weight:bold; column-rule: #000000;" + backgroundColorStyle + "' id='contentCardTitle-dataID-"+currentID+"'>"+currentTitle+"</div>";
@@ -99,6 +100,8 @@ var initializeLinkToContents = function(contentData, commentData)
         /*var aproxCardSize=210;*/
         var currentID=currentObject.ID;
         var currentTitle=currentObject.Title ? currentObject.Title : "";
+        //var currentPublishedDate=ParseRawTimestampToDateString(currentObject.Published);
+        var currentPublishedDate = ParseRawTimestampToSortableNumber(currentObject.Published);
         var imageSizeString="256";
 
         var currentImagePath=currentObject.ImageData
@@ -129,7 +132,7 @@ var initializeLinkToContents = function(contentData, commentData)
             }
         }
 
-        user_content+="<div class='content-card "+currentMainCategory+"' id='contentCardDataId-"+currentID+"'>";
+        user_content+="<div class='content-card "+currentMainCategory+"' id='contentCardDataId-"+currentID+"' data-published='" + currentPublishedDate + "'>";
         if(currentImagePath)
             user_content+="<img src='"+currentImagePath+"' alt='image' id='contentCardImage-dataID-"+currentID+"'/>";
         user_content+="<div class='content-card-title' style='font-size:95%; font-weight:bold; column-rule: #000000;" + backgroundColorStyle + "' id='contentCardTitle-dataID-"+currentID+"'>"+currentTitle+"</div>";
@@ -152,6 +155,8 @@ var initializeEmbeddedContents = function(contentData, commentData)
         /*var aproxCardSize=210;*/
         var currentID=currentObject.ID;
         var currentTitle=currentObject.Title ? currentObject.Title : "";
+        //var currentPublishedDate=ParseRawTimestampToDateString(currentObject.Published);
+        var currentPublishedDate = ParseRawTimestampToSortableNumber(currentObject.Published);
         var imageSizeString="256";
 
         var currentImagePath=currentObject.ImageData
@@ -182,7 +187,7 @@ var initializeEmbeddedContents = function(contentData, commentData)
             }
         }
 
-        user_content+="<div class='content-card "+currentMainCategory+"' id='contentCardDataId-"+currentID+"'>";
+        user_content+="<div class='content-card "+currentMainCategory+"' id='contentCardDataId-"+currentID+"' data-published='" + currentPublishedDate + "'>";
         if(currentImagePath)
             user_content+="<img src='"+currentImagePath+"' alt='image' id='contentCardImage-dataID-"+currentID+"'/>";
         user_content+="<div class='content-card-title' style='font-size:95%; font-weight:bold; column-rule: #000000;" + backgroundColorStyle + "' id='contentCardTitle-dataID-"+currentID+"'>"+currentTitle+"</div>";
@@ -211,7 +216,20 @@ var start_isotope = function(){
             duration: 750,
             easing: 'linear',
             queue: false
+        },
+        sortBy: "published",
+        sortAscending: false,
+        getSortData: {
+            published: function($elem) {
+                var timeValue = parseInt($elem.attr('data-published'));
+                if(timeValue) {
+                    //console.log(timeValue);
+                    return timeValue;
+                }
+                return 0;
+            },
         }
+
     });
 
     $('.portfolioFilter a').click(function(){
