@@ -34,6 +34,16 @@
                         <select name="Categories" multiple style="height: 120px; background-image: none" />
                     </label>
                 </div>
+                <div class="published-field hide">
+                    <label>Published
+                        <input type="text" name="Published">
+                    </label>
+                </div>
+                <div class="author-field">
+                    <label>Author
+                        <input type="text" name="Author">
+                    </label>
+                </div>
             </form>
         </div>
     </div>
@@ -85,6 +95,16 @@
                 <div class="categories-field">
                     <label>Categories
                         <select name="Categories" multiple style="height: 120px; background-image: none" />
+                    </label>
+                </div>
+                <div class="published-field">
+                    <label>Published
+                        <input type="text" name="Published">
+                    </label>
+                </div>
+                <div class="author-field">
+                    <label>Author
+                        <input type="text" name="Author">
                     </label>
                 </div>
                 <input type="hidden" name="ID"/>

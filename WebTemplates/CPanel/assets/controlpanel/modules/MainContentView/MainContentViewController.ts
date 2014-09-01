@@ -107,6 +107,8 @@ class MainContentViewController extends ViewControllerBase {
             var currentURL = currentObject.URL;
             var currentTitle = currentObject.Title;
             var currentDescription = currentObject.Description;
+            var currentAuthor = currentObject.Author;
+            var currentPublishedDate = wnd.ParseRawTimestampToISOString(currentObject.Published);
 
             var selectedCategories = [];
             if(currentObject.Categories && currentObject.Categories.CollectionContent) {
@@ -145,6 +147,8 @@ class MainContentViewController extends ViewControllerBase {
             me.$getNamedFieldWithinModal($modal, "URL").val(currentURL);
             me.$getNamedFieldWithinModal($modal, "Title").val(currentTitle);
             me.$getNamedFieldWithinModal($modal, "Description").val(currentDescription);
+            me.$getNamedFieldWithinModal($modal, "Published").val(currentPublishedDate);
+            me.$getNamedFieldWithinModal($modal, "Author").val(currentAuthor);
             $modal.foundation('reveal', 'open');
         }); //ends getJson
     }
@@ -157,6 +161,9 @@ class MainContentViewController extends ViewControllerBase {
         this.$getNamedFieldWithinModal($modal, "URL").val("");
         this.$getNamedFieldWithinModal($modal, "Title").val("");
         this.$getNamedFieldWithinModal($modal, "Description").val("");
+        this.$getNamedFieldWithinModal($modal, "Author").val("");
+        var currentPublished = wnd.ParseRawTimestampToISOString(null);
+        this.$getNamedFieldWithinModal($modal, "Published").val(currentPublished);
 
         var categoryoptions = "<option value=''>(None)</option>";
         for (var i in this.currData.Categories.CollectionContent) {
@@ -194,6 +201,8 @@ class MainContentViewController extends ViewControllerBase {
             var currentIFrameTagContents = currentObject.IFrameTagContents;
             var currentTitle = currentObject.Title;
             var currentDescription = currentObject.Description;
+            var currentAuthor = currentObject.Author;
+            var currentPublishedDate = wnd.ParseRawTimestampToISOString(currentObject.Published);
 
             var selectedCategories = [];
             if(currentObject.Categories && currentObject.Categories.CollectionContent) {
@@ -221,6 +230,8 @@ class MainContentViewController extends ViewControllerBase {
             me.$getNamedFieldWithinModal($modal, "IFrameTagContents").val(currentIFrameTagContents);
             me.$getNamedFieldWithinModal($modal, "Title").val(currentTitle);
             me.$getNamedFieldWithinModal($modal, "Description").val(currentDescription);
+            me.$getNamedFieldWithinModal($modal, "Published").val(currentPublishedDate);
+            me.$getNamedFieldWithinModal($modal, "Author").val(currentAuthor);
             $modal.foundation('reveal', 'open');
         }); //ends getJson
     }
@@ -239,6 +250,9 @@ class MainContentViewController extends ViewControllerBase {
         this.$getNamedFieldWithinModal($modal, "IFrameTagContents").val("");
         this.$getNamedFieldWithinModal($modal, "Title").val("");
         this.$getNamedFieldWithinModal($modal, "Description").val("");
+        this.$getNamedFieldWithinModal($modal, "Author").val("");
+        var currentPublished = wnd.ParseRawTimestampToISOString(null);
+        this.$getNamedFieldWithinModal($modal, "Published").val(currentPublished);
 
         var categoryoptions = "<option value=''>(None)</option>";
         for (var i in this.currData.Categories.CollectionContent) {
@@ -259,12 +273,16 @@ class MainContentViewController extends ViewControllerBase {
         var title = this.$getNamedFieldWithinModal($modal, "Title").val();
         var description = this.$getNamedFieldWithinModal($modal, "Description").val();
         var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
+        var published = this.$getNamedFieldWithinModal($modal, "Published").val();
+        var author = this.$getNamedFieldWithinModal($modal, "Author").val();
 
         var saveData =
         {
             Title: title,
             URL: url,
             Description: description,
+            Published: published,
+            Author: author,
             Object_Categories: categories
         };
 
@@ -287,12 +305,16 @@ class MainContentViewController extends ViewControllerBase {
         var title = this.$getNamedFieldWithinModal($modal, "Title").val();
         var description = this.$getNamedFieldWithinModal($modal, "Description").val();
         var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
+        var published = this.$getNamedFieldWithinModal($modal, "Published").val();
+        var author = this.$getNamedFieldWithinModal($modal, "Author").val();
 
         var saveData =
         {
             Title: title,
             IFrameTagContents: iFrameTagContents,
             Description: description,
+            Published: published,
+            Author: author,
             Object_Categories: categories
         };
 
@@ -314,6 +336,8 @@ class MainContentViewController extends ViewControllerBase {
         var objectRelativeLocation = this.$getNamedFieldWithinModal($modal, "RelativeLocation").val();
         var url = this.$getNamedFieldWithinModal($modal, "URL").val();
         var title = this.$getNamedFieldWithinModal($modal, "Title").val();
+        var published = this.$getNamedFieldWithinModal($modal, "Published").val();
+        var author = this.$getNamedFieldWithinModal($modal, "Author").val();
         var description = this.$getNamedFieldWithinModal($modal, "Description").val();
         var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
 
@@ -322,6 +346,8 @@ class MainContentViewController extends ViewControllerBase {
             Title: title,
             URL: url,
             Description: description,
+            Published: published,
+            Author: author,
             Object_Categories: categories
         };
 
@@ -345,6 +371,8 @@ class MainContentViewController extends ViewControllerBase {
         var objectRelativeLocation = this.$getNamedFieldWithinModal($modal, "RelativeLocation").val();
         var iFrameTagContents = this.$getNamedFieldWithinModal($modal, "IFrameTagContents").val();
         var title = this.$getNamedFieldWithinModal($modal, "Title").val();
+        var published = this.$getNamedFieldWithinModal($modal, "Published").val();
+        var author = this.$getNamedFieldWithinModal($modal, "Author").val();
         var description = this.$getNamedFieldWithinModal($modal, "Description").val();
         var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
 
@@ -353,6 +381,8 @@ class MainContentViewController extends ViewControllerBase {
             Title: title,
             IFrameTagContents: iFrameTagContents,
             Description: description,
+            Published: published,
+            Author: author,
             Object_Categories: categories
         };
 

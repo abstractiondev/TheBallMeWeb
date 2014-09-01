@@ -411,7 +411,9 @@ var ReConnectComments = function (parentItemID) {
             for (var i = 0; i < myComments.length; i++) {
                 var currComment = myComments[i];
                 var commentText = currComment.CommentText;
-                var lastAuthorName = currComment.LastAuthorName;
+                //var lastAuthorName = currComment.LastAuthorName;
+                // NOTE! LastAuthorName is currently "corrupted" due to patching that applies any save to it
+                var lastAuthorName = currComment.OriginalAuthorName;
                 var created = ParseRawTimestampToDateTimeString(currComment.Created);
                 //var lastModified = ParseRawTimestampToISOString(currComment.LastModified);
                 var $commentLine = $("<div class='viewModal-commentContainer'><hr class='viewModal-hr'><span class='viewModal-commentAuthor-span'>" + lastAuthorName + "</span>"
