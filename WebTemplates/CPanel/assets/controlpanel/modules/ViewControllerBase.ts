@@ -50,6 +50,9 @@ class ViewControllerBase implements IViewController{
             $me.find(".oip-modalbutton").on("click", wnd.ControllerCommon.ModalButtonClick);
             me.$myModals = $me.find(".oip-controller-modal");
             me.$myModals.data("oip-controller-instance", me);
+            if(wnd.OIPActiveDynamicReplace) {
+                wnd.OIPActiveDynamicReplace();
+            }
         });
     }
 

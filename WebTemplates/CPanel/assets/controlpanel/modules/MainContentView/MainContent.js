@@ -63,7 +63,7 @@ var initializeTextContents = function(contentData, commentData)
         user_content+="<div class='content-card-title' style='font-size:95%; font-weight:bold; column-rule: #000000;" + backgroundColorStyle + "' id='contentCardTitle-dataID-"+currentID+"'>"+currentTitle+"</div>";
         user_content+="<div class='content-card-options'><a class='editContentButton oip-controller-command' id='editContentButton-dataID-"+currentID+"' data-oip-command='EditContent' data-objectid='" + currentID + "'>Edit&nbsp;</a><a class='oip-controller-command' id='viewContentButton-dataID-"+currentID+"' data-oip-command='ViewContent' data-oip-command-args='" + currentID + "'>&nbsp;View&nbsp;</a><a class='oip-controller-command' data-oip-command='DeleteContent' data-objectid='" +currentID+ "'>&nbsp;Trash&nbsp;</a><a class='content-card-options-right hide' id='toggleVisibilityContentButton-dataID-"+currentID+"'><i class='icon-eye-open' style='font-size:110%;'></i></a></div>";
         user_content+="<div class='content-card-line'><hr></div>";
-        user_content+="<div class='content-card-options'><a class='commentContentButton' id='contentAddCommentButton-dataID-"+currentID+"'><i class='icon-pencil'></i>&nbsp;Comment&nbsp;</a><span class='content-card-options-right' id='contentNumberOfComments-dataID-"+currentID+"'>"+numberOfComments+"&nbsp;<i class='icon-commentround'></i></span></div>";
+        user_content+="<div class='content-card-options'><a class='commentContentButton oip-controller-command' data-oip-command='ViewContent' data-oip-command-args='" + currentID + "' id='contentAddCommentButton-dataID-"+currentID+"'><i class='icon-pencil'></i>&nbsp;Comment&nbsp;</a><span class='content-card-options-right' id='contentNumberOfComments-dataID-"+currentID+"'>"+numberOfComments+"&nbsp;<i class='icon-commentround'></i></span></div>";
         user_content+="</div>";
 
         var isNews = currentMainCategory=="News";
@@ -252,8 +252,6 @@ var initializeAll = function () {
 
     $.ajaxSetup({cache: true});
 
-    $("#contentDivContainer").delegate(".commentContentButton", { click: launchContentModal });
-    $("#contentDivContainer").delegate(".commentContentButton .icon-pencil", { click: launchContentModal });
     $("#portfolioFilterDivContainer").delegate("a", { click: filter_isotope_items });
     $(document).on('close', '[data-reveal]', reLayout_isotope);
     $("#contentPanelTab").on('click mouseover', setTimeout('reLayout_isotope', 2000));
@@ -677,79 +675,6 @@ function editContent_PopulateModal(editEvent) {
         $('#editContentModal').foundation('reveal', 'open');
     }); //ends getJson
 }//ends function editContent
-
-function launchContentModal(editEvent) {
-    var clickedEditID = editEvent.target.id.replace("contentAddCommentButton-dataID-", '');
-    $.getJSON('../../AaltoGlobalImpact.OIP/TextContent/' + clickedEditID + ".json", function (contentData) {
-        var queryValue = "";
-        var currentObject = contentData;
-        var currentID = currentObject.ID;
-        var currentTitle = currentObject.Title;
-        var currentExcerpt = currentObject.Excerpt;
-        var currentAuthor = currentObject.Author;
-        var imageSizeString = "256";
-        var currentMainCategory;
-        var currentPublishedDate = ParseRawTimestampToDateString(currentObject.Published);
-        var recordedJsonDate;
-        var pattern;
-        var extractedDate;
-        /*var rawbody=currentObject.Body;*/
-        var currentImagePath = currentObject.ImageData
-            ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
-            : null;
-
-        if ((currentObject.Author === null) || (!currentObject.Author)) {
-            currentAuthor = "";
-        }
-        else {
-            currentAuthor = currentObject.Author;
-        }
-
-        /*if(currentObject.RawHtmlContent)
-         {
-         currentObject.BodyRendered = currentObject.RawHtmlContent;
-         }
-         else if(currentObject.Body)
-         {
-         markdown = new MarkdownDeep.Markdown();
-         markdown.SafeMode = true;
-         currentObject.BodyRendered = markdown.Transform(currentObject.Body);
-         } else
-         currentObject.BodyRendered = "";
-         var currentArticleBody=currentObject.BodyRendered;
-         rawbody = currentArticleBody;*/
-
-        $("#viewContentModal-title").empty();
-        $('#viewContentModal-title').append(currentTitle);
-
-        $("#viewContentModal-Author").empty();
-        $('#viewContentModal-Author').append(currentAuthor);
-
-        $("#viewContentModal-Date").empty();
-        $('#viewContentModal-Date').append(currentPublishedDate);
-
-        queryValue = "<p>" + currentExcerpt + "</p>";
-        $("#viewContentModal-excerpt").empty();
-        $('#viewContentModal-excerpt').append(queryValue);
-
-        if (!currentObject.Categories || !currentObject.Categories.CollectionContent)
-            currentMainCategory = "NEWS";
-        else
-            currentMainCategory = currentObject.Categories.CollectionContent[0].Title;
-        $("#viewContentModal-categories").empty();
-        $('#viewContentModal-categories').append(currentMainCategory);
-
-        $("#viewContentModal-content").empty();
-        /*$('#viewContentModal-content').append(currentArticleBodyVHugo);*/
-
-        //send the correspondent image to the placeholder, but clean its containing div first
-        $("#viewContentModal-image").empty(); //clean the image Placeholder in the form
-        queryValue = "<img src='" + currentImagePath + "' style='width:auto;height:auto;max-width:350;max-height:450px;margin-left:auto;margin-right:auto;'>";
-        $("#viewContentModal-image").append(queryValue);
-        ReConnectComments(currentID);
-        $('#viewContentModal').foundation('reveal', 'open');
-    })//ends getJson
-}//Ends Function LaunchCommentModal
 
 //--begins: Function get_content
 //--ends function get_content();

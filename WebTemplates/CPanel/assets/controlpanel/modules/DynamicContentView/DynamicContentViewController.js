@@ -59,6 +59,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             this.$getNamedFieldWithinModal($modal, "Description").val("");
             this.$getNamedFieldWithinModal($modal, "RawContent").val("");
             this.$getNamedFieldWithinModal($modal, "Content").val("");
+            this.$getNamedFieldWithinModal($modal, "ApplyActively").prop("checked", false);
             var $content = this.$getNamedFieldWithinModal($modal, "Content");
             $content.destroyEditor();
             $content.val("");
@@ -90,6 +91,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.$getNamedFieldWithinModal($modal, "ElementQuery").val(contentData.ElementQuery);
                 me.$getNamedFieldWithinModal($modal, "Description").val(contentData.Description);
                 me.$getNamedFieldWithinModal($modal, "RawContent").val(contentData.RawContent);
+                me.$getNamedFieldWithinModal($modal, "ApplyActively").prop("checked", contentData.ApplyActively);
                 var $content = me.$getNamedFieldWithinModal($modal, "Content");
                 $content.destroyEditor();
                 $content.val(contentData.Content);
@@ -115,6 +117,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.$getNamedFieldWithinModal($modal, "ContentName").html(contentData.ContentName);
                 me.$getNamedFieldWithinModal($modal, "ElementQuery").html(contentData.ElementQuery);
                 me.$getNamedFieldWithinModal($modal, "Description").html(contentData.Description);
+                me.$getNamedFieldWithinModal($modal, "ApplyActively").html(contentData.ApplyActively);
                 if (contentData.RawContent)
                     me.$getNamedFieldWithinModal($modal, "Content").html(contentData.RawContent);
                 else
@@ -132,6 +135,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             rawContent = $("<div/>").text(rawContent).html();
             var content = this.$getNamedFieldWithinModal($modal, "Content").val();
             content = $('<div/>').text(content).html();
+            var applyActively = this.$getNamedFieldWithinModal($modal, "ApplyActively").is(':checked');
 
             var saveData = {
                 HostName: hostName,
@@ -139,7 +143,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 ElementQuery: elementQuery,
                 Description: description,
                 "ENC.RawContent": rawContent,
-                "ENC.Content": content
+                "ENC.Content": content,
+                ApplyActively: applyActively
             };
 
             var me = this;
@@ -166,6 +171,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             rawContent = $("<div/>").text(rawContent).html();
             var content = this.$getNamedFieldWithinModal($modal, "Content").val();
             content = $('<div/>').text(content).html();
+            var applyActively = this.$getNamedFieldWithinModal($modal, "ApplyActively").is(':checked');
 
             var saveData = {
                 HostName: hostName,
@@ -173,7 +179,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 ElementQuery: elementQuery,
                 Description: description,
                 "ENC.RawContent": rawContent,
-                "ENC.Content": content
+                "ENC.Content": content,
+                ApplyActively: applyActively
             };
 
             var me = this;

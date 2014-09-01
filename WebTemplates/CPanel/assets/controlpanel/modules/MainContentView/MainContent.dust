@@ -12,9 +12,8 @@
             <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="OpenModalAddLinkToContentModal">Post Link To </a></li>
             <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="OpenModalAddEmbeddedContentModal">Post Embedded</a></li>
             <li style="margin: 10px"></li>
-            <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="OpenPreviewOnNewTab">Preview Content</a></li>
-            <li style="margin: 10px"></li>
 {?GroupContainer.GroupProfile.WwwSiteToPublishTo}
+            <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="OpenPreviewOnNewTab">Preview Www Content</a></li>
             <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="PublishToWww" style="font-size: small">Publish Www to: {GroupContainer.GroupProfile.WwwSiteToPublishTo}</a></li>
 {/GroupContainer.GroupProfile.WwwSiteToPublishTo}
 {#Connections.CollectionContent}

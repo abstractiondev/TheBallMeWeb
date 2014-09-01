@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

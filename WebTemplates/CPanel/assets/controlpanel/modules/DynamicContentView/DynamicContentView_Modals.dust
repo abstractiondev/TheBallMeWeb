@@ -13,12 +13,17 @@
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
             <div class="Description-field">
                 <label>Description
-                    <textarea rows="5" name="Description"/>
+                    <textarea rows="3" name="Description"/>
                 </label>
             </div>
             <div class="RawContent-field">
-                <label>
-                    <textarea rows="5" name="RawContent" />
+                <label>RawContent
+                    <textarea rows="3" name="RawContent" />
+                </label>
+            </div>
+            <div class="ApplyActively-Field">
+                <label>Apply Actively
+                    <input style="margin: 10px" name="ApplyActively" type="checkbox">
                 </label>
             </div>
         </div>
@@ -56,12 +61,17 @@
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
             <div class="Description-field">
                 <label>Description
-                    <textarea rows="5" name="Description"/>
+                    <textarea rows="3" name="Description"/>
                 </label>
             </div>
             <div class="RawContent-field">
-                <label>Raw Content
-                    <textarea rows="5" name="RawContent" />
+                <label>RawContent
+                    <textarea rows="3" name="RawContent" />
+                </label>
+            </div>
+            <div class="ApplyActively-Field">
+                <label>Apply Actively
+                    <input style="margin: 10px" name="ApplyActively" type="checkbox">
                 </label>
             </div>
         </div>
@@ -88,8 +98,8 @@
 <div class="row">
     <div class="large-12 columns">
         <table>
-            <tr><th>Page</th><th>Name</th><th>Location</th><th>Description</th></tr>
-                <tr><td name="HostName"></td><td name="ContentName"></td><td name="ElementQuery"></td><td name="Description"></td></tr>
+            <tr><th>Page</th><th>Name</th><th>Location</th><th>Description</th><th>Apply Actively</th></tr>
+                <tr><td name="HostName"></td><td name="ContentName"></td><td name="ElementQuery"></td><td name="Description"></td><td name="ApplyActively"></td></tr>
         </table>
     </div>
 </div>
