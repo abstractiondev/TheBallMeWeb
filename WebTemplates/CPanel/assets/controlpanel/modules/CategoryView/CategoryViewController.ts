@@ -75,20 +75,18 @@ class CategoryViewController extends ViewControllerBase {
     EditCategory($source) {
         var id = $source.data("objectid");
         var $modal:any = this.$getNamedFieldWithin("EditCategoryModal");
-        var $imageDataInput = this.$getNamedFieldWithinModal($modal, "tmpCategoryImageData");
         var me = this;
         $.getJSON("../../AaltoGlobalImpact.OIP/Category/" + id + ".json", function(currentObject) {
             var currentID = currentObject.ID;
             var currentETag = currentObject.MasterETag;
             var currentRelativeLocation = currentObject.RelativeLocation;
 
-            if($imageDataInput.length == 1) {
-                var imageSizeString = "256";
-                var currentImagePath = currentObject && currentObject.ImageData
-                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
-                    : null;
-                me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, id, "ImageData", currentImagePath, null, "categoryImageData");
-            }
+            var $imageDataInput = me.$getNamedFieldWithinModal($modal, "tmpCategoryImageData");
+            var imageSizeString = "256";
+            var currentImagePath = currentObject && currentObject.ImageData
+                ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
+                : null;
+            me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, id, "ImageData", currentImagePath, null, "categoryImageData");
             me.$getNamedFieldWithinModal($modal, "title").val(currentObject.Title);
             me.$getNamedFieldWithinModal($modal, "excerpt").val(currentObject.Excerpt);
             me.$getNamedFieldWithinModal($modal, "ID").val(currentID);

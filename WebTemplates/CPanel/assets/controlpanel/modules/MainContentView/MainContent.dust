@@ -17,7 +17,9 @@
             <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="PublishToWww" style="font-size: small">Publish Www to: {GroupContainer.GroupProfile.WwwSiteToPublishTo}</a></li>
 {/GroupContainer.GroupProfile.WwwSiteToPublishTo}
 {#Connections.CollectionContent}
+{?IsActiveParty}
             <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="PublishConnection" data-object-id="{ID}" style="font-size: small">Publish Connection: {Description}</a></li>
+{/IsActiveParty}
 {/Connections.CollectionContent}
         </ul>
     </div>
