@@ -181,6 +181,48 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             $modal.foundation('reveal', 'open');
         };
 
+        MainContentViewController.prototype.ViewLinkToContent = function ($source) {
+            var $modal = this.$getNamedFieldWithin("ViewLinkToContentModal");
+            var me = this;
+            var jq = $;
+            var wnd = window;
+            var clickedEditID = $source.attr("data-oip-command-args");
+            $.getJSON('../../AaltoGlobalImpact.OIP/LinkToContent/' + clickedEditID + ".json", function (contentData) {
+                //tDCM.SetObjectInStorage(contentData);
+                var currentObject = contentData;
+                var currentURL = currentObject.URL;
+                var currentTitle = currentObject.Title;
+                var currentDescription = currentObject.Description;
+                var currentAuthor = currentObject.Author;
+                var currentPublishedDate = wnd.ParseRawTimestampToDateString(currentObject.Published);
+
+                var selectedCategories = [];
+                if (currentObject.Categories && currentObject.Categories.CollectionContent) {
+                    for (var categoryIX = 0; categoryIX < currentObject.Categories.CollectionContent.length; categoryIX++) {
+                        var item = currentObject.Categories.CollectionContent[categoryIX];
+                        selectedCategories.push(item.ID);
+                    }
+                }
+
+                // Image support content initiation
+                var imageSizeString = "256";
+                var currentImagePath = currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : "../assets/controlpanel/images/lightGray.jpg";
+
+                // Initiate binary file elements for image
+                me.$getNamedFieldWithinModal($modal, "ImageData").attr("src", currentImagePath);
+                me.$getNamedFieldWithinModal($modal, "LinkToURL").html(currentURL);
+                me.$getNamedFieldWithinModal($modal, "LinkToURL").attr("href", currentURL);
+                me.$getNamedFieldWithinModal($modal, "Title").html(currentTitle);
+                me.$getNamedFieldWithinModal($modal, "Description").html(currentDescription);
+                me.$getNamedFieldWithinModal($modal, "Published").html(currentPublishedDate);
+                me.$getNamedFieldWithinModal($modal, "Author").html(currentAuthor);
+                $modal.foundation('reveal', 'open');
+            }); //ends getJson
+        };
+
+        MainContentViewController.prototype.ViewEmbeddedContent = function ($source) {
+        };
+
         MainContentViewController.prototype.EditEmbeddedContent = function ($source) {
             var $modal = this.$getNamedFieldWithin("EditEmbeddedContentModal");
             var me = this;

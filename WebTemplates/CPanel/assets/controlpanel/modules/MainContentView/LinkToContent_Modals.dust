@@ -134,30 +134,24 @@
 
 {>"modal_begin.dust" modal_name="ViewLinkToContentModal" /}
 <div class="row">
-    <div class="large-4 columns" id="viewContentModal-image"></div>
+    <div class="large-4 columns"><img name="ImageData"></div>
     <div class="large-8 columns">
-        <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><span
-                id="viewContentModal-categories" class="fancyTagBig"></span></div>
+        <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;">
+            <span name="Author" class="fancyTagBig"></span><span name="Published" class="fancyTagBig" /></div>
     </div>
-    <div class="large-8 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;">
-        <div class="content-card-line">
-            <hr>
-        </div>
+    <div class="large-8 columns" style="padding: 15px;">
+        <strong>
+            <span name="Title" class="hugeTitleText" />
+        </strong>
     </div>
-    <div class="large-8 columns" style="padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span
-            name="Title" class="hugeTitleText"></span></strong><br></div>
-    <div class="large-8 columns" style="padding-right:15px;"><span name="Description"
-                                                                   class="contentCardExcerpt bigTitleText discreetTextColor"></span>
+    <div class="large-8 columns" style="padding: 15px">
+        <span name="Description" class="contentCardExcerpt bigTitleText discreetTextColor" />
     </div>
+    <div class="large-8 columns" style="height:20px;">
+        <a name="LinkToURL" target="_blank" />
+    </div>
+
 </div>
-<div class="row">
-    <div name="LinkToURL" class="large-12 columns" style="height:20px;"></div>
-</div>
-<div class="row">
-    <div class="large-12 columns articleText" name="LinkToIFrame"
-         style="padding-left: 15px !important; padding-right: 15px !important;"></div>
-</div>
-<br>
 <div class="row">
     <div class="large-12 columns">
         <div Name="CommentArea"></div>
