@@ -88,7 +88,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 if ($imageDataInput.length == 1) {
                     var imageSizeString = "256";
                     var currentImagePath = currentObject && currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
-                    me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, id, "ImageData", currentImagePath, null);
+                    me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, id, "ImageData", currentImagePath, null, "categoryImageData");
                 }
                 me.$getNamedFieldWithinModal($modal, "title").val(currentObject.Title);
                 me.$getNamedFieldWithinModal($modal, "excerpt").val(currentObject.Excerpt);

@@ -134,8 +134,9 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 // Initiate binary file elements for image
                 var noImageUrl = "../assets/controlpanel/images/lightGray.jpg";
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
-                $imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
-                me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl);
+
+                //$imageDataFileInput.attr("data-oipfile-filegroupid", "linkModal");
+                me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "linkModal");
 
                 me.$getNamedFieldWithinModal($modal, "ID").val(currentID);
                 me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
@@ -176,8 +177,9 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             $newupdatefileinput.replaceWith($newupdatefileinput = $newupdatefileinput.clone(true));
 
             var $imageDataInput = this.$getNamedFieldWithinModal($modal, "ImageData");
-            $imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
-            this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg");
+
+            //$imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
+            this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg", "imageDataImage");
             $modal.foundation('reveal', 'open');
         };
 
@@ -418,6 +420,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var jq = $;
             this.currOPM.AppendBinaryFileValuesToData(id, saveData, function () {
                 jq.blockUI({ message: '<h2>Saving Link To Content...</h2><br>(If no image was given, fetching thumbnail image will take around 30 seconds)' });
+                console.log("Saving existing LinkToContent: " + JSON.stringify(saveData));
                 me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function () {
                     setTimeout(function () {
                         jq.unblockUI();
@@ -508,12 +511,14 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             this.$getNamedFieldWithinModal($modal, "Published").val(currentPublished);
 
             var $imageDataInput = this.$getNamedFieldWithinModal($modal, "ImageData");
-            $imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
-            this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg");
+
+            //$imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
+            this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg", "imageDataImage");
 
             var $attachmentBinaryDataInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
-            $attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
-            this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null, "../assets/controlpanel/images/lightGray.jpg");
+
+            //$attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
+            this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null, "../assets/controlpanel/images/lightGray.jpg", "attachmentBinaryData");
 
             //***************ends the inputfile elment for the attachments on the "add new content" modal
             $modal.foundation('reveal', 'open');
@@ -566,8 +571,9 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 // Initiate binary file elements for image
                 var noImageUrl = "../assets/controlpanel/images/lightGray.jpg";
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
-                $imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
-                me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl);
+
+                //$imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
+                me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "editModal");
 
                 if (currentObject.RawHtmlContent) {
                     currentObject.BodyRendered = currentObject.RawHtmlContent;

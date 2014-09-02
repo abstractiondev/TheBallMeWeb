@@ -41,19 +41,19 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             //alert(JSON.stringify(groupProfile));
             var $profileImageInput = this.$getNamedFieldWithin("tmpProfileImage");
             if ($profileImageInput.length == 1) {
-                $profileImageInput.attr("data-oipfile-filegroupid", "groupProfileImage");
+                //$profileImageInput.attr("data-oipfile-filegroupid", "groupProfileImage");
                 var currentObject = groupProfile.ProfileImage;
                 var imageSizeString = "256";
                 var currentImagePath = currentObject && currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
-                this.currOPM.InitiateBinaryFileElementsAroundInput($profileImageInput, groupProfile.ID, "ProfileImage", currentImagePath, "../assets/controlpanel/images/lightGray.jpg");
+                this.currOPM.InitiateBinaryFileElementsAroundInput($profileImageInput, groupProfile.ID, "ProfileImage", currentImagePath, "../assets/controlpanel/images/lightGray.jpg", "groupProfileImage");
             }
 
             var $iconImageInput = this.$getNamedFieldWithin("tmpIconImage");
             if ($iconImageInput.length == 1) {
-                $iconImageInput.attr("data-oipfile-filegroupid", "groupIconImage");
+                //$iconImageInput.attr("data-oipfile-filegroupid", "groupIconImage");
                 currentObject = groupProfile.IconImage;
                 currentImagePath = currentObject && currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
-                this.currOPM.InitiateBinaryFileElementsAroundInput($iconImageInput, groupProfile.ID, "IconImage", currentImagePath, "../assets/controlpanel/images/lightGray.jpg");
+                this.currOPM.InitiateBinaryFileElementsAroundInput($iconImageInput, groupProfile.ID, "IconImage", currentImagePath, "../assets/controlpanel/images/lightGray.jpg", "groupIconImage");
             }
 
             this.$getNamedFieldWithin("GroupName").val(groupProfile.GroupName);

@@ -32,7 +32,7 @@
     <div class="large-6 columns">
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
             <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#ccc;text-align: center;">
-                <input type="file" name="tmpCategoryImageData" data-oipfile-filegroupid="categoryImageData">
+                <input type="file" name="tmpCategoryImageData">
             </div>
         </div>
     </div>

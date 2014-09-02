@@ -70,13 +70,13 @@
     <div class="large-6 columns" style="padding-right: 0;">
         <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
             <input type="file" name="ImageDataFileInput">
-            <a class="button small oipfile" data-oipfile-filegroupid="editModal"
+            <a class="button small oipfile" data-oipfile-filegroupid="linkModal"
                data-oipfile-buttontype="select">Select</a>
-            <a class="button small oipfile" data-oipfile-filegroupid="editModal"
+            <a class="button small oipfile" data-oipfile-filegroupid="linkModal"
                data-oipfile-buttontype="remove">Remove</a>
             <img class="oipfile" style="max-height: 247;width: 100%" src="../assets/controlpanel/images/lightGray.jpg"
                  data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg"
-                 data-oipfile-filegroupid="editModal">
+                 data-oipfile-filegroupid="linkModal">
         </div>
     </div>
     <div class="large-6 columns">

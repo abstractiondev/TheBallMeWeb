@@ -281,7 +281,10 @@ var TheBall;
                         }
                         $imagePreview.attr('src', noImageUrl);
                     } else {
+                        console.log("Existing src: " + $imagePreview.attr('src'));
+                        console.log("Changing-to src: " + srcContent);
                         $imagePreview.attr('src', srcContent);
+                        console.log("New src: " + $imagePreview.attr('src'));
                         $imagePreview.show();
                     }
                 };
@@ -303,7 +306,7 @@ var TheBall;
                     });
                 };
 
-                OperationManager.prototype.InitiateBinaryFileElementsAroundInput = function ($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl) {
+                OperationManager.prototype.InitiateBinaryFileElementsAroundInput = function ($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl, currentGroupID) {
                     var jQueryClassSelector = this.BinaryFileSelectorBase;
                     var inputFileSelector = "input" + jQueryClassSelector + "[type='file']";
 
@@ -312,14 +315,23 @@ var TheBall;
                     var inputFileWithNameSelector = inputFileSelector + "[name]";
 
                     //var hiddenInputWithNameSelector = hiddenInputSelector + "[name]";
+                    var dataAttrPrefix = "data-";
                     var fileGroupIDDataName = "oipfile-filegroupid";
                     var objectIDDataName = "oipfile-objectid";
                     var propertyDataName = "oipfile-propertyname";
                     var buttonTypeDataName = "oipfile-buttontype";
                     var buttonTypeSelect = "select";
                     var buttonTypeRemove = "remove";
-                    var dataAttrPrefix = "data-";
                     var imgPreviewNoImageUrlDataName = "oipfile-noimageurl";
+
+                    if ($fileInput.length === 0) {
+                        $fileInput = $("input.oipfile-rootitem[" + dataAttrPrefix + fileGroupIDDataName + "='" + currentGroupID + "']");
+                        if ($fileInput.length === 0)
+                            throw "Cannot find existing $fileInput for group: " + currentGroupID;
+                    } else {
+                        $fileInput.addClass("oipfile-rootitem");
+                        $fileInput.attr(dataAttrPrefix + fileGroupIDDataName, currentGroupID);
+                    }
 
                     $fileInput.addClass("oipfile");
                     $fileInput.hide();
@@ -329,7 +341,8 @@ var TheBall;
                     $fileInput.attr(dataAttrPrefix + objectIDDataName, objectID);
                     $fileInput.removeAttr("name");
                     this.reset_field($fileInput);
-                    var currentGroupID = $fileInput.attr(dataAttrPrefix + fileGroupIDDataName);
+
+                    //var currentGroupID = $fileInput.attr(dataAttrPrefix + fileGroupIDDataName);
                     var currentGroupDataSelectorString = "[data-" + fileGroupIDDataName + "='" + currentGroupID + "']";
 
                     var previewImgSelector = "img.oipfile" + currentGroupDataSelectorString;
@@ -342,6 +355,7 @@ var TheBall;
                         $previevImg.attr(dataAttrPrefix + imgPreviewNoImageUrlDataName, noImageUrl);
                         $previevImg.insertBefore($fileInput);
                     }
+                    console.log("Trying to set preview url as: " + initialPreviewUrl);
                     this.setPreviewImageSrc($previevImg, initialPreviewUrl);
                     var hiddenInputSelector = "input.oipfile[type='hidden']" + currentGroupDataSelectorString;
                     var $hiddenInput = $(hiddenInputSelector);
@@ -378,7 +392,10 @@ var TheBall;
 
                 OperationManager.prototype.InitiateBinaryFileElements = function (fileInputID, objectID, propertyName, initialPreviewUrl, noImageUrl) {
                     var $fileInput = $("#" + fileInputID);
-                    this.InitiateBinaryFileElementsAroundInput($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl);
+                    var dataAttrPrefix = "data-";
+                    var fileGroupIDDataName = "oipfile-filegroupid";
+                    var currentGroupID = $fileInput.attr(dataAttrPrefix + fileGroupIDDataName);
+                    this.InitiateBinaryFileElementsAroundInput($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl, currentGroupID);
                 };
 
                 OperationManager.prototype.readFileFromInputAsync = function (fileInput) {

@@ -279,7 +279,10 @@ module TheBall.Interface.UI {
                 }
                 $imagePreview.attr('src', noImageUrl);
             } else {
+                console.log("Existing src: " + $imagePreview.attr('src'));
+                console.log("Changing-to src: " + srcContent);
                 $imagePreview.attr('src', srcContent);
+                console.log("New src: " + $imagePreview.attr('src'));
                 $imagePreview.show();
             }
         }
@@ -301,21 +304,30 @@ module TheBall.Interface.UI {
             });
         }
 
-        InitiateBinaryFileElementsAroundInput($fileInput:JQuery, objectID:string, propertyName:string, initialPreviewUrl:string, noImageUrl:string) {
+        InitiateBinaryFileElementsAroundInput($fileInput:JQuery, objectID:string, propertyName:string, initialPreviewUrl:string, noImageUrl:string, currentGroupID:string) {
             var jQueryClassSelector:string = this.BinaryFileSelectorBase;
             var inputFileSelector = "input" + jQueryClassSelector + "[type='file']";
             //var hiddenInputSelector = "input" + jQueryClassSelector + "[type='hidden']";
             //var previewImgSelector = "img" + jQueryClassSelector;
             var inputFileWithNameSelector = inputFileSelector + "[name]";
             //var hiddenInputWithNameSelector = hiddenInputSelector + "[name]";
+            var dataAttrPrefix = "data-";
             var fileGroupIDDataName = "oipfile-filegroupid";
             var objectIDDataName = "oipfile-objectid";
             var propertyDataName = "oipfile-propertyname";
             var buttonTypeDataName = "oipfile-buttontype";
             var buttonTypeSelect = "select";
             var buttonTypeRemove = "remove";
-            var dataAttrPrefix = "data-";
             var imgPreviewNoImageUrlDataName = "oipfile-noimageurl";
+
+            if($fileInput.length === 0) { // If empty entry set, we need to find existing with given terms
+                $fileInput = $("input.oipfile-rootitem[" + dataAttrPrefix + fileGroupIDDataName + "='" + currentGroupID + "']");
+                if($fileInput.length === 0)
+                    throw "Cannot find existing $fileInput for group: " + currentGroupID;
+            } else {
+                $fileInput.addClass("oipfile-rootitem");
+                $fileInput.attr(dataAttrPrefix + fileGroupIDDataName, currentGroupID);
+            }
 
             $fileInput.addClass("oipfile");
             $fileInput.hide();
@@ -325,7 +337,7 @@ module TheBall.Interface.UI {
             $fileInput.attr(dataAttrPrefix + objectIDDataName, objectID);
             $fileInput.removeAttr("name");
             this.reset_field($fileInput);
-            var currentGroupID = $fileInput.attr(dataAttrPrefix + fileGroupIDDataName);
+            //var currentGroupID = $fileInput.attr(dataAttrPrefix + fileGroupIDDataName);
             var currentGroupDataSelectorString =
                 "[data-" + fileGroupIDDataName + "='" + currentGroupID + "']";
 
@@ -339,6 +351,7 @@ module TheBall.Interface.UI {
                 $previevImg.attr(dataAttrPrefix + imgPreviewNoImageUrlDataName, noImageUrl);
                 $previevImg.insertBefore($fileInput);
             }
+            console.log("Trying to set preview url as: " + initialPreviewUrl);
             this.setPreviewImageSrc($previevImg, initialPreviewUrl);
             var hiddenInputSelector = "input.oipfile[type='hidden']" + currentGroupDataSelectorString;
             var $hiddenInput = $(hiddenInputSelector);
@@ -379,7 +392,10 @@ module TheBall.Interface.UI {
 
         InitiateBinaryFileElements(fileInputID:string, objectID:string, propertyName:string, initialPreviewUrl:string, noImageUrl:string) {
             var $fileInput = $("#" + fileInputID);
-            this.InitiateBinaryFileElementsAroundInput($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl);
+            var dataAttrPrefix = "data-";
+            var fileGroupIDDataName = "oipfile-filegroupid";
+            var currentGroupID = $fileInput.attr(dataAttrPrefix + fileGroupIDDataName);
+            this.InitiateBinaryFileElementsAroundInput($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl, currentGroupID);
         }
 
         readFileFromInputAsync(fileInput:HTMLInputElement) : JQueryPromise<any> {
