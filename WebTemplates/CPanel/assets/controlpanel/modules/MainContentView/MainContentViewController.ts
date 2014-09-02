@@ -225,11 +225,38 @@ class MainContentViewController extends ViewControllerBase {
             me.$getNamedFieldWithinModal($modal, "Author").html(currentAuthor);
             $modal.foundation('reveal', 'open');
         }); //ends getJson
-
     }
 
     ViewEmbeddedContent($source) {
+        var $modal:any = this.$getNamedFieldWithin("ViewEmbeddedContentModal");
+        var me = this;
+        var jq:any = $;
+        var wnd:any = window;
+        var clickedEditID = $source.attr("data-oip-command-args");
+        $.getJSON('../../AaltoGlobalImpact.OIP/EmbeddedContent/' + clickedEditID + ".json", function (contentData) {
+            //tDCM.SetObjectInStorage(contentData);
+            var currentObject = contentData;
+            var iFrameTagContents = currentObject.IFrameTagContents;
+            var currentTitle = currentObject.Title;
+            var currentDescription = currentObject.Description;
+            var currentAuthor = currentObject.Author;
+            var currentPublishedDate = wnd.ParseRawTimestampToDateString(currentObject.Published);
 
+            var selectedCategories = [];
+            if(currentObject.Categories && currentObject.Categories.CollectionContent) {
+                for(var categoryIX = 0; categoryIX < currentObject.Categories.CollectionContent.length; categoryIX++) {
+                    var item = currentObject.Categories.CollectionContent[categoryIX];
+                    selectedCategories.push(item.ID);
+                }
+            }
+
+            me.$getNamedFieldWithinModal($modal, "IFrameHost").html("<iframe " + iFrameTagContents + "></iframe>");
+            me.$getNamedFieldWithinModal($modal, "Title").html(currentTitle);
+            me.$getNamedFieldWithinModal($modal, "Description").html(currentDescription);
+            me.$getNamedFieldWithinModal($modal, "Published").html(currentPublishedDate);
+            me.$getNamedFieldWithinModal($modal, "Author").html(currentAuthor);
+            $modal.foundation('reveal', 'open');
+        }); //ends getJson
     }
 
 

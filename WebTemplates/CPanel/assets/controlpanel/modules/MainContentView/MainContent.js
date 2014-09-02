@@ -137,8 +137,8 @@ var initializeLinkToContents = function(contentData, commentData)
             user_content+="<img src='"+currentImagePath+"' alt='image' id='contentCardImage-dataID-"+currentID+"'/>";
         user_content+="<div class='content-card-title' style='font-size:95%; font-weight:bold; column-rule: #000000;" + backgroundColorStyle + "' id='contentCardTitle-dataID-"+currentID+"'>"+currentTitle+"</div>";
         user_content+="<div class='content-card-options'><a class='editContentButton oip-controller-command' id='editContentButton-dataID-"+currentID+"' data-oip-command='EditLinkToContent' data-objectid='" + currentID + "'>Edit&nbsp;</a><a class='oip-controller-command' id='viewContentButton-dataID-"+currentID+"' data-oip-command='ViewLinkToContent' data-oip-command-args='" + currentID + "'>&nbsp;View&nbsp;</a><a class='oip-controller-command' data-oip-command='DeleteLinkToContent' data-objectid='" +currentID+ "'>&nbsp;Trash&nbsp;</a><a class='content-card-options-right hide' id='toggleVisibilityContentButton-dataID-"+currentID+"'><i class='icon-eye-open' style='font-size:110%;'></i></a></div>";
-        user_content+="<div class='content-card-line'><hr></div>";
-        user_content+="<div class='content-card-options'><a class='commentContentButton' id='contentAddCommentButton-dataID-"+currentID+"'><i class='icon-pencil'></i>&nbsp;Comment&nbsp;</a><span class='content-card-options-right' id='contentNumberOfComments-dataID-"+currentID+"'>"+numberOfComments+"&nbsp;<i class='icon-commentround'></i></span></div>";
+        //user_content+="<div class='content-card-line'><hr></div>";
+        //user_content+="<div class='content-card-options'><a class='commentContentButton' id='contentAddCommentButton-dataID-"+currentID+"'><i class='icon-pencil'></i>&nbsp;Comment&nbsp;</a><span class='content-card-options-right' id='contentNumberOfComments-dataID-"+currentID+"'>"+numberOfComments+"&nbsp;<i class='icon-commentround'></i></span></div>";
         user_content+="</div>";
     }
     return user_content;
@@ -156,12 +156,9 @@ var initializeEmbeddedContents = function(contentData, commentData)
         var currentID=currentObject.ID;
         var currentTitle=currentObject.Title ? currentObject.Title : "";
         //var currentPublishedDate=ParseRawTimestampToDateString(currentObject.Published);
+        var iFrameTagContents = currentObject.IFrameTagContents;
         var currentPublishedDate = ParseRawTimestampToSortableNumber(currentObject.Published);
         var imageSizeString="256";
-
-        var currentImagePath=currentObject.ImageData
-            ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
-            : null;
 
         var currentMainCategory;
 
@@ -188,12 +185,11 @@ var initializeEmbeddedContents = function(contentData, commentData)
         }
 
         user_content+="<div class='content-card "+currentMainCategory+"' id='contentCardDataId-"+currentID+"' data-published='" + currentPublishedDate + "'>";
-        if(currentImagePath)
-            user_content+="<img src='"+currentImagePath+"' alt='image' id='contentCardImage-dataID-"+currentID+"'/>";
+        user_content+="<iframe width='210' height='140' align='center' "  + iFrameTagContents + " />";
         user_content+="<div class='content-card-title' style='font-size:95%; font-weight:bold; column-rule: #000000;" + backgroundColorStyle + "' id='contentCardTitle-dataID-"+currentID+"'>"+currentTitle+"</div>";
         user_content+="<div class='content-card-options'><a class='editContentButton oip-controller-command' id='editContentButton-dataID-"+currentID+"' data-oip-command='EditEmbeddedContent' data-objectid='" + currentID + "'>Edit&nbsp;</a><a class='oip-controller-command' id='viewContentButton-dataID-"+currentID+"' data-oip-command='ViewEmbeddedContent' data-oip-command-args='" + currentID + "'>&nbsp;View&nbsp;</a><a class='oip-controller-command' data-oip-command='DeleteEmbeddedContent' data-objectid='" +currentID+ "'>&nbsp;Trash&nbsp;</a><a class='content-card-options-right hide' id='toggleVisibilityContentButton-dataID-"+currentID+"'><i class='icon-eye-open' style='font-size:110%;'></i></a></div>";
-        user_content+="<div class='content-card-line'><hr></div>";
-        user_content+="<div class='content-card-options'><a class='commentContentButton' id='contentAddCommentButton-dataID-"+currentID+"'><i class='icon-pencil'></i>&nbsp;Comment&nbsp;</a><span class='content-card-options-right' id='contentNumberOfComments-dataID-"+currentID+"'>"+numberOfComments+"&nbsp;<i class='icon-commentround'></i></span></div>";
+        //user_content+="<div class='content-card-line'><hr></div>";
+        //user_content+="<div class='content-card-options'><a class='commentContentButton' id='contentAddCommentButton-dataID-"+currentID+"'><i class='icon-pencil'></i>&nbsp;Comment&nbsp;</a><span class='content-card-options-right' id='contentNumberOfComments-dataID-"+currentID+"'>"+numberOfComments+"&nbsp;<i class='icon-commentround'></i></span></div>";
         user_content+="</div>";
     }
     return user_content;

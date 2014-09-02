@@ -61,9 +61,7 @@
 <h2>Editing Embedded Content</h2>
 <div class="row">
     <div class="large-6 columns" style="padding-right: 0;">
-        <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
-            <img style="max-height: 247;width: 100%"
-                 src="../assets/controlpanel/images/lightGray.jpg">
+        <div name="IFrameHost" style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
         </div>
     </div>
     <div class="large-6 columns">
@@ -121,30 +119,21 @@
 
 {>"modal_begin.dust" modal_name="ViewEmbeddedContentModal" /}
 <div class="row">
-    <div class="large-4 columns" id="viewContentModal-image"></div>
-    <div class="large-8 columns">
-        <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><span
-                id="viewContentModal-categories" class="fancyTagBig"></span></div>
-    </div>
-    <div class="large-8 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;">
-        <div class="content-card-line">
-            <hr>
+    <div class="large-6 columns" style="padding-left:120px;">
+        <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;">
+            <span name="Author" class="fancyTagBig"></span><span name="Published" class="fancyTagBig" />
         </div>
-    </div>
-    <div class="large-8 columns" style="padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span
-            name="Title" class="hugeTitleText"></span></strong><br></div>
-    <div class="large-8 columns" style="padding-right:15px;"><span name="Description"
-                                                                   class="contentCardExcerpt bigTitleText discreetTextColor"></span>
+        <strong>
+            <div name="Title" class="hugeTitleText" />
+        </strong>
+        <div name="Description" class="contentCardExcerpt bigTitleText discreetTextColor" />
     </div>
 </div>
 <div class="row">
-    <div name="LinkToURL" class="large-12 columns" style="height:20px;"></div>
+    <div class="small-12 columns" style="padding-right: 0;">
+        <div name="IFrameHost" style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center" />
+    </div>
 </div>
-<div class="row">
-    <div class="large-12 columns articleText" name="LinkToIFrame"
-         style="padding-left: 15px !important; padding-right: 15px !important;"></div>
-</div>
-<br>
 <div class="row">
     <div class="large-12 columns">
         <div Name="CommentArea"></div>
