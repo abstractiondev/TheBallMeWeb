@@ -131,7 +131,7 @@
 </div>
 <div class="row">
     <div class="small-12 columns" style="padding-right: 0;">
-        <div name="IFrameHost" style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center" />
+        <div name="IFrameHost" style="width: 100%;margin: 0px;padding: 0px;height:360px; background-color:#c7c7c7;text-align: center" />
     </div>
 </div>
 <div class="row">
