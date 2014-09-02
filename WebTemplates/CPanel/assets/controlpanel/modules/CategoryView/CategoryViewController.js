@@ -80,22 +80,23 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var $modal = this.$getNamedFieldWithin("EditCategoryModal");
             var $imageDataInput = this.$getNamedFieldWithinModal($modal, "tmpCategoryImageData");
             var me = this;
-            var currentObject = me.getCategoryByID(id);
-            if (!currentObject) {
-                alert("Current category with ID not found: " + id);
-                return;
-            }
+            $.getJSON("../../AaltoGlobalImpact.OIP/Category/" + id + ".json", function (currentObject) {
+                var currentID = currentObject.ID;
+                var currentETag = currentObject.MasterETag;
+                var currentRelativeLocation = currentObject.RelativeLocation;
 
-            if ($imageDataInput.length == 1) {
-                var imageSizeString = "256";
-                var currentImagePath = currentObject && currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
-                this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, id, "ImageData", currentImagePath, null);
-            }
-            this.$getNamedFieldWithinModal($modal, "title").val(currentObject.Title);
-            this.$getNamedFieldWithinModal($modal, "excerpt").val(currentObject.Excerpt);
-            this.$getNamedFieldWithinModal($modal, "ID").val(currentObject.ID);
-
-            $modal.foundation("reveal", "open");
+                if ($imageDataInput.length == 1) {
+                    var imageSizeString = "256";
+                    var currentImagePath = currentObject && currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
+                    me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, id, "ImageData", currentImagePath, null);
+                }
+                me.$getNamedFieldWithinModal($modal, "title").val(currentObject.Title);
+                me.$getNamedFieldWithinModal($modal, "excerpt").val(currentObject.Excerpt);
+                me.$getNamedFieldWithinModal($modal, "ID").val(currentID);
+                me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
+                me.$getNamedFieldWithinModal($modal, "RelativeLocation").val(currentRelativeLocation);
+                $modal.foundation("reveal", "open");
+            });
         };
 
         CategoryViewController.prototype.DeleteObject = function ($source) {
@@ -193,15 +194,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
 
         CategoryViewController.prototype.Modal_SaveExisting = function ($modal, $source) {
             var id = this.$getNamedFieldWithinModal($modal, "ID").val();
-            var contentObject = this.getCategoryByID(id);
-            if (!contentObject) {
-                alert("Error in retrieving content object being edited!");
-                $modal.foundation("reveal", "close");
-                this.ReInitialize();
-                return;
-            }
-            var objectRelativeLocation = contentObject.RelativeLocation;
-            var eTag = contentObject.MasterETag;
+            var objectRelativeLocation = this.$getNamedFieldWithinModal($modal, "RelativeLocation").val();
+            var eTag = this.$getNamedFieldWithinModal($modal, "ETag").val();
             var title = this.$getNamedFieldWithinModal($modal, "title").val();
             var excerpt = this.$getNamedFieldWithinModal($modal, "excerpt").val();
             var saveData = {

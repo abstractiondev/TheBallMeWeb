@@ -3,6 +3,7 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/CategoryView/CategoryViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
@@ -12,6 +13,7 @@
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/CategoryView/CategoryViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
