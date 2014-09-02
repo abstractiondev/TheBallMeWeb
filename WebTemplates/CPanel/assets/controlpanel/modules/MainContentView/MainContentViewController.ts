@@ -525,10 +525,10 @@ class MainContentViewController extends ViewControllerBase {
         this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null,
             "../assets/controlpanel/images/lightGray.jpg", "imageDataImage");
 
-        var $attachmentBinaryDataInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
-        //$attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
-        this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null,
-            "../assets/controlpanel/images/lightGray.jpg", "attachmentBinaryData");
+        //var $attachmentBinaryDataInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
+        ////$attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
+        //this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null,
+        //    "../assets/controlpanel/images/lightGray.jpg", "attachmentBinaryData");
         //***************ends the inputfile elment for the attachments on the "add new content" modal
 
         $modal.foundation('reveal', 'open');
@@ -896,6 +896,18 @@ class MainContentViewController extends ViewControllerBase {
         this.CommonWaitForOperation("Publishing content... please wait");
         this.currOPM.ExecuteOperationWithForm("PublishGroupToWww",
             { },
+            this.CommonSuccessHandler,
+            this.CommonErrorHandler);
+    }
+
+    PublishConnection($this)
+    {
+        var id = $this.attr("data-object-id");
+        var wnd:any = window;
+        wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
+        this.CommonWaitForOperation("Publishing connection... please wait");
+        this.currOPM.ExecuteOperationWithForm("PublishToConnection",
+            { ConnectionID: id },
             this.CommonSuccessHandler,
             this.CommonErrorHandler);
     }

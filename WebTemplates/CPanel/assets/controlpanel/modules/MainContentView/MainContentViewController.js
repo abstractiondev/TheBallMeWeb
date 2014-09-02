@@ -515,11 +515,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             //$imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
             this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg", "imageDataImage");
 
-            var $attachmentBinaryDataInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
-
-            //$attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
-            this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null, "../assets/controlpanel/images/lightGray.jpg", "attachmentBinaryData");
-
+            //var $attachmentBinaryDataInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
+            ////$attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
+            //this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null,
+            //    "../assets/controlpanel/images/lightGray.jpg", "attachmentBinaryData");
             //***************ends the inputfile elment for the attachments on the "add new content" modal
             $modal.foundation('reveal', 'open');
         };
@@ -863,6 +862,14 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
             this.CommonWaitForOperation("Publishing content... please wait");
             this.currOPM.ExecuteOperationWithForm("PublishGroupToWww", {}, this.CommonSuccessHandler, this.CommonErrorHandler);
+        };
+
+        MainContentViewController.prototype.PublishConnection = function ($this) {
+            var id = $this.attr("data-object-id");
+            var wnd = window;
+            wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
+            this.CommonWaitForOperation("Publishing connection... please wait");
+            this.currOPM.ExecuteOperationWithForm("PublishToConnection", { ConnectionID: id }, this.CommonSuccessHandler, this.CommonErrorHandler);
         };
 
         MainContentViewController.prototype.DeleteContent = function ($this) {
