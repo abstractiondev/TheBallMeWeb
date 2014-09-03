@@ -28,7 +28,7 @@
                     </p>
                     <p>
                     <h2>Wilma Account</h2>
-                    <select onchange="DoWilmaRedirect(this.value);">
+                    <select id="WilmaLoginSelect" onchange="DoWilmaRedirect(this.value);">
                         <option value="">Select school/region...</option>
                         <option value="https://wilma.tnk.utu.fi/">Turun normaalikoulu (wilma.tnk.utu.fi)</option>
                     </select>
@@ -56,8 +56,10 @@
 </body>
 <script type="text/javascript">
     var DoWilmaRedirect = function(address) {
-        if(address)
+        if(address) {
+            $("#WilmaLoginSelect").val("");
             window.location = address;
+        }
     };
     $(function () {
         var currReturnUrl = $.url().param("ReturnUrl");
