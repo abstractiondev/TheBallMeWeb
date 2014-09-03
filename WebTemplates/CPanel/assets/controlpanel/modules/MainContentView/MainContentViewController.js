@@ -41,6 +41,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                             alert("DUST ERROR: " + error);
                         var groupName = data.GroupContainer.GroupProfile.GroupName;
                         $("#NavbarTitle").html(groupName);
+                        $(document).prop("title", groupName);
                         var $hostDiv = $("#" + me.divID);
                         $hostDiv.empty();
                         $hostDiv.html(output);
