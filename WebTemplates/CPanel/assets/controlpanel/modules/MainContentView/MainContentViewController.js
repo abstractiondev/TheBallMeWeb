@@ -39,6 +39,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                     dust.render("MainContent.dust", data, function (error, output) {
                         if (error)
                             alert("DUST ERROR: " + error);
+                        var groupName = data.GroupContainer.GroupProfile.GroupName;
+                        $("#NavbarTitle").html(groupName);
                         var $hostDiv = $("#" + me.divID);
                         $hostDiv.empty();
                         $hostDiv.html(output);

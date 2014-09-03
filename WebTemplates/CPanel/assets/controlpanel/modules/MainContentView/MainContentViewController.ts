@@ -38,6 +38,8 @@ class MainContentViewController extends ViewControllerBase {
                     dust.render("MainContent.dust", data, (error, output) => {
                         if(error)
                             alert("DUST ERROR: " + error);
+                        var groupName = data.GroupContainer.GroupProfile.GroupName;
+                        $("#NavbarTitle").html(groupName);
                         var $hostDiv = $("#" + me.divID);
                         $hostDiv.empty();
                         $hostDiv.html(output);
