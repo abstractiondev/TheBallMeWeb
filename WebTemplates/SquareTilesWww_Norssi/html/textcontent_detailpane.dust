@@ -21,7 +21,7 @@
 
 <div class="content">
     <div class="multicolumnElement" style="padding-left:15px;padding-right:15px;">
-        {BodyRendered|s}
+        {RawHtmlContent|s}
     </div>
 </div>
 
