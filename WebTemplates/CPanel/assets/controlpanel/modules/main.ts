@@ -7,7 +7,6 @@
 
 //import ViewControllerBase = require("ViewControllerBase");
 import IViewController = require("IViewController");
-import CategoriesViewController = require("CategoryView/CategoryViewController");
 
 export class AppMain  {
     run() {
