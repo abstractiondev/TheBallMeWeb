@@ -16,7 +16,7 @@
             <td style="text-transform: none !important; font-style: italic;">Moderator</td>
             <td style="text-transform: none !important; font-style: italic;">{URL}</td>
             <td>{>"command_button_begin.dust" nobutton="true" command="ClearDefaultGroup" /}
-                {>"command_button_end.dust" icon_class_name="icon-star-empty" /}
+                {>"command_button_end.dust" icon_class_name="icon-star" /}
             </td>
         </tr>
 {/DefaultGroup}
@@ -40,7 +40,7 @@
             <td style="text-transform: none !important; font-style: italic;">{URL}</td>
             <td>{>"command_button_begin.dust" nobutton="true" command="SetAsDefaultGroup" /}
                 data-groupurl="{URL}"
-                {>"command_button_end.dust" icon_class_name="icon-star" /}
+                {>"command_button_end.dust" icon_class_name="icon-star-empty" /}
             </td>
         </tr>
     {/CollectionContent}
@@ -53,7 +53,7 @@
             <td style="text-transform: none !important; font-style: italic;">{URL}</td>
             <td>{>"command_button_begin.dust" nobutton="true" command="SetAsDefaultGroup" /}
                 data-groupurl="{URL}"
-                {>"command_button_end.dust" icon_class_name="icon-share" /}
+                {>"command_button_end.dust" icon_class_name="icon-star-empty" /}
             </td>
         </tr>
     {/CollectionContent}

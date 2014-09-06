@@ -83,7 +83,8 @@
         <li><label>Collaboration</label></li>
         <li><a href="#" id="groupsMenuAnchor" data-section-id="groupsSection" class="offCanvasMenuAnchor">My Groups</a></li>
         <li><label>Me</label></li>
-        <li><a href="#" id="personalMenuAnchor" data-section-id="personalSection" class="offCanvasMenuAnchor">Personal Identity</a></li>
+        <li><a href="#" id="personalMenuAnchor" data-section-id="personalSection" class="offCanvasMenuAnchor">Personal Info</a></li>
+        <li><a href="#" id="securityMenuAnchor" data-section-id="securitySection" class="offCanvasMenuAnchor">Personal Security</a></li>
         <li><a href="/TheBallLogin.aspx?SignOut=true">Logout</a></li>
     </ul>
 </aside>
@@ -97,6 +98,11 @@
 <div class="large-12 columns contentSwitchableSection" id="personalSection">
     <p>Loading Personal Stuff...</p>
 </div>
+
+<div class="large-12 columns contentSwitchableSection" id="securitySection">
+    <p>Loading Security Info...</p>
+</div>
+
 
 </div>
 <!--Closes the Main Section Div, where the content (switchable) goes-->
@@ -229,59 +235,17 @@
     var tUDG = new tUI.UpdatingDataGetter();
 
 
-    /*
-    tUDG.RegisterDataURL("CATEGORYTREE", function (args) {
-        var nodeSummaryContainer = args[0];
-        var categoriesWithChildren = AppScripts.Common.ConvertCategoriesFromParentToChildren(nodeSummaryContainer.NodeSourceCategories.CollectionContent);
-        return { CategoriesWithChildren: categoriesWithChildren};
-    }, [ "../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json" ]);
-
-    tUDG.RegisterDataURL("../../AaltoGlobalImpact.OIP/GroupContainer/default.json", function (args) {
-        alert("Kau!");
-    });
-
-    tUDG.RegisterDataURL("MAINCONTENT", function (args) {
-        var textContentCollection = args[0][0];
-        textContentCollection.CollectionContent.sort(function(a, b) {
-            if(a.Published == b.Published)
-                return 0;
-            // Bigger comes first (latest first)
-            if(a.Published < b.Published)
-                return 1;
-            return -1;
-        });
-        var categoryCollection = args[1][0];
-        var commentCollection = args[2][0];
-        var binaryFileCollection = args[3][0];
-        return {
-            TextContents: textContentCollection,
-            Categories: categoryCollection,
-            Comments: commentCollection,
-            BinaryFiles : binaryFileCollection
-        };
-    }, [ "../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/CommentCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/BinaryFileCollection/MasterCollection.json"
-    ]);
-
-    tUDG.RegisterDataURL("FILEMANAGERCONTENT", function(args) {
-        var binaryFileCollection = args[0][0];
-        var imageCollection = args[1][0];
-        return {
-            BinaryFiles : binaryFileCollection,
-            ImageFiles : imageCollection,
-        };
-    }, [  "../../AaltoGlobalImpact.OIP/BinaryFileCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/ImageCollection/MasterCollection.json"
-    ]);
-    */
-
-
     tUDG.RegisterDataURL("PERSONALINFO", function(args) {
         var accountContainer = args[0];
         return accountContainer;
     }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
+
+    tUDG.RegisterDataURL("SECURITYINFO", function(args) {
+        var accountContainer = args[0];
+        var security = accountContainer.AccountModule.Security;
+        return security;
+    }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
+
 
     tUDG.RegisterDataURL("GROUPS", function(args) {
         var accountContainer = args[0];
@@ -306,6 +270,12 @@
     require(["GroupsView/GroupsViewController"], function (vcClass) {
         var vc = new vcClass("groupsSection", tOP, tUDG);
         vc.Initialize("GROUPS");
+        vc.VisibleTemplateRender();
+    });
+
+    require(["PersonalSecurityView/PersonalSecurityViewController"], function(vcClass) {
+        var vc = new vcClass("securitySection", tOP, tUDG);
+        vc.Initialize("SECURITYINFO");
         vc.VisibleTemplateRender();
     });
 

@@ -5,7 +5,9 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/CategoryView/CategoryViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupInfoView/GroupInfoViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalSecurityView/PersonalInfoViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/FileManagerView/FileManagerViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/main.js" />
@@ -24,7 +26,9 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/CategoryView/CategoryViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupInfoView/GroupInfoViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/FileManagerView/FileManagerViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
