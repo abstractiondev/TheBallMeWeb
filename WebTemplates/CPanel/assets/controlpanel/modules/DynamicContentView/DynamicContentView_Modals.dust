@@ -1,3 +1,55 @@
+{>"modal_begin.dust" modal_name="AddNewDynamicContentGroupModal" /}
+<h2>Adding New Dynamic Content Group</h2>
+
+<div class="row">
+    <div class="large-6 columns">
+        <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <div><label>Page<input type="text" name="HostName" /></label></div>
+            <div><label>Group Header<input type="text" name="GroupHeader" /></label></div>
+            <div><label>Sort Value<input type="text" name="SortValue" /></label></div>
+            <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
+            <div><label>Content Item Names<textarea rows="3" name="ContentItemNames" /></label></div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="large-12 columns">
+        {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}<div style="width: 10px;float: right;">&nbsp;</div>
+        {>"insidemodal_button.dust" command="SaveNewDynamicContentGroup" button_label="Save" style="float:right;font-color:Green" /}
+    </div>
+</div>
+{>"modal_end.dust" /}
+
+{>"modal_begin.dust" modal_name="EditDynamicContentGroupModal" /}
+<h2>Edit Dynamic Content Group</h2>
+
+<input type="hidden" name="ID"/>
+<input type="hidden" name="ETag"/>
+<input type="hidden" name="RelativeLocation"/>
+
+<div class="row">
+    <div class="large-6 columns">
+        <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <div><label>Page<input type="text" name="HostName" /></label></div>
+            <div><label>Group Header<input type="text" name="GroupHeader" /></label></div>
+            <div><label>Sort Value<input type="text" name="SortValue" /></label></div>
+            <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
+            <div><label>Content Item Names<textarea rows="3" name="ContentItemNames" /></label></div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="large-12 columns">
+        {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}<div style="width: 10px;float: right;">&nbsp;</div>
+        {>"insidemodal_button.dust" command="SaveExistingDynamicContentGroup" button_label="Save" style="float:right;font-color:Green" /}
+    </div>
+</div>
+{>"modal_end.dust" /}
+
+
+
 {>"modal_begin.dust" modal_name="AddNewDynamicContentModal" /}
 <h2>Adding New Dynamic Content Item</h2>
 
@@ -7,6 +59,8 @@
             <div><label>Page<input type="text" name="HostName" /></label></div>
             <div><label>Content Name<input type="text" name="ContentName" /></label></div>
             <div><label>Element Query<input type="text" name="ElementQuery" /></label></div>
+            <div><label>Edit Type<input type="text" name="EditType" /></label></div>
+            <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
         </div>
     </div>
     <div class="large-6 columns">
@@ -55,6 +109,8 @@
             <div><label>Page<input type="text" name="HostName" /></label></div>
             <div><label>Content Name<input type="text" name="ContentName" /></label></div>
             <div><label>Element Query<input type="text" name="ElementQuery" /></label></div>
+            <div><label>Edit Type<input type="text" name="EditType" /></label></div>
+            <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
         </div>
     </div>
     <div class="large-6 columns">
@@ -98,8 +154,24 @@
 <div class="row">
     <div class="large-12 columns">
         <table>
-            <tr><th>Page</th><th>Name</th><th>Location</th><th>Description</th><th>Apply Actively</th></tr>
-                <tr><td name="HostName"></td><td name="ContentName"></td><td name="ElementQuery"></td><td name="Description"></td><td name="ApplyActively"></td></tr>
+            <tr>
+                <th>Page</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Apply Actively</th>
+                <th>EditType</th>
+                <th>PageLocation</th>
+            </tr>
+            <tr>
+                <td name="HostName" />
+                <td name="ContentName" />
+                <td name="ElementQuery" />
+                <td name="Description" />
+                <td name="ApplyActively" />
+                <td name="EditType" />
+                <td name="PageLocation" />
+            </tr>
         </table>
     </div>
 </div>

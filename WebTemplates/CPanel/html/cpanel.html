@@ -230,19 +230,31 @@
     });
 
     tUDG.RegisterDataURL("DYNAMICVIEWCONTENT", function(args) {
-        var dynamicContentCollection = args[0];
+        var dynamicContentCollection = args[0][0];
+        var dynamicContentGroupCollection = args[1][0];
         dynamicContentCollection.CollectionContent.sort(function(a, b) {
             if(a.HostName == b.HostName)
                 return 0;
             if(!a.HostName)
                 return -1;
             var firstCompare = a.HostName.localeCompare(b.HostName);
-            if(!firstCompare)
-                return a.Description.localeCompare(b.Description);
-            return firstCompare;
+            if(firstCompare)
+                return firstCompare;
+            if(a.ContentName == b.ContentName)
+                return 0;
+            if(!a.ContentName)
+                return -1;
+            return a.ContentName.localeCompare(b.ContentName);
         });
-        return dynamicContentCollection;
-    }, [ "../../AaltoGlobalImpact.OIP/DynamicContentCollection/MasterCollection.json"] );
+
+        return {
+            "DynamicContents": dynamicContentCollection,
+            "DynamicContentGroups": dynamicContentGroupCollection
+        };
+    }, [
+                "../../AaltoGlobalImpact.OIP/DynamicContentCollection/MasterCollection.json",
+                "../../AaltoGlobalImpact.OIP/DynamicContentGroupCollection/MasterCollection.json"
+    ]);
 
     tUDG.RegisterDataURL("MAINCONTENT", function (args) {
         var textContentCollection = args[0][0];

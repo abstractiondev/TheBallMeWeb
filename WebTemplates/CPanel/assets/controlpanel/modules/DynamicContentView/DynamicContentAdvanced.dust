@@ -1,0 +1,38 @@
+{#DynamicContentGroups}
+    <h3>Content Groups</h3>
+    <table>
+        <tr><th colspan="2">Act</th><th>Page</th><th>Header</th><th>Sort Value</th><th>Location</th><th>Content Items</th><th>Del</th></tr>
+        {#CollectionContent}
+            <tr>
+                <td>{>"command_icon.dust" command="EditDynamicContentGroup" command_args="{ID}" icon_class_name="icon-edit" /}</td>
+                <td>{>"command_icon.dust" command="ViewDynamicContentGroup" command_args="{ID}" icon_class_name="icon-eye-open" /}</td>
+                <td>{HostName}</td>
+                <td>{GroupHeader}</td>
+                <td>{SortValue}</td>
+                <td>{PageLocation}</td>
+                <td>{ContentItemNames}</td>
+                <td>{>"objectdeleteicon.dust" object_delete_title="{ContentName}" /}</td>
+            </tr>
+        {/CollectionContent}
+    </table>
+    {>"command_button.dust" button_label="Add New Dynamic Content Group" command="OpenAddDynamicContentGroupModal" /}
+{/DynamicContentGroups}
+{#DynamicContents}
+<h3>Dynamic Content Items</h3>
+<table>
+    <tr><th colspan="2">Act</th><th>Page</th><th>Name</th><th>Query</th><th>Description</th><th>Del</th></tr>
+    {#CollectionContent}
+        <tr>
+            <td>{>"command_icon.dust" command="EditDynamicContent" command_args="{ID}" icon_class_name="icon-edit" /}</td>
+            <td>{>"command_icon.dust" command="ViewDynamicContent" command_args="{ID}" icon_class_name="icon-eye-open" /}</td>
+            <td>{HostName}</td>
+            <td>{ContentName}</td>
+            <td>{ElementQuery}</td>
+            <td>{Description}</td>
+            <td>{>"objectdeleteicon.dust" object_delete_title="{ContentName}" /}</td>
+        </tr>
+    {/CollectionContent}
+</table>
+{>"command_button.dust" button_label="Add New Dynamic Content" command="OpenAddDynamicContentModal" /}
+{/DynamicContents}
+
