@@ -1,3 +1,6 @@
+<canvas class="oipdynamiccontentlocationview" width="320" height="240" style="background-color: white">
+</canvas>
+<br>
 <div class="small-12-5 medium-2-5 large-2-5 columns noPaddingRight" style="float:none !important; display:inline-block !important;">
     <button style="margin-bottom: 0;!important" data-dropdown="drop-SelectDynamicContentPage">Select Page...</button><br>
     <ul id="drop-SelectDynamicContentPage" class="f-dropdown" data-dropdown-content>

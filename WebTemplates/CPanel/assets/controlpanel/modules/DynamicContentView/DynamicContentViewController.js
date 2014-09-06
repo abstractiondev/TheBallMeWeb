@@ -41,6 +41,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         $hostDiv.html(output);
                         if (me.StateContent.LastActiveSection)
                             me.ActivateSection(me.StateContent.LastActiveSection);
+                        $hostDiv.find(".oiphover-showlocation").hover(function () {
+                            me.DisplayLocation($(this));
+                        }, function () {
+                            me.ClearCanvas($(this));
+                        });
                         me.ControllerInitializeDone();
                     });
                 });
@@ -55,6 +60,50 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             //alert("Connections view ctrl invisible render: " + this.divID);
         };
 
+        DynamicContentViewController.prototype.ClearCanvas = function ($element) {
+            var $hostDiv = $("#" + this.divID);
+            var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview");
+            this.CurrentCanvas = $canvas[0];
+            var canvas = this.CurrentCanvas;
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        };
+
+        DynamicContentViewController.prototype.DisplayLocation = function ($element) {
+            var $hostDiv = $("#" + this.divID);
+            var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview");
+            this.CurrentCanvas = $canvas[0];
+            var pageLocation = $element.attr("data-pagelocation");
+            if (!pageLocation)
+                return;
+            var locations = pageLocation.split(";");
+            if (locations.length != 4)
+                return;
+            var startX = parseFloat(locations[0]);
+            var startY = parseFloat(locations[1]);
+            var endX = parseFloat(locations[2]);
+            var endY = parseFloat(locations[3]);
+            var canvas = this.CurrentCanvas;
+            var width = canvas.width;
+            var height = canvas.height;
+            var ctx = canvas.getContext("2d");
+
+            var startXCoord = (startX * width) / 10;
+            var startYCoord = (startY * height) / 10;
+            var endXCoord = (endX * width) / 10;
+            var endYCoord = (endY * height) / 10;
+            var rectWidth = endXCoord - startXCoord;
+            var rectHeight = endYCoord - startYCoord;
+
+            // Red rectangle
+            ctx.beginPath();
+            ctx.lineWidth = 6;
+            ctx.strokeStyle = "green";
+            ctx.rect(startXCoord, startYCoord, rectWidth, rectHeight);
+            ctx.stroke();
+            //console.log("Drawn: " + startXCoord + " " + startYCoord + " " + endXCoord + " " + endYCoord);
+        };
+
         DynamicContentViewController.prototype.SetActiveSection = function ($source) {
             var wnd = window;
             wnd.Foundation.libs.dropdown.close($("#drop-SelectDynamicContentPage"));
@@ -64,7 +113,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
 
         DynamicContentViewController.prototype.ActivateSection = function (sectionName) {
             this.$getSelectedFieldsWithin(".oipdynamiccontenteditorsection").hide();
-            this.$getNamedFieldWithin(sectionName).show();
+            var $activeSection = this.$getNamedFieldWithin(sectionName);
+            $activeSection.show();
             this.StateContent.LastActiveSection = sectionName;
         };
 

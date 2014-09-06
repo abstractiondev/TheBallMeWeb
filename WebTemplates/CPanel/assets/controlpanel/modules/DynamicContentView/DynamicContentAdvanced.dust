@@ -3,7 +3,7 @@
     <table>
         <tr><th colspan="2">Act</th><th>Page</th><th>Header</th><th>Sort Value</th><th>Location</th><th>Content Items</th><th>Del</th></tr>
         {#CollectionContent}
-            <tr>
+            <tr class="oiphover-showlocation" data-pagelocation="{PageLocation}">
                 <td>{>"command_icon.dust" command="EditDynamicContentGroup" command_args="{ID}" icon_class_name="icon-edit" /}</td>
                 <td>{>"command_icon.dust" command="ViewDynamicContentGroup" command_args="{ID}" icon_class_name="icon-eye-open" /}</td>
                 <td>{HostName}</td>
@@ -22,7 +22,7 @@
 <table>
     <tr><th colspan="2">Act</th><th>Page</th><th>Name</th><th>Query</th><th>Description</th><th>Del</th></tr>
     {#CollectionContent}
-        <tr>
+        <tr class="oiphover-showlocation" data-pagelocation="{PageLocation}">
             <td>{>"command_icon.dust" command="EditDynamicContent" command_args="{ID}" icon_class_name="icon-edit" /}</td>
             <td>{>"command_icon.dust" command="ViewDynamicContent" command_args="{ID}" icon_class_name="icon-eye-open" /}</td>
             <td>{HostName}</td>
