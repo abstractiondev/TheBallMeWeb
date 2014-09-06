@@ -11,6 +11,7 @@ import IViewController = require("IViewController");
 
 class ViewControllerBase implements IViewController{
 
+    StateContent:any = {};
     public dataUrl:string;
     $initialized:JQueryPromise<any>;
     $initialDeferred:JQueryDeferred<any>;
@@ -92,6 +93,7 @@ class ViewControllerBase implements IViewController{
         //var $hostDiv = $("#" + this.divID);
         var constructor = this.getClassConstructor(this);
         var vc:ViewControllerBase = new constructor(this.divID, this.currOPM, this.currUDG);
+        vc.StateContent = this.StateContent;
         vc.Initialize(this.dataUrl);
         vc.VisibleTemplateRender();
     }

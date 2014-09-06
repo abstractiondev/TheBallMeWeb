@@ -7,6 +7,7 @@ define(["require", "exports"], function(require, exports) {
             this.divID = divID;
             this.currOPM = currOPM;
             this.currUDG = currUDG;
+            this.StateContent = {};
         }
         ViewControllerBase.prototype.getClassConstructor = function (obj) {
             //return obj.__proto__.constructor.name;
@@ -83,6 +84,7 @@ define(["require", "exports"], function(require, exports) {
             //var $hostDiv = $("#" + this.divID);
             var constructor = this.getClassConstructor(this);
             var vc = new constructor(this.divID, this.currOPM, this.currUDG);
+            vc.StateContent = this.StateContent;
             vc.Initialize(this.dataUrl);
             vc.VisibleTemplateRender();
         };

@@ -33,6 +33,8 @@ class DynamicContentViewController extends ViewControllerBase {
                     var $hostDiv = $("#" + me.divID);
                     $hostDiv.empty();
                     $hostDiv.html(output);
+                    if(me.StateContent.LastActiveSection)
+                        me.ActivateSection(me.StateContent.LastActiveSection);
                     me.ControllerInitializeDone();
                 });
             });
@@ -45,6 +47,19 @@ class DynamicContentViewController extends ViewControllerBase {
 
     InvisibleTemplateRender():void {
         //alert("Connections view ctrl invisible render: " + this.divID);
+    }
+
+    SetActiveSection($source) {
+        var wnd:any = window;
+        wnd.Foundation.libs.dropdown.close($("#drop-SelectDynamicContentPage"));
+        var activatedSectionName = $source.attr("data-templatename");
+        this.ActivateSection(activatedSectionName);
+    }
+
+    ActivateSection(sectionName) {
+        this.$getSelectedFieldsWithin(".oipdynamiccontenteditorsection").hide();
+        this.$getNamedFieldWithin(sectionName).show();
+        this.StateContent.LastActiveSection = sectionName;
     }
 
     OpenAddDynamicContentGroupModal() {

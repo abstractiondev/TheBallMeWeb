@@ -39,6 +39,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         var $hostDiv = $("#" + me.divID);
                         $hostDiv.empty();
                         $hostDiv.html(output);
+                        if (me.StateContent.LastActiveSection)
+                            me.ActivateSection(me.StateContent.LastActiveSection);
                         me.ControllerInitializeDone();
                     });
                 });
@@ -51,6 +53,19 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
 
         DynamicContentViewController.prototype.InvisibleTemplateRender = function () {
             //alert("Connections view ctrl invisible render: " + this.divID);
+        };
+
+        DynamicContentViewController.prototype.SetActiveSection = function ($source) {
+            var wnd = window;
+            wnd.Foundation.libs.dropdown.close($("#drop-SelectDynamicContentPage"));
+            var activatedSectionName = $source.attr("data-templatename");
+            this.ActivateSection(activatedSectionName);
+        };
+
+        DynamicContentViewController.prototype.ActivateSection = function (sectionName) {
+            this.$getSelectedFieldsWithin(".oipdynamiccontenteditorsection").hide();
+            this.$getNamedFieldWithin(sectionName).show();
+            this.StateContent.LastActiveSection = sectionName;
         };
 
         DynamicContentViewController.prototype.OpenAddDynamicContentGroupModal = function () {

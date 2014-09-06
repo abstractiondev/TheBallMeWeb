@@ -247,9 +247,20 @@
             return a.ContentName.localeCompare(b.ContentName);
         });
 
+        // get templates
+        var templateMap = _.groupBy(dynamicContentGroupCollection.CollectionContent, function(item) {
+            return item.HostName;
+        });
+        var templateKeys = _.keys(templateMap);
+        var templates = {
+            Keys: templateKeys,
+            MapData: templateMap
+        };
+
         return {
             "DynamicContents": dynamicContentCollection,
-            "DynamicContentGroups": dynamicContentGroupCollection
+            "DynamicContentGroups": dynamicContentGroupCollection,
+            "Templates": templates
         };
     }, [
                 "../../AaltoGlobalImpact.OIP/DynamicContentCollection/MasterCollection.json",
