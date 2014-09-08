@@ -9,14 +9,11 @@
         <li><a href="#" style="background-color: red" class="button oip-controller-command oip-dropdown-button" data-oip-command="SetActiveSection" data-templatename="AdvancedSection">Page Template Management</a></li>
     </ul>
 </div>
+<br>
 
 {#Templates}
     {#Keys}
-        <div style="display: none" class="oipdynamiccontenteditorsection" name="{.}">
-            <br>
-            {.}
-            <br>
-        </div>
+        {>"DynamicContentPageHost.dust" /}
     {/Keys}
 {/Templates}
 

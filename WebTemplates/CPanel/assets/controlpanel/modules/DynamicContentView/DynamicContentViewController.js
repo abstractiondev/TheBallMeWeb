@@ -21,6 +21,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 "DynamicContentView/DynamicContentAdvanced_dust",
                 "DynamicContentView/DynamicContentPageSkeleton_dust",
                 "DynamicContentView/DynamicContentView_Modals_dust",
+                "DynamicContentView/DynamicContentPageHost_dust",
+                "DynamicContentView/DynamicContentGroupEditView_dust",
                 "lib/dusts/objectdeleteicon_dust",
                 "lib/dusts/command_button_dust",
                 "lib/dusts/command_icon_dust",
