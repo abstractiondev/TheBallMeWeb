@@ -42,9 +42,16 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         if (me.StateContent.LastActiveSection)
                             me.ActivateSection(me.StateContent.LastActiveSection);
                         $hostDiv.find(".oiphover-showlocation").hover(function () {
-                            me.DisplayLocation($(this));
+                            var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview");
+                            var canvas = $canvas[0];
+                            me.DisplayLocation($(this), canvas);
                         }, function () {
                             me.ClearCanvas($(this));
+                        });
+                        $hostDiv.find(".oipcanvas-showlocation").each(function (index, element) {
+                            var $canvas = $(this).find("canvas");
+                            var canvas = $canvas[0];
+                            me.DisplayLocation($(this), canvas);
                         });
                         me.ControllerInitializeDone();
                     });
@@ -69,10 +76,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         };
 
-        DynamicContentViewController.prototype.DisplayLocation = function ($element) {
-            var $hostDiv = $("#" + this.divID);
-            var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview");
-            this.CurrentCanvas = $canvas[0];
+        DynamicContentViewController.prototype.DisplayLocation = function ($element, canvas) {
             var pageLocation = $element.attr("data-pagelocation");
             if (!pageLocation)
                 return;
@@ -83,7 +87,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var startY = parseFloat(locations[1]);
             var endX = parseFloat(locations[2]);
             var endY = parseFloat(locations[3]);
-            var canvas = this.CurrentCanvas;
             var width = canvas.width;
             var height = canvas.height;
             var ctx = canvas.getContext("2d");

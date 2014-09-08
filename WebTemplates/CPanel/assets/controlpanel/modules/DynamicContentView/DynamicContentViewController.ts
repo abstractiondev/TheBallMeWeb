@@ -36,9 +36,16 @@ class DynamicContentViewController extends ViewControllerBase {
                     if(me.StateContent.LastActiveSection)
                         me.ActivateSection(me.StateContent.LastActiveSection);
                     $hostDiv.find(".oiphover-showlocation").hover(function() {
-                        me.DisplayLocation($(this));
+                        var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview")
+                        var canvas = <HTMLCanvasElement> $canvas[0];
+                        me.DisplayLocation($(this), canvas);
                     }, function() {
                         me.ClearCanvas($(this));
+                    });
+                    $hostDiv.find(".oipcanvas-showlocation").each(function(index, element) {
+                        var $canvas = $(this).find("canvas");
+                        var canvas:HTMLCanvasElement = <HTMLCanvasElement> $canvas[0];
+                        me.DisplayLocation($(this), canvas);
                     });
                     me.ControllerInitializeDone();
                 });
@@ -63,10 +70,7 @@ class DynamicContentViewController extends ViewControllerBase {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    DisplayLocation($element) {
-        var $hostDiv = $("#" + this.divID);
-        var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview")
-        this.CurrentCanvas = <HTMLCanvasElement> $canvas[0];
+    DisplayLocation($element, canvas:HTMLCanvasElement) {
         var pageLocation = $element.attr("data-pagelocation");
         if(!pageLocation)
             return;
@@ -77,7 +81,6 @@ class DynamicContentViewController extends ViewControllerBase {
         var startY = parseFloat(locations[1]);
         var endX = parseFloat(locations[2]);
         var endY = parseFloat(locations[3]);
-        var canvas = this.CurrentCanvas;
         var width = canvas.width;
         var height = canvas.height;
         var ctx = canvas.getContext("2d");
