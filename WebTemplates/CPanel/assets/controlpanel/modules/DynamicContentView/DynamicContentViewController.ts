@@ -49,6 +49,15 @@ class DynamicContentViewController extends ViewControllerBase {
                         var canvas:HTMLCanvasElement = <HTMLCanvasElement> $canvas[0];
                         me.DisplayLocation($(this), canvas);
                     });
+
+                    var $rtEditors:any = $hostDiv.find(".oipdynamicedit-richtextarea");
+                    $rtEditors.redactor({
+                        minHeight: 300,
+                        maxHeight: 350,
+                        autoresize: false,
+                        buttons: ['bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'image', 'video', "link"]
+                        });
+
                     me.ControllerInitializeDone();
                 });
             });

@@ -247,6 +247,10 @@
                 return -1;
             return a.ContentName.localeCompare(b.ContentName);
         });
+        dynamicContentGroupCollection.CollectionContent =
+                _.sortBy(dynamicContentGroupCollection.CollectionContent, function(item) {
+                    return item.SortValue;
+                });
 
         // get templates
         var templateMap = _.groupBy(dynamicContentGroupCollection.CollectionContent, function(item) {
@@ -255,7 +259,7 @@
         var templateKeys = _.keys(templateMap);
         var templateArray = $.map(templateKeys, function(key) {
             var mapArray = templateMap[key];
-            _.sortBy(mapArray, function(item) {
+            mapArray = _.sortBy(mapArray, function(item) {
                 return item.SortValue;
             });
             return { "Host": key, "Templates": mapArray};

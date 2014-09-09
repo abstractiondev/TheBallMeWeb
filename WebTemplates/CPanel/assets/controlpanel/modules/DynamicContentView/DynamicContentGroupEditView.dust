@@ -10,19 +10,23 @@
                 {@eq value="RICHTEXT"}
                     <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
                               title="{Description}" class="oipdynamicedit-richtextarea"
-                              style="height: 75px;"/>
+                              style="height: 75px;">
+                        {Content}
+                              </textarea>
                 {/eq}
                 {@eq value="RAWLINE"}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           title="{Description}" class="oipdynamicedit-inputtext"/>
+                           title="{Description}" class="oipdynamicedit-inputtext" value="{RawContent}">
                 {/eq}
                 {@eq value="RAWMULTILINE"}
                     <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           title="{Description}" class="oipdynamicedit-textarea" rows="4"/>
+                           title="{Description}" class="oipdynamicedit-textarea" rows="4">
+                        {RawContent|s}
+                    </textarea>
                 {/eq}
                 {@eq value=""}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           title="{Description}" class="oipdynamicedit-inputtext"/>
+                           title="{Description}" class="oipdynamicedit-inputtext" value="{RawContent}"/>
                 {/eq}
             {/select}
 

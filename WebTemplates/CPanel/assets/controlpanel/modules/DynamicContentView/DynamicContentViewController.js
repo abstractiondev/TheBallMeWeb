@@ -55,6 +55,15 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                             var canvas = $canvas[0];
                             me.DisplayLocation($(this), canvas);
                         });
+
+                        var $rtEditors = $hostDiv.find(".oipdynamicedit-richtextarea");
+                        $rtEditors.redactor({
+                            minHeight: 300,
+                            maxHeight: 350,
+                            autoresize: false,
+                            buttons: ['bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'image', 'video', "link"]
+                        });
+
                         me.ControllerInitializeDone();
                     });
                 });
