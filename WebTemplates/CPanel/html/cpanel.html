@@ -22,6 +22,7 @@
     <script src="../assets/controlpanel/js/redactor.min.js"></script>
     <script src="../assets/controlpanel/js/jquery.htmlClean.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/dustjs-linkedin/2.0.0/dust-core.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/dustjs-helpers/1.2.0/dust-helpers.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
     <script src="../assets/controlpanel/modules/lib/jquery-nestable/jquery.nestable.js"></script>
     <link rel="stylesheet" href="../assets/controlpanel/modules/lib/jquery-nestable/jquery-nestable.css"/>
@@ -252,15 +253,52 @@
             return item.HostName;
         });
         var templateKeys = _.keys(templateMap);
+        var templateArray = $.map(templateKeys, function(key) {
+            var mapArray = templateMap[key];
+            _.sortBy(mapArray, function(item) {
+                return item.SortValue;
+            });
+            return { "Host": key, "Templates": mapArray};
+        });
         var templates = {
             Keys: templateKeys,
-            MapData: templateMap
+            MapData: templateMap,
+            Array: templateArray
         };
+
+        var itemMap = _.groupBy(dynamicContentCollection.CollectionContent, function(item) {
+            return item.HostName;
+        });
+        var itemKeys = _.keys(itemMap);
+        var itemArray = $.map(itemKeys, function(key) {
+            return itemMap[key];
+        });
+
+        var templateItems = {
+            Keys: itemKeys,
+            MapData: itemMap,
+            Array: itemArray
+        };
+
+        $.each(templates.Array, function(index, hostElement) {
+            $.each(hostElement.Templates, function(index, element) {
+                element.Key = element.HostName;
+                var sourceItems = templateItems.MapData[element.Key];
+                var itemNames = element.ContentItemNames.split(",");
+                element.Items = $.map(itemNames, function(name) {
+                    return _.find(sourceItems, function(srcItem) {
+                        return srcItem.ContentName == name;
+                    });
+                });
+            });
+        });
+
 
         return {
             "DynamicContents": dynamicContentCollection,
             "DynamicContentGroups": dynamicContentGroupCollection,
-            "Templates": templates
+            "Templates": templates,
+            "TemplateItems": templateItems
         };
     }, [
                 "../../AaltoGlobalImpact.OIP/DynamicContentCollection/MasterCollection.json",

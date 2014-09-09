@@ -12,9 +12,9 @@
 <br>
 
 {#Templates}
-    {#Keys}
+    {#Array}
         {>"DynamicContentPageHost.dust" /}
-    {/Keys}
+    {/Array}
 {/Templates}
 
 <div style="display: none" class="oipdynamiccontenteditorsection" name="AdvancedSection">
