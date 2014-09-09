@@ -163,6 +163,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             this.$getNamedFieldWithinModal($modal, "ElementQuery").val("");
             this.$getNamedFieldWithinModal($modal, "EditType").val("");
             this.$getNamedFieldWithinModal($modal, "PageLocation").val("");
+            this.$getNamedFieldWithinModal($modal, "Title").val("");
             this.$getNamedFieldWithinModal($modal, "Description").val("");
             this.$getNamedFieldWithinModal($modal, "RawContent").val("");
             this.$getNamedFieldWithinModal($modal, "Content").val("");
@@ -198,6 +199,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.$getNamedFieldWithinModal($modal, "ElementQuery").val(contentData.ElementQuery);
                 me.$getNamedFieldWithinModal($modal, "EditType").val(contentData.EditType);
                 me.$getNamedFieldWithinModal($modal, "PageLocation").val(contentData.PageLocation);
+                me.$getNamedFieldWithinModal($modal, "Title").val(contentData.Title);
                 me.$getNamedFieldWithinModal($modal, "Description").val(contentData.Description);
                 me.$getNamedFieldWithinModal($modal, "RawContent").val(contentData.RawContent);
                 me.$getNamedFieldWithinModal($modal, "ApplyActively").prop("checked", contentData.ApplyActively);
@@ -227,6 +229,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.$getNamedFieldWithinModal($modal, "ElementQuery").html(contentData.ElementQuery);
                 me.$getNamedFieldWithinModal($modal, "EditType").html(contentData.EditType);
                 me.$getNamedFieldWithinModal($modal, "PageLocation").html(contentData.PageLocation);
+                me.$getNamedFieldWithinModal($modal, "Title").html(contentData.Title);
                 me.$getNamedFieldWithinModal($modal, "Description").html(contentData.Description);
                 me.$getNamedFieldWithinModal($modal, "ApplyActively").html(contentData.ApplyActively);
                 if (contentData.RawContent)
@@ -300,6 +303,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var elementQuery = this.$getNamedFieldWithinModal($modal, "ElementQuery").val();
             var editType = this.$getNamedFieldWithinModal($modal, "EditType").val();
             var pageLocation = this.$getNamedFieldWithinModal($modal, "PageLocation").val();
+            var title = this.$getNamedFieldWithinModal($modal, "Title").val();
             var description = this.$getNamedFieldWithinModal($modal, "Description").val();
             var rawContent = this.$getNamedFieldWithinModal($modal, "RawContent").val();
             rawContent = $("<div/>").text(rawContent).html();
@@ -313,6 +317,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 ElementQuery: elementQuery,
                 EditType: editType,
                 PageLocation: pageLocation,
+                Title: title,
                 Description: description,
                 "ENC.RawContent": rawContent,
                 "ENC.Content": content,
@@ -340,6 +345,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var elementQuery = this.$getNamedFieldWithinModal($modal, "ElementQuery").val();
             var editType = this.$getNamedFieldWithinModal($modal, "EditType").val();
             var pageLocation = this.$getNamedFieldWithinModal($modal, "PageLocation").val();
+            var title = this.$getNamedFieldWithinModal($modal, "Title").val();
             var description = this.$getNamedFieldWithinModal($modal, "Description").val();
             var rawContent = this.$getNamedFieldWithinModal($modal, "RawContent").val();
             rawContent = $("<div/>").text(rawContent).html();
@@ -353,6 +359,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 ElementQuery: elementQuery,
                 EditType: editType,
                 PageLocation: pageLocation,
+                Title: title,
                 Description: description,
                 "ENC.RawContent": rawContent,
                 "ENC.Content": content,

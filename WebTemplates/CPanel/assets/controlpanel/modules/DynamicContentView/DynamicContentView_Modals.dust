@@ -65,6 +65,11 @@
     </div>
     <div class="large-6 columns">
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <div class="Title-field">
+                <label>Title
+                    <input type="text" name="Title" />
+                </label>
+            </div>
             <div class="Description-field">
                 <label>Description
                     <textarea rows="3" name="Description"/>
@@ -115,6 +120,11 @@
     </div>
     <div class="large-6 columns">
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <div class="Title-field">
+                <label>Title
+                    <input type="text" name="Title" />
+                </label>
+            </div>
             <div class="Description-field">
                 <label>Description
                     <textarea rows="3" name="Description"/>
@@ -157,7 +167,8 @@
             <tr>
                 <th>Page</th>
                 <th>Name</th>
-                <th>Location</th>
+                <th>Query</th>
+                <th>Title</th>
                 <th>Description</th>
                 <th>Apply Actively</th>
                 <th>EditType</th>
@@ -167,6 +178,7 @@
                 <td name="HostName" />
                 <td name="ContentName" />
                 <td name="ElementQuery" />
+                <td name="Title" />
                 <td name="Description" />
                 <td name="ApplyActively" />
                 <td name="EditType" />

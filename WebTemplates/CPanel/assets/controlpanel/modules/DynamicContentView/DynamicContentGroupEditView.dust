@@ -5,39 +5,29 @@
     <div class="small-12 medium-12 large-12 columns"><h5 class="boldieText">{GroupHeader}</h5></div>
     {#Items}
     <div class="small-12 medium-12 large-12 columns">
-        <label><span class="boldieText darkTextColor">{ContentName}</span>
+        <label><span class="boldieText darkTextColor">{Title}</span>
             {@select key=EditType}
                 {@eq value="RICHTEXT"}
                     <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                              placeholder="{Description}" class="oipdynamicedit-richtextarea"
+                              title="{Description}" class="oipdynamicedit-richtextarea"
                               style="height: 75px;"/>
                 {/eq}
                 {@eq value="RAWLINE"}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           placeholder="{Description}" class="oipdynamicedit-inputtext"/>
+                           title="{Description}" class="oipdynamicedit-inputtext"/>
                 {/eq}
                 {@eq value="RAWMULTILINE"}
                     <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           placeholder="{Description}" class="oipdynamicedit-textarea" rows="4"/>
+                           title="{Description}" class="oipdynamicedit-textarea" rows="4"/>
                 {/eq}
                 {@eq value=""}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           placeholder="{Description}" class="oipdynamicedit-inputtext"/>
+                           title="{Description}" class="oipdynamicedit-inputtext"/>
                 {/eq}
             {/select}
 
         </label>
     </div>
     {/Items}
-    <div id="innovationMexicoPageSave&PreviewAllDIV">
-        <div class="small-6 medium-6 large-6 columns" style="text-align:left;margin: 20px 0 0 0;">
-            <a href="#" id="innovationMexicoPageEditing-previewAllButton"
-               class="button tiny secondary">Preview</a>
-        </div>
-        <div class="small-6 medium-6 large-6 columns" style="text-align:right;margin: 20px 0 0 0;">
-            <a href="#" id="innovationMexicoPageEditing-saveAllButton" class="button tiny">Save</a>
-        </div>
-    </div>
     <!--Closes the div researchPageSave&PreviewAllDIV-->
-
 </form>
