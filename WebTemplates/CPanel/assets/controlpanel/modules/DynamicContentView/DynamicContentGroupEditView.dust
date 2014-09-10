@@ -9,24 +9,24 @@
             {@select key=EditType}
                 {@eq value="RICHTEXT"}
                     <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                              title="{Description}" class="oipdynamicedit-richtextarea"
+                              title="{Description}" class="oipdynamiceditinput oipdynamicedit-richtextarea"
                               style="height: 75px;">
                         {Content}
                               </textarea>
                 {/eq}
                 {@eq value="RAWLINE"}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           title="{Description}" class="oipdynamicedit-inputtext" value="{RawContent}">
+                           title="{Description}" class="oipdynamiceditinput oipdynamicedit-inputtext" value="{RawContent}">
                 {/eq}
                 {@eq value="RAWMULTILINE"}
                     <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           title="{Description}" class="oipdynamicedit-textarea" rows="4">
-                        {RawContent|s}
+                           title="{Description}" class="oipdynamiceditinput oipdynamicedit-textarea" rows="4">
+                        {RawContent}
                     </textarea>
                 {/eq}
                 {@eq value=""}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
-                           title="{Description}" class="oipdynamicedit-inputtext" value="{RawContent}"/>
+                           title="{Description}" class="oipdynamiceditinput oipdynamicedit-inputtext" value="{RawContent}"/>
                 {/eq}
             {/select}
 

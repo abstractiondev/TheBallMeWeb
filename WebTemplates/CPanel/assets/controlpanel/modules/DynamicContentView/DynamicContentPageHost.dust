@@ -5,12 +5,14 @@
     {>"DynamicContentGroupEditView.dust" /}
 {/Templates}
         <div>
+            {!
             <div class="small-6 medium-6 large-6 columns" style="text-align:left;margin: 20px 0 0 0;">
                 <a href="#" id="innovationMexicoPageEditing-previewAllButton"
                    class="button tiny secondary">Preview</a>
             </div>
+            !}
             <div class="small-6 medium-6 large-6 columns" style="text-align:right;margin: 20px 0 0 0;">
-                <a href="#" id="innovationMexicoPageEditing-saveAllButton" class="button tiny">Save</a>
+                <a href="#" class="button oip-controller-command" data-oip-command="SavePageContent">Save</a>
             </div>
         </div>
     </div>
