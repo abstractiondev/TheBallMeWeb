@@ -330,7 +330,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Description: description,
                 "ENC.RawContent": rawContent,
                 "ENC.Content": content,
-                ApplyActively: applyActively.toString()
+                ApplyActively: applyActively
             };
 
             var me = this;
@@ -372,7 +372,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Description: description,
                 "ENC.RawContent": rawContent,
                 "ENC.Content": content,
-                ApplyActively: applyActively.toString()
+                ApplyActively: applyActively
             };
 
             var me = this;

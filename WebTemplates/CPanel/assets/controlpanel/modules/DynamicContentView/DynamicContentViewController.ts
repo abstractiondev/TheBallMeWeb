@@ -326,7 +326,7 @@ class DynamicContentViewController extends ViewControllerBase {
             Description: description,
             "ENC.RawContent": rawContent,
             "ENC.Content": content,
-            ApplyActively: applyActively.toString()
+            ApplyActively: applyActively
         };
 
         var me = this;
@@ -368,7 +368,7 @@ class DynamicContentViewController extends ViewControllerBase {
             Description: description,
             "ENC.RawContent": rawContent,
             "ENC.Content": content,
-            ApplyActively: applyActively.toString()
+            ApplyActively: applyActively
         };
 
         var me = this;

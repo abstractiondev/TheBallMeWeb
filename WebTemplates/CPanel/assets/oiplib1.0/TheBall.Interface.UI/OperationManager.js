@@ -37,7 +37,7 @@ var TheBall;
             var OperationManager = (function () {
                 function OperationManager(dcm, binaryFileSelectorBase) {
                     this.getHiddenInput = function (key, dataContent) {
-                        var dataValue = dataContent ? dataContent.toString() : "";
+                        var dataValue = dataContent != null ? dataContent.toString() : "";
                         var $input = $('<input type="hidden">').attr('name', key).val(dataValue);
                         return $input;
                     };

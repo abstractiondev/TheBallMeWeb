@@ -58,7 +58,7 @@ module TheBall.Interface.UI {
         }
 
         getHiddenInput = function (key:string, dataContent) {
-            var dataValue = dataContent ? dataContent.toString() : "";
+            var dataValue = dataContent != null ? dataContent.toString() : "";
             var $input = $('<input type="hidden">').attr('name', key).val(dataValue);
             return $input;
         };
