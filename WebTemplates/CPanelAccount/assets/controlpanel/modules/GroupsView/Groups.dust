@@ -26,6 +26,7 @@
         <div>
             <table id="collaborators-table" style="text-align: left;">
                 <tr>
+                    <th>View</th>
                     <th>Group</th>
                     <th>Role</th>
                     <th>URL</th>
@@ -35,6 +36,7 @@
 {#ModeratorInGroups}
     {#CollectionContent}
         <tr>
+            <td><a href="{URL}"><iframe height="200px" src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></td>
             <td style="text-transform: none !important;"><a href="{URL}">{Title}</a></td>
             <td style="text-transform: none !important; font-style: italic;">Moderator</td>
             <td style="text-transform: none !important; font-style: italic;">{URL}</td>
@@ -48,6 +50,7 @@
 {#MemberInGroups}
     {#CollectionContent}
         <tr>
+            <td><a href="{URL}"><iframe src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></td>
             <td style="text-transform: none !important;"><a href="{URL}">{Title}</a></td>
             <td style="text-transform: none !important; font-style: italic;">Member</td>
             <td style="text-transform: none !important; font-style: italic;">{URL}</td>

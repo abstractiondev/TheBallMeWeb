@@ -1,0 +1,35 @@
+<html>
+<head>
+    <script src="../assets/controlpanel/js/modernizr.js"></script>
+    <script src="../assets/controlpanel/js/jquery.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+    $(function() {
+        $.getJSON("../../AaltoGlobalImpact.OIP/GroupContainer/default.json", function(data) {
+            $("#GroupInfoData").html(data.GroupProfile.GroupName);
+            var image = data.GroupProfile.ProfileImage;
+            var imageData = image ? image.ImageData : null;
+            var $img = $("#ImagePlaceHolder");
+            if(imageData && imageData.AdditionalFormatFileExt) {
+                var imgSrc = "../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_160x120_crop" + imageData.AdditionalFormatFileExt;
+                //$("#ImgDbg").html(imgSrc);
+                $img.attr("src", imgSrc);
+            }
+            else
+                $img.hide();
+        });
+    });
+
+</script>
+
+<div style="width: 240px;height: 160px">
+<h4 id="GroupInfoData"></h4>
+<div id="ImgDbg"></div>
+<img id="ImagePlaceHolder" style="max-height: 120px;margin-left: auto;margin-right: auto">
+</div>
+</body>
+
+
+</html>
