@@ -69,6 +69,34 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.ReInitialize();
             }, this.CommonErrorHandler);
         };
+
+        GroupsViewController.prototype.OpenCreateNewGroupModal = function ($source) {
+            var me = this;
+            var $modal = me.$getNamedFieldWithin("CreateNewGroupModal");
+            me.$getNamedFieldWithinModal($modal, "GroupName").val("");
+            $modal.foundation("reveal", "open");
+        };
+
+        GroupsViewController.prototype.Modal_CreateNewGroup = function ($modal) {
+            var redirectUrlAfterCreation = "cpanel/html/cpanel.html";
+            var templateNameList = "cpanel,categoriesandcontent";
+
+            var me = this;
+            var groupName = me.$getNamedFieldWithinModal($modal, "GroupName").val();
+            var jq = $;
+            jq.blockUI({ message: '<h2>Creating new group...</h2>' });
+            me.currOPM.ExecuteOperationWithForm("CreateGroupWithTemplates", {
+                GroupName: groupName,
+                TemplateNameList: templateNameList,
+                RedirectUrlAfterCreation: redirectUrlAfterCreation
+            }, function (responseData) {
+                setTimeout(function () {
+                    jq.unblockUI();
+                    $modal.foundation("reveal", "close");
+                    me.ReInitialize();
+                }, 2500);
+            }, me.CommonErrorHandler);
+        };
         return GroupsViewController;
     })(ViewControllerBase);
 

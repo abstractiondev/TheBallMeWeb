@@ -75,6 +75,35 @@ class GroupsViewController extends ViewControllerBase {
             },
             this.CommonErrorHandler);
     }
+
+    OpenCreateNewGroupModal($source) {
+        var me = this;
+        var $modal:any = me.$getNamedFieldWithin("CreateNewGroupModal");
+        me.$getNamedFieldWithinModal($modal, "GroupName").val("");
+        $modal.foundation("reveal", "open");
+    }
+
+    Modal_CreateNewGroup($modal) {
+        var redirectUrlAfterCreation = "cpanel/html/cpanel.html";
+        var templateNameList = "cpanel,categoriesandcontent";
+
+        var me = this;
+        var groupName = me.$getNamedFieldWithinModal($modal, "GroupName").val();
+        var jq:any = $;
+        jq.blockUI({ message: '<h2>Creating new group...</h2>' });
+        me.currOPM.ExecuteOperationWithForm("CreateGroupWithTemplates", {
+            GroupName: groupName,
+            TemplateNameList: templateNameList,
+            RedirectUrlAfterCreation: redirectUrlAfterCreation
+        }, function(responseData) {
+            setTimeout(function() {
+                jq.unblockUI();
+                $modal.foundation("reveal", "close");
+                me.ReInitialize();
+            }, 2500);
+        }, me.CommonErrorHandler);
+
+    }
 }
 
 export = GroupsViewController;

@@ -63,5 +63,22 @@
         </div>
     </div>
     <div class="small-12 medium-6 large-6 columns show-for-medium-up"></div>
+    {>"command_button.dust" command="OpenCreateNewGroupModal" button_label="Create New Group" style="float:right !important;" /}
 </div>
 
+{>"modal_begin.dust" modal_name="CreateNewGroupModal" /}
+<h3>Create New Group</h3>
+<div class="row">
+    <div class="large-12 columns"><label>Group Name</label>
+        <input name="GroupName" style="width: 200px" />
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="large-12 columns">
+        {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}<div style="width: 10px;float: right;">&nbsp;</div>
+        {>"insidemodal_button.dust" command="CreateNewGroup" button_label="Create Group!" style="float:right;" /}
+    </div>
+</div>
+
+{>"modal_end.dust" /}
