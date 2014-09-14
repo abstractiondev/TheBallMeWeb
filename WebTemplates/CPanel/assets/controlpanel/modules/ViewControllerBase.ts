@@ -23,7 +23,10 @@ class ViewControllerBase implements IViewController{
         return obj.constructor;
     }
 
+    private IsInitializing:boolean;
+
     public Initialize(dataUrl:string) {
+        this.IsInitializing = true;
         this.dataUrl = dataUrl;
         var $hostDiv = $("#" + this.divID);
         $hostDiv.addClass("oip-controller-root");
@@ -54,6 +57,7 @@ class ViewControllerBase implements IViewController{
             if(wnd.OIPActiveDynamicReplace) {
                 wnd.OIPActiveDynamicReplace();
             }
+            this.IsInitializing = false;
         });
     }
 
@@ -87,6 +91,8 @@ class ViewControllerBase implements IViewController{
     }
 
     ReInitialize() {
+        if(this.IsInitializing)
+            return;
         if(this.$myModals.length > 0) {
             this.$myModals.remove();
         }

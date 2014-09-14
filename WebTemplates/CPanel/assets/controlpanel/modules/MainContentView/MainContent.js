@@ -461,145 +461,34 @@ function switchActiveCanvasSection(event) {
     $("#" + currentactive).removeClass("activeSection");
 
     if (triggerid == "addEditContentMenuAnchor") {
-        $("#addEditContentSection").addClass("activeSection");
+        currentactive = "addEditContentSection";
     }
     if (triggerid == "manageCategoriesMenuAnchor") {
-        $("#categoriesSection").addClass("activeSection");
+        currentactive = "categoriesSection";
     }
     if (triggerid == "fileManagerMenuAnchor") {
-        $("#fileManagerSection").addClass("activeSection");
+        currentactive = "fileManagerSection";
     }
     if (triggerid == "dynamicContentMenuAnchor") {
-        $("#dynamicContentSection").addClass("activeSection");
+        currentactive = "dynamicContentSection";
     }
     if (triggerid == "connectionsMenuAnchor") {
-        $("#connectionsSection").addClass("activeSection");
+        currentactive = "connectionsSection";
     }
     if (triggerid == "collaboratorsMenuAnchor") {
-        $("#collaboratorsSection").addClass("activeSection");
-    }
-    if (triggerid == "homePageEditingMenuAnchor") {
-        $("#homePageEditingSection").addClass("activeSection");
-    }
-    if (triggerid == "researchPageEditingMenuAnchor") {
-        $("#researchPageEditingSection").addClass("activeSection");
-        $.getJSON('../../AaltoGlobalImpact.OIP/PagesContent/Research.json', function (contentData) {
-            for (var i in contentData.CollectionContent) {
-                var $caption1textarea = $("#researchPageEditingCarCaption1-textarea");
-                var $caption2textarea = $("#researchPageEditingCarCaption2-textarea");
-                var $nametextarea = $("#researchPageEditingContactName-input");
-                var $jobtextarea = $("#researchPageEditingContactJobTitle-input");
-                var $emailtextarea = $("#researchPageEditingContactEmail-input");
-                var $contenttextarea = $("#researchPageEditingContent-redactortextarea");
-                var currItem = contentData.CollectionContent[i];
-                var caption1 = currItem.SliderCaption1;
-                var caption2 = currItem.SliderCaption2;
-                var name = currItem.ContactName;
-                var job = currItem.ContactTitle;
-                var email = currItem.ContactEmail;
-                var content = currItem.Body;
-
-                $caption1textarea.val(caption1);
-                $caption2textarea.val(caption2);
-                $nametextarea.val(name);
-                $jobtextarea.val(job);
-                $emailtextarea.val(email);
-
-                $('#researchPageEditingContent-textareaDIV').empty();
-                var textareaResearch = $("<textarea id='researchPageEditingContent-redactortextarea' style='height: 300px;'>");
-                $('#researchPageEditingContent-textareaDIV').append(textareaResearch);
-                $('#researchPageEditingContent-redactortextarea').val(content);
-                $('#researchPageEditingContent-redactortextarea').redactor(
-                    {   minHeight: 300,
-                        maxHeight: 350,
-                        autoresize: false,
-                        buttons: ['bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'image', 'video', "link"]
-                    });
-            }
-        })
-    }
-    if (triggerid == "businessPageEditingMenuAnchor") {
-        $("#businessPageEditingSection").addClass("activeSection");
-    }
-    if (triggerid == "innovationsPageEditingMenuAnchor") {
-        $("#innovationsPageEditingSection").addClass("activeSection");
+        currentactive = "#collaboratorsSection";
     }
     if (triggerid == "groupMembersMenuAnchor") {
-        $("#groupMembersSection").addClass("activeSection");
+        currentactive = "groupMembersSection";
     }
     if (triggerid == "groupInfoMenuAnchor") {
-        $("#groupSection").addClass("activeSection");
+        currentactive = "groupSection";
     }
-    if (triggerid=="timelineMenuAnchor")
-    {
-        $("#timelineSection").addClass("activeSection");
-        $("#my-timeline").empty();
-        $.getJSON('../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json', function(contentData) {
-            /*var wholeTimelineData=new Array();*/
-            var wholeTimelineData={
-                "timeline":
-                {
-                    "headline":"Headline",
-                    "type":"default",
-                    "text":"Welcome to the timeline view",
-                    "startDate":"2014,1,1",
-                    "date":[]
-                }
-            };
-            for (var i in contentData.CollectionContent) {
-                var currentObject=contentData.CollectionContent[i];
-                var currentID=currentObject.ID;
-                var currentTitle=currentObject.Title ? currentObject.Title : "";
-                var currentMainCategory;
-                var currentExcerpt=currentObject.Excerpt;
-                var currentAuthor=currentObject.Author;
-                var currentPublishedDate=ParseRawTimestampToDateString(currentObject.Published);
-                var imageSizeString="256";
-                var dateSubString=currentPublishedDate.split(".");
-                var timelineFormatedStartDate= dateSubString[2]+","+dateSubString[1]+","+dateSubString[0];
-                var endDay=dateSubString[0]+1;
-                var timelineFormatedEndDate= dateSubString[2]+","+dateSubString[1]+","+endDay;
-                var currentImagePath=currentObject.ImageData
-                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
-                    : null;
-                if(!currentObject.Categories|| !currentObject.Categories.CollectionContent || !currentObject.Categories.CollectionContent.length)
-                    currentMainCategory="NEWS";
-                else currentMainCategory=currentObject.Categories.CollectionContent[0].Title;
-                //-----------------------------begins:Here we get the total number of comments for each update
-                var numberOfComments=0;
-                //-----------------------------ends:Here we get the total number of comments for each update
-                /*var myTimelineData={
-                 "startDate":timelineFormatedStartDate,
-                 "headline":currentTitle,
-                 "text":currentExcerpt,
-                 "tag":currentMainCategory,
-                 "asset":
-                 {
-                 "media":currentImagePath,
-                 "credit":currentAuthor,
-                 "caption":currentTitle
-                 }};*/
-                var myTimelineData={
-                    "startDate":timelineFormatedStartDate,
-                    "headline":currentTitle,
-                    "text":currentExcerpt,
-                    "tag":currentMainCategory,
-                    "asset":
-                    {
-                        "media":currentImagePath,
-                        "thumbnail":currentImagePath,
-                        "credit":currentAuthor,
-                        "caption":currentTitle
-                    }
 
-                };
-
-                wholeTimelineData.timeline.date.push(myTimelineData);
-            }//ends for loop
-            createStoryJS({ type:'timeline',width:'100%',height:'600',source:wholeTimelineData,embed_id:'my-timeline'});
-        })//closes getJSON
-
-    }//if (triggerid=="timelineSection")
+    var $hostDiv = $("#" + currentactive);
+    $hostDiv.addClass("activeSection");
+    var oipController = $hostDiv.data("oip-controller");
+    oipController.ReInitialize();
 }
 
 function editContent_PopulateModal(editEvent) {

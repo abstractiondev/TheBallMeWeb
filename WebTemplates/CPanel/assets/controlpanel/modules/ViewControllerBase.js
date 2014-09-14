@@ -16,6 +16,8 @@ define(["require", "exports"], function(require, exports) {
         };
 
         ViewControllerBase.prototype.Initialize = function (dataUrl) {
+            var _this = this;
+            this.IsInitializing = true;
             this.dataUrl = dataUrl;
             var $hostDiv = $("#" + this.divID);
             $hostDiv.addClass("oip-controller-root");
@@ -45,6 +47,7 @@ define(["require", "exports"], function(require, exports) {
                 if (wnd.OIPActiveDynamicReplace) {
                     wnd.OIPActiveDynamicReplace();
                 }
+                _this.IsInitializing = false;
             });
         };
 
@@ -77,6 +80,8 @@ define(["require", "exports"], function(require, exports) {
         };
 
         ViewControllerBase.prototype.ReInitialize = function () {
+            if (this.IsInitializing)
+                return;
             if (this.$myModals.length > 0) {
                 this.$myModals.remove();
             }
