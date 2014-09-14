@@ -9,7 +9,7 @@
                     <th width="80%">Description</th>
                     <th width="5%">Delete</th>
                 </tr>
-                {#CategoriesWithChildren}
+                {#CategoryList}
                 {!
                 <tr>
                     <td>{>"command_icon.dust" command="EditCategory" command_args="{ID}" icon_class_name="icon-edit" /}</td>
@@ -19,7 +19,7 @@
                 </tr>
                 !}
                 {>"category_rowitem.dust" /}
-                {/CategoriesWithChildren}
+                {/CategoryList}
             </table>
         </div>
     </div>

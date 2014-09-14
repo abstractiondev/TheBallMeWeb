@@ -221,7 +221,11 @@
     tUDG.RegisterDataURL("CATEGORYTREE", function (args) {
         var nodeSummaryContainer = args[0];
         var categoriesWithChildren = AppScripts.Common.ConvertCategoriesFromParentToChildren(nodeSummaryContainer.NodeSourceCategories.CollectionContent);
-        return { CategoriesWithChildren: categoriesWithChildren};
+        var categoryListWithTitleIndented = AppScripts.Common.GetCategoryListWithTitleIndentation(categoriesWithChildren);
+        return {
+            CategoriesWithChildren: categoriesWithChildren,
+            CategoryList : categoryListWithTitleIndented
+        };
     }, [ "../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json" ]);
 
     tUDG.RegisterDataURL("../../AaltoGlobalImpact.OIP/GroupContainer/default.json", function (args) {
@@ -319,7 +323,12 @@
                 return 1;
             return -1;
         });
-        var categoryCollection = args[1][0];
+        var categoryTree = args[1];
+        console.log(JSON.stringify(categoryTree));
+        //var categoryCollection = args[1][0];
+        var categoryCollection = {
+            CollectionContent: categoryTree.CategoryList
+        };
         var commentCollection = args[2][0];
         var binaryFileCollection = args[3][0];
         var linkToContentCollection = args[4][0];
@@ -337,7 +346,8 @@
             GroupContainer: groupContainer
         };
     }, [ "../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json",
+        //"../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json",
+        "CATEGORYTREE",
         "../../AaltoGlobalImpact.OIP/CommentCollection/MasterCollection.json",
         "../../AaltoGlobalImpact.OIP/BinaryFileCollection/MasterCollection.json",
         "../../AaltoGlobalImpact.OIP/LinkToContentCollection/MasterCollection.json",

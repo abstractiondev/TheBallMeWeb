@@ -122,7 +122,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 for (var i in me.currData.Categories.CollectionContent) {
                     var categoryObject = me.currData.Categories.CollectionContent[i];
                     var categoryID = categoryObject.ID;
-                    var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                    var categoryTitle = categoryObject.UI_TitleIndented;
                     categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
                 }
                 var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
@@ -169,7 +169,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             for (var i in this.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
                 var categoryID = categoryObject.ID;
-                var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                var categoryTitle = categoryObject.UI_TitleIndented;
                 categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
             }
             var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
@@ -287,7 +287,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 for (var i in me.currData.Categories.CollectionContent) {
                     var categoryObject = me.currData.Categories.CollectionContent[i];
                     var categoryID = categoryObject.ID;
-                    var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                    var categoryTitle = categoryObject.UI_TitleIndented;
                     categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
                 }
                 var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
@@ -329,7 +329,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             for (var i in this.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
                 var categoryID = categoryObject.ID;
-                var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                var categoryTitle = categoryObject.UI_TitleIndented;
                 categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
             }
             var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
@@ -484,7 +484,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             for (var i in this.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
                 var categoryID = categoryObject.ID;
-                var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                var categoryTitle = categoryObject.UI_TitleIndented;
                 categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
             }
             var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
@@ -558,7 +558,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 for (var i in me.currData.Categories.CollectionContent) {
                     var categoryObject = me.currData.Categories.CollectionContent[i];
                     var categoryID = categoryObject.ID;
-                    var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                    var categoryTitle = categoryObject.UI_TitleIndented;
                     categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
                 }
                 var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");

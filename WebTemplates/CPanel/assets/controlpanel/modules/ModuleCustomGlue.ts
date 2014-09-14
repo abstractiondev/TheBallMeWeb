@@ -5,6 +5,11 @@
 
 module AppScripts {
     export class Common {
+        static repeatStr(str:string, num:number ) : string
+        {
+            return new Array(num + 1).join(str);
+        }
+
         public static ConvertCategoriesFromParentToChildren(categoryArray:any) {
             var map = {};
             map["-"] = {
@@ -33,6 +38,25 @@ module AppScripts {
             return map["-"].UI_ChildrenCategories;
         }
 
-
+        public static GetCategoryListWithTitleIndentation(categoryList:any[], currDept?:number) : any[] {
+            var resultList = [];
+            if(!currDept)
+                currDept = 0;
+            var currIndentString = Common.repeatStr("&nbsp;", currDept * 3);
+            var marginIndentation = currDept * 30;
+            for(var i = 0; i < categoryList.length; i++) {
+                var currCat = categoryList[i];
+                currCat.UI_TitleIndented = currIndentString + currCat.Title;
+                currCat.UI_MarginIndented = marginIndentation;
+                resultList.push(currCat);
+                var children = currCat.UI_ChildrenCategories;
+                if(children.length > 0)
+                {
+                    var childrenResult = Common.GetCategoryListWithTitleIndentation(children, currDept + 1);
+                    resultList = resultList.concat(childrenResult);
+                }
+            }
+            return resultList;
+        }
     }
 }

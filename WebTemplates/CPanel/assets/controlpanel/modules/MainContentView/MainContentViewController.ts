@@ -125,7 +125,7 @@ class MainContentViewController extends ViewControllerBase {
             for (var i in me.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
                 var categoryID = categoryObject.ID;
-                var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                var categoryTitle = categoryObject.UI_TitleIndented;
                 categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
             }//ends FOR loop
             var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
@@ -172,7 +172,7 @@ class MainContentViewController extends ViewControllerBase {
         for (var i in this.currData.Categories.CollectionContent) {
             var categoryObject = me.currData.Categories.CollectionContent[i];
             var categoryID = categoryObject.ID;
-            var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+            var categoryTitle = categoryObject.UI_TitleIndented;
             categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
         }
         var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
@@ -293,7 +293,7 @@ class MainContentViewController extends ViewControllerBase {
             for (var i in me.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
                 var categoryID = categoryObject.ID;
-                var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                var categoryTitle = categoryObject.UI_TitleIndented;
                 categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
             }//ends FOR loop
             var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
@@ -335,7 +335,7 @@ class MainContentViewController extends ViewControllerBase {
         for (var i in this.currData.Categories.CollectionContent) {
             var categoryObject = me.currData.Categories.CollectionContent[i];
             var categoryID = categoryObject.ID;
-            var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+            var categoryTitle = categoryObject.UI_TitleIndented;
             categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
         }
         var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
@@ -495,7 +495,7 @@ class MainContentViewController extends ViewControllerBase {
         for (var i in this.currData.Categories.CollectionContent) {
             var categoryObject = me.currData.Categories.CollectionContent[i];
             var categoryID = categoryObject.ID;
-            var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+            var categoryTitle = categoryObject.UI_TitleIndented;
             categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
         }//ends FOR loop
         var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
@@ -568,7 +568,7 @@ class MainContentViewController extends ViewControllerBase {
             for (var i in me.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
                 var categoryID = categoryObject.ID;
-                var categoryTitle = categoryObject.Title ? categoryObject.Title : "";
+                var categoryTitle = categoryObject.UI_TitleIndented;
                 categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
             }//ends FOR loop
             var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
