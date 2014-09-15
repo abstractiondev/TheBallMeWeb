@@ -182,6 +182,8 @@
             var prefix;
             var suffix = "_DefaultView.phtml";
             switch (type) {
+                case "textcontent":
+                    return "../../AaltoGlobalImpact.OIP/TextContent/" + id + ".json";
                 case "news":
                     prefix = "AaltoGlobalImpact.OIP.Blog_";
                     break;
@@ -200,7 +202,7 @@
         if (typePar != null && idPar != null) {
             var oipArticleUrl = getOIParticleUrl(typePar, idPar);
             OipOpenArticle(oipArticleUrl);
-            window.history.pushState("string", "Aalto Global Impact", "oip-layout-landing.phtml");
+            window.history.pushState("string", "Schools The Ball", "index.html");
         }
     });
 
