@@ -11,6 +11,7 @@ import IViewController = require("IViewController");
 
 class ViewControllerBase implements IViewController{
 
+    StateContent:any = {};
     public dataUrl:string;
     $initialized:JQueryPromise<any>;
     $initialDeferred:JQueryDeferred<any>;
@@ -22,7 +23,10 @@ class ViewControllerBase implements IViewController{
         return obj.constructor;
     }
 
+    private IsInitializing:boolean;
+
     public Initialize(dataUrl:string) {
+        this.IsInitializing = true;
         this.dataUrl = dataUrl;
         var $hostDiv = $("#" + this.divID);
         $hostDiv.addClass("oip-controller-root");
@@ -50,6 +54,10 @@ class ViewControllerBase implements IViewController{
             $me.find(".oip-modalbutton").on("click", wnd.ControllerCommon.ModalButtonClick);
             me.$myModals = $me.find(".oip-controller-modal");
             me.$myModals.data("oip-controller-instance", me);
+            if(wnd.OIPActiveDynamicReplace) {
+                wnd.OIPActiveDynamicReplace();
+            }
+            this.IsInitializing = false;
         });
     }
 
@@ -83,12 +91,15 @@ class ViewControllerBase implements IViewController{
     }
 
     ReInitialize() {
+        if(this.IsInitializing)
+            return;
         if(this.$myModals.length > 0) {
             this.$myModals.remove();
         }
         //var $hostDiv = $("#" + this.divID);
         var constructor = this.getClassConstructor(this);
         var vc:ViewControllerBase = new constructor(this.divID, this.currOPM, this.currUDG);
+        vc.StateContent = this.StateContent;
         vc.Initialize(this.dataUrl);
         vc.VisibleTemplateRender();
     }

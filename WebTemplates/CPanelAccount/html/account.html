@@ -170,7 +170,10 @@
         var sectionItemID = $(this).attr("data-section-id");
         var currentactive = $(".activeSection").attr("id");
         $("#" + currentactive).removeClass("activeSection");
-        $("#" + sectionItemID).addClass("activeSection");
+        var $hostDiv = $("#" + sectionItemID);
+        $hostDiv.addClass("activeSection");
+        var oipController = $hostDiv.data("oip-controller");
+        oipController.ReInitialize();
     };
 
     $(".offCanvasMenuAnchor").on('click', switchActiveCanvasSection);
