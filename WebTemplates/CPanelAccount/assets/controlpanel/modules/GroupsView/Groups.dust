@@ -1,3 +1,6 @@
+{?GroupCreationRequirementMessage}
+    <h4>{GroupCreationRequirementMessage}</h4>
+{:else}
 <div class="row">
     <div class="small-12 medium-6 large-6 columns">
         <h4 class="boldieText">My Groups</h4>
@@ -65,8 +68,9 @@
             </table>
         </div>
     </div>
-    <div class="small-12 medium-6 large-6 columns show-for-medium-up"></div>
-    {>"command_button.dust" command="OpenCreateNewGroupModal" button_label="Create New Group" style="float:right !important;" /}
+    <div class="small-12 medium-6 large-6 columns show-for-medium-up">
+        {>"command_button.dust" command="OpenCreateNewGroupModal" button_label="Create New Group" style="float:right !important;" /}
+    </div>
 </div>
 
 {>"modal_begin.dust" modal_name="CreateNewGroupModal" /}
@@ -85,3 +89,5 @@
 </div>
 
 {>"modal_end.dust" /}
+
+{/GroupCreationRequirementMessage}

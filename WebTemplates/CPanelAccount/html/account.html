@@ -250,6 +250,8 @@
     tUDG.RegisterDataURL("GROUPS", function(args) {
         var accountContainer = args[0];
         var accountProfile = accountContainer.AccountModule.Profile;
+        var hasAnyEmails = accountContainer.AccountModule.Security.EmailCollection.CollectionContent.length > 0;
+        //hasAnyEmails = false;
         var defaultGroup = null;
         var roles = accountContainer.AccountModule.Roles;
         var defaultGroupID = accountProfile.SimplifiedAccountGroupID;
@@ -261,7 +263,9 @@
                 return item.URL.substr(10,36) === defaultGroupID;
             })[0];
         }
+        var groupCreationRequirementMessage = hasAnyEmails ? null : "You have to register at least one email address at Personal Security Section (top left menu) before being able to collaborate in groups.";
         return {
+            "GroupCreationRequirementMessage": groupCreationRequirementMessage,
             "DefaultGroup": defaultGroup,
             "Roles": accountContainer.AccountModule.Roles
         };
