@@ -87,8 +87,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             jq.blockUI({ message: '<h2>Creating new group...</h2>' });
             me.currOPM.ExecuteOperationWithForm("CreateGroupWithTemplates", {
                 GroupName: groupName,
-                TemplateNameList: templateNameList,
-                RedirectUrlAfterCreation: redirectUrlAfterCreation
+                TemplateNameList: templateNameList
             }, function (responseData) {
                 setTimeout(function () {
                     jq.unblockUI();

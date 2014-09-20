@@ -37,6 +37,7 @@
 
     <!-- other javascript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../assets/js/oipdynamicreplacer.js"></script>
     <!-- or get a fresh copy at <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
     <!-- get a fresh live version from <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>-->
     <script src="../assets/js/leaflet.js"></script>
@@ -63,11 +64,9 @@
 
 <div class="navbar navbar-static-top">
     <div>
-        <div class="subnavbar-inner" style="background-color">
+        <div class="subnavbar-inner" style="background-color:#d3d3d3">
             <div id="logocontainer" class="container logo-only">
             </div>
-        </div>
-        <div class="container powered-by">
         </div>
     </div>
 </div>
@@ -412,7 +411,7 @@
     <div class="container">
         <div class="span12" style="text-align: center;font-weight: 200;margin-bottom: 20px;color:black">
             <!--<p class="pull-right"><a href="#">Back to top</a></p>-->
-            <p style="text-align: center;font-style: oblique;font-size: 24px;font-family: Georgia">Your partner in digital business</p>
+            <p style="text-align: center;font-style: oblique;font-size: 24px;font-family: Georgia" id="PoweredBy">Your partner in digital business</p>
             <div style="text-align: center; color: lightseagreen"><a href="" style="color: lightseagreen"></a></div>
         </div>
     </div>
@@ -470,7 +469,10 @@
                  var rendered = markdown.Transform(jsonContent.Body.replaceAll("javascript:", ""));
                  jsonContent.BodyRendered = rendered;
                  */
-                ReplaceWithMarkdownRender(jsonContent, "Body", "BodyRendered");
+                if(jsonContent.RawHtmlContent)
+                    jsonContent.BodyRendered = jsonContent.RawHtmlContent;
+                else
+                    ReplaceWithMarkdownRender(jsonContent, "Body", "BodyRendered");
                 OipShowTextContentInDetailPaneWithClose(jsonContent);
                 $(document).scrollTop(0);
             }
