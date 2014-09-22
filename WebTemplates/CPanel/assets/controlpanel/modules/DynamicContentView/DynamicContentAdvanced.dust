@@ -25,7 +25,7 @@
 {#DynamicContents}
 <h3>Dynamic Content Items</h3>
 <table>
-    <tr><th colspan="2">Act</th><th>Page</th><th>Name</th><th>Query</th><th>Description</th><th>Del</th></tr>
+    <tr><th colspan="2">Act</th><th>Page</th><th>Name</th><th>Query</th><th>EditType</th><th>Description</th><th>Del</th></tr>
     {#CollectionContent}
         <tr class="oiphover-showlocation" data-pagelocation="{PageLocation}">
             <td>{>"command_icon.dust" command="EditDynamicContent" command_args="{ID}" icon_class_name="icon-edit" /}</td>
@@ -33,6 +33,7 @@
             <td>{HostName}</td>
             <td>{ContentName}</td>
             <td>{ElementQuery}</td>
+            <td>{EditType}</td>
             <td>{Description}</td>
             <td>{>"objectdeleteicon.dust" object_delete_title="{ContentName}" /}</td>
         </tr>

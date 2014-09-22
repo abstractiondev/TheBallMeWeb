@@ -66,7 +66,8 @@
                         <option>RAWLINE</option>
                         <option>RAWMULTILINE</option>
                         <option>RICHTEXT</option>
-                        <option>IMAGE</option>
+                        <option>IMAGESMALL</option>
+                        <option>IMAGELARGE</option>
                     </select>
                 </label>
             </div>
@@ -131,7 +132,8 @@
                         <option>RAWLINE</option>
                         <option>RAWMULTILINE</option>
                         <option>RICHTEXT</option>
-                        <option>IMAGE</option>
+                        <option>IMAGESMALL</option>
+                        <option>IMAGELARGE</option>
                     </select>
                 </label>
             </div>

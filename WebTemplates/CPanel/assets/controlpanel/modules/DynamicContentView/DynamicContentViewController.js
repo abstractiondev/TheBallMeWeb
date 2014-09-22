@@ -424,15 +424,19 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var $hostSection = $source.closest(".oipdynamiccontenteditorsection");
             var $editControls = $hostSection.find(".oipdynamiceditinput");
             var contentsToSave = [];
+            var imageItemsArray = [];
             $editControls.each(function () {
                 var $control = $(this);
                 var currID = $control.attr("data-contentid");
                 var currContent = me.getObjectByID(me.currData.DynamicContents.CollectionContent, currID);
                 if (!currContent)
                     throw "Object not found";
+                var objectRelativeLocation = currContent.RelativeLocation;
+                var eTag = currContent.MasterETag;
                 var isChanged = false;
                 var controlValue = $control.val();
                 var propertyName = null;
+                var isImage = false;
                 switch (currContent.EditType) {
                     case "RICHTEXT":
                         propertyName = "ENC.Content";
@@ -443,6 +447,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                     case "":
                         propertyName = "ENC.RawContent";
                         isChanged = controlValue != currContent.RawContent;
+                        break;
+                    case "IMAGESMALL":
+                    case "IMAGELARGE":
+                        isImage = true;
                 }
                 if (isChanged) {
                     var encodedValue = $('<div/>').text(controlValue).html();
@@ -453,58 +461,99 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         "SaveData": saveData
                     });
                 }
+                if (isImage) {
+                    imageItemsArray.push({
+                        "ContentObject": currContent
+                    });
+                }
             });
-            if (contentsToSave.length > 0) {
-                me.SaveAllContents(contentsToSave);
+            if (contentsToSave.length > 0 || imageItemsArray.length > 0) {
+                me.SaveAllContents(contentsToSave, imageItemsArray);
             }
         };
 
         //ActivelySavingContent = [];
-        DynamicContentViewController.prototype.SaveAllContents = function (contentsToSave) {
+        DynamicContentViewController.prototype.SaveAllContents = function (contentsToSave, imageItemsArray) {
             var me = this;
 
             //me.ActivelySavingContent = contentsToSave;
             var jq = $;
             jq.blockUI({ message: "<h2>Saving " + contentsToSave.length + " objects...</h2>" });
-            me.SaveNextActiveUntilNone(contentsToSave);
+            me.SaveNextActiveUntilNone(contentsToSave, imageItemsArray);
         };
 
-        DynamicContentViewController.prototype.SaveNextActiveUntilNone = function (contentsToSave) {
+        DynamicContentViewController.prototype.SaveNextActiveUntilNone = function (contentsToSave, imageItemsArray) {
             var me = this;
             var jq = $;
             if (contentsToSave.length == 0) {
-                jq.blockUI({ message: "<h2>Preparing to reload contents...</h2>" });
-                setTimeout(function () {
-                    jq.unblockUI();
-                    me.ReInitialize();
-                }, 3500);
-                return;
+                if (imageItemsArray.length == 0) {
+                    jq.blockUI({ message: "<h2>Preparing to reload contents...</h2>" });
+                    setTimeout(function () {
+                        jq.unblockUI();
+                        me.ReInitialize();
+                    }, 3500);
+                    return;
+                }
+                console.log("Image saving to check: " + imageItemsArray.length);
+                var imageInfo = imageItemsArray.pop();
+                var contentObject = imageInfo.ContentObject;
+                var objectID = contentObject.ID;
+                var etag = contentObject.MasterETag;
+                var title = contentObject.Title;
+                var relativeLocation = contentObject.RelativeLocation;
+
+                saveData = {};
+                me.currOPM.AppendBinaryFileValuesToData(objectID, saveData, function () {
+                    if ($.isEmptyObject(saveData) == false) {
+                        jq.blockUI({ message: "<h2>Saving image... " + title + "</h2>" });
+                        me.currOPM.SaveIndependentObject(objectID, relativeLocation, etag, saveData, function () {
+                            console.log("Saved succesfully: " + title);
+                            setTimeout(function () {
+                                me.SaveNextActiveUntilNone(contentsToSave, imageItemsArray);
+                            }, 10);
+                        }, function (jqXhr, textStatus, errorThrown) {
+                            var errorObject = JSON.parse(jqXhr.responseText);
+
+                            //var wnd:any = window;
+                            //wnd.DisplayErrorDialog("Error", errorObject.ErrorType, errorObject.ErrorText);
+                            console.log("Error on save: " + title + " error: " + errorObject.ErrorType + " errortext: " + errorObject.ErrorText);
+                            setTimeout(function () {
+                                me.SaveNextActiveUntilNone(contentsToSave, imageItemsArray);
+                            }, 10);
+                        });
+                    } else {
+                        setTimeout(function () {
+                            me.SaveNextActiveUntilNone(contentsToSave, imageItemsArray);
+                        }, 10);
+                    }
+                });
+            } else {
+                console.log("Saving todo: " + contentsToSave.length);
+                var currentToSave = contentsToSave.pop();
+                var contentObject = currentToSave.ContentObject;
+                var saveData = currentToSave.SaveData;
+                var objectID = contentObject.ID;
+                var etag = contentObject.MasterETag;
+                var title = contentObject.Title;
+                var relativeLocation = contentObject.RelativeLocation;
+
+                jq.blockUI({ message: "<h2>Saving " + contentObject.Title + " </h2>" });
+                me.currOPM.SaveIndependentObject(objectID, relativeLocation, etag, saveData, function () {
+                    console.log("Saved succesfully: " + title);
+                    setTimeout(function () {
+                        me.SaveNextActiveUntilNone(contentsToSave, imageItemsArray);
+                    }, 10);
+                }, function (jqXhr, textStatus, errorThrown) {
+                    var errorObject = JSON.parse(jqXhr.responseText);
+
+                    //var wnd:any = window;
+                    //wnd.DisplayErrorDialog("Error", errorObject.ErrorType, errorObject.ErrorText);
+                    console.log("Error on save: " + title + " error: " + errorObject.ErrorType + " errortext: " + errorObject.ErrorText);
+                    setTimeout(function () {
+                        me.SaveNextActiveUntilNone(contentsToSave, imageItemsArray);
+                    }, 10);
+                });
             }
-            console.log("Saving todo: " + contentsToSave.length);
-            var currentToSave = contentsToSave.pop();
-            var contentObject = currentToSave.ContentObject;
-            var saveData = currentToSave.SaveData;
-            var objectID = contentObject.ID;
-            var etag = contentObject.MasterETag;
-            var title = contentObject.Title;
-            var relativeLocation = contentObject.RelativeLocation;
-
-            jq.blockUI({ message: "<h2>Saving " + contentObject.Title + " </h2>" });
-            me.currOPM.SaveIndependentObject(objectID, relativeLocation, etag, saveData, function () {
-                console.log("Saved succesfully: " + title);
-                setTimeout(function () {
-                    me.SaveNextActiveUntilNone(contentsToSave);
-                }, 10);
-            }, function (jqXhr, textStatus, errorThrown) {
-                var errorObject = JSON.parse(jqXhr.responseText);
-
-                //var wnd:any = window;
-                //wnd.DisplayErrorDialog("Error", errorObject.ErrorType, errorObject.ErrorText);
-                console.log("Error on save: " + title + " error: " + errorObject.ErrorType + " errortext: " + errorObject.ErrorText);
-                setTimeout(function () {
-                    me.SaveNextActiveUntilNone(contentsToSave);
-                }, 10);
-            });
         };
         return DynamicContentViewController;
     })(ViewControllerBase);

@@ -24,11 +24,21 @@
                         {RawContent}
                     </textarea>
                 {/eq}
-                {@eq value="IMAGE"}
-                    <a style="margin: 5px" class="button small oipfile" data-oipfile-buttontype="select" data-oipfile-filegroupid="Image{ID}">Select</a>
-                    <a style="margin: 5px" class="button small oipfile" data-oipfile-buttontype="remove" data-oipfile-filegroupid="Image{ID}">Remove</a>
+                {@eq value="IMAGESMALL"}
                     <br>
-                    <img width="128px" height="128px" class="oipfile" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="Image{ID}"
+                    <a style="padding: 7px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="select" data-oipfile-filegroupid="Image{ID}">Select</a>
+                    <a style="padding: 7px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="remove" data-oipfile-filegroupid="Image{ID}">Remove</a>
+                    <br>
+                    <img style="height: 128px" class="oipfile" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="Image{ID}"
+                         data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg">
+                    <input type="file" data-contentid="{ID}" class="oipdynamiceditinput oipdynamicedit-imageinput" name="ImageDataFileInput{ID}">
+                {/eq}
+                {@eq value="IMAGELARGE"}
+                    <br>
+                    <a style="padding: 10px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="select" data-oipfile-filegroupid="Image{ID}">Select</a>
+                    <a style="padding: 10px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="remove" data-oipfile-filegroupid="Image{ID}">Remove</a>
+                    <br>
+                    <img style="height: 512px" class="oipfile" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="Image{ID}"
                          data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg">
                     <input type="file" data-contentid="{ID}" class="oipdynamiceditinput oipdynamicedit-imageinput" name="ImageDataFileInput{ID}">
                 {/eq}
