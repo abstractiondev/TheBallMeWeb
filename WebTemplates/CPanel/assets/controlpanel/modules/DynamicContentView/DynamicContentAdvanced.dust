@@ -10,8 +10,8 @@
                 <td>{GroupHeader}</td>
                 <td>{SortValue}</td>
                 <td>{PageLocation}</td>
-                <td>{ContentItemNames}</td>
-                <td class="oipcanvas-showlocation" data-pagelocation="{PageLocation}" style="border: solid;border-color:lightslategray;padding: 0px"><canvas width="160" height="120" /></td>
+                <td><div style="word-wrap: break-word; max-width: 300px">{ContentItemNames}</div></td>
+                <td class="oipcanvas-showlocation" data-pagelocation="{PageLocation}"><canvas style="border: solid;border-color:lightslategray;padding: 0px" width="160" height="120"></canvas></td>
                 <td>{>"objectdeleteicon.dust" object_delete_title="{ContentName}" /}</td>
             </tr>
         {/CollectionContent}

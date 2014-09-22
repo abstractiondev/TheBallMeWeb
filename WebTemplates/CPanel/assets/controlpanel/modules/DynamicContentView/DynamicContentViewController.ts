@@ -57,7 +57,24 @@ class DynamicContentViewController extends ViewControllerBase {
                         autoresize: false,
                         buttons: ['bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'image', 'video', "link"]
                         });
+                    var $imageDatas:any = $hostDiv.find(".oipdynamicedit-imageinput");
+                    $imageDatas.each(function() {
+                        var currentID = $(this).attr("data-contentid");
+                        var currentObject = me.getObjectByID(me.currData.DynamicContents.CollectionContent, currentID);
+                        var imageSizeString = "128";
+                        var currentImagePath = currentObject.ImageData
+                            ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
+                            : null;
+                        // Initiate binary file elements for image
+                        var noImageUrl = "../assets/controlpanel/images/lightGray.jpg";
 
+                        me.currOPM.InitiateBinaryFileElementsAroundInput($(this), currentID, "ImageData", currentImagePath, noImageUrl, "Image" + currentID);
+                    });
+                    /*
+                     <input type="file" data-contentid="{ID}" data-oipfile-filegroupid="ImageData{ID}"
+                     class="oipdynamiceditinput oipdynamicedit-imageinput" name="ImageDataFileInput{ID}">
+
+                     */
                     me.ControllerInitializeDone();
                 });
             });

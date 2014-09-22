@@ -8,7 +8,7 @@
             <div><label>Group Header<input type="text" name="GroupHeader" /></label></div>
             <div><label>Sort Value<input type="text" name="SortValue" /></label></div>
             <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
-            <div><label>Content Item Names<textarea rows="3" name="ContentItemNames" /></label></div>
+            <div><label>Content Item Names<textarea rows="6" name="ContentItemNames" /></label></div>
         </div>
     </div>
 </div>
@@ -35,7 +35,7 @@
             <div><label>Group Header<input type="text" name="GroupHeader" /></label></div>
             <div><label>Sort Value<input type="text" name="SortValue" /></label></div>
             <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
-            <div><label>Content Item Names<textarea rows="3" name="ContentItemNames" /></label></div>
+            <div><label>Content Item Names<textarea rows="6" name="ContentItemNames" /></label></div>
         </div>
     </div>
 </div>
@@ -59,7 +59,17 @@
             <div><label>Page<input type="text" name="HostName" /></label></div>
             <div><label>Content Name<input type="text" name="ContentName" /></label></div>
             <div><label>Element Query<input type="text" name="ElementQuery" /></label></div>
-            <div><label>Edit Type<input type="text" name="EditType" /></label></div>
+            {!<div><label>Edit Type<input type="text" name="EditType" /></label></div>!}
+            <div>
+                <label>Edit Type
+                    <select name="EditType">
+                        <option>RAWLINE</option>
+                        <option>RAWMULTILINE</option>
+                        <option>RICHTEXT</option>
+                        <option>IMAGE</option>
+                    </select>
+                </label>
+            </div>
             <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
         </div>
     </div>
@@ -77,7 +87,7 @@
             </div>
             <div class="RawContent-field">
                 <label>RawContent
-                    <textarea rows="3" name="RawContent" />
+                    <textarea rows="6" name="RawContent" />
                 </label>
             </div>
             <div class="ApplyActively-Field">
@@ -114,7 +124,17 @@
             <div><label>Page<input type="text" name="HostName" /></label></div>
             <div><label>Content Name<input type="text" name="ContentName" /></label></div>
             <div><label>Element Query<input type="text" name="ElementQuery" /></label></div>
-            <div><label>Edit Type<input type="text" name="EditType" /></label></div>
+            {!<div><label>Edit Type<input type="text" name="EditType" /></label></div>!}
+            <div>
+                <label>Edit Type
+                    <select name="EditType">
+                        <option>RAWLINE</option>
+                        <option>RAWMULTILINE</option>
+                        <option>RICHTEXT</option>
+                        <option>IMAGE</option>
+                    </select>
+                </label>
+            </div>
             <div><label>Location on Page<input type="text" name="PageLocation" /></label></div>
         </div>
     </div>
@@ -132,7 +152,7 @@
             </div>
             <div class="RawContent-field">
                 <label>RawContent
-                    <textarea rows="3" name="RawContent" />
+                    <textarea rows="6" name="RawContent" />
                 </label>
             </div>
             <div class="ApplyActively-Field">
