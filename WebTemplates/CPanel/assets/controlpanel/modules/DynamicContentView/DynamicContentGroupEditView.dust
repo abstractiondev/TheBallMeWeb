@@ -12,7 +12,8 @@
                               title="{Description}" class="oipdynamiceditinput oipdynamicedit-richtextarea"
                               style="height: 75px;">
                         {Content}
-                              </textarea>
+                    </textarea>
+                    <br>
                 {/eq}
                 {@eq value="RAWLINE"}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
@@ -25,7 +26,6 @@
                     </textarea>
                 {/eq}
                 {@eq value="IMAGESMALL"}
-                    <br>
                     <a style="padding: 7px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="select" data-oipfile-filegroupid="Image{ID}">Select</a>
                     <a style="padding: 7px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="remove" data-oipfile-filegroupid="Image{ID}">Remove</a>
                     <br>
@@ -41,13 +41,15 @@
                     <img style="height: 512px" class="oipfile" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="Image{ID}"
                          data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg">
                     <input type="file" data-contentid="{ID}" class="oipdynamiceditinput oipdynamicedit-imageinput" name="ImageDataFileInput{ID}">
+                    <br>
+                    <br>
+                    <br>
                 {/eq}
                 {@eq value=""}
                     <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
                            title="{Description}" class="oipdynamiceditinput oipdynamicedit-inputtext" value="{RawContent}"/>
                 {/eq}
             {/select}
-
         </label>
     </div>
     {/Items}
