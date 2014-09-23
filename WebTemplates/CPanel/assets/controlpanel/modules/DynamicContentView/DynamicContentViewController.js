@@ -43,6 +43,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         $hostDiv.html(output);
                         if (me.StateContent.LastActiveSection)
                             me.ActivateSection(me.StateContent.LastActiveSection);
+                        else
+                            me.$getSelectedFieldsWithin(".oipdynamiccontenteditorsection").hide();
                         $hostDiv.find(".oiphover-showlocation").hover(function () {
                             var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview");
                             var canvas = $canvas[0];

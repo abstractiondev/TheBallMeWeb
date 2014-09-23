@@ -37,6 +37,8 @@ class DynamicContentViewController extends ViewControllerBase {
                     $hostDiv.html(output);
                     if(me.StateContent.LastActiveSection)
                         me.ActivateSection(me.StateContent.LastActiveSection);
+                    else
+                        me.$getSelectedFieldsWithin(".oipdynamiccontenteditorsection").hide();
                     $hostDiv.find(".oiphover-showlocation").hover(function() {
                         var $canvas = $hostDiv.find("canvas.oipdynamiccontentlocationview")
                         var canvas = <HTMLCanvasElement> $canvas[0];
