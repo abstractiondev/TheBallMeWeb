@@ -67,7 +67,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         $imageDatas.each(function () {
                             var currentID = $(this).attr("data-contentid");
                             var currentObject = me.getObjectByID(me.currData.DynamicContents.CollectionContent, currentID);
-                            var imageSizeString = "128";
+                            var imageSizeString;
+                            if (currentObject.EditType == "IMAGELARGE")
+                                imageSizeString = "256";
+                            else
+                                imageSizeString = "128";
                             var currentImagePath = currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
 
                             // Initiate binary file elements for image
@@ -468,6 +472,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 }
             });
             if (contentsToSave.length > 0 || imageItemsArray.length > 0) {
+                contentsToSave = contentsToSave.reverse();
+                imageItemsArray = imageItemsArray.reverse();
                 me.SaveAllContents(contentsToSave, imageItemsArray);
             }
         };

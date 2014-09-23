@@ -61,7 +61,11 @@ class DynamicContentViewController extends ViewControllerBase {
                     $imageDatas.each(function() {
                         var currentID = $(this).attr("data-contentid");
                         var currentObject = me.getObjectByID(me.currData.DynamicContents.CollectionContent, currentID);
-                        var imageSizeString = "128";
+                        var imageSizeString:string;
+                        if(currentObject.EditType == "IMAGELARGE")
+                            imageSizeString = "256";
+                        else
+                            imageSizeString = "128";
                         var currentImagePath = currentObject.ImageData
                             ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
                             : null;
@@ -464,6 +468,8 @@ class DynamicContentViewController extends ViewControllerBase {
             }
         });
         if(contentsToSave.length > 0 || imageItemsArray.length > 0) {
+            contentsToSave = contentsToSave.reverse();
+            imageItemsArray = imageItemsArray.reverse();
             me.SaveAllContents(contentsToSave, imageItemsArray);
         }
     }
