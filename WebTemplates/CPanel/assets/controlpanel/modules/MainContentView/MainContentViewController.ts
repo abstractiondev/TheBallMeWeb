@@ -626,7 +626,12 @@ class MainContentViewController extends ViewControllerBase {
             rawbody = rawbody.replace(new RegExp("div", "g"), 'p');
             rawbody = rawbody.replace(new RegExp("<span>", "g"), '');
             rawbody = rawbody.replace(new RegExp("</span>", "g"), '');
-            var currentArticleBodyVHugo = jq.htmlClean(rawbody, {format: true});
+            var currentArticleBodyVHugo = jq.htmlClean(rawbody,
+                {
+                    removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike", "u"],
+                    format: true
+                });
+            //var currentArticleBodyVHugo = rawbody;
             //ends cleaning the "old" articles with markdown and extra styling
             var textarea = $("<textarea name='Content' style='min-height: 300px;'>");
             var $TextAreaDivHolder = me.$getNamedFieldWithinModal($modal, "TextAreaDivHolder");
@@ -818,7 +823,11 @@ class MainContentViewController extends ViewControllerBase {
 
             var jq:any = $;
 
-            var currentArticleBodyVHugo = jq.htmlClean(rawbody, {format: true});
+            var currentArticleBodyVHugo = jq.htmlClean(rawbody, {
+                removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike", "u"],
+                format: true
+            });
+            //var currentArticleBodyVHugo = rawbody;
             //ends cleaning the "old" articles with markdown and extra styling
 
             var $modalTitle = me.$getNamedFieldWithinModal($modal, "Title");
