@@ -2,17 +2,9 @@
 <div class="filter-box">
         <button type="button" class="btn btn-filter" data-toggle="collapse" data-target=".isotope-sort">Filter</button>
         <ul class="isotope-sort categories">
-            {!
-            <li class="isotope-sort-item"><a href="#" id="TileDefaultFilter" class="filter badge all active " data-filter-value=".nodetile">All</a></li>
-            <li class="isotope-sort-item"><a href="#"  class="filter badge catStories" data-filter-value=".catStories">Stories</a></li>
-            <li class="isotope-sort-item"><a href="#"  class="filter badge catProjects" data-filter-value=".catProjects">Projects</a></li>
-            <li class="isotope-sort-item"><a href="#"  class="filter badge catProductsAndSolutions" data-filter-value=".catProductsAndSolutions">Products And Solutions</a></li>
-            <li class="isotope-sort-item"><a href="#"  class="filter badge catMaps" data-filter-value=".Maps">Maps</a></li>
-            <li class="isotope-sort-item"><a href="#"  class="filter badge catAbout" data-filter-value=".catAbout">About</a></li>
-            !}
-            <li class="isotope-sort-item"><a href="#" class="filter badge active " style="color: black;font-size:medium" data-filter-value=".nodetile"><i class="icon-home"></i></a></li>
+            <li class="isotope-sort-item"><a href="#" class="filter badge active " style="color: black;font-size: large" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a></li>
             {#RootCategories}
-                <li class="isotope-sort-item"><a href="#"  class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}; font-size: medium"
+                <li class="isotope-sort-item"><a href="#"  class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}; font-size: large"
                                                  data-filter-value=".{CategoryName}">{Title}</a></li>
             {/RootCategories}
         </ul>
@@ -52,92 +44,73 @@
     }
 </style>
     <div id="container">
-    {#Nodes}
-    <div class=""><!-- three_col four_col two_col -->
-        {#CollectionContent}
-        <div class="nodetile {#Categories}{CategoryName} {/Categories}">
-            {?ImageBaseUrl}
-            <div class="tileimagecontainer">
-            {?IsCategoryFilteringNode}
-                <a class="hover filter" href="#" data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">
-                    <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                </a>
-            {:else}
-                {@eq key=TechnicalSource value="LINKTOCONTENT"}
-                    <a class="hover" href="{ActualContentUrl}">
-                        <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                    </a>
-                {:else}
-                    {@eq key=TechnicalSource value="IMAGE"}
-                        <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                    {:else}
-                        <a class="hover oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">
-                            <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                        </a>
-                    {/eq}
-                {/eq}
-            {/IsCategoryFilteringNode}
+        {#Nodes}
+            <div class=""><!-- three_col four_col two_col -->
+                {#CollectionContent}
+                    <div class="nodetile {?Categories}{#Categories}{CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
+                        {?ImageBaseUrl}
+                            <div class="tileimagecontainer">
+                                {?IsCategoryFilteringNode}
+                                    <a class="hover filter" href="#" data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">
+                                        <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                    </a>
+                                {:else}
+                                    {@eq key=TechnicalSource value="LINKTOCONTENT"}
+                                        <a class="hover" href="{ActualContentUrl}">
+                                            <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                        </a>
+                                    {:else}
+                                        {@eq key=TechnicalSource value="IMAGE"}
+                                            <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                        {:else}
+                                            <a class="hover oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">
+                                                <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                            </a>
+                                        {/eq}
+                                    {/eq}
+                                {/IsCategoryFilteringNode}
+                            </div>
+                        {:else}
+                            {@eq key=TechnicalSource value="EMBEDDEDCONTENT"}
+                                <iframe style="width: 100%;height: 100%" {ActualContentUrl|s}></iframe>
+                            {/eq}
+                        {/ImageBaseUrl}
+                        <div class="entry-summary">
+                            <h4>
+                                {?IsCategoryFilteringNode}
+                                    <a class="filter badge" href="#"
+                                        {#CategoryFilters.CollectionContent}
+                                       style="background-color: {#catFilterTagColor}{/catFilterTagColor}; color:{#catFilterTagTextColor}{/catFilterTagTextColor}"
+                                        {/CategoryFilters.CollectionContent}
+                                       data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">{Title}</a>
+                                {:else}
+                                    {@eq key=TechnicalSource value="LINKTOCONTENT"}
+                                        <a href="{ActualContentUrl}">{Title}</a>
+                                    {:else}
+                                        {@eq key=TechnicalSource value="IMAGE"}
+                                            <div>{Title}</div>
+                                        {:else}
+                                            <a class="oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">{Title}</a>
+                                        {/eq}
+                                    {/eq}
+                                {/IsCategoryFilteringNode}
+                            </h4>
+                            <div class="excerpt">{ExcerptRendered|s}</div>
+                            <p class="w5">
+                                <i class="icon-tag"></i>
+                                {#Categories}
+                                    <a href="#" class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}" data-filter-value=".{CategoryName}">{Title}</a>
+                                {/Categories}
+                                <br>
+                                <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
+                                <br>
+                                <span><i class="icon-calendar"></i></span>{TimestampText}
+                            </p>
+                        </div>
+                    </div>
+                {/CollectionContent}
             </div>
-            {:else}
-                {@eq key=TechnicalSource value="EMBEDDEDCONTENT"}
-                    <iframe style="width: 100%;height: 100%;max-height:200px" {ActualContentUrl|s}></iframe>
-                {/eq}
-            {/ImageBaseUrl}
-            <div class="entry-summary">
-                <h4>
-            {?IsCategoryFilteringNode}
-                <a class="filter badge" href="#"
-                    {#CategoryFilters.CollectionContent}
-                   style="background-color: {#catFilterTagColor}{/catFilterTagColor}; color:{#catFilterTagTextColor}{/catFilterTagTextColor}"
-                    {/CategoryFilters.CollectionContent}
-                   data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">{Title}</a>
-            {:else}
-                {@eq key=TechnicalSource value="LINKTOCONTENT"}
-                    <a href="{ActualContentUrl}">{Title}</a>
-                {:else}
-                    {@eq key=TechnicalSource value="IMAGE"}
-                        <div>{Title}</div>
-                    {:else}
-                        <a class="oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">{Title}</a>
-                    {/eq}
-                {/eq}
-            {/IsCategoryFilteringNode}
-                </h4>
-                <div class="excerpt">{ExcerptRendered|s}</div>
-                <p class="w5">
-                    <i class="icon-tag"></i>
-                    {#Categories}
-                        <a href="#" class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}" data-filter-value=".{CategoryName}">{Title}</a>
-                    {/Categories}
-                    <br>
-                    <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
-                    <br>
-                    <span><i class="icon-calendar"></i></span>{TimestampText}
-                </p>
-            </div>
-        </div>
-        {/CollectionContent}
-        {! No map for now !}
-        {!
-        <li class="nodetile catMaps">
-            <a class="hover mapclicktoview" href="#">
-                <div style="height:220px;width:220px;" id="smalldefaultmap"></div><span class="plus"></span>
-            </a>
-            <div class="entry-summary">
-                <h4><a class="mapclicktoview" href="#">Overview Map of Activities</a></h4>
-                <div>Activities bound to locations on a map.</div>
-                <div><a href="#Maps" class="badge catMaps">Maps</a></div>
-                <!--horizontal description -->
-                <p class="w5">
-                    <a href="#Maps" class="badge maps">Maps</a>
-                    <br>
-                    <i class="icon-group"></i>Various authors
-                </p>
-            </div><!--close entry-summary-->
-        </li>
-        !}
-    </div>
-    {/Nodes}
+        {/Nodes}
     </div>
 </div>
 <script src='../assets/js/jquery.isotope.min.js'></script><!--filter and masonry script-->
@@ -145,10 +118,11 @@
 <script>
     $(function(){
         var $container = $('#container'),
-        filters = {};
+                filters = {};
 
         $container.isotope({
-            itemSelector : '.nodetile'
+            itemSelector : '.nodetile',
+            filter: '.ROOTCATEGORY'
         });
 
         var loaded = 0;
@@ -194,7 +168,7 @@
         {
             $container.imagesLoaded( function() {
                 $container.isotope({
-                    filter : '.nodetile'
+                    filter : '.ROOTCATEGORY'
                 });
             });
         }
@@ -202,27 +176,14 @@
     });
 
     $(function() {
-        OipOpenMap = function () {
-            var htmlContent = '</div><div id="map" style="height:522px;"></div>';
-            /*
-            $("#SelectedContentContainer").html(htmlContent);
-            */
-            OipShowHtmlInDetailPaneWithClose(htmlContent);
-            OipSetupDefaultMap('map', false);
-            $(document).scrollTop(0);
-            return true;
-        };
-        /*
-        $(".oipclicktoview").on('click', OipOpenArticle);
-        */
-        $(".mapclicktoview").on('click', OipOpenMap);
         $("#TileDefaultFilter").trigger('click');
-        OipSetupDefaultMap('smalldefaultmap');
 
         var getOIParticleUrl = function (type, id) {
             var prefix;
             var suffix = "_DefaultView.phtml";
             switch (type) {
+                case "textcontent":
+                    return "../../AaltoGlobalImpact.OIP/TextContent/" + id + ".json";
                 case "news":
                     prefix = "AaltoGlobalImpact.OIP.Blog_";
                     break;
@@ -241,7 +202,7 @@
         if (typePar != null && idPar != null) {
             var oipArticleUrl = getOIParticleUrl(typePar, idPar);
             OipOpenArticle(oipArticleUrl);
-            window.history.pushState("string", "Aalto Global Impact", "oip-layout-landing.phtml");
+            window.history.pushState("string", "Schools The Ball", "index.html");
         }
     });
 
