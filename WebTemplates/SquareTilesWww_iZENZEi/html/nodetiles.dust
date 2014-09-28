@@ -10,6 +10,10 @@
     </div>
 <style type="text/css">
 
+    iframe, object, embed {
+        max-width: 100%;
+    }
+
     .badge {
         margin: 3px;
         padding: 3px;
