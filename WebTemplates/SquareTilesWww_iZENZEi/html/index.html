@@ -18,10 +18,6 @@
     <!-- other javascript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-    <!-- Markdown on browser -->
-    <link rel="stylesheet" href="../assets/lib/markdowndeep/mdd_styles.css">
-    <script type="text/javascript" src="../assets/lib/markdowndeep/MarkdownDeepLib.min.js"></script>
-
 </head>
 
 <body data-spy="scroll" data-target=".subnav" data-offset="50">
@@ -31,14 +27,18 @@
 <script src="textcontent_detailpane_dust.js"></script>
 <script src="../assets/js/rgbcolor.js"></script>
 
-<div class="navbar navbar-static-top">
-    <div>
-        <div class="subnavbar-inner" style="background-color">
-            <div id="logocontainer" class="container logo-only">
-            </div>
-        </div>
-        <div class="container powered-by">
-        </div>
+<script src="../assets/js/foundation.min.js"></script>
+<!--<script src="js/foundation/foundation.js"></script>-->
+<script src="../assets/js/foundation/foundation.topbar.js"></script>
+<script src="../assets/js/jquery.isotope.js" type="text/javascript"></script>
+<script src="../assets/js/jquery.form.min.js"></script>
+<script src="../assets/js/jquery.htmlClean.min.js "></script>
+<script src="../assets/lib/markdowndeep/MarkdownDeepLib.min.js"></script>
+<script src="../assets/js/purl.js"></script>
+
+
+<div class="row text-center">
+    <div id="logocontainer" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px" class="logo-only">
     </div>
 </div>
 
@@ -293,19 +293,142 @@
         }
         $.ajax({
             url: targeturl,
-            cache: false,
-            success: function (jsonContent) {
-                /*
-                 var markdown = new MarkdownDeep.Markdown();
-                 markdown.SafeMode = true;
-                 if(jsonContent.Body == undefined)
-                 jsonContent.Body = "";
-                 var rendered = markdown.Transform(jsonContent.Body.replaceAll("javascript:", ""));
-                 jsonContent.BodyRendered = rendered;
-                 */
-                ReplaceWithMarkdownRender(jsonContent, "Body", "BodyRendered");
-                OipShowTextContentInDetailPaneWithClose(jsonContent);
-                $(document).scrollTop(0);
+            cache: true,
+            success: function (textContent) {
+                var articleUrl = targeturl;
+                var currentID = textContent.ID;
+                var iFrameList = [];
+                if(textContent.IFrameSources) {
+                    var nonTaggedList = textContent.IFrameSources.split('\n');
+                    $.each(nonTaggedList, function(index, value) {
+                        var taggedVersion = "<iframe " + value + "></iframe>";
+                        iFrameList.push(taggedVersion);
+                    });
+                }
+                var contentData = { "CollectionContent": [ textContent ] };
+                var queryValue="";
+                markdown = new MarkdownDeep.Markdown();
+                markdown.SafeMode = true;
+                var i = 0;
+
+                queryValue=contentData.CollectionContent[i].Title;
+                $("#viewContentModal-title").empty();
+                $('#viewContentModal-title').append(queryValue);
+
+                queryValue="<p>"+contentData.CollectionContent[i].Excerpt+"</p>";
+                $("#viewContentModal-excerpt").empty();
+                $('#viewContentModal-excerpt').append(queryValue);
+
+                //var currentMainCategory=contentData.CollectionContent[i].Categories.CollectionContent[0].Title;
+                var currentMainCategory="News";
+
+                //queryValue=contentData.CollectionContent[i].content_type;
+                $("#viewContentModal-categories").empty();
+                $('#viewContentModal-categories').append(currentMainCategory);
+
+                var rawbody;
+                rawbody = contentData.CollectionContent[i].RawHtmlContent;
+                if(rawbody) {
+                    rawbody=rawbody.replace(new RegExp("div", "g"), 'p');
+                    rawbody=rawbody.replace(new RegExp("<span>", "g"), '');
+                    rawbody=rawbody.replace(new RegExp("</span>", "g"), '');
+
+                    queryValue=$.htmlClean(rawbody, {
+                        removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike", "u"],
+                        format:true
+                    });
+                } else {
+                    var bodyRendered = markdown.Transform(contentData.CollectionContent[i].Body.replaceAll("javascript:", ""));
+                    rawbody = bodyRendered;
+                    queryValue = rawbody;
+                }
+
+                $("#viewContentModal-content").empty();
+                $('#viewContentModal-content').append(queryValue);
+
+                var lastSlashIndex = articleUrl.lastIndexOf("/");
+                var lastExtIndex = articleUrl.lastIndexOf(".json");
+                var articleIDFromArticleUrl = articleUrl.substring(lastSlashIndex + 1, lastExtIndex);
+                var currentURL = "http://www.aaltoglobalimpact.org/html/index.html?type=text&id="+ articleIDFromArticleUrl;
+                $("#articleShareURLinput").attr("placeholder",currentURL);
+                $("#articleShareURLinput").val(currentURL);
+
+                if ((contentData.CollectionContent[i].Author===null)||(!contentData.CollectionContent[i].Author) )
+                    var currentAuthor="Aalto Global Impact";
+                else
+                    var currentAuthor=contentData.CollectionContent[i].Author;
+                queryValue=contentData.CollectionContent[i].Author;
+                $("#viewContentModal-Author").empty();
+                $('#viewContentModal-Author').append(currentAuthor);
+
+                var recordedJsonDate = contentData.CollectionContent[i].Published;
+                var pattern = /[0-9]+/; //to find the number within the string, first occurrence.
+                recordedJsonDate = (recordedJsonDate.match(pattern))/1000;
+                var extractedDate= new Date(1000*recordedJsonDate);
+                //extractedDate = extractedDate.toLocaleString();
+                var cardDate = extractedDate.getDate()+".";
+                cardDate+= (extractedDate.getMonth() + 1) +".";
+                cardDate+= extractedDate.getFullYear();
+
+                $("#viewContentModal-Date").empty();
+                $('#viewContentModal-Date').append(cardDate );
+
+                //send the correspondent image to the placeholder, but clean its containing div first
+                if (contentData.CollectionContent[i].ImageData===null)
+                {
+                    var currentImage= "images/preview.jpg";
+                }
+
+                else
+                {
+                    var imgID = contentData.CollectionContent[i].ImageData.ID;
+                    var imgExtension = contentData.CollectionContent[i].ImageData.AdditionalFormatFileExt;
+                    var currentImage= "../../AaltoGlobalImpact.OIP/MediaContent/"+imgID+"_320x240_crop"+imgExtension;
+                }
+                $("#viewContentModal-image").empty(); //clean the image Placeholder in the form
+                queryValue = "<img src='"+currentImage+"' style='width:auto;height:auto;max-width:350;max-height:450px;margin-left:auto;margin-right:auto;'>";
+                $("#viewContentModal-image").append(queryValue);
+
+
+                $("#viewContentModal-iframes").empty();
+                $.each(iFrameList, function(index, value) {
+                    $("#viewContentModal-iframes").append(value);
+                });
+
+                $("#viewContentModal-attachments").empty();
+
+                //var myAttachments = getObjectAttachments(currentID);
+                var myAttachments = [];
+                if(myAttachments.length > 0) {
+                    var myBinaries = [];
+                    for(var attachmentIX = 0; attachmentIX < myAttachments.length; attachmentIX++)
+                    {
+                        var currAttachment = myAttachments[attachmentIX];
+                        var binaryFileID = currAttachment.SourceObjectID;
+                        var attachedBinary = getBinaryFile(binaryFileID);
+                        if(attachedBinary && attachedBinary.Data)
+                            myBinaries.push(attachedBinary);
+                    }
+                    myBinaries.sort(function(a, b) {
+                        if(a && b && a.OriginalFileName && b.OriginalFileName)
+                            return a.OriginalFileName.localeCompare(b.OriginalFileName);
+                        return 0;
+                    });
+                    for(var binaryIX = 0; binaryIX < myBinaries.length; binaryIX++)
+                    {
+                        var currBinary = myBinaries[binaryIX];
+                        var data = currBinary.Data;
+                        var contentID = data.ID;
+                        var originalFileName = currBinary.OriginalFileName;
+                        var binaryUrl = encodeURI("../../AaltoGlobalImpact.OIP/MediaContent/" + contentID + "/" + originalFileName);
+                        var binaryLinkTag = '<br><a href="' + binaryUrl +  '">' + originalFileName + '</a><br>';
+                        $("#viewContentModal-attachments").append(binaryLinkTag);
+                    }
+
+                }
+
+                $('#viewContentModal').foundation('reveal', 'open');
+
             }
         });
         return;
@@ -315,6 +438,8 @@
         $(document).on("click", ".oipclicktoview", OipOpenArticle);
     });
 </script>
+
+
 
 </html>
 
