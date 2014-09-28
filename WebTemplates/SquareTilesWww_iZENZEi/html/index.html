@@ -2,55 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>The Ball - Web Presence</title>
+    <title>iZENZEi Online Taekwondo Training</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The Ball Web Presence">
+    <meta name="description" content="iZENZEi Online Taekwondo Training">
     <meta name="author" content="Various Authors">
 
-    <!-- Le styles -->
-    <link href="../assets/css/www-style.css" rel="stylesheet">
-    <link href="../assets/css/www-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/foundation.css" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" media="all" href="../assets/css/whhg.css" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-
-
-
-    <link href="../assets/css/leaflet.css" rel="stylesheet"/>
-    <!-- get a fresh copy live at 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />-->
-    <link rel="stylesheet" href="../assets/css/MarkerCluster.Default.css" />
-    <!--[if lte IE 8]>
-    <link href="../assets/css/leaflet.css" rel="stylesheet"/>
-    <link href="../assets/css/MarkerCluster.Default.ie.css" rel="stylesheet" />
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../assets/img/icons/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/img/icons/favicon-OIP-144x144.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/img/icons/favicon-OIP-114x114.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/img/icons/favicon-OIP-72x72.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/img/icons/favicon-OIP-57x57.png">
-
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
+    <script src="../assets/js/modernizr.js"></script>
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/oipdynamicreplacer.js"></script>
 
     <!-- other javascript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <!-- or get a fresh copy at <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
-    <!-- get a fresh live version from <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>-->
-    <script src="../assets/js/leaflet.js"></script>
-    <script src="../assets/js/leaflet.markercluster.js"></script>
-    <!--[if lt IE 9]>
-    <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
-    <![endif]-->
 
     <!-- Markdown on browser -->
     <link rel="stylesheet" href="../assets/lib/markdowndeep/mdd_styles.css">
     <script type="text/javascript" src="../assets/lib/markdowndeep/MarkdownDeepLib.min.js"></script>
-
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -72,134 +42,6 @@
     </div>
 </div>
 
-
-<script>
-    function GetLayerLabelText(textvalue, iconUrl)
-    {
-        if(iconUrl != null)
-            return "<img src='" + iconUrl + "' height='16' width='16'></img> " + textvalue;
-        return textvalue;
-    }
-
-    var getActiveMarkers = function(locations, nodes)
-    {
-        if(locations == null || nodes == null)
-            return [];
-        var locationIX;
-        var nodeIX;
-        var locationNodes;
-        var nodesLocations;
-        var currNode;
-        var currLocation;
-        var isInCurrentLocation;
-        var markers = [];
-        var currMarker;
-        var currIcon;
-        var popupIndex;
-        for(locationIX = 0; locationIX < locations.CollectionContent.length; locationIX++)
-        {
-            currLocation = locations.CollectionContent[locationIX];
-            locationNodes = [];
-            for(nodeIX = 0; nodeIX < nodes.Nodes.CollectionContent.length; nodeIX++)
-            {
-                currNode = nodes.Nodes.CollectionContent[nodeIX];
-                if(currNode.Locations.CollectionContent.length == 0)
-                    continue;
-                nodesLocations = [];
-                $.each(currNode.Locations.CollectionContent, function(index, value) {
-                    nodesLocations.push(value.Content);
-                });
-                isInCurrentLocation = $.inArray(currLocation.ID, nodesLocations) > -1;
-                if(isInCurrentLocation)
-                {
-                    locationNodes.push(currNode);
-                }
-            }
-            if(locationNodes.length == 0)
-                continue;
-
-            var popupText = "<h2>" + currLocation.Location.LocationName + "</h2>";
-            for(nodeIX = 0; nodeIX < locationNodes.length; nodeIX++)
-            {
-                currNode = locationNodes[nodeIX];
-                /*
-                 popupText += "<br><a class=\"oipclicktoview\" href=\"#\" data-contenturl=\"" + currNode.ActualContentUrl + ".json\">" + currNode.Title + "</a>";
-                 popupText += "<br><a href=\"javascript:OipOpenArticle('"+ currNode.ActualContentUrl +".json', true);\">"  + currNode.Title + "</a>";
-                 */
-                popupText += "<br><a href='javascript:void(0)' onclick=\"OipOpenArticle('"+ currNode.ActualContentUrl +".json', true);\">"  + currNode.Title + "</a>";
-
-            }
-            currMarker =  L.marker([
-                parseFloat(currLocation.Location.Latitude.TextValue),
-                parseFloat(currLocation.Location.Longitude.TextValue)
-            ]).bindPopup(popupText);
-            markers.push(currMarker);
-        }
-        return markers;
-    };
-
-    var OipSetupDefaultMap = function(mapid, isMiniMap, locations, nodes) {
-        if(isMiniMap == null)
-            isMiniMap = true;
-        var showcredit = isMiniMap == false;
-        var showlayers = isMiniMap == false;
-        var enableWheelScroll = isMiniMap == false;
-        var zoomControl = isMiniMap == false;
-        var initialZoomLevel = isMiniMap ? 0 : 2;
-        var mapOptions = { };
-        mapOptions["scrollWheelZoom"] = enableWheelScroll;
-        mapOptions["zoomControl"] = zoomControl;
-
-        var map = L.map(mapid, mapOptions).setView([0, 0], initialZoomLevel);
-
-        // add an OpenStreetMap tile layer
-        var tileUrl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-        var tileAttribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
-        if(showcredit == true)
-        {
-            L.tileLayer(tileUrl, {
-                attribution: tileAttribution
-            }).addTo(map);
-        } else {
-            L.tileLayer(tileUrl, { }).addTo(map);
-        }
-
-        if(locations == null)
-            locations = CurrLocations;
-        if(nodes == null)
-            nodes = CurrNodeSummary;
-        var activeMarkers = getActiveMarkers(locations, nodes);
-
-        // Cluster markers - only thing that has actual map-visible markers
-        var markers = new L.MarkerClusterGroup();
-        var allMarkers = new Array();
-        // Layers (empty per themselves, but control the toggling)
-        var myIcon = L.icon({
-            iconUrl: '../assets/img/oip-markers/Cyn_bMarker.png',
-            //iconRetinaUrl: 'my-icon@2x.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 40],
-            popupAnchor: [-3, -76],
-            shadowUrl: '../assets/img/oip-markers/marker-shadow.png',
-            // shadowRetinaUrl: 'my-icon-shadow@2x.png',
-            shadowSize: [41, 41],
-            shadowAnchor: [12, 40]
-        });
-
-        $.each(activeMarkers, function(index, value) {
-            value.setIcon(myIcon);
-            allMarkers.push(value);
-        });
-
-        markers.addLayers(allMarkers);
-        map.addLayer(markers);
-        markers.addTo(map);
-
-
-        map.invalidateSize(false);
-    };
-
-</script>
 
 <!-- start reading-pane -->
 <div id="SelectedContentContainer" class="container reading-pane">
@@ -403,11 +245,6 @@
     });
 </script>
 
-<!--<div class="container clearfix">-->
-<!--<section class="well">-->
-<!--&lt;!&ndash; '../oip-containers/oip-container-contact-oip.txt' &ndash;&gt;&lt;!&ndash; UseInformationObjectAsRoot:AaltoGlobalImpact.OIP.ContactOipContainer  &ndash;&gt;-->
-<!--</section>-->
-<!--</div>-->
 <footer class="footer" style="background-color:white;">
     <div class="container">
         <div class="span12" style="text-align: center;font-weight: 200;margin-bottom: 20px;color:black">
@@ -417,11 +254,7 @@
         </div>
     </div>
 </footer>
-<!-- end oip-modal-collection.txt -->
-<!-- ========== End: www-public\..\oip-containers\../oip-modals/oip-modal-collection.txt ========== -->
 
-<!-- OIP specific -->
-<script src="../assets/js/modal-id-actions.js"></script>
 </body>
 
 <script type="text/javascript">

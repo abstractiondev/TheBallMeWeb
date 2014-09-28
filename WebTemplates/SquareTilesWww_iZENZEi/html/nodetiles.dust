@@ -1,15 +1,24 @@
 <div class="row-fluid filter option-set clearfix " data-filter-group="DynCat">
 <div class="filter-box">
-        <button type="button" class="btn btn-filter" data-toggle="collapse" data-target=".isotope-sort">Filter</button>
-        <ul class="isotope-sort categories">
-            <li class="isotope-sort-item"><a href="#" class="filter badge active " style="color: black;font-size: large" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a></li>
+        <div class="isotope-sort categories">
+            <a href="#" class="isotope-sort-filter filter badge active " style="color: black;font-size: large" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a>
             {#RootCategories}
-                <li class="isotope-sort-item"><a href="#"  class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}; font-size: large"
-                                                 data-filter-value=".{CategoryName}">{Title}</a></li>
+                <a href="#"  class="isotope-sort-filter filter badge" style="font-size: large"
+                                                 data-filter-value=".{CategoryName}">{Title}</a>
             {/RootCategories}
-        </ul>
+        </div>
     </div>
 <style type="text/css">
+
+    .badge {
+        margin: 3px;
+        padding: 3px;
+        border: 1px solid gold;
+
+    }
+    .badge:hover{
+        background-color: gold;
+    }
     html {
         overflow-y: auto;
         overflow-x: hidden;
@@ -79,9 +88,6 @@
                             <h4>
                                 {?IsCategoryFilteringNode}
                                     <a class="filter badge" href="#"
-                                        {#CategoryFilters.CollectionContent}
-                                       style="background-color: {#catFilterTagColor}{/catFilterTagColor}; color:{#catFilterTagTextColor}{/catFilterTagTextColor}"
-                                        {/CategoryFilters.CollectionContent}
                                        data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">{Title}</a>
                                 {:else}
                                     {@eq key=TechnicalSource value="LINKTOCONTENT"}
@@ -96,16 +102,19 @@
                                 {/IsCategoryFilteringNode}
                             </h4>
                             <div class="excerpt">{ExcerptRendered|s}</div>
-                            <p class="w5">
-                                <i class="icon-tag"></i>
-                                {#Categories}
-                                    <a href="#" class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}" data-filter-value=".{CategoryName}">{Title}</a>
-                                {/Categories}
-                                <br>
-                                <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
-                                <br>
-                                <span><i class="icon-calendar"></i></span>{TimestampText}
-                            </p>
+                            {?IsCategoryFilteringNode}
+                            {:else}
+                                <p class="w5">
+                                    <i class="icon-tag"></i>
+                                    {#Categories}
+                                        <a href="#" class="filter badge" data-filter-value=".{CategoryName}">{Title}</a>
+                                    {/Categories}
+                                    <br>
+                                    <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
+                                    <br>
+                                    <span><i class="icon-calendar"></i></span>{TimestampText}
+                                </p>
+                            {/IsCategoryFilteringNode}
                         </div>
                     </div>
                 {/CollectionContent}
