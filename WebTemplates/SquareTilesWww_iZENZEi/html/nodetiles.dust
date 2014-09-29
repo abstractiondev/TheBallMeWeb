@@ -126,62 +126,8 @@
         {/Nodes}
     </div>
 
-    <div id="ModalsHolderDiv-Content">
-        <div id="viewContentModal" class="reveal-modal medium" data-reveal>
-            <!--Begins contents of  div for the viewContentModal-->
-            <div class="row">
-                <div class="large-4 columns" id="viewContentModal-image"></div>
-                <div class="large-8 columns">
-                    <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><span id="viewContentModal-categories" class="fancyTagBig"></span></div>
-                    <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><i class='icon-pencil fancyTextColor font80'></i>&nbsp;<span id="viewContentModal-Author" class="discreetLinks"></span></div>
-                    <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><i class='icon-calendaralt-cronjobs fancyTextColor font80'></i>&nbsp;<span id="viewContentModal-Date" class="discreetLinks"></span></div>
-                </div>
-                <div class="large-8 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;"><div class="content-card-line"><hr></div></div>
-                <div class="large-8 columns" style="padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span id="viewContentModal-title" class="hugeTitleText"></span></strong><br></div>
-                <div class="large-8 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
-            </div>
-            <div class="row">
-                <div class="large-12 columns" style="height:20px;"></div>
-            </div>
-            <div class="row">
-                <div class="large-12 columns articleText" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
-            </div>
-            <div class="row">
-                <div id="viewContentModal-attachments"></div>
-            </div>
-            <div class="row">
-                <div id="viewContentModal-iframes"></div>
-            </div>
-            <div class="row">
-                <div class="large-12 columns">
-                    <br>
-                    <label class="discreetTextColor">Share:</label>
-                    <input type="text" placeholder="" id="articleShareURLinput"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="large-12">
-                    <br>
-                    <a class="button" id="closeViewContentModal" style="float:right !important;">Close</a>
-                </div>
-            </div>
-            <a class="close-reveal-modal">&#215;</a>
-        </div> <!--closes div for the viewContentModal-->
-    </div>
-
 </div>
 <script>
-    $(document).foundation(
-            {
-                reveal : {
-                    animation: 'fadeAndPop',
-                    animation_speed: 250,
-                    close_on_background_click: false
-                }
-
-            }
-    );
-
     $(function(){
         var $container = $('#container'),
                 filters = {};
