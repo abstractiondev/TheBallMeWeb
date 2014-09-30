@@ -39,6 +39,37 @@
 <style>
     iframe, object, embed {
         max-width: 100%;
+        max-height: 100%;
+    }
+
+    .fullWidth {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: initial;
+    }
+
+    .video-modal {
+        height: 99% !important;
+        width: 95% !important;
+        top: 2px !important;
+        margin-top: auto;
+    }
+
+    .reveal-modal {
+        padding: 0;
+        background: white;
+        border: 0px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .reveal-modal-inner {
+        max-height: 100%;
+        margin: 0 auto;
+        position: relative;
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
 </style>
 
@@ -261,23 +292,25 @@
 </footer>
 
 <div id="ModalsHolderDiv-Content">
-    <div id="viewContentModal" class="reveal-modal medium" data-reveal>
+    <div id="viewContentModal" class="reveal-modal xlarge video-modal" data-reveal>
         <!--Begins contents of  div for the viewContentModal-->
-        <div class="row">
-            <div class="large-4 columns" id="viewContentModal-image"></div>
+        <div class="row fullWidth">
+            <div class="large-2 columns" id="viewContentModal-image"></div>
             <div class="large-8 columns">
-                <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><span id="viewContentModal-categories" class="fancyTagBig"></span></div>
-                <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><i class='icon-pencil fancyTextColor font80'></i>&nbsp;<span id="viewContentModal-Author" class="discreetLinks"></span></div>
-                <div class="itemWrapper-fixedWidth" style="padding-right: 10px;padding-bottom: 5px;"><i class='icon-calendaralt-cronjobs fancyTextColor font80'></i>&nbsp;<span id="viewContentModal-Date" class="discreetLinks"></span></div>
+                <div class="row">
+                    <div class="large-12 columns" style="width:100%;padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span id="viewContentModal-title" class="hugeTitleText"></span></strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-12 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
+                </div>
             </div>
-            <div class="large-8 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;"><div class="content-card-line"><hr></div></div>
-            <div class="large-8 columns" style="padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span id="viewContentModal-title" class="hugeTitleText"></span></strong><br></div>
-            <div class="large-8 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
+            <div class="large-2 columns"><img src="../assets/img/izenzei-logo.jpg"></div>
         </div>
-        <div class="row">
-            <div class="large-12 columns" style="height:20px;"></div>
+        <div class="row fullWidth">
+            <div class="large-12 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;"><div class="content-card-line"><hr></div></div>
         </div>
-        <div class="row">
+        <div class="row fullWidth">
             <div class="large-12 columns articleText" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
         </div>
         <div class="row">
