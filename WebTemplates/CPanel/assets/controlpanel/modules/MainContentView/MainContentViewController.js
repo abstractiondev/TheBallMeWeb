@@ -32,10 +32,12 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 "lib/dusts/modal_end_dust",
                 "MainContentView/ImportantLinks_dust",
                 "MainContentView/MainContent"], function (template) {
-                wnd.getAttachments();
-                wnd.getBinaries();
+                //wnd.getAttachments();
+                //wnd.getBinaries();
                 me.currUDG.GetData(_this.dataUrl, function (data) {
                     me.currData = data;
+                    wnd.allAttachments = data.Attachments;
+                    wnd.allBinaryFiles = data.BinaryFiles;
                     dust.render("MainContent.dust", data, function (error, output) {
                         if (error)
                             alert("DUST ERROR: " + error);

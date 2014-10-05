@@ -292,25 +292,6 @@ var initializeAll = function () {
 
 var global_uploaded_attachments = 0;
 
-function getAttachments() {
-    if(!allAttachments) {
-        $.getJSON("../../AaltoGlobalImpact.OIP/AttachedToObjectCollection/MasterCollection.json", function(attachments) {
-            allAttachments = attachments;
-        });
-    }
-}
-
-function getBinaries() {
-    if(!allBinaryFiles) {
-        $.getJSON("../../AaltoGlobalImpact.OIP/BinaryFileCollection/MasterCollection.json", function(binaryFiles) {
-            allBinaryFiles = binaryFiles;
-        });
-    }
-}
-
-var allAttachments;
-var allBinaryFiles;
-
 var getObjectAttachments = function (objectID) {
     if(!allAttachments)
         return [];

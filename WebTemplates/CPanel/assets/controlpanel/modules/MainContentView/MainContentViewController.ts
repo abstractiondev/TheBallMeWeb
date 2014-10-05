@@ -31,10 +31,12 @@ class MainContentViewController extends ViewControllerBase {
             "lib/dusts/modal_end_dust",
             "MainContentView/ImportantLinks_dust",
             "MainContentView/MainContent"], (template) => {
-                wnd.getAttachments();
-                wnd.getBinaries();
+                //wnd.getAttachments();
+                //wnd.getBinaries();
                 me.currUDG.GetData(this.dataUrl, function(data) {
                     me.currData = data;
+                    wnd.allAttachments = data.Attachments;
+                    wnd.allBinaryFiles = data.BinaryFiles;
                     dust.render("MainContent.dust", data, (error, output) => {
                         if(error)
                             alert("DUST ERROR: " + error);
