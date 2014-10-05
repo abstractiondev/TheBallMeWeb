@@ -12,6 +12,23 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         __extends(FileManagerViewController, _super);
         function FileManagerViewController() {
             _super.apply(this, arguments);
+            this.DropBoxOptions = {
+                // Required. Called when a user selects an item in the Chooser.
+                success: function (files) {
+                    alert("Here's the file link: " + files[0].link);
+                },
+                // Optional. Called when the user closes the dialog without selecting a file
+                // and does not include any parameters.
+                cancel: function () {
+                },
+                // Optional. "preview" (default) is a preview link to the document for sharing,
+                // "direct" is an expiring link to download the contents of the file. For more
+                // information about link types, see Link types below.
+                linkType: "preview",
+                // Optional. A value of false (default) limits selection to a single file, while
+                // true enables multiple file selection.
+                multiselect: false
+            };
             this.currUploaded = 0;
         }
         FileManagerViewController.prototype.ControllerInitialize = function () {
@@ -42,10 +59,21 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         $hostDiv.html(output);
                         var $fileInput = me.$getNamedFieldWithin("FileInput");
                         me.setFileInputEvent($fileInput);
+
+                        //me.initDropboxChooser();
                         me.ControllerInitializeDone();
                     });
                 });
             });
+        };
+
+        FileManagerViewController.prototype.initDropboxChooser = function () {
+            var me = this;
+            var $dropboxContainer = me.$getNamedFieldWithin("DropboxChooseContainer");
+            var wnd = window;
+            var dbox = wnd.Dropbox;
+            var dropboxButton = dbox.createChooseButton(me.DropBoxOptions);
+            $dropboxContainer.append(dropboxButton);
         };
 
         FileManagerViewController.prototype.setFileInputEvent = function ($fileInput) {

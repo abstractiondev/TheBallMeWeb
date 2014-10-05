@@ -8,4 +8,7 @@
             </form>
         </div>
     </div>
+    <div class="large-6 columns">
+        <div name="DropboxChooseContainer"></div>
+    </div>
 </div>
