@@ -233,11 +233,33 @@
     var tOP = new tUI.OperationManager(tDCM);
     var tUDG = new tUI.UpdatingDataGetter();
 
+    tUDG.RegisterDataURL("SEMANTICCONTENT", function(args) {
+        var textContentCollection = args[0][0];
+        var linkToContentCollection = args[1][0];
+        var embeddedContentCollection = args[2][0];
+        var sourceUnion = _.union(textContentCollection.CollectionContent,
+                linkToContentCollection.CollectionContent,
+                embeddedContentCollection.CollectionContent);
+        var semanticCollection = _.map(sourceUnion, function(item) {
+            return {
+                "ID": item.ID,
+                "SemanticDomain": item.SemanticDomainName,
+                "SemanticType": item.Name
+                //"Object": item
+            };
+        });
+        return semanticCollection;
+    }, [ "../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json",
+        "../../AaltoGlobalImpact.OIP/LinkToContentCollection/MasterCollection.json",
+        "../../AaltoGlobalImpact.OIP/EmbeddedContentCollection/MasterCollection.json",
+    ]);
+
     tUDG.RegisterDataURL("CATEGORYTREE", function (args) {
         var nodeSummaryContainer = args[0][0];
         var categoriesWithChildren = AppScripts.Common.ConvertCategoriesFromParentToChildren(nodeSummaryContainer.NodeSourceCategories.CollectionContent);
         var categoryListWithTitleIndented = AppScripts.Common.GetCategoryListWithTitleIndentation(categoriesWithChildren);
         var contentCategoryRanks = args[1][0];
+        var semanticContents = args[2];
         var manualRanks = _.where(contentCategoryRanks.CollectionContent, { "RankName": "MANUAL" } );
         manualRanks = _.sortBy(manualRanks, function(item) {
             return item.RankValue;
@@ -248,11 +270,13 @@
         return {
             CategoriesWithChildren: categoriesWithChildren,
             CategoryList : categoryListWithTitleIndented,
-            ManualRankingMap : categoryManualRankMap
+            ManualRankingMap : categoryManualRankMap,
+            SemanticContent : semanticContents
         };
     }, [
         "../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json",
-        "../../AaltoGlobalImpact.OIP/ContentCategoryRankCollection/MasterCollection.json"
+        "../../AaltoGlobalImpact.OIP/ContentCategoryRankCollection/MasterCollection.json",
+        "SEMANTICCONTENT"
     ]);
 
     tUDG.RegisterDataURL("../../AaltoGlobalImpact.OIP/GroupContainer/default.json", function (args) {

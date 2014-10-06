@@ -32,6 +32,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.currUDG.GetData(me.dataUrl, function (data) {
                     me.currentData = data;
                     me.currentContentRanks = data.ManualRankingMap;
+                    me.currentSemantics = data.SemanticContent;
                     dust.render("CategoryEditor.dust", data, function (error, output) {
                         if (error)
                             alert("Dust error: " + error);
@@ -68,7 +69,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             alert(id);
 
             //alert(JSON.stringify(this.currentContentRanks[id]));
-            alert(JSON.stringify(this.currentContentRanks));
+            //alert(JSON.stringify(this.currentContentRanks));
+            alert(JSON.stringify(this.currentSemantics));
             $modal.foundation("reveal", "open");
         };
 

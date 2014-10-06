@@ -12,6 +12,7 @@ class CategoryViewController extends ViewControllerBase {
 
     currentData;
     currentContentRanks;
+    currentSemantics;
 
     ControllerInitialize():void {
         var me = this;
@@ -31,6 +32,7 @@ class CategoryViewController extends ViewControllerBase {
             me.currUDG.GetData(me.dataUrl, (data) => {
                 me.currentData = data;
                 me.currentContentRanks = data.ManualRankingMap;
+                me.currentSemantics = data.SemanticContent;
                 dust.render("CategoryEditor.dust", data, (error, output) => {
                     if(error)
                         alert("Dust error: " + error);
@@ -65,7 +67,8 @@ class CategoryViewController extends ViewControllerBase {
         var $modal:any = this.$getNamedFieldWithin("CategoryContentRankingModal");
         alert(id);
         //alert(JSON.stringify(this.currentContentRanks[id]));
-        alert(JSON.stringify(this.currentContentRanks));
+        //alert(JSON.stringify(this.currentContentRanks));
+        alert(JSON.stringify(this.currentSemantics));
         $modal.foundation("reveal", "open");
     }
 
