@@ -1,5 +1,6 @@
 <tr>
     <td>{>"command_icon.dust" command="EditCategory" command_args="{ID}" icon_class_name="icon-edit" /}</td>
+    <td>{>"command_icon.dust" command="EditContentRanking" command_args="{ID}" icon_class_name="icon-list" /}</td>
     <td style='text-transform:none !important;' class='fancyTextColor'><div style="margin-left: {UI_MarginIndented}px">{Title}</div></td>
     <td style='text-transform:none !important;font-style:italic;font-size: 12px;'>{Excerpt}</td>
     <td>{>"objectdeleteicon.dust" object_delete_title="{Title}" /}</td>

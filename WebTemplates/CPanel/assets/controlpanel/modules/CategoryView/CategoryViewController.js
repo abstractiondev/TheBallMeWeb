@@ -20,6 +20,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 "CategoryView/CategoryView_Modals_dust",
                 "CategoryView/category_treeitem_dust",
                 "CategoryView/category_rowitem_dust",
+                "CategoryView/category_rankitem_dust",
                 "lib/dusts/objectdeleteicon_dust",
                 "lib/dusts/command_button_dust",
                 "lib/dusts/command_icon_dust",
@@ -28,9 +29,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 "lib/dusts/modal_begin_dust",
                 "lib/dusts/modal_end_dust",
                 "lib/dusts/openmodal_button_dust"], function () {
-                me.currUDG.GetData(me.dataUrl, function (callBackData) {
-                    me.currentData = callBackData;
-                    dust.render("CategoryEditor.dust", callBackData, function (error, output) {
+                me.currUDG.GetData(me.dataUrl, function (data) {
+                    me.currentData = data;
+                    me.currentContentRanks = data.ManualRankingMap;
+                    dust.render("CategoryEditor.dust", data, function (error, output) {
                         if (error)
                             alert("Dust error: " + error);
                         var $hostDiv = $("#" + me.divID);
@@ -58,6 +60,16 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         CategoryViewController.prototype.OpenModalCategoryHierarchyModal = function () {
             var $modal = this.$getNamedFieldWithin("CategoryHierarchyModal");
             $modal.foundation('reveal', 'open');
+        };
+
+        CategoryViewController.prototype.EditContentRanking = function ($source) {
+            var id = $source.data("objectid");
+            var $modal = this.$getNamedFieldWithin("CategoryContentRankingModal");
+            alert(id);
+
+            //alert(JSON.stringify(this.currentContentRanks[id]));
+            alert(JSON.stringify(this.currentContentRanks));
+            $modal.foundation("reveal", "open");
         };
 
         CategoryViewController.prototype.OpenModalAddCategoryModal = function () {
@@ -115,6 +127,13 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             data-objectid="{ID}" data-objectname="{Name}" data-domainname="{SemanticDomainName}"
             
             */
+        };
+
+        CategoryViewController.prototype.Modal_SaveCategoryRanking = function ($modal) {
+            var $nestableList = this.$getNamedFieldWithinModal($modal, "nestableList");
+            var list = $nestableList.length ? $nestableList : $($nestableList);
+            var jsonData = JSON.stringify(list.nestable("serialize"));
+            console.log(jsonData);
         };
 
         CategoryViewController.prototype.Modal_SaveCategoryHierarchy = function ($modal) {

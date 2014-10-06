@@ -1,9 +1,8 @@
-{>"modal_begin.dust" modal_name="CategoryHierarchyModal" /}
-
+{>"modal_begin.dust" modal_name="CategoryHierarchyModal" modal_size_class="large" /}
 <h3 class="boldieText">Defining subcategories and hierarchy</h3>
 <h6 class="discreetTextColor">Drag the categories up/down and/or sideways to define subcategories and hierarchy, then save your changes.</h6>
-<div class="row" id="categoriesSection-hierarchyModal-contentRow">
-    <div style="width: 80%;margin:auto;">
+<div class="row fullWidth" id="categoriesSection-hierarchyModal-contentRow">
+    <div class="large-12 medium-12 columns" style="width: 80%;margin:auto;">
         <div name="nestableTree" class="dd">
             <ol class="dd-list">
                 {#CategoriesWithChildren}
@@ -16,6 +15,27 @@
 <div class="row" id="categoriesSection-hierarchyModal-buttonsRow">
     <div class="small-9 medium-9 large-9 columns">
         {>"insidemodal_button.dust" button_label="Save Hierarchy" command="SaveCategoryHierarchy" style="float: right;" /}
+    </div>
+    <div class="small-3 medium-3 large-3 columns">
+        {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}
+    </div>
+</div>
+{>"modal_end.dust" /}
+
+{>"modal_begin.dust" modal_name="CategoryContentRankingModal" modal_size_class="large" /}
+<h3 class="boldieText">Content Ranking Within Category</h3>
+<h6 class="discreetTextColor">Drag the content items up/down to define ranking order, then save your changes.</h6>
+<div class="row fullWidth" id="categoriesSection-hierarchyModal-contentRow">
+    <div class="large-12 medium-12 columns" style="width: 80%;margin:auto;">
+        <div name="nestableList" class="dd">
+            <ol class="dd-list" name="nestableListRoot">
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="small-9 medium-9 large-9 columns">
+        {>"insidemodal_button.dust" button_label="Save Ranking Order" command="SaveCategoryRanking" style="float: right;" /}
     </div>
     <div class="small-3 medium-3 large-3 columns">
         {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}

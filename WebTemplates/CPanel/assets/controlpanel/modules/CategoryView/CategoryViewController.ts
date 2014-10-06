@@ -11,6 +11,7 @@ import ViewControllerBase = require("../ViewControllerBase");
 class CategoryViewController extends ViewControllerBase {
 
     currentData;
+    currentContentRanks;
 
     ControllerInitialize():void {
         var me = this;
@@ -18,6 +19,7 @@ class CategoryViewController extends ViewControllerBase {
             "CategoryView/CategoryView_Modals_dust",
             "CategoryView/category_treeitem_dust",
             "CategoryView/category_rowitem_dust",
+            "CategoryView/category_rankitem_dust",
             "lib/dusts/objectdeleteicon_dust",
             "lib/dusts/command_button_dust",
             "lib/dusts/command_icon_dust",
@@ -26,9 +28,10 @@ class CategoryViewController extends ViewControllerBase {
             "lib/dusts/modal_begin_dust",
             "lib/dusts/modal_end_dust",
             "lib/dusts/openmodal_button_dust"], () => {
-            me.currUDG.GetData(me.dataUrl, (callBackData) => {
-                me.currentData = callBackData;
-                dust.render("CategoryEditor.dust", callBackData, (error, output) => {
+            me.currUDG.GetData(me.dataUrl, (data) => {
+                me.currentData = data;
+                me.currentContentRanks = data.ManualRankingMap;
+                dust.render("CategoryEditor.dust", data, (error, output) => {
                     if(error)
                         alert("Dust error: " + error);
                     var $hostDiv = $("#" + me.divID);
@@ -55,6 +58,15 @@ class CategoryViewController extends ViewControllerBase {
     OpenModalCategoryHierarchyModal() {
         var $modal:any = this.$getNamedFieldWithin("CategoryHierarchyModal");
         $modal.foundation('reveal', 'open');
+    }
+
+    EditContentRanking($source) {
+        var id = $source.data("objectid");
+        var $modal:any = this.$getNamedFieldWithin("CategoryContentRankingModal");
+        alert(id);
+        //alert(JSON.stringify(this.currentContentRanks[id]));
+        alert(JSON.stringify(this.currentContentRanks));
+        $modal.foundation("reveal", "open");
     }
 
     OpenModalAddCategoryModal() {
@@ -114,6 +126,13 @@ class CategoryViewController extends ViewControllerBase {
          data-objectid="{ID}" data-objectname="{Name}" data-domainname="{SemanticDomainName}"
 
          */
+    }
+
+    Modal_SaveCategoryRanking($modal) {
+        var $nestableList = this.$getNamedFieldWithinModal($modal, "nestableList");
+        var list:any = $nestableList.length ? $nestableList : $($nestableList);
+        var jsonData = JSON.stringify(list.nestable("serialize"));
+        console.log(jsonData);
     }
 
     Modal_SaveCategoryHierarchy($modal) {

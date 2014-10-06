@@ -4,7 +4,7 @@
         <div>
             <table id="categories-table" style="text-align: left;">
                 <tr>
-                    <th width="5%">Edit</th>
+                    <th width="5%" colspan="2">Edit</th>
                     <th width="10%">Category</th>
                     <th width="80%">Description</th>
                     <th width="5%">Delete</th>
