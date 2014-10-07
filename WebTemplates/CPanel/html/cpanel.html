@@ -237,23 +237,35 @@
         var textContentCollection = args[0][0];
         var linkToContentCollection = args[1][0];
         var embeddedContentCollection = args[2][0];
+        var categoryCollection = args[3][0];
         var sourceUnion = _.union(textContentCollection.CollectionContent,
                 linkToContentCollection.CollectionContent,
-                embeddedContentCollection.CollectionContent);
+                embeddedContentCollection.CollectionContent,
+                categoryCollection.CollectionContent);
         var semanticCollection = _.map(sourceUnion, function(item) {
-            return {
+            var semanticObject = {
                 "ID": item.ID,
                 "SemanticDomain": item.SemanticDomainName,
                 "SemanticType": item.Name,
-                "Title": item.Title,
-                "CategoryIDs": _.map(item.Categories.CollectionContent, function(catItem) { return catItem.ID; })
+                "Title": item.Title
                 //"Object": item
             };
+            if(semanticObject.SemanticDomain == "AaltoGlobalImpact.OIP" && semanticObject.SemanticType == "Category")
+            {
+                semanticObject.CategoryIDs = [];
+                if(item.ParentCategoryID != null)
+                    semanticObject.CategoryIDs.push(item.ParentCategoryID);
+            }
+            else
+                semanticObject.CategoryIDs =
+                        _.map(item.Categories.CollectionContent, function(catItem) { return catItem.ID; })
+            return semanticObject;
         });
         return semanticCollection;
     }, [ "../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json",
         "../../AaltoGlobalImpact.OIP/LinkToContentCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/EmbeddedContentCollection/MasterCollection.json"
+        "../../AaltoGlobalImpact.OIP/EmbeddedContentCollection/MasterCollection.json",
+        "../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json",
     ]);
 
     tUDG.RegisterDataURL("CATEGORYTREE", function (args) {
