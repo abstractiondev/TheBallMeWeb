@@ -244,14 +244,16 @@
             return {
                 "ID": item.ID,
                 "SemanticDomain": item.SemanticDomainName,
-                "SemanticType": item.Name
+                "SemanticType": item.Name,
+                "Title": item.Title,
+                "CategoryIDs": _.map(item.Categories.CollectionContent, function(catItem) { return catItem.ID; })
                 //"Object": item
             };
         });
         return semanticCollection;
     }, [ "../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json",
         "../../AaltoGlobalImpact.OIP/LinkToContentCollection/MasterCollection.json",
-        "../../AaltoGlobalImpact.OIP/EmbeddedContentCollection/MasterCollection.json",
+        "../../AaltoGlobalImpact.OIP/EmbeddedContentCollection/MasterCollection.json"
     ]);
 
     tUDG.RegisterDataURL("CATEGORYTREE", function (args) {
@@ -267,11 +269,25 @@
         var categoryManualRankMap = _.groupBy(manualRanks, function(item) {
             return item.CategoryID;
         });
+
+
+        var semanticContentCategoryMap = {};
+        _.forEach(semanticContents, function(semItem) {
+            _.forEach(semItem.CategoryIDs, function(catID) {
+                var currentMapArray = semanticContentCategoryMap[catID];
+                if(!currentMapArray) {
+                    currentMapArray = [];
+                    semanticContentCategoryMap[catID] = currentMapArray;
+                }
+                currentMapArray.push(semItem);
+            });
+        });
+
         return {
             CategoriesWithChildren: categoriesWithChildren,
             CategoryList : categoryListWithTitleIndented,
             ManualRankingMap : categoryManualRankMap,
-            SemanticContent : semanticContents
+            SemanticContentMap : semanticContentCategoryMap
         };
     }, [
         "../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json",
@@ -375,7 +391,6 @@
             return -1;
         });
         var categoryTree = args[1];
-        console.log(JSON.stringify(categoryTree));
         //var categoryCollection = args[1][0];
         var categoryCollection = {
             CollectionContent: categoryTree.CategoryList
