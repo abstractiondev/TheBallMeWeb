@@ -32,7 +32,7 @@ class CategoryViewController extends ViewControllerBase {
             me.currUDG.GetData(me.dataUrl, (data) => {
                 me.currentData = data;
                 me.currentContentRanks = data.ManualRankingMap;
-                me.currentSemantics = data.SemanticContent;
+                me.currentSemantics = data.SemanticContentMap;
                 dust.render("CategoryEditor.dust", data, (error, output) => {
                     if(error)
                         alert("Dust error: " + error);
@@ -63,13 +63,24 @@ class CategoryViewController extends ViewControllerBase {
     }
 
     EditContentRanking($source) {
+        var me = this;
         var id = $source.data("objectid");
         var $modal:any = this.$getNamedFieldWithin("CategoryContentRankingModal");
-        alert(id);
         //alert(JSON.stringify(this.currentContentRanks[id]));
         //alert(JSON.stringify(this.currentContentRanks));
-        alert(JSON.stringify(this.currentSemantics));
-        $modal.foundation("reveal", "open");
+        var currRanks = me.currentContentRanks[id];
+        if(!currRanks)
+            currRanks = [];
+        var currChildren = me.currentSemantics[id];
+        var currUnranked = _.where(currChildren, item => _.every(currRanks, function(rItem:any) { return rItem.ContentID != item.ID }));
+        var allContent = { "RankItems":  _.union(currRanks, currUnranked) };
+        var $parentPh:any = me.$getNamedFieldWithinModal($modal, "nestableList");
+        dust.render("category_rankitem.dust", allContent, (error, output) => {
+            $parentPh.empty();
+            $parentPh.html(output);
+            $parentPh.nestable({});
+            $modal.foundation("reveal", "open");
+        });
     }
 
     OpenModalAddCategoryModal() {

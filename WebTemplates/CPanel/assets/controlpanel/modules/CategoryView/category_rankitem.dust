@@ -5,4 +5,10 @@
         {Title}
     </div>
 </li>
+<li class="dd-item dd3-item" data-id="{ID}">
+    <div class="dd-handle dd3-handle"></div>
+    <div class="dd3-content">
+        {Title}
+    </div>
+</li>
 {/RankItems}

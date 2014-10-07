@@ -32,7 +32,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.currUDG.GetData(me.dataUrl, function (data) {
                     me.currentData = data;
                     me.currentContentRanks = data.ManualRankingMap;
-                    me.currentSemantics = data.SemanticContent;
+                    me.currentSemantics = data.SemanticContentMap;
                     dust.render("CategoryEditor.dust", data, function (error, output) {
                         if (error)
                             alert("Dust error: " + error);
@@ -64,14 +64,29 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         };
 
         CategoryViewController.prototype.EditContentRanking = function ($source) {
+            var me = this;
             var id = $source.data("objectid");
             var $modal = this.$getNamedFieldWithin("CategoryContentRankingModal");
-            alert(id);
 
             //alert(JSON.stringify(this.currentContentRanks[id]));
             //alert(JSON.stringify(this.currentContentRanks));
-            alert(JSON.stringify(this.currentSemantics));
-            $modal.foundation("reveal", "open");
+            var currRanks = me.currentContentRanks[id];
+            if (!currRanks)
+                currRanks = [];
+            var currChildren = me.currentSemantics[id];
+            var currUnranked = _.where(currChildren, function (item) {
+                return _.every(currRanks, function (rItem) {
+                    return rItem.ContentID != item.ID;
+                });
+            });
+            var allContent = { "RankItems": _.union(currRanks, currUnranked) };
+            var $parentPh = me.$getNamedFieldWithinModal($modal, "nestableList");
+            dust.render("category_rankitem.dust", allContent, function (error, output) {
+                $parentPh.empty();
+                $parentPh.html(output);
+                $parentPh.nestable({});
+                $modal.foundation("reveal", "open");
+            });
         };
 
         CategoryViewController.prototype.OpenModalAddCategoryModal = function () {
