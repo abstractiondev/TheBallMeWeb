@@ -67,6 +67,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var me = this;
             var id = $source.data("objectid");
             var $modal = this.$getNamedFieldWithin("CategoryContentRankingModal");
+            me.$getNamedFieldWithinModal($modal, "CategoryID").val(id);
 
             //alert(JSON.stringify(this.currentContentRanks[id]));
             //alert(JSON.stringify(this.currentContentRanks));
@@ -84,7 +85,9 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             dust.render("category_rankitem.dust", allContent, function (error, output) {
                 $parentPh.empty();
                 $parentPh.html(output);
-                $parentPh.nestable({});
+                $parentPh.nestable({
+                    maxDepth: 0
+                });
                 $modal.foundation("reveal", "open");
             });
         };
@@ -148,9 +151,57 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
 
         CategoryViewController.prototype.Modal_SaveCategoryRanking = function ($modal) {
             var $nestableList = this.$getNamedFieldWithinModal($modal, "nestableList");
-            var list = $nestableList.length ? $nestableList : $($nestableList);
-            var jsonData = JSON.stringify(list.nestable("serialize"));
+
+            //var list:any = $nestableList.length ? $nestableList : $($nestableList);
+            var list = $nestableList;
+            var itemArray = [];
+            var rankValue = 100000;
+            $nestableList.find("li").each(function (index) {
+                var liItem = $(this);
+                var itemID = liItem.data("id");
+                var semanticDomain = liItem.data("semanticdomain");
+                var semanticType = liItem.data("semantictype");
+
+                var contentItem = {
+                    "ContentID": itemID,
+                    "ContentSemanticType": semanticDomain + "." + semanticType,
+                    "RankName": "MANUAL",
+                    "RankValue": rankValue.toString()
+                };
+                itemArray.push(contentItem);
+                rankValue += 10;
+            });
+            var categoryID = this.$getNamedFieldWithinModal($modal, "CategoryID").val();
+            var categoryRankingData = {
+                "CategoryID": categoryID,
+                "RankingItems": itemArray
+            };
+            var jsonData = JSON.stringify(categoryRankingData);
+
+            //var jsonData = JSON.stringify(list.nestable("serialize"));
             console.log(jsonData);
+            var me = this;
+            var jq = $;
+            jq.blockUI({ message: "<h2>Saving...</h2>" });
+            $.ajax({
+                type: "POST",
+                url: "?operation=AaltoGlobalImpact.OIP.SetCategoryContentRanking",
+                //dataType: "json", - this would require returning parseable json (on TODO list)
+                contentType: "application/json",
+                data: jsonData,
+                success: function () {
+                    setTimeout(function () {
+                        jq.unblockUI();
+                        $modal.foundation('reveal', 'close');
+                        me.ReInitialize();
+                    }, 2500);
+                },
+                error: function () {
+                    jq.unblockUI();
+                    alert("Error Occurred at Save");
+                    //window.location.reload(true);
+                }
+            });
         };
 
         CategoryViewController.prototype.Modal_SaveCategoryHierarchy = function ($modal) {
@@ -160,6 +211,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             /*output = list.data('output');*/
             var jsonData;
             jsonData = JSON.stringify(list.nestable('serialize'));
+            console.log(jsonData);
             var me = this;
             var jq = $;
             jq.blockUI({ message: '<h2>Saving...</h2>' });

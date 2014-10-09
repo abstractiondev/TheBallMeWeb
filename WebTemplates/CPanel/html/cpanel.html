@@ -35,7 +35,9 @@
     <script src="../assets/controlpanel/modules/ModuleCustomGlue.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
     <script type="text/javascript" src="//s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
+    <!--
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="go5l70wh2a6b59n"></script>
+    -->
 
     <style>
         .oip-dropdown-button {
@@ -256,9 +258,16 @@
                 if(item.ParentCategoryID != null)
                     semanticObject.CategoryIDs.push(item.ParentCategoryID);
             }
-            else
-                semanticObject.CategoryIDs =
-                        _.map(item.Categories.CollectionContent, function(catItem) { return catItem.ID; })
+            else {
+                if(item.Categories != null)
+                {
+                    semanticObject.CategoryIDs =
+                            _.map(item.Categories.CollectionContent, function(catItem) { return catItem.ID; })
+                } else {
+                    semanticObject.CategoryIDs = [];
+                }
+
+            }
             return semanticObject;
         });
         return semanticCollection;
@@ -275,6 +284,8 @@
         var contentCategoryRanks = args[1][0];
         var semanticContents = args[2];
         var manualRanks = _.where(contentCategoryRanks.CollectionContent, { "RankName": "MANUAL" } );
+        console.log(contentCategoryRanks.CollectionContent);
+        console.log(JSON.stringify(manualRanks));
         manualRanks = _.sortBy(manualRanks, function(item) {
             return item.RankValue;
         });
@@ -291,7 +302,13 @@
                     currentMapArray = [];
                     semanticContentCategoryMap[catID] = currentMapArray;
                 }
-                currentMapArray.push(semItem);
+                var containsAlready = _.any(currentMapArray, function(item) {
+                    return item.ContentID == semItem.ContentID;
+                });
+                if(!containsAlready) {
+                    semItem.RankValue = "200000";
+                    currentMapArray.push(semItem);
+                }
             });
         });
 

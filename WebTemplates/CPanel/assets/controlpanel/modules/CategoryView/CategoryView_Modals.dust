@@ -23,6 +23,7 @@
 {>"modal_end.dust" /}
 
 {>"modal_begin.dust" modal_name="CategoryContentRankingModal" modal_size_class="large" /}
+{>"hiddeninput.dust" field_name="CategoryID" /}
 <h3 class="boldieText">Content Ranking Within Category</h3>
 <h6 class="discreetTextColor">Drag the content items up/down to define ranking order, then save your changes.</h6>
 <div class="row fullWidth" id="categoriesSection-hierarchyModal-contentRow">
