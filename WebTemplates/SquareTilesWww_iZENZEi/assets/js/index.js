@@ -41,7 +41,13 @@ tUDG.RegisterDataURL("SEMANTICCONTENT", function(args) {
         }
         return semanticObject;
     });
-    return semanticCollection;
+    return {
+        SemanticCollection : semanticCollection,
+        TextContents : textContentCollection,
+        LinkTos : linkToContentCollection,
+        Embeddeds : embeddedContentCollection,
+        Categories : categoryCollection
+    };
 }, [ "../../AaltoGlobalImpact.OIP/TextContentCollection/MasterCollection.json",
     "../../AaltoGlobalImpact.OIP/LinkToContentCollection/MasterCollection.json",
     "../../AaltoGlobalImpact.OIP/EmbeddedContentCollection/MasterCollection.json",
@@ -51,7 +57,8 @@ tUDG.RegisterDataURL("SEMANTICCONTENT", function(args) {
 tUDG.RegisterDataURL("CATEGORYRANKS", function (args) {
     var contentCategoryRanks = args[0][0];
     console.log(JSON.stringify(contentCategoryRanks));
-    var semanticContents = args[1];
+    var semanticObjects = args[1];
+    var semanticContents = semanticObjects.SemanticCollection;
     var manualRanks = _.where(contentCategoryRanks.CollectionContent, { "RankName": "MANUAL" } );
     console.log("Unfiltered: " + contentCategoryRanks.CollectionContent);
     console.log(JSON.stringify(manualRanks));
@@ -100,7 +107,8 @@ tUDG.RegisterDataURL("CATEGORYRANKS", function (args) {
     return {
         ManualRankingMap : categoryManualRankMap,
         CategoryContentMap : semanticContentCategoryMap,
-        SemanticContents : semanticContents
+        SemanticContents : semanticContents,
+        SemanticObjects: semanticObjects
     };
 }, [
     "../../AaltoGlobalImpact.OIP/ContentCategoryRankCollection/MasterCollection.json",
@@ -110,6 +118,7 @@ tUDG.RegisterDataURL("CATEGORYRANKS", function (args) {
 var SemanticContentMap = null;
 var CategoryContentMap = null;
 var CurrentCategoryID = null;
+var CategoriesMap = null;
 
 $.holdReady(true);
 tUDG.GetData("CATEGORYRANKS", function(data) {
@@ -118,6 +127,10 @@ tUDG.GetData("CATEGORYRANKS", function(data) {
         SemanticContentMap[item.ContentID] = item;
     });
     CategoryContentMap = data.CategoryContentMap;
+    CategoriesMap = {};
+    _.each(data.SemanticObjects.Categories.CollectionContent, function(item) {
+        CategoriesMap[item.ID] = item;
+    });
     $.holdReady(false);
 });
 
@@ -198,7 +211,9 @@ OipOpenArticle = function(urlarg, addRelativePath) {
             $("#previousContent").hide();
             $("#nextContent").hide();
             var categoryID = CurrentCategoryID;
-            if(categoryID) {
+            var $catPanel = $("#categorypanel");
+            $catPanel.empty();
+            if(categoryID && CategoriesMap[categoryID]) {
                 var rankingData = CategoryContentMap[categoryID];
                 console.log(JSON.stringify(rankingData));
                 var currIX = _.findIndex(rankingData, function(item) {
@@ -226,7 +241,15 @@ OipOpenArticle = function(urlarg, addRelativePath) {
                         $("#nextContent").show();
                     }
                 }
+                var currActiveCategory = CategoriesMap[categoryID];
+                if(currActiveCategory.ImageData) {
+                    var imageSizeString = 256;
+                    var imageUrl = "../../AaltoGlobalImpact.OIP/MediaContent/" + currActiveCategory.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currActiveCategory.ImageData.AdditionalFormatFileExt
+                    $catPanel.append("<img src=\"" + imageUrl + "\"><br>");
+                }
+                $catPanel.append("<div>" + currActiveCategory.Title + "</div>");
             }
+
 
             var iFrameList = [];
             if(textContent.IFrameSources) {
