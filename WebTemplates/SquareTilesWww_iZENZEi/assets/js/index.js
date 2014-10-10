@@ -142,6 +142,52 @@ var GetArticleTypeFromID = function(id) {
         return "text";
 };
 
+var GetPrevData = function(semanticContentID, categoryID, isDifferentCategory) {
+    var currentCategoryRanking = CategoryContentMap[categoryID];
+    var currentIndex = _.findIndex(currentCategoryRanking, function(currItem) {
+        return currItem.ContentID == semanticContentID;
+    });
+    var prevData;
+    if(currentIndex > 0)
+        prevData = currentCategoryRanking[currentIndex - 1];
+    else {
+        var currCategory = CategoriesMap[categoryID];
+        var parentCategoryID = currCategory.ParentCategoryID;
+        if(parentCategoryID)
+            return GetPrevData(categoryID, parentCategoryID, true);
+        return null;
+    }
+    return { IsDifferentCategory : isDifferentCategory, Data : prevData };
+};
+
+var GetNextData = function(semanticContentID, categoryID, isDifferentCategory) {
+    var currentCategoryRanking = CategoryContentMap[categoryID];
+    var currentIndex = _.findIndex(currentCategoryRanking, function(currItem) {
+        return currItem.ContentID == semanticContentID;
+    });
+    var nextData;
+    if(currentIndex < currentCategoryRanking.length - 1) {
+        nextData = currentCategoryRanking[currentIndex + 1];
+        /*
+        while(nextData.SemanticType == "Category") {
+            var nextCategory = CategoriesMap[nextData.ContentID];
+            var nextCategoryRanking = CategoryContentMap[nextCategory.ID];
+            if(nextCategoryRanking.length > 0)
+                nextData = nextCategoryRanking[0];
+            else
+        }
+        */
+    }
+    else {
+        var currCategory = CategoriesMap[categoryID];
+        var parentCategoryID = currCategory.ParentCategoryID;
+        if(parentCategoryID)
+            return GetNextData(categoryID, parentCategoryID, true);
+        return null;
+    }
+    return { IsDifferentCategory : isDifferentCategory, Data : nextData };
+};
+
 $(function () {
     var openArticleType = $.url().param("type");
     var openArticleID = $.url().param("id");
@@ -214,6 +260,7 @@ OipOpenArticle = function(urlarg, addRelativePath) {
             var $catPanel = $("#categorypanel");
             $catPanel.empty();
             if(categoryID && CategoriesMap[categoryID]) {
+                /*
                 var rankingData = CategoryContentMap[categoryID];
                 console.log(JSON.stringify(rankingData));
                 var currIX = _.findIndex(rankingData, function(item) {
@@ -240,6 +287,24 @@ OipOpenArticle = function(urlarg, addRelativePath) {
                         $("#nextContent").data("con", nextContentID);
                         $("#nextContent").show();
                     }
+                }*/
+                var prevData = GetPrevData(currentID, categoryID);
+                if(prevData) {
+                    var previousContent = prevData.Data;
+                    console.log("Prev: " + JSON.stringify(previousContent));
+                    $("#previousContent").text(previousContent.Title);
+                    $("#previousContent").data("cat", categoryID);
+                    $("#previousContent").data("con", prevData.Data.ContentID);
+                    $("#previousContent").show();
+                }
+                var nextData = GetNextData(currentID, categoryID);
+                if(nextData) {
+                    var nextContent = nextData.Data;
+                    console.log("Next: " + JSON.stringify(nextContent));
+                    $("#nextContent").text(nextContent.Title);
+                    $("#nextContent").data("cat", categoryID);
+                    $("#nextContent").data("con", nextData.Data.ContentID);
+                    $("#nextContent").show();
                 }
                 var currActiveCategory = CategoriesMap[categoryID];
                 if(currActiveCategory.ImageData) {
