@@ -190,8 +190,8 @@
             var filterValue = $this.attr("data-filter-value");
             console.log("Applying filter selector: " + filterValue);
             $container.isotope({ filter: filterValue });
+            $container.isotope('updateSortData', $(".nodetile"));
             $container.isotope({ sortBy: "rankFunc" });
-            /*$container.isotope('updateSortData').isotope();*/
             return false;
         });
 
