@@ -4,25 +4,29 @@
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/CategoryView/CategoryViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupInfoView/GroupInfoViewController.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/FileManagerView/FileManagerViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/main.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/FileManagerView/FileManagerViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/main.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ConnectionView/ConnectionViewController.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/main.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -30,26 +34,30 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/TheBall.CORE/DeviceMembership/bccc92a8-8b72-4631-a48e-d1b063e87b38_Input/DEV_kallecpanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/CategoryView/CategoryViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupInfoView/GroupInfoViewController.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/main.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/FileManagerView/FileManagerViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/main.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ConnectionView/ConnectionViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/main.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
     </CLASSES>
     <SOURCES />
   </library>
