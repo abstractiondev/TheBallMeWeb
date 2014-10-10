@@ -1,5 +1,5 @@
 {#RankItems}
-<li class="dd-item dd3-item" data-id="{ID}" data-semantictype="{SemanticType}" data-semanticdomain="{SemanticDomain}" data-rankvalue="{RankValue}">
+<li class="dd-item dd3-item" data-id="{ContentID}" data-semantictype="{SemanticType}" data-semanticdomain="{SemanticDomain}" data-rankvalue="{RankValue}">
     <div class="dd-handle dd3-handle"></div>
     <div class="dd3-content">
         {Title}

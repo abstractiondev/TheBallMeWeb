@@ -71,16 +71,16 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
 
             //alert(JSON.stringify(this.currentContentRanks[id]));
             //alert(JSON.stringify(this.currentContentRanks));
+            /*
             var currRanks = me.currentContentRanks[id];
-            if (!currRanks)
-                currRanks = [];
+            if(!currRanks)
+            currRanks = [];
+            */
             var currChildren = me.currentSemantics[id];
-            var currUnranked = _.where(currChildren, function (item) {
-                return _.every(currRanks, function (rItem) {
-                    return rItem.ContentID != item.ID;
-                });
-            });
-            var allContent = { "RankItems": _.union(currRanks, currUnranked) };
+
+            //var currUnranked = _.where(currChildren, item => _.every(currRanks, function(rItem:any) { return rItem.ContentID != item.ID }));
+            //var allContent = { "RankItems":  _.union(currRanks, currUnranked) };
+            var allContent = { "RankItems": currChildren };
             var $parentPh = me.$getNamedFieldWithinModal($modal, "nestableList");
             dust.render("category_rankitem.dust", allContent, function (error, output) {
                 $parentPh.empty();

@@ -69,12 +69,16 @@ class CategoryViewController extends ViewControllerBase {
         me.$getNamedFieldWithinModal($modal, "CategoryID").val(id);
         //alert(JSON.stringify(this.currentContentRanks[id]));
         //alert(JSON.stringify(this.currentContentRanks));
+        /*
         var currRanks = me.currentContentRanks[id];
         if(!currRanks)
             currRanks = [];
+            */
+
         var currChildren = me.currentSemantics[id];
-        var currUnranked = _.where(currChildren, item => _.every(currRanks, function(rItem:any) { return rItem.ContentID != item.ID }));
-        var allContent = { "RankItems":  _.union(currRanks, currUnranked) };
+        //var currUnranked = _.where(currChildren, item => _.every(currRanks, function(rItem:any) { return rItem.ContentID != item.ID }));
+        //var allContent = { "RankItems":  _.union(currRanks, currUnranked) };
+        var allContent = { "RankItems":  currChildren };
         var $parentPh:any = me.$getNamedFieldWithinModal($modal, "nestableList");
         dust.render("category_rankitem.dust", allContent, (error, output) => {
             $parentPh.empty();

@@ -23,7 +23,7 @@
     <script src="../assets/controlpanel/js/jquery.htmlClean.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/dustjs-linkedin/2.0.0/dust-core.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/dustjs-helpers/1.2.0/dust-helpers.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
     <script src="../assets/controlpanel/modules/lib/jquery-nestable/jquery.nestable.js"></script>
     <link rel="stylesheet" href="../assets/controlpanel/modules/lib/jquery-nestable/jquery-nestable.css"/>
 
@@ -246,7 +246,7 @@
                 categoryCollection.CollectionContent);
         var semanticCollection = _.map(sourceUnion, function(item) {
             var semanticObject = {
-                "ID": item.ID,
+                "ContentID": item.ID,
                 "SemanticDomain": item.SemanticDomainName,
                 "SemanticType": item.Name,
                 "Title": item.Title
@@ -282,9 +282,10 @@
         var categoriesWithChildren = AppScripts.Common.ConvertCategoriesFromParentToChildren(nodeSummaryContainer.NodeSourceCategories.CollectionContent);
         var categoryListWithTitleIndented = AppScripts.Common.GetCategoryListWithTitleIndentation(categoriesWithChildren);
         var contentCategoryRanks = args[1][0];
+        console.log(JSON.stringify(contentCategoryRanks));
         var semanticContents = args[2];
         var manualRanks = _.where(contentCategoryRanks.CollectionContent, { "RankName": "MANUAL" } );
-        console.log(contentCategoryRanks.CollectionContent);
+        console.log("Unfiltered: " + contentCategoryRanks.CollectionContent);
         console.log(JSON.stringify(manualRanks));
         manualRanks = _.sortBy(manualRanks, function(item) {
             return item.RankValue;
@@ -310,6 +311,23 @@
                     currentMapArray.push(semItem);
                 }
             });
+        });
+
+        // Sort semantic contents based on category rank map
+        _.each(semanticContentCategoryMap, function(arrayData, key) {
+            var rankData = categoryManualRankMap[key];
+            if(rankData) {
+                var sortedArray = _.sortBy(arrayData, function(item) {
+                    var rankIndex = _.findIndex(rankData, function(ixCandidate) {
+                        return ixCandidate.ContentID == item.ContentID;
+                    });
+                    if(rankIndex == -1)
+                        return item.RankValue;
+                    item.RankValue = rankData[rankIndex].RankValue;
+                    return rankIndex;
+                });
+                semanticContentCategoryMap[key] = sortedArray;
+            }
         });
 
         return {
