@@ -4,7 +4,7 @@
             <a href="#" class="isotope-sort-filter filter badge active " style="color: black;font-size: large" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a>
             {#RootCategories}
                 <a href="#"  class="isotope-sort-filter filter badge" style="font-size: large"
-                                                 data-filter-value=".{CategoryName}">{Title}</a>
+                                                 data-filter-value=".cat{ID}">{Title}</a>
             {/RootCategories}
         </div>
     </div>
@@ -56,7 +56,7 @@
         {#Nodes}
             <div class=""><!-- three_col four_col two_col -->
                 {#CollectionContent}
-                    <div class="nodetile {?Categories}{#Categories}{CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
+                    <div class="nodetile {?Categories}{#Categories}cat{ID} {CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
                         {?ImageBaseUrl}
                             <div class="tileimagecontainer">
                                 {?IsCategoryFilteringNode}
@@ -107,7 +107,7 @@
                                 <p class="w5">
                                     <i class="icon-tag"></i>
                                     {#Categories}
-                                        <a href="#" class="filter badge" data-filter-value=".{CategoryName}">{Title}</a>
+                                        <a href="#" class="filter badge" data-filter-value=".cat{ID}">{Title}</a>
                                     {/Categories}
                                     <br>
                                     <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
@@ -147,28 +147,35 @@
             var $this = $(this);
             /* don't proceed if already selected */
             if ( $this.hasClass('selected') ) {
+                console.log("Already selected, skipping...");
                 return false;
             }
             /*
             alert("FILTERING!");
             */
-            var $optionSet = $this.parents('.option-set');
+            var $optionSet = $this.parents('.isotope-sort');
             /* change selected class */
             $optionSet.find('.selected').removeClass('selected');
+            $(".contentfilter-selected").removeClass("selected").removeClass(".contentfilter-selected");
             $this.addClass('selected');
+            $this.addClass("contentfilter-selected");
             /*
             // store filter value in object
             // i.e. filters.color = 'red'
             */
+            /*
             var group = $optionSet.attr('data-filter-group');
+            console.log("Group: " + group);
             filters[ group ] = $this.attr('data-filter-value');
-            /* // convert object into array */
             var isoFilters = [];
             for ( var prop in filters ) {
                 isoFilters.push( filters[ prop ] )
             }
             var selector = isoFilters.join('');
-            $container.isotope({ filter: selector });
+            */
+            var filterValue = $this.attr("data-filter-value");
+            console.log("Applying filter selector: " + filterValue);
+            $container.isotope({ filter: filterValue });
             return false;
         });
 
