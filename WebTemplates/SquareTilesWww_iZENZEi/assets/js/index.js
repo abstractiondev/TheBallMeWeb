@@ -142,8 +142,8 @@ $(function () {
     if(openCategoryID && openContentID) {
         var articleType = GetArticleTypeFromID(openContentID);
         //var articleType = "text";
-        console.log("Opening: " + articleType + openContentID + openCategoryID)
-        openArticle(articleType, openContentID, openCategoryID);
+        CurrentCategoryID = openCategoryID;
+        openArticle(articleType, openContentID);
     }
 });
 
@@ -173,7 +173,7 @@ var ReplaceWithMarkdownRender = function(containingObj, sourceField, targetField
     containingObj[targetField] = renderedData;
 };
 
-OipOpenArticle = function(urlarg, addRelativePath, categoryID) {
+OipOpenArticle = function(urlarg, addRelativePath) {
     var targeturl = $(this).data('contenturl');
     if (targeturl == null) {
         targeturl = urlarg;
@@ -197,6 +197,7 @@ OipOpenArticle = function(urlarg, addRelativePath, categoryID) {
             var nextContentID;
             $("#previousContent").hide();
             $("#nextContent").hide();
+            var categoryID = CurrentCategoryID;
             if(categoryID) {
                 var rankingData = CategoryContentMap[categoryID];
                 console.log(JSON.stringify(rankingData));
@@ -392,11 +393,11 @@ $(function() {
     });
 });
 
-var openArticle = function (articleType, articleID, categoryID) {
+var openArticle = function (articleType, articleID) {
     var articleUrl;
     if(articleType == "text")
         articleUrl = "../../AaltoGlobalImpact.OIP/TextContent/" + articleID + ".json";
-    OipOpenArticle(articleUrl, false, categoryID);
+    OipOpenArticle(articleUrl, false);
 }
 
 

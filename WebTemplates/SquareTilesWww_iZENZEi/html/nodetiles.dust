@@ -4,7 +4,7 @@
             <a href="#" class="isotope-sort-filter filter badge active " style="color: black;font-size: large" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a>
             {#RootCategories}
                 <a href="#"  class="isotope-sort-filter filter badge" style="font-size: large"
-                                                 data-filter-value=".cat{ID}">{Title}</a>
+                   data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
             {/RootCategories}
         </div>
     </div>
@@ -56,7 +56,7 @@
         {#Nodes}
             <div class=""><!-- three_col four_col two_col -->
                 {#CollectionContent}
-                    <div class="nodetile {?Categories}{#Categories}cat{ID} {CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
+                    <div data-title="{Title}" class="nodetile {?Categories}{#Categories}cat{ID} {CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
                         {?ImageBaseUrl}
                             <div class="tileimagecontainer">
                                 {?IsCategoryFilteringNode}
@@ -107,7 +107,7 @@
                                 <p class="w5">
                                     <i class="icon-tag"></i>
                                     {#Categories}
-                                        <a href="#" class="filter badge" data-filter-value=".cat{ID}">{Title}</a>
+                                        <a href="#" class="filter badge" data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
                                     {/Categories}
                                     <br>
                                     <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
@@ -130,7 +130,19 @@
 
         $container.isotope({
             itemSelector : '.nodetile',
-            filter: '.ROOTCATEGORY'
+            filter: '.ROOTCATEGORY',
+            getSortData: {
+                rankFunc: function($item) {
+                    var title = $item.data("title");
+                    if(!CurrentCategoryID)
+                        return title;
+                    var rankObjects = CategoryContentMap[CurrentCategoryID];
+                    var myIndex = _.findIndex(rankObjects, function(rItem) {
+                        return rItem.Title == title;
+                    });
+                    return myIndex;
+                }
+            }
         });
 
         var loaded = 0;
@@ -145,6 +157,8 @@
         /* filter buttons */
         $('a.filter').click(function(){
             var $this = $(this);
+            var categoryID = $this.data("categoryid");
+            CurrentCategoryID = categoryID;
             /* don't proceed if already selected */
             if ( $this.hasClass('selected') ) {
                 console.log("Already selected, skipping...");
@@ -176,6 +190,8 @@
             var filterValue = $this.attr("data-filter-value");
             console.log("Applying filter selector: " + filterValue);
             $container.isotope({ filter: filterValue });
+            $container.isotope({ sortBy: "rankFunc" });
+            /*$container.isotope('updateSortData').isotope();*/
             return false;
         });
 
