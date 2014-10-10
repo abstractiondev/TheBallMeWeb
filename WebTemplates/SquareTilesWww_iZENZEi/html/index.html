@@ -253,6 +253,7 @@
             for(var nodeIX = 0; nodeIX < myObj.Nodes.CollectionContent.length; nodeIX++)
             {
                 var nodeObj = myObj.Nodes.CollectionContent[nodeIX];
+                console.log("Node: " + nodeObj.Title + " " + nodeObj.CategoryIDList);
                 nodeObj.Categories = getCategoriesBasedByNamesOrIDs(nodeSummary.NodeSourceCategories, nodeObj.CategoryNames, nodeObj.CategoryIDList);
                 ReplaceWithMarkdownRender(nodeObj, "Excerpt", "ExcerptRendered");
             }
