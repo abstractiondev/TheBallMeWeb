@@ -446,12 +446,46 @@ OipOpenArticle = function(urlarg, addRelativePath) {
 
             }
 
-            $('#viewContentModal').foundation('reveal', 'open');
-
+            var $modal = $("#viewContentModal");
+            $modal.foundation('reveal', 'open');
+            setTimeout(function() {
+                ResizeModalRows($modal);
+            }, 400);
         }
     });
     return;
 };
+
+var ResizeModalRows = function($modalFrame) {
+    var parentForRows = $modalFrame;
+    //alert(parentForRows.prop("tagName") + ": " + parentForRows.attr("class"));
+    var fullParentHeight = parentForRows.height();
+    var rows = parentForRows.children(".row");
+    var totalHeight = 0;
+    rows.each(function(item) {
+        var row = $(this);
+        totalHeight += row.height();
+    });
+    var remainingHeightRows = parentForRows.children(".row.remainingHeight");
+    if(remainingHeightRows.length < 1)
+        return;
+    var remainingHeight = 0;
+    remainingHeightRows.each(function(item) {
+        var row = $(this);
+        remainingHeight += row.height();
+    });
+    //alert(fullParentHeight + " " + totalHeight + " " + remainingHeight);
+    var spaceLeftForRemainingRows = fullParentHeight - totalHeight + remainingHeight;
+    var eachRemainingRowHeight = spaceLeftForRemainingRows / remainingHeightRows.length;
+    //alert(eachRemainingRowHeight);
+    //alert(spaceLeftForRemainingRows);
+    remainingHeightRows.each(function(item) {
+        var row = $(this);
+        row.height(eachRemainingRowHeight);
+    });
+    //alert("resized...");
+};
+
 $(function() {
     /*$(".oipclicktoview").on('click', OipOpenArticle);*/
     $(document).on("click", ".oipclicktoview", OipOpenArticle);

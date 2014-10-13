@@ -19,7 +19,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target=".subnav" data-offset="50">
+<body data-spy="scroll" data-target=".subnav" data-offset="50" style="height: 100%">
 <script src="../assets/js/dust-core-1.2.3.min.js"></script>
 <script src="../assets/js/dust-helpers-1.1.1.js"></script>
 <script src="nodetiles_dust.js"></script>
@@ -44,14 +44,39 @@
 
 <style>
 
+    a.goldlink {
+        color: #cc983c;
+        font-weight: bolder;
+    }
+
+    a.goldlink:hover {
+        color: #ebc500;
+        font-weight: bolder;
+    }
+
     .button.filter {
         font-size: large;
-        padding:2px;
-        margin:3px;
+        padding:7px;
+        margin:2px;
+        border-radius: 3px;
     }
 
     iframe, object, embed {
         max-width: 100%;
+        max-height: 100%;
+        /*height: 100%;*/
+    }
+
+    .contentbodyhost {
+        height: 100%;
+    }
+    .contentbodyhost > p {
+        height: 100%;
+    }
+
+    .remainingHeight {
+        background-color: gold;
+        height: 100%;
         max-height: 100%;
     }
 
@@ -320,13 +345,22 @@
                     <div class="large-12 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
                 </div>
             </div>
-            <div class="large-2 columns"><img src="../assets/img/izenzei-logo.jpg"></div>
+            <div class="large-2 columns"><img src="../assets/img/izenzei-logo.jpg">
+                <!--
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label class="discreetTextColor">Share:</label>
+                        <input type="text" placeholder="" id="articleShareURLinput"/>
+                    </div>
+                </div>
+                -->
+            </div>
         </div>
         <div class="row fullWidth">
             <div class="large-12 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;"><div class="content-card-line"><hr></div></div>
         </div>
-        <div class="row fullWidth">
-            <div class="large-12 columns articleText" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
+        <div class="row fullWidth remainingHeight">
+            <div class="large-12 columns articleText contentbodyhost" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
         </div>
         <div class="row">
             <div id="viewContentModal-attachments"></div>
@@ -334,15 +368,7 @@
         <div class="row">
             <div id="viewContentModal-iframes"></div>
         </div>
-        <div class="row">
-            <div class="large-12 columns">
-                <br>
-                <label class="discreetTextColor">Share:</label>
-                <input type="text" placeholder="" id="articleShareURLinput"/>
-            </div>
-        </div>
         <div class="row fullWidth">
-            <br>
             <div class="large-4 columns">
                 <button class="button catnavaction" id="previousContent">Previous</button>
             </div>

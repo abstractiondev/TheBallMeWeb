@@ -96,7 +96,7 @@
                                         {@eq key=TechnicalSource value="IMAGE"}
                                             <div>{Title}</div>
                                         {:else}
-                                            <a class="oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">{Title}</a>
+                                            <a class="oipclicktoview goldlink" href="#" data-contenturl="{ActualContentUrl}.json">{Title}</a>
                                         {/eq}
                                     {/eq}
                                 {/IsCategoryFilteringNode}
@@ -105,7 +105,6 @@
                             {?IsCategoryFilteringNode}
                             {:else}
                                 <p class="w5">
-                                    <i class="icon-tag"></i>
                                     {#Categories}
                                         <a href="#" class="filter button filter" data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
                                     {/Categories}
