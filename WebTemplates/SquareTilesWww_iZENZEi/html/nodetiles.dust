@@ -1,9 +1,9 @@
 <div class="row text-center" id="isotope_content_row">
     <div class="filter-box">
         <div class="isotope-sort categories">
-            <a href="#" class="isotope-sort-filter filter badge active " style="color: black;font-size: large" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a>
+            <a href="#" class="isotope-sort-filter filter button" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a>
             {#RootCategories}
-                <a href="#"  class="isotope-sort-filter filter badge" style="font-size: large"
+                <a href="#"  class="isotope-sort-filter filter button"
                    data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
             {/RootCategories}
         </div>
@@ -87,7 +87,7 @@
                         <div class="entry-summary">
                             <h4>
                                 {?IsCategoryFilteringNode}
-                                    <a class="filter badge" href="#"
+                                    <a class="filter button filter" href="#"
                                        data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">{Title}</a>
                                 {:else}
                                     {@eq key=TechnicalSource value="LINKTOCONTENT"}
@@ -107,12 +107,8 @@
                                 <p class="w5">
                                     <i class="icon-tag"></i>
                                     {#Categories}
-                                        <a href="#" class="filter badge" data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
+                                        <a href="#" class="filter button filter" data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
                                     {/Categories}
-                                    <br>
-                                    <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
-                                    <br>
-                                    <span><i class="icon-calendar"></i></span>{TimestampText}
                                 </p>
                             {/IsCategoryFilteringNode}
                         </div>
