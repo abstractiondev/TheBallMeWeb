@@ -449,12 +449,22 @@ OipOpenArticle = function(urlarg, addRelativePath) {
             var $modal = $("#viewContentModal");
             $modal.foundation('reveal', 'open');
             setTimeout(function() {
-                ResizeModalRows($modal);
+                RepeatModalResizing($modal);
             }, 400);
         }
     });
     return;
 };
+
+var RepeatModalResizing = function($modalFrame) {
+    if(!$modalFrame.is(":visible"))
+        return;
+    ResizeModalRows($modalFrame);
+    setTimeout(function() {
+        RepeatModalResizing($modalFrame);
+    }, 400);
+
+}
 
 var ResizeModalRows = function($modalFrame) {
     var parentForRows = $modalFrame;
