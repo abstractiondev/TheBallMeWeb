@@ -72,7 +72,7 @@
                                         {@eq key=TechnicalSource value="IMAGE"}
                                             <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
                                         {:else}
-                                            <a class="hover oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">
+                                            <a class="hover oipclicktoview" href="#" data-original-content-id="{OriginalContentID}">
                                                 <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
                                             </a>
                                         {/eq}
@@ -96,7 +96,7 @@
                                         {@eq key=TechnicalSource value="IMAGE"}
                                             <div>{Title}</div>
                                         {:else}
-                                            <a class="oipclicktoview goldlink" href="#" data-contenturl="{ActualContentUrl}.json">{Title}</a>
+                                            <a class="oipclicktoview goldlink" href="#" data-original-content-id="{OriginalContentID}">{Title}</a>
                                         {/eq}
                                     {/eq}
                                 {/IsCategoryFilteringNode}

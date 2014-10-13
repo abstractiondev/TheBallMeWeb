@@ -140,6 +140,8 @@ var GetArticleTypeFromID = function(id) {
         return "";
     if(semanticItem.SemanticType == "TextContent")
         return "text";
+    if(semanticItem.SemanticType == "EmbeddedContent")
+        return "embedded";
 };
 
 var GetPrevData = function(semanticContentID, categoryID, isDifferentCategory) {
@@ -232,6 +234,12 @@ var ReplaceWithMarkdownRender = function(containingObj, sourceField, targetField
     containingObj[targetField] = renderedData;
 };
 
+var OipOpenNodeClick = function() {
+    var contentID = $(this).data("original-content-id");
+    var articleType = GetArticleTypeFromID(contentID);;
+    openArticle(articleType, contentID);
+};
+
 OipOpenArticle = function(urlarg, addRelativePath) {
     var targeturl = $(this).data('contenturl');
     if (targeturl == null) {
@@ -248,9 +256,16 @@ OipOpenArticle = function(urlarg, addRelativePath) {
     $.ajax({
         url: targeturl,
         cache: true,
-        success: function (textContent) {
+        success: function (genContent) {
+            var textContent;
+            var embeddedContent;
+            if(genContent.Name == "TextContent")
+                textContent = genContent;
+            if(genContent.Name == "EmbeddedContent")
+                embeddedContent = genContent;
+            //alert(genContent.Name);
             var articleUrl = targeturl;
-            var currentID = textContent.ID;
+            var currentID = genContent.ID;
 
             var previousContentID;
             var nextContentID;
@@ -260,34 +275,6 @@ OipOpenArticle = function(urlarg, addRelativePath) {
             var $catPanel = $("#categorypanel");
             $catPanel.empty();
             if(categoryID && CategoriesMap[categoryID]) {
-                /*
-                var rankingData = CategoryContentMap[categoryID];
-                console.log(JSON.stringify(rankingData));
-                var currIX = _.findIndex(rankingData, function(item) {
-                    return item.ContentID == currentID;
-                });
-                if(currIX >= 0) {
-                    if(currIX > 0)
-                        previousContentID = rankingData[currIX - 1].ContentID;
-                    if(currIX < rankingData.length - 1)
-                        nextContentID = rankingData[currIX + 1].ContentID;
-                    if(previousContentID) {
-                        var previousContent = SemanticContentMap[previousContentID];
-                        console.log("Prev: " + JSON.stringify(previousContent));
-                        $("#previousContent").text(previousContent.Title);
-                        $("#previousContent").data("cat", categoryID);
-                        $("#previousContent").data("con", previousContentID);
-                        $("#previousContent").show();
-                    }
-                    if(nextContentID) {
-                        var nextContent = SemanticContentMap[nextContentID];
-                        console.log("Next: " + JSON.stringify(nextContent));
-                        $("#nextContent").text(nextContent.Title);
-                        $("#nextContent").data("cat", categoryID);
-                        $("#nextContent").data("con", nextContentID);
-                        $("#nextContent").show();
-                    }
-                }*/
                 var prevData = GetPrevData(currentID, categoryID);
                 if(prevData) {
                     var previousContent = prevData.Data;
@@ -315,137 +302,150 @@ OipOpenArticle = function(urlarg, addRelativePath) {
                 $catPanel.append("<div>" + currActiveCategory.Title + "</div>");
             }
 
-
-            var iFrameList = [];
-            if(textContent.IFrameSources) {
-                var nonTaggedList = textContent.IFrameSources.split('\n');
-                $.each(nonTaggedList, function(index, value) {
-                    var taggedVersion = "<iframe " + value + "></iframe>";
-                    iFrameList.push(taggedVersion);
-                });
-            }
-            var contentData = { "CollectionContent": [ textContent ] };
-            var queryValue="";
-            markdown = new MarkdownDeep.Markdown();
-            markdown.SafeMode = true;
-            var i = 0;
-
-            queryValue=contentData.CollectionContent[i].Title;
-            $("#viewContentModal-title").empty();
-            $('#viewContentModal-title').append(queryValue);
-
-            queryValue="<p>"+contentData.CollectionContent[i].Excerpt+"</p>";
-            $("#viewContentModal-excerpt").empty();
-            $('#viewContentModal-excerpt').append(queryValue);
-
-            //var currentMainCategory=contentData.CollectionContent[i].Categories.CollectionContent[0].Title;
-            var currentMainCategory="News";
-
-            //queryValue=contentData.CollectionContent[i].content_type;
-            $("#viewContentModal-categories").empty();
-            $('#viewContentModal-categories').append(currentMainCategory);
-
-            var rawbody;
-            rawbody = contentData.CollectionContent[i].RawHtmlContent;
-            if(rawbody) {
-                rawbody=rawbody.replace(new RegExp("div", "g"), 'p');
-                rawbody=rawbody.replace(new RegExp("<span>", "g"), '');
-                rawbody=rawbody.replace(new RegExp("</span>", "g"), '');
-
-                queryValue=$.htmlClean(rawbody, {
-                    removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike", "u"],
-                    format:true
-                });
-            } else {
-                var bodyRendered = markdown.Transform(contentData.CollectionContent[i].Body.replaceAll("javascript:", ""));
-                rawbody = bodyRendered;
-                queryValue = rawbody;
-            }
-
-            $("#viewContentModal-content").empty();
-            $('#viewContentModal-content').append(queryValue);
-
-            var lastSlashIndex = articleUrl.lastIndexOf("/");
-            var lastExtIndex = articleUrl.lastIndexOf(".json");
-            var articleIDFromArticleUrl = articleUrl.substring(lastSlashIndex + 1, lastExtIndex);
-            var currentURL = "http://www.onlinetaekwondo.com/html/index.html?type=text&id="+ articleIDFromArticleUrl;
-            $("#articleShareURLinput").attr("placeholder",currentURL);
-            $("#articleShareURLinput").val(currentURL);
-
-            if ((contentData.CollectionContent[i].Author===null)||(!contentData.CollectionContent[i].Author) )
-                var currentAuthor="Aalto Global Impact";
-            else
-                var currentAuthor=contentData.CollectionContent[i].Author;
-            queryValue=contentData.CollectionContent[i].Author;
-            $("#viewContentModal-Author").empty();
-            $('#viewContentModal-Author').append(currentAuthor);
-
-            var recordedJsonDate = contentData.CollectionContent[i].Published;
-            var pattern = /[0-9]+/; //to find the number within the string, first occurrence.
-            recordedJsonDate = (recordedJsonDate.match(pattern))/1000;
-            var extractedDate= new Date(1000*recordedJsonDate);
-            //extractedDate = extractedDate.toLocaleString();
-            var cardDate = extractedDate.getDate()+".";
-            cardDate+= (extractedDate.getMonth() + 1) +".";
-            cardDate+= extractedDate.getFullYear();
-
-            $("#viewContentModal-Date").empty();
-            $('#viewContentModal-Date').append(cardDate );
-
-            //send the correspondent image to the placeholder, but clean its containing div first
-            if (contentData.CollectionContent[i].ImageData===null)
-            {
-                var currentImage= "images/preview.jpg";
-            }
-
-            else
-            {
-                var imgID = contentData.CollectionContent[i].ImageData.ID;
-                var imgExtension = contentData.CollectionContent[i].ImageData.AdditionalFormatFileExt;
-                var currentImage= "../../AaltoGlobalImpact.OIP/MediaContent/"+imgID+"_320x240_crop"+imgExtension;
-            }
-            $("#viewContentModal-image").empty(); //clean the image Placeholder in the form
-            queryValue = "<img src='"+currentImage+"' style='width:auto;height:auto;max-width:350;max-height:450px;margin-left:auto;margin-right:auto;'>";
-            $("#viewContentModal-image").append(queryValue);
-
-
-            $("#viewContentModal-iframes").empty();
-            $.each(iFrameList, function(index, value) {
-                $("#viewContentModal-iframes").append(value);
-            });
-
-            $("#viewContentModal-attachments").empty();
-
-            //var myAttachments = getObjectAttachments(currentID);
-            var myAttachments = [];
-            if(myAttachments.length > 0) {
-                var myBinaries = [];
-                for(var attachmentIX = 0; attachmentIX < myAttachments.length; attachmentIX++)
-                {
-                    var currAttachment = myAttachments[attachmentIX];
-                    var binaryFileID = currAttachment.SourceObjectID;
-                    var attachedBinary = getBinaryFile(binaryFileID);
-                    if(attachedBinary && attachedBinary.Data)
-                        myBinaries.push(attachedBinary);
+            if(textContent) {
+                var iFrameList = [];
+                if(textContent.IFrameSources) {
+                    var nonTaggedList = textContent.IFrameSources.split('\n');
+                    $.each(nonTaggedList, function(index, value) {
+                        var taggedVersion = "<iframe " + value + "></iframe>";
+                        iFrameList.push(taggedVersion);
+                    });
                 }
-                myBinaries.sort(function(a, b) {
-                    if(a && b && a.OriginalFileName && b.OriginalFileName)
-                        return a.OriginalFileName.localeCompare(b.OriginalFileName);
-                    return 0;
-                });
-                for(var binaryIX = 0; binaryIX < myBinaries.length; binaryIX++)
-                {
-                    var currBinary = myBinaries[binaryIX];
-                    var data = currBinary.Data;
-                    var contentID = data.ID;
-                    var originalFileName = currBinary.OriginalFileName;
-                    var binaryUrl = encodeURI("../../AaltoGlobalImpact.OIP/MediaContent/" + contentID + "/" + originalFileName);
-                    var binaryLinkTag = '<br><a href="' + binaryUrl +  '">' + originalFileName + '</a><br>';
-                    $("#viewContentModal-attachments").append(binaryLinkTag);
+                var contentData = { "CollectionContent": [ textContent ] };
+                var queryValue="";
+                markdown = new MarkdownDeep.Markdown();
+                markdown.SafeMode = true;
+                var i = 0;
+
+                queryValue=contentData.CollectionContent[i].Title;
+                $("#viewContentModal-title").empty();
+                $('#viewContentModal-title').append(queryValue);
+
+                queryValue="<p>"+contentData.CollectionContent[i].Excerpt+"</p>";
+                $("#viewContentModal-excerpt").empty();
+                $('#viewContentModal-excerpt').append(queryValue);
+
+                //var currentMainCategory=contentData.CollectionContent[i].Categories.CollectionContent[0].Title;
+                var currentMainCategory="News";
+
+                //queryValue=contentData.CollectionContent[i].content_type;
+                $("#viewContentModal-categories").empty();
+                $('#viewContentModal-categories').append(currentMainCategory);
+
+                var rawbody;
+                rawbody = contentData.CollectionContent[i].RawHtmlContent;
+                if(rawbody) {
+                    rawbody=rawbody.replace(new RegExp("div", "g"), 'p');
+                    rawbody=rawbody.replace(new RegExp("<span>", "g"), '');
+                    rawbody=rawbody.replace(new RegExp("</span>", "g"), '');
+
+                    queryValue=$.htmlClean(rawbody, {
+                        removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike", "u"],
+                        format:true
+                    });
+                } else {
+                    var bodyRendered = markdown.Transform(contentData.CollectionContent[i].Body.replaceAll("javascript:", ""));
+                    rawbody = bodyRendered;
+                    queryValue = rawbody;
                 }
 
-            }
+                $("#viewContentModal-content").empty();
+                $('#viewContentModal-content').append(queryValue);
 
+                var lastSlashIndex = articleUrl.lastIndexOf("/");
+                var lastExtIndex = articleUrl.lastIndexOf(".json");
+                var articleIDFromArticleUrl = articleUrl.substring(lastSlashIndex + 1, lastExtIndex);
+                var currentURL = "http://www.onlinetaekwondo.com/html/index.html?type=text&id="+ articleIDFromArticleUrl;
+                $("#articleShareURLinput").attr("placeholder",currentURL);
+                $("#articleShareURLinput").val(currentURL);
+
+                if ((contentData.CollectionContent[i].Author===null)||(!contentData.CollectionContent[i].Author) )
+                    var currentAuthor="Aalto Global Impact";
+                else
+                    var currentAuthor=contentData.CollectionContent[i].Author;
+                queryValue=contentData.CollectionContent[i].Author;
+                $("#viewContentModal-Author").empty();
+                $('#viewContentModal-Author').append(currentAuthor);
+
+                var recordedJsonDate = contentData.CollectionContent[i].Published;
+                var pattern = /[0-9]+/; //to find the number within the string, first occurrence.
+                recordedJsonDate = (recordedJsonDate.match(pattern))/1000;
+                var extractedDate= new Date(1000*recordedJsonDate);
+                //extractedDate = extractedDate.toLocaleString();
+                var cardDate = extractedDate.getDate()+".";
+                cardDate+= (extractedDate.getMonth() + 1) +".";
+                cardDate+= extractedDate.getFullYear();
+
+                $("#viewContentModal-Date").empty();
+                $('#viewContentModal-Date').append(cardDate );
+
+                //send the correspondent image to the placeholder, but clean its containing div first
+                if (contentData.CollectionContent[i].ImageData===null)
+                {
+                    var currentImage= "images/preview.jpg";
+                }
+
+                else
+                {
+                    var imgID = contentData.CollectionContent[i].ImageData.ID;
+                    var imgExtension = contentData.CollectionContent[i].ImageData.AdditionalFormatFileExt;
+                    var currentImage= "../../AaltoGlobalImpact.OIP/MediaContent/"+imgID+"_320x240_crop"+imgExtension;
+                }
+                $("#viewContentModal-image").empty(); //clean the image Placeholder in the form
+                queryValue = "<img src='"+currentImage+"' style='width:auto;height:auto;max-width:350;max-height:450px;margin-left:auto;margin-right:auto;'>";
+                $("#viewContentModal-image").append(queryValue);
+
+
+                $("#viewContentModal-iframes").empty();
+                $.each(iFrameList, function(index, value) {
+                    $("#viewContentModal-iframes").append(value);
+                });
+
+                $("#viewContentModal-attachments").empty();
+
+                //var myAttachments = getObjectAttachments(currentID);
+                var myAttachments = [];
+                if(myAttachments.length > 0) {
+                    var myBinaries = [];
+                    for(var attachmentIX = 0; attachmentIX < myAttachments.length; attachmentIX++)
+                    {
+                        var currAttachment = myAttachments[attachmentIX];
+                        var binaryFileID = currAttachment.SourceObjectID;
+                        var attachedBinary = getBinaryFile(binaryFileID);
+                        if(attachedBinary && attachedBinary.Data)
+                            myBinaries.push(attachedBinary);
+                    }
+                    myBinaries.sort(function(a, b) {
+                        if(a && b && a.OriginalFileName && b.OriginalFileName)
+                            return a.OriginalFileName.localeCompare(b.OriginalFileName);
+                        return 0;
+                    });
+                    for(var binaryIX = 0; binaryIX < myBinaries.length; binaryIX++)
+                    {
+                        var currBinary = myBinaries[binaryIX];
+                        var data = currBinary.Data;
+                        var contentID = data.ID;
+                        var originalFileName = currBinary.OriginalFileName;
+                        var binaryUrl = encodeURI("../../AaltoGlobalImpact.OIP/MediaContent/" + contentID + "/" + originalFileName);
+                        var binaryLinkTag = '<br><a href="' + binaryUrl +  '">' + originalFileName + '</a><br>';
+                        $("#viewContentModal-attachments").append(binaryLinkTag);
+                    }
+
+                }
+            }
+            if(embeddedContent) {
+                $("#viewContentModal-title").empty();
+                $("#viewContentModal-title").append(embeddedContent.Title);
+                $("#viewContentModal-excerpt").empty();
+                $("#viewContentModal-excerpt").append(embeddedContent.Description);
+                $("#viewContentModal-categories").empty();
+                $("#viewContentModal-content").empty().append("<iframe " + embeddedContent.IFrameTagContents + "></iframe>");
+                $("#viewContentModal-Author").empty();
+                $("#viewContentModal-Date").empty();
+                $("#viewContentModal-image").empty(); //clean the image Placeholder in the form
+                $("#viewContentModal-iframes").empty();
+                $("#viewContentModal-attachments").empty();
+            }
             var $modal = $("#viewContentModal");
             $modal.foundation('reveal', 'open');
             setTimeout(function() {
@@ -498,7 +498,7 @@ var ResizeModalRows = function($modalFrame) {
 
 $(function() {
     /*$(".oipclicktoview").on('click', OipOpenArticle);*/
-    $(document).on("click", ".oipclicktoview", OipOpenArticle);
+    $(document).on("click", ".oipclicktoview", OipOpenNodeClick);
     $(document).foundation(
         {
             reveal : {
@@ -529,6 +529,8 @@ var openArticle = function (articleType, articleID) {
     var articleUrl;
     if(articleType == "text")
         articleUrl = "../../AaltoGlobalImpact.OIP/TextContent/" + articleID + ".json";
+    if(articleType == "embedded")
+        articleUrl = "../../AaltoGlobalImpact.OIP/EmbeddedContent/" + articleID + ".json";
     OipOpenArticle(articleUrl, false);
 }
 
