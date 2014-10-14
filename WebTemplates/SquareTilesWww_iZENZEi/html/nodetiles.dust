@@ -60,7 +60,7 @@
                         {?ImageBaseUrl}
                             <div class="tileimagecontainer">
                                 {?IsCategoryFilteringNode}
-                                    <a class="hover filter" href="#" data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">
+                                    <a class="hover filter" href="#" data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">
                                         <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
                                     </a>
                                 {:else}
@@ -90,7 +90,7 @@
                             <h4>
                                 {?IsCategoryFilteringNode}
                                     <a class="filter button filter" href="#"
-                                       data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">{Title}</a>
+                                       data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">{Title}</a>
                                 {:else}
                                     {@eq key=TechnicalSource value="LINKTOCONTENT"}
                                         <a href="{ActualContentUrl}">{Title}</a>
