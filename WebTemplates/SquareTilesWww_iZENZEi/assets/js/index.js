@@ -269,8 +269,10 @@ OipOpenArticle = function(urlarg, addRelativePath) {
 
             var previousContentID;
             var nextContentID;
-            $("#previousContent").hide();
-            $("#nextContent").hide();
+            var $previousContent = $(".previousContent");
+            var $nextContent = $(".nextContent");
+            $previousContent.hide();
+            $nextContent.hide();
             var categoryID = CurrentCategoryID;
             var $catPanel = $("#categorypanel");
             $catPanel.empty();
@@ -279,19 +281,19 @@ OipOpenArticle = function(urlarg, addRelativePath) {
                 if(prevData) {
                     var previousContent = prevData.Data;
                     console.log("Prev: " + JSON.stringify(previousContent));
-                    $("#previousContent").text(previousContent.Title);
-                    $("#previousContent").data("cat", categoryID);
-                    $("#previousContent").data("con", prevData.Data.ContentID);
-                    $("#previousContent").show();
+                    $previousContent.text(previousContent.Title);
+                    $previousContent.data("cat", categoryID);
+                    $previousContent.data("con", prevData.Data.ContentID);
+                    $previousContent.show();
                 }
                 var nextData = GetNextData(currentID, categoryID);
                 if(nextData) {
                     var nextContent = nextData.Data;
                     console.log("Next: " + JSON.stringify(nextContent));
-                    $("#nextContent").text(nextContent.Title);
-                    $("#nextContent").data("cat", categoryID);
-                    $("#nextContent").data("con", nextData.Data.ContentID);
-                    $("#nextContent").show();
+                    $nextContent.text(nextContent.Title);
+                    $nextContent.data("cat", categoryID);
+                    $nextContent.data("con", nextData.Data.ContentID);
+                    $nextContent.show();
                 }
                 var currActiveCategory = CategoriesMap[categoryID];
                 if(currActiveCategory.ImageData) {

@@ -79,7 +79,7 @@
     }
 
     .remainingHeight {
-        background-color: gold;
+        /*background-color: gold;*/
         height: 100%;
         max-height: 100%;
     }
@@ -115,8 +115,12 @@
     }
 </style>
 
-<div class="row text-center">
-    <div id="logocontainer" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px" class="logo-only">
+<div class="row text-center show-for-large-up">
+    <div id="logocontainer-large" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px;height: 200px" class="logo-only">
+    </div>
+</div>
+<div class="row text-center show-for-medium-only">
+    <div id="logocontainer-medium" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px;height: 100px" class="logo-only">
     </div>
 </div>
 
@@ -287,7 +291,8 @@
             var imageData = CurrGroupContainer.GroupProfile.ProfileImage.ImageData;
             if(imageData != null)
             {
-                $("#logocontainer").html("<img height='20%' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+                $("#logocontainer-large").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+                $("#logocontainer-medium").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
             }
 
             var myObj = nodeSummary;
@@ -338,18 +343,18 @@
     <div id="viewContentModal" class="reveal-modal xlarge video-modal" data-reveal>
         <!--Begins contents of  div for the viewContentModal-->
         <div class="row fullWidth">
-            <div class="large-2 columns" id="categorypanel">
+            <div class="show-for-large-up large-2 columns" id="categorypanel">
             </div>
             <div class="large-8 columns">
                 <div class="row">
                     <div class="large-12 columns" style="width:100%;padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span id="viewContentModal-title" class="hugeTitleText"></span></strong>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row show-for-large-up">
                     <div class="large-12 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
                 </div>
             </div>
-            <div class="large-2 columns"><img src="../assets/img/izenzei-logo.jpg">
+            <div class="large-2 columns show-for-large-up"><img src="../assets/img/izenzei-logo.jpg">
                 <!--
                 <div class="row">
                     <div class="large-12 columns">
@@ -372,15 +377,23 @@
         <div class="row">
             <div id="viewContentModal-iframes"></div>
         </div>
-        <div class="row fullWidth">
+        <div class="row fullWidth show-for-large-up">
             <div class="large-4 columns">
-                <button class="button catnavaction" id="previousContent">Previous</button>
+                <button class="button catnavaction previousContent">Previous</button>
             </div>
             <div class="large-4 columns">
                 <a class="button" style="display: block;" id="closeViewContentModal">Close</a>
             </div>
             <div class="large-4 columns">
-                <button class="button catnavaction" style="float:right !important;" id="nextContent">Next</button>
+                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
+            </div>
+        </div>
+        <div class="row fullWidth show-for-medium-down">
+            <div class="medium-6 columns">
+                <button class="button catnavaction previousContent">Previous</button>
+            </div>
+            <div class="medium-6 columns">
+                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
             </div>
         </div>
         <a class="close-reveal-modal">&#215;</a>
