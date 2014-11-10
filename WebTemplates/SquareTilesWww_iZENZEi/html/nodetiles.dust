@@ -81,7 +81,7 @@
                             </div>
                         {:else}
                             {@eq key=TechnicalSource value="EMBEDDEDCONTENT"}
-                                <a href="#" class="oipclicktoview" data-original-content-id="{OriginalContentID}">
+                                <a style="max-height: 150px" href="#" class="oipclicktoview" data-original-content-id="{OriginalContentID}">
                                     <iframe style="width: 100%;height: 100%" {ActualContentUrl|s}></iframe>
                                 </a>
                             {/eq}
