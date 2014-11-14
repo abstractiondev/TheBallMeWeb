@@ -1,0 +1,1 @@
+<a class="{?nobutton}{:else}button{/nobutton} oip-controller-command" data-oip-command="{command}" {?command_args}data-oip-command-args="{command_args}"{/command_args}
