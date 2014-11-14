@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns">
+        <h4 class="boldieText">My Groups</h4>
+        <div>
+            <table id="collaborators-table" style="text-align: left;">
+                <tr>
+                    <th>View</th>
+                    <th>Group</th>
+                    <th>Role</th>
+                    <th>URL</th>
+                    <th>Make Default</th>
+                </tr>
+{#Roles}
+{#ModeratorInGroups}
+    {#CollectionContent}
+        <tr>
+            <td style="width: 400px"><a href="{URL}"><iframe height="200px" src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></td>
+            <td style="text-transform: none !important;"><a href="{URL}">{Title}</a></td>
+            <td style="text-transform: none !important; font-style: italic;">Moderator</td>
+            <td style="text-transform: none !important; font-style: italic;">{URL}</td>
+            <td>{>"command_button_begin.dust" nobutton="true" command="SetAsDefaultGroup" /}
+                data-groupurl="{URL}"
+                {>"command_button_end.dust" icon_class_name="icon-star-empty" /}
+            </td>
+        </tr>
+    {/CollectionContent}
+{/ModeratorInGroups}
+{#MemberInGroups}
+    {#CollectionContent}
+        <tr>
+            <td style="width: 400px"><a href="{URL}"><iframe src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></td>
+            <td style="text-transform: none !important;"><a href="{URL}">{Title}</a></td>
+            <td style="text-transform: none !important; font-style: italic;">Member</td>
+            <td style="text-transform: none !important; font-style: italic;">{URL}</td>
+            <td>{>"command_button_begin.dust" nobutton="true" command="SetAsDefaultGroup" /}
+                data-groupurl="{URL}"
+                {>"command_button_end.dust" icon_class_name="icon-star-empty" /}
+            </td>
+        </tr>
+    {/CollectionContent}
+{/MemberInGroups}
+{/Roles}
+            </table>
+        </div>
+    </div>
+</div>

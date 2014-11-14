@@ -87,9 +87,12 @@
     <ul class="off-canvas-list">
         <li><label>Content</label></li>
         <li><a href="#" id="groupsMenuAnchor" data-section-id="groupsSection" class="offCanvasMenuAnchor">My Groups & Content</a></li>
+        <li><a href="#" id="purchaseMenuAnchor" data-section-id="purchaseSection" class="offCanvasMenuAnchor">Purchase Membership Subscriptions</a></li>
         <li><label>Me</label></li>
+        <!--
         <li><a href="#" id="personalMenuAnchor" data-section-id="personalSection" class="offCanvasMenuAnchor">Personal Info</a></li>
         <li><a href="#" id="securityMenuAnchor" data-section-id="securitySection" class="offCanvasMenuAnchor">Personal Security</a></li>
+        -->
         <li><a href="/TheBallLogin.aspx?SignOut=true">Logout</a></li>
     </ul>
 </aside>
@@ -279,12 +282,12 @@
         };
     }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
 
-    require(["GroupsView/GroupsViewController"], function (vcClass) {
+    require(["SimpleGroupsView/SimpleGroupsViewController"], function (vcClass) {
         var vc = new vcClass("groupsSection", tOP, tUDG);
         vc.Initialize("GROUPS");
         vc.VisibleTemplateRender();
     });
-
+/*
     require(["PersonalSecurityView/PersonalSecurityViewController"], function(vcClass) {
         var vc = new vcClass("securitySection", tOP, tUDG);
         vc.Initialize("SECURITYINFO");
@@ -295,7 +298,7 @@
         var vc = new vcClass("personalSection", tOP, tUDG);
         vc.Initialize("PERSONALINFO");
         vc.VisibleTemplateRender();
-    });
+    });*/
 </script>
 
 </body>

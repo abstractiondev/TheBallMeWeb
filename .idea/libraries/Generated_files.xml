@@ -19,8 +19,8 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
@@ -32,12 +32,13 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ConnectionView/ConnectionViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/main.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ViewControllerBase.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/SimpleGroupsView/GroupsViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ModuleCustomGlue.js" />
       </sourceFilesUrls>
     </properties>
@@ -62,8 +63,8 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/GroupMemberView/GroupMemberViewController.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
@@ -75,12 +76,13 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ConnectionView/ConnectionViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/main.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ViewControllerBase.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/SimpleGroupsView/SimpleGroupsViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ModuleCustomGlue.js" />
     </CLASSES>
     <SOURCES />
