@@ -69,11 +69,22 @@ class FileManagerViewController extends ViewControllerBase {
                     var $fileInput = me.$getNamedFieldWithin("FileInput");
                     me.setFileInputEvent($fileInput);
                     //me.initDropboxChooser();
+                    //me.initVideoUpload();
+                    var nav:any = navigator;
+                    nav.getUserMedia = (nav.getUserMedia ||
+                        nav.webkitGetUserMedia ||
+                        nav.mozGetUserMedia ||
+                        nav.msGetUserMedia);
+                    me.hasUserMedia = nav.getUserMedia;
+                    if(!me.hasUserMedia)
+                        me.$getNamedFieldWithin("bAddNewVideo").hide();
                     me.ControllerInitializeDone();
                 });
             });
         });
     }
+
+    hasUserMedia:boolean;
 
     initDropboxChooser()
     {
@@ -163,6 +174,94 @@ class FileManagerViewController extends ViewControllerBase {
         var me = this;
         $.when(this.DoneInitializedPromise()).then(function() {
         });
+    }
+
+    activeVideo:any;
+    activeStream:any;
+
+    initVideoUpload()
+    {
+        var nav:any = navigator;
+        var wnd:any = window;
+        var me = this;
+        nav.getUserMedia = (nav.getUserMedia ||
+            nav.webkitGetUserMedia ||
+            nav.mozGetUserMedia ||
+            nav.msGetUserMedia);
+        console.log("Nav check: " + nav.getUserMedia)
+        if(nav.getUserMedia) {
+            var errorCallback = function(e) {
+                console.log('Reeeejected!', e);
+            };
+
+            /* Not showing vendor prefixes.*/
+            nav.getUserMedia({
+                video: true,
+                audio: true
+            }, function(localMediaStream) {
+                var video:any = document.querySelector('video');
+                me.activeVideo = video;
+                me.activeStream = localMediaStream;
+                video.src = wnd.URL.createObjectURL(localMediaStream);
+
+                /* Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+                 See crbug.com/110938.*/
+                /*
+                 video.onloadedmetadata = function(e) {
+                 };
+                 */
+            }, errorCallback);
+        }
+    }
+
+    Modal_RecordVideo($modal) {
+        var me = this;
+        me.initVideoUpload();
+    }
+
+    stopActiveVideo() {
+        var me = this;
+        if(me.activeStream) {
+            me.activeStream.stop();
+        }
+        if(me.activeVideo) {
+            me.activeVideo.pause();
+            me.activeVideo.src = "";
+        }
+    }
+
+    Modal_StopRecording($modal) {
+        var me = this;
+        me.stopActiveVideo();
+    }
+
+    Modal_SaveVideoContent($modal) {
+        var me = this;
+        me.stopActiveVideo();
+    }
+
+    Modal_CloseVideoModal($modal) {
+        var me = this;
+        me.stopActiveVideo();
+        $modal.foundation("reveal", "close");
+    }
+
+    AddNewVideo($source) {
+        var me = this;
+        var $modal:any = this.$getNamedFieldWithin("RecordAndEditVideoModal");
+        var currentID = "";
+        var currentETag = "";
+        var currentRelativeLocation = "";
+        var currentTitle = "";
+        var currentDescription = "";
+        me.$getNamedFieldWithinModal($modal, "ID").val(currentID);
+        me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
+        me.$getNamedFieldWithinModal($modal, "RelativeLocation").val(currentRelativeLocation);
+        me.$getNamedFieldWithinModal($modal, "Title").val(currentTitle);
+        me.$getNamedFieldWithinModal($modal, "Description").val(currentDescription);
+        var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
+        $categoriesSelect.empty();
+        $modal.foundation('reveal', 'open');
     }
 
     EditBinaryFile($source) {

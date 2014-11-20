@@ -4,6 +4,7 @@
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
             <form>
                 <div class="large-6 columns"><input type ='file' multiple="true" class="button" name='FileInput'></div>
+                {>"command_button.dust" name="bAddNewVideo" button_label="Add New Video..." command="AddNewVideo" style="float:right !important;" /}
                 <!--<a class="button" id="addNewContentModal-imageUpload-submit">Upload Photo</a>-->
             </form>
         </div>

@@ -61,6 +61,12 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         me.setFileInputEvent($fileInput);
 
                         //me.initDropboxChooser();
+                        //me.initVideoUpload();
+                        var nav = navigator;
+                        nav.getUserMedia = (nav.getUserMedia || nav.webkitGetUserMedia || nav.mozGetUserMedia || nav.msGetUserMedia);
+                        me.hasUserMedia = nav.getUserMedia;
+                        if (!me.hasUserMedia)
+                            me.$getNamedFieldWithin("bAddNewVideo").hide();
                         me.ControllerInitializeDone();
                     });
                 });
@@ -148,6 +154,86 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var me = this;
             $.when(this.DoneInitializedPromise()).then(function () {
             });
+        };
+
+        FileManagerViewController.prototype.initVideoUpload = function () {
+            var nav = navigator;
+            var wnd = window;
+            var me = this;
+            nav.getUserMedia = (nav.getUserMedia || nav.webkitGetUserMedia || nav.mozGetUserMedia || nav.msGetUserMedia);
+            console.log("Nav check: " + nav.getUserMedia);
+            if (nav.getUserMedia) {
+                var errorCallback = function (e) {
+                    console.log('Reeeejected!', e);
+                };
+
+                /* Not showing vendor prefixes.*/
+                nav.getUserMedia({
+                    video: true,
+                    audio: true
+                }, function (localMediaStream) {
+                    var video = document.querySelector('video');
+                    me.activeVideo = video;
+                    me.activeStream = localMediaStream;
+                    video.src = wnd.URL.createObjectURL(localMediaStream);
+                    /* Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+                    See crbug.com/110938.*/
+                    /*
+                    video.onloadedmetadata = function(e) {
+                    };
+                    */
+                }, errorCallback);
+            }
+        };
+
+        FileManagerViewController.prototype.Modal_RecordVideo = function ($modal) {
+            var me = this;
+            me.initVideoUpload();
+        };
+
+        FileManagerViewController.prototype.stopActiveVideo = function () {
+            var me = this;
+            if (me.activeStream) {
+                me.activeStream.stop();
+            }
+            if (me.activeVideo) {
+                me.activeVideo.pause();
+                me.activeVideo.src = "";
+            }
+        };
+
+        FileManagerViewController.prototype.Modal_StopRecording = function ($modal) {
+            var me = this;
+            me.stopActiveVideo();
+        };
+
+        FileManagerViewController.prototype.Modal_SaveVideoContent = function ($modal) {
+            var me = this;
+            me.stopActiveVideo();
+        };
+
+        FileManagerViewController.prototype.Modal_CloseVideoModal = function ($modal) {
+            var me = this;
+            me.stopActiveVideo();
+            $modal.foundation("reveal", "close");
+        };
+
+        FileManagerViewController.prototype.AddNewVideo = function ($source) {
+            var me = this;
+            var $modal = this.$getNamedFieldWithin("RecordAndEditVideoModal");
+            var currentID = "";
+            var currentETag = "";
+            var currentRelativeLocation = "";
+            var currentTitle = "";
+            var currentDescription = "";
+            me.$getNamedFieldWithinModal($modal, "ID").val(currentID);
+            me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
+            me.$getNamedFieldWithinModal($modal, "RelativeLocation").val(currentRelativeLocation);
+            me.$getNamedFieldWithinModal($modal, "Title").val(currentTitle);
+            me.$getNamedFieldWithinModal($modal, "Description").val(currentDescription);
+            var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
+            $categoriesSelect.empty();
+            $modal.foundation('reveal', 'open');
         };
 
         FileManagerViewController.prototype.EditBinaryFile = function ($source) {
