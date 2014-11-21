@@ -1,0 +1,305 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Diosphere Beta</title>
+    <link rel="stylesheet" href="../assets/controlpanel/css/foundation.orange.css"/>
+    <link rel="stylesheet" href="../assets/controlpanel/css/style.orange.css">
+    <link rel="stylesheet" href="../assets/controlpanel/css/jquery-te-1.4.0.css">
+    <link rel="stylesheet" type="text/css" media="all" href="../assets/controlpanel/css/whhg.css"/>
+    <link rel="stylesheet" href="../assets/controlpanel/css/redactor.css"/>
+
+    <script src="../assets/controlpanel/js/modernizr.js"></script>
+    <script src="../assets/controlpanel/js/jquery.js"></script>
+    <script src="../assets/controlpanel/js/foundation.min.js"></script>
+    <script src="../assets/controlpanel/js/jquery.isotope.js" type="text/javascript"></script>
+    <script src="../assets/controlpanel/js/jquery.form.min.js"></script>
+    <script src="../assets/controlpanel/js/redactor.min.js"></script>
+    <script src="../assets/controlpanel/js/jquery.htmlClean.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/dustjs-linkedin/2.0.0/dust-core.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
+    <script src="../assets/controlpanel/modules/lib/jquery-nestable/jquery.nestable.js"></script>
+    <link rel="stylesheet" href="../assets/controlpanel/modules/lib/jquery-nestable/jquery-nestable.css"/>
+
+    <script src="../assets/controlpanel/js/markdowndeep/MarkdownDeepLib.min.js"></script>
+    <script src="../assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js"></script>
+    <script src="../assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js"></script>
+    <script src="../assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js"></script>
+    <script src="../assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js"></script>
+    <script src="../assets/controlpanel/modules/ModuleCustomGlue.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
+    <script type="text/javascript" src="//s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
+
+    <script>
+        var wnd = window;
+        if (!wnd.ControllerCommon) {
+            wnd.ControllerCommon = { };
+        }
+        wnd.ControllerCommon.ModalButtonClick = function (event) {
+            var $owningModal = $(this).closest(".oip-controller-modal");
+            var controller = $owningModal.data("oip-controller-instance");
+            controller.handleModalEvent($owningModal, $(this), "click", event);
+        };
+
+        wnd.DisplayErrorDialog = function(errorCaptionText, errorTypeText, errorMessageText, callbackAfterError) {
+            var $errorModal = $("#CommonErrorModal");
+            var $errorCaption = $("#CommonErrorLabel");
+            var $errorType = $("#CommonErrorType");
+            var $errorMessage = $("#CommonErrorMessage");
+            $errorCaption.empty();
+            $errorCaption.html(errorCaptionText);
+            $errorType.empty();
+            $errorType.html(errorTypeText);
+            $errorMessage.empty();
+            $errorMessage.html(errorMessageText);
+            //$errorModal.foundation("reveal", "open");
+            var $errorOKButton = $("#CommonErrorOKButton");
+            $errorOKButton.off("click").on("click", function() {
+                $.unblockUI();
+                /*
+                if(callbackAfterError)
+                    setTimeout(callbackAfterError, 1000);*/
+                return false;
+            });
+            $.blockUI({ message: $errorModal, onUnblock:callbackAfterError });
+        };
+
+    </script>
+    <script data-main="../assets/controlpanel/modules/config" type="text/javascript"
+            src="../assets/controlpanel/modules/require.js"></script>
+    <style>
+        iframe, object, embed {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="off-canvas-wrap" data-offcanvas>
+<div class="inner-wrap">
+<nav class="tab-bar">
+    <section class="left-small"><a class="left-off-canvas-toggle menu-icon"><span></span></a></section>
+    <section class="middle tab-bar-section"><h1 class="title">Diosphere Beta - Platform</h1></section>
+</nav>
+<aside class="left-off-canvas-menu">
+    <ul class="off-canvas-list">
+        <li><label>Content</label></li>
+        <li><a href="#" id="groupsMenuAnchor" data-section-id="groupsSection" class="offCanvasMenuAnchor">My Rooms & Content</a></li>
+        <li><a href="#" id="purchaseMenuAnchor" data-section-id="purchaseSection" class="offCanvasMenuAnchor">Rent Rooms</a></li>
+        <li><label>Me</label></li>
+        <!--
+        <li><a href="#" id="personalMenuAnchor" data-section-id="personalSection" class="offCanvasMenuAnchor">Personal Info</a></li>
+        <li><a href="#" id="securityMenuAnchor" data-section-id="securitySection" class="offCanvasMenuAnchor">Personal Security</a></li>
+        -->
+        <li><a href="/TheBallLogin.aspx?SignOut=true">Logout</a></li>
+    </ul>
+</aside>
+
+<section class="main-section">
+<div class="row" id="canvasMainSectionRow">
+<div class="large-12 columns contentSwitchableSection activeSection" id="groupsSection">
+    <p>Loading Group List...</p>
+</div>
+
+<div class="large-12 columns contentSwitchableSection" id="personalSection">
+    <p>Loading Personal Stuff...</p>
+</div>
+
+<div class="large-12 columns contentSwitchableSection" id="securitySection">
+    <p>Loading Security Info...</p>
+</div>
+
+
+</div>
+<!--Closes the Main Section Div, where the content (switchable) goes-->
+</section>
+<a class="exit-off-canvas"></a>
+</div>
+</div>
+
+<div id="CommonErrorModal" style="display:none; cursor: default">
+    <h3 id="CommonErrorLabel"></h3>
+    <div class="row">
+        <div class="large-12 columns"><label id="CommonErrorType"></label>
+            <h4 id="CommonErrorMessage"></h4>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="large-12 columns"><button id="CommonErrorOKButton">OK</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<!-- End Footer -->
+
+<script>
+
+
+    var parseRawTimestampToDate = function (value) {
+        var timestamp;
+        if (!value)
+            timestamp = new Date();
+        else {
+            timestamp = new Date(value);
+            if (isNaN(timestamp))
+                timestamp = new Date(parseInt(value.substr(6)));
+        }
+        return timestamp;
+    };
+
+    var ParseRawTimestampToDateString = function (value) {
+        //return timestamp.toISOString();
+        var timestamp = parseRawTimestampToDate(value);
+        return timestamp.getDate() + "." + (timestamp.getMonth() + 1) + "." + timestamp.getFullYear();
+    };
+
+    var ParseRawTimestampToDateTimeString = function (value) {
+        var timestamp = parseRawTimestampToDate(value);
+        var day = timestamp.getDate();
+        var month = timestamp.getMonth() + 1;
+        var year = timestamp.getFullYear();
+        var hours = timestamp.getHours();
+        var minutes = timestamp.getMinutes();
+        var seconds = timestamp.getSeconds();
+        return day + "." + month + "." + year
+                + " " + hours + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    };
+
+    var ParseRawTimestampToISOString = function (value) {
+        var timestamp = parseRawTimestampToDate(value);
+        return timestamp.toISOString();
+    }
+
+    var switchActiveCanvasSection = function(event) {
+        var sectionItemID = $(this).attr("data-section-id");
+        var currentactive = $(".activeSection").attr("id");
+        $("#" + currentactive).removeClass("activeSection");
+        var $hostDiv = $("#" + sectionItemID);
+        $hostDiv.addClass("activeSection");
+        var oipController = $hostDiv.data("oip-controller");
+        oipController.ReInitialize();
+    };
+
+    $(".offCanvasMenuAnchor").on('click', switchActiveCanvasSection);
+
+    var start_isotope = function(){
+        //var $container = $('.portfolioContainer');
+        var $container = $("#contentDivContainer");
+        $container.isotope({
+            filter: '*',
+            animationOptions: {
+                duration: 750,
+                easing: 'linear',
+                queue: false
+            }
+        });
+
+        $('.portfolioFilter a').click(function(){
+            $('.portfolioFilter .current').removeClass('current');
+            $(this).addClass('current');
+
+            var selector = $(this).attr('data-filter');
+            $container.isotope({
+                filter: selector,
+                animationOptions: {
+                    duration: 750,
+                    easing: 'linear',
+                    queue: false
+                }
+            });
+            return false;
+        });
+    }//closes function Start_isotope
+
+    var reLayout_isotope = function() {
+        var $container = $('#contentDivContainer');
+        $container.isotope( 'reLayout');
+    };
+
+    var initializeAll = function () {
+
+        $(document).foundation(
+                {
+                    reveal: {
+                        animation: 'fadeAndPop',
+                        animation_speed: 250,
+                        close_on_background_click: false,
+                        close_on_esc: false
+                    }
+
+                }
+        );
+
+        $.ajaxSetup({cache: true});
+    }
+
+
+    initializeAll();
+
+    var tUI = TheBall.Interface.UI;
+    var tDCM = new tUI.DataConnectionManager();
+    var tOP = new tUI.OperationManager(tDCM);
+    var tUDG = new tUI.UpdatingDataGetter();
+
+
+    tUDG.RegisterDataURL("PERSONALINFO", function(args) {
+        var accountContainer = args[0];
+        return accountContainer;
+    }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
+
+    tUDG.RegisterDataURL("SECURITYINFO", function(args) {
+        var accountContainer = args[0];
+        var security = accountContainer.AccountModule.Security;
+        return security;
+    }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
+
+
+    tUDG.RegisterDataURL("GROUPS", function(args) {
+        var accountContainer = args[0];
+        var accountProfile = accountContainer.AccountModule.Profile;
+        var hasAnyEmails = accountContainer.AccountModule.Security.EmailCollection.CollectionContent.length > 0;
+        //hasAnyEmails = false;
+        var defaultGroup = null;
+        var roles = accountContainer.AccountModule.Roles;
+        var defaultGroupID = accountProfile.SimplifiedAccountGroupID;
+        if(defaultGroupID) {
+            var moderatorIn = roles.ModeratorInGroups ? roles.ModeratorInGroups.CollectionContent : [];
+            var memberIn = roles.MemberInGroups ? roles.MemberInGroups.CollectionContent : [];
+            var mergedArray = $.merge(moderatorIn, memberIn);
+            defaultGroup = $.grep(mergedArray, function(item) {
+                return item.URL.substr(10,36) === defaultGroupID;
+            })[0];
+        }
+        var groupCreationRequirementMessage = hasAnyEmails ? null : "You have to register at least one email address at Personal Security Section (top left menu) before being able to collaborate in groups.";
+        return {
+            "GroupCreationRequirementMessage": groupCreationRequirementMessage,
+            "DefaultGroup": defaultGroup,
+            "Roles": accountContainer.AccountModule.Roles
+        };
+    }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
+
+    require(["SimpleGroupsView/SimpleGroupsViewController"], function (vcClass) {
+        var vc = new vcClass("groupsSection", tOP, tUDG);
+        vc.Initialize("GROUPS");
+        vc.VisibleTemplateRender();
+    });
+/*
+    require(["PersonalSecurityView/PersonalSecurityViewController"], function(vcClass) {
+        var vc = new vcClass("securitySection", tOP, tUDG);
+        vc.Initialize("SECURITYINFO");
+        vc.VisibleTemplateRender();
+    });
+
+    require(["PersonalInfoView/PersonalInfoViewController"], function (vcClass) {
+        var vc = new vcClass("personalSection", tOP, tUDG);
+        vc.Initialize("PERSONALINFO");
+        vc.VisibleTemplateRender();
+    });*/
+</script>
+
+</body>
+</html>
