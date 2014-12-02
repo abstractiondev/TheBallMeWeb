@@ -49,9 +49,19 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         };
 
         GroupMemberViewController.prototype.InviteNewMember = function () {
-            var emailAddress = this.$getNamedFieldWithin("InviteNewMemberEmail").val();
+            var $emailField = this.$getNamedFieldWithin("InviteNewMemberEmail");
+            var emailAddress = $emailField.val();
             this.CommonWaitForOperation("Inviting new member...");
             this.currOPM.ExecuteOperationWithForm("InviteMemberToGroup", { "EmailAddress": emailAddress }, this.CommonSuccessHandler, this.CommonErrorHandler);
+            $emailField.val("");
+        };
+
+        GroupMemberViewController.prototype.InviteNewMemberToPlatform = function () {
+            var $emailField = this.$getNamedFieldWithin("InviteNewMemberEmail");
+            var emailAddress = $emailField.val();
+            this.CommonWaitForOperation("Inviting new member...");
+            this.currOPM.ExecuteOperationWithForm("InviteMemberToGroupAndPlatform", { "EmailAddress": emailAddress }, this.CommonSuccessHandler, this.CommonErrorHandler);
+            $emailField.val("");
         };
 
         GroupMemberViewController.prototype.OpenModalRemoveMemberModal = function ($source) {

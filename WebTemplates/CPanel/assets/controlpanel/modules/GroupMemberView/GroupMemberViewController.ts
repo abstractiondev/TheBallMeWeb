@@ -49,13 +49,27 @@ class GroupMemberViewController extends ViewControllerBase {
     }
 
     InviteNewMember() {
-        var emailAddress = this.$getNamedFieldWithin("InviteNewMemberEmail").val();
+        var $emailField = this.$getNamedFieldWithin("InviteNewMemberEmail");
+        var emailAddress = $emailField.val();
         this.CommonWaitForOperation("Inviting new member...");
         this.currOPM.ExecuteOperationWithForm("InviteMemberToGroup",
             { "EmailAddress": emailAddress},
                 this.CommonSuccessHandler,
                 this.CommonErrorHandler);
+        $emailField.val("");
     }
+
+    InviteNewMemberToPlatform() {
+        var $emailField = this.$getNamedFieldWithin("InviteNewMemberEmail");
+        var emailAddress = $emailField.val();
+        this.CommonWaitForOperation("Inviting new member...");
+        this.currOPM.ExecuteOperationWithForm("InviteMemberToGroupAndPlatform",
+            { "EmailAddress": emailAddress},
+            this.CommonSuccessHandler,
+            this.CommonErrorHandler);
+        $emailField.val("");
+    }
+
 
     OpenModalRemoveMemberModal($source)
     {

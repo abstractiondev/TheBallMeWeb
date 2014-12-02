@@ -178,6 +178,7 @@ class FileManagerViewController extends ViewControllerBase {
 
     activeVideo:any;
     activeStream:any;
+    activeRecorder:any;
 
     initVideoUpload()
     {
@@ -216,7 +217,7 @@ class FileManagerViewController extends ViewControllerBase {
 
     Modal_RecordVideo($modal) {
         var me = this;
-        me.initVideoUpload();
+        me.activeRecorder = me.activeStream.record();
     }
 
     stopActiveVideo() {
@@ -232,6 +233,10 @@ class FileManagerViewController extends ViewControllerBase {
 
     Modal_StopRecording($modal) {
         var me = this;
+        me.stopActiveVideo();
+        me.activeRecorder.getRecordedData(function(videoblob) {
+            console.log(videoblob);
+        });
         me.stopActiveVideo();
     }
 
@@ -261,6 +266,7 @@ class FileManagerViewController extends ViewControllerBase {
         me.$getNamedFieldWithinModal($modal, "Description").val(currentDescription);
         var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
         $categoriesSelect.empty();
+        me.initVideoUpload();
         $modal.foundation('reveal', 'open');
     }
 

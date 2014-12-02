@@ -43,7 +43,12 @@
 
 <div class="row">
     <div class="small-12 medium-6 large-6 columns">
-        {>"command_button.dust" command="InviteNewMember" button_label="Send Invitation!" style="float:right !important;" /}
+        {>"command_button.dust" command="InviteNewMember" button_label="Send Invitation to Group!" /}
+    </div>
+</div>
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns">
+        {>"command_button.dust" command="InviteNewMemberToPlatform" button_label="Send Invitation to Group And Platform!" /}
     </div>
 </div>
 

@@ -188,7 +188,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
 
         FileManagerViewController.prototype.Modal_RecordVideo = function ($modal) {
             var me = this;
-            me.initVideoUpload();
+            me.activeRecorder = me.activeStream.record();
         };
 
         FileManagerViewController.prototype.stopActiveVideo = function () {
@@ -204,6 +204,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
 
         FileManagerViewController.prototype.Modal_StopRecording = function ($modal) {
             var me = this;
+            me.stopActiveVideo();
+            me.activeRecorder.getRecordedData(function (videoblob) {
+                console.log(videoblob);
+            });
             me.stopActiveVideo();
         };
 
@@ -233,6 +237,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             me.$getNamedFieldWithinModal($modal, "Description").val(currentDescription);
             var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
             $categoriesSelect.empty();
+            me.initVideoUpload();
             $modal.foundation('reveal', 'open');
         };
 
