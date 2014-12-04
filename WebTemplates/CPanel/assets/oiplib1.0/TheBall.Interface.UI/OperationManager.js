@@ -225,7 +225,7 @@ var TheBall;
                     $.ajax({
                         type: "POST",
                         url: "?operation=" + operationFullName,
-                        dataType: "json",
+                        //dataType: "json",
                         contentType: "application/json",
                         data: jsonData,
                         success: successCallback,

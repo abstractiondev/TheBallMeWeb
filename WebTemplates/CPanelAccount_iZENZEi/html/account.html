@@ -30,6 +30,7 @@
     <script src="../assets/controlpanel/modules/ModuleCustomGlue.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
     <script type="text/javascript" src="//s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
 
     <script>
         var wnd = window;
@@ -87,7 +88,7 @@
     <ul class="off-canvas-list">
         <li><label>Content</label></li>
         <li><a href="#" id="groupsMenuAnchor" data-section-id="groupsSection" class="offCanvasMenuAnchor">My Groups & Content</a></li>
-        <li><a href="#" id="purchaseMenuAnchor" data-section-id="purchaseSection" class="offCanvasMenuAnchor">Purchase Membership Subscriptions</a></li>
+        <li><a href="#" id="webShopMenuAnchor" data-section-id="webShopSection" class="offCanvasMenuAnchor">Purchase Membership Subscriptions</a></li>
         <li><label>Me</label></li>
         <!--
         <li><a href="#" id="personalMenuAnchor" data-section-id="personalSection" class="offCanvasMenuAnchor">Personal Info</a></li>
@@ -100,17 +101,18 @@
 <section class="main-section">
 <div class="row" id="canvasMainSectionRow">
 <div class="large-12 columns contentSwitchableSection activeSection" id="groupsSection">
-    <p>Loading Group List...</p>
+    <p>Loading Groups...</p>
 </div>
 
-<div class="large-12 columns contentSwitchableSection" id="personalSection">
-    <p>Loading Personal Stuff...</p>
+<div class="large-12 columns contentSwitchableSection" id="webShopSection">
+    <p>Loading WebShop Stuff...</p>
 </div>
 
+<!--
 <div class="large-12 columns contentSwitchableSection" id="securitySection">
     <p>Loading Security Info...</p>
 </div>
-
+-->
 
 </div>
 <!--Closes the Main Section Div, where the content (switchable) goes-->
@@ -246,6 +248,7 @@
     var tUDG = new tUI.UpdatingDataGetter();
 
 
+    /*
     tUDG.RegisterDataURL("PERSONALINFO", function(args) {
         var accountContainer = args[0];
         return accountContainer;
@@ -256,7 +259,10 @@
         var security = accountContainer.AccountModule.Security;
         return security;
     }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
-
+*/
+    tUDG.RegisterDataURL("WEBSHOP", function(args) {
+        return { "WebShop": "Hello World!"};
+    });
 
     tUDG.RegisterDataURL("GROUPS", function(args) {
         var accountContainer = args[0];
@@ -287,18 +293,25 @@
         vc.Initialize("GROUPS");
         vc.VisibleTemplateRender();
     });
-/*
-    require(["PersonalSecurityView/PersonalSecurityViewController"], function(vcClass) {
-        var vc = new vcClass("securitySection", tOP, tUDG);
-        vc.Initialize("SECURITYINFO");
+
+    require(["WebShopView/WebShopViewController"], function (vcClass) {
+        var vc = new vcClass("webShopSection", tOP, tUDG);
+        vc.Initialize("WEBSHOP");
         vc.VisibleTemplateRender();
     });
 
-    require(["PersonalInfoView/PersonalInfoViewController"], function (vcClass) {
-        var vc = new vcClass("personalSection", tOP, tUDG);
-        vc.Initialize("PERSONALINFO");
-        vc.VisibleTemplateRender();
-    });*/
+    /*
+        require(["PersonalSecurityView/PersonalSecurityViewController"], function(vcClass) {
+            var vc = new vcClass("securitySection", tOP, tUDG);
+            vc.Initialize("SECURITYINFO");
+            vc.VisibleTemplateRender();
+        });
+
+        require(["PersonalInfoView/PersonalInfoViewController"], function (vcClass) {
+            var vc = new vcClass("personalSection", tOP, tUDG);
+            vc.Initialize("PERSONALINFO");
+            vc.VisibleTemplateRender();
+        });*/
 </script>
 
 </body>

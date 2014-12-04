@@ -36,8 +36,10 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/main.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/WebShopView/WebShopViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/WebShopView/SimpleGroupsViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
@@ -94,6 +96,8 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/WebShopView/WebShopViewController.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/WebShopView/SimpleGroupsViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
