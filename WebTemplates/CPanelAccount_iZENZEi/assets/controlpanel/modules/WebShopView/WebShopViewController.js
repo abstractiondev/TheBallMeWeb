@@ -40,7 +40,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         var stripe = wnd.StripeCheckout;
                         var jq = $;
                         me.StripeHandler = stripe.configure({
-                            key: 'pk_test_dHdbBJQgFiKRW2J8PSMUcvDt',
+                            key: 'pk_test_2hAYdv2ZKDPQ6XRKWfOIC8bT',
+                            //key: 'pk_test_dHdbBJQgFiKRW2J8PSMUcvDt',
                             //image: '/square-image.png',
                             token: function (token, args) {
                                 //console.log("Token: " + JSON.stringify(token));

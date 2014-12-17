@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JS garbage collection test.</title>
+<script type='text/javascript' src="ma_GET.js"></script>
+
+<!--
+
+The purpose of this script is to find out if deleting references to an object makes
+the browser's garbage collection kick in. According to my results, such is only
+the case with Firefox. Chrome and IE don't do nuttin. Even with Firefox, there seems
+to be no saying what caused the garbage collection to occur. Might just be the end of
+script execution. What is strange though is that IE and Chrome never emptied the recycle bin
+way after script finished.
+
+This script does not use console as to not keep any references or whatever in the console object.
+All output gets printed to screen.
+
+ -->
+<script type='text/javascript'>
+
+window.onerror = function () {
+	document.getElementsByTagName("body")[0].appendChild(document.createTextNode("Usage: Append \"?case=X\" to URL where X is a number between 1 and 7.")); }
+
+window.onload = function ()
+{
+	var HOW_MANY_MEGS_TO_EAT = 350;                                     // AS THE LOWEST. JS is managed and we're using arrays and objects as wrappers, script will consume a hole lot more.
+	var W8_BEFORE_TEAR_DOWN = 5;                                        // Waiting time in seconds before starting the selected destructin algorithm.
+	var DESTRUCTION_ALGORITHM_TO_EXECUTE = 2;
+            //parseInt( $_GET['case'] );   // $_GET, what sorcery is this? Read about it in file 'ma_GET.js'.
+    var KEEP_ALIVE = 120;                                               // Will keep script alive after case is finished for X number of seconds.
+
+	if (isNaN(DESTRUCTION_ALGORITHM_TO_EXECUTE))
+	    throw "bitch.";
+
+	// Logger. Won't use console.log as to not spread around any references.
+	var div = document.createElement("div");
+	div.innerHTML = "<h1>A rock solid test suite for the JS garbage collector =) </h1>";
+	document.getElementsByTagName("body")[0].appendChild(div);
+
+	function write( msg )  // Helper
+	{
+	    var pre = document.createElement("pre");
+	    var text = document.createTextNode(msg);
+	    pre.appendChild(text);
+	    div.appendChild(pre);
+	}
+
+	/**
+	 * @constructor supposed to eat one mb.
+	 */
+	function oneMeg()
+	{
+	    this.alotOfBytes = [];
+	    for (var ii = 0; ii < 125000; ++ii) // 10^6 / 8 bytes for the storage of one float = 125 000.
+	        this.alotOfBytes.push( Math.random() );
+	}
+
+	var containerOfMegs = [];
+
+	write("Will begin feeding on memory..");
+	var start = new Date().getUTCMilliseconds();
+
+	/*
+	 * Here, allocating memory occurs.
+	 */
+
+	for (var ii = 0; ii < HOW_MANY_MEGS_TO_EAT; ++ii)
+	    containerOfMegs.push(new oneMeg());
+
+	var end = new Date().getUTCMilliseconds();
+	write("Done. It took: " + (end - start) + " milliseconds of your time to eat " + HOW_MANY_MEGS_TO_EAT + " mb.");
+
+	var countDown = W8_BEFORE_TEAR_DOWN;
+
+	write("Will w8 " + countDown + " seconds before initiating current deallocation algorithm..");
+	var ID = setInterval(function () {
+	    if (--countDown === 0)
+	    {
+	        clearInterval(ID);
+	        var cases = [ case_1, case_2, case_3, case_4, case_5, case_6, case_7];
+	        
+	        write("Initiating teardown..");
+	        start = new Date().getUTCMilliseconds();
+	        
+	        var c = DESTRUCTION_ALGORITHM_TO_EXECUTE - 1;
+	        if (c in cases) cases[c](); else throw "bitch.";
+	        
+	        end = new Date().getUTCMilliseconds();
+	        write("Teardown complete, took " + (end - start) + " milliseconds to complete.");
+	        
+	        playWithYourself();
+	    }
+	}, 1000)
+
+	/*
+	 * After each and every deallocation test case that soon follows, I comment on the results. Whenever
+	 * I say that garbage collection didn't occur, I waited for like 10 minutes top, and I didn't live to
+	 * see any deallocation happening, thus I draw the conclusion that GC in the browser wasn't alive at all.
+	 * 
+	 * What I'm looking for is the "correct" way to "delete objects" from the heap and restore memory. I'd say
+	 * there's none, but surely there must be a way a programmer can verify that the garbage collector is alive.
+	 * 
+	 * Memory consumtion during these tests was about the following:
+	 *    Internet evaporator, 1 040 Mb private working set.
+	 *    Crime, 831 Mb private working set.
+	 *    Firebox, 421 Mb private working set (double that sum was reserved by Win 7 x64 in virtual memory).
+	 */
+	    
+	function case_1()
+	{
+	    write("CASE 1: A provocative attempt to delete the entire container array.");
+	    write("delete-op reported: " + delete containerOfMegs );   // delete returns false in all browsers.
+	    
+	    // Expected: Won't work, can't delete containerOfMegs.
+	    // Got GC (garbage collection)?
+        // IE: NO.
+        // Chrome: NO.
+        // FF: NO.
+	}
+
+	function case_2()
+	{
+	    write("CASE 2: Deleting all elements in container's array thus deleting all references.");
+	    
+	    for (var ii = 0; ii < containerOfMegs.length - 1; ++ii) // Save last element for the log.
+	        delete containerOfMegs[ii];
+	    
+	    write("delete-op reported: " + delete containerOfMegs[containerOfMegs.length - 1]);    // delete returns true in all browsers.
+	    CollectGarbage();
+	    // Expected: Garbage collection.
+	    // Got GC (garbage collection)?
+        // IE: NO.
+        // Chrome: NO.
+        // FF: NO.
+	}
+
+	function case_3()
+	{
+	    write("CASE 3: Deleting every object's property.");
+	    
+	    for (var ii = 0; ii < containerOfMegs.length - 1; ++ii)
+	        delete containerOfMegs[ii].alotOfBytes;
+	    
+	    write("delete-op reported: " + delete containerOfMegs[containerOfMegs.length - 1].alotOfBytes);    // delete returns true in all browsers.
+	    
+	    // Expected: Garbage collection.
+	    // Got GC?
+	    // IE: NO.
+	    // Chrome: NO.
+	    // FF: YES.
+	}
+
+	function case_4()
+	{
+	    write("CASE 4: Assigning NULL to container's array elements.");
+
+	    for (var ii = 0; ii < containerOfMegs.length; ++ii)
+	        containerOfMegs[ii] = null;
+	    
+	    // Expected: Garbage collection.
+	    // Got GC?
+	    // IE: NO.
+	    // Chrome: NO.
+	    // FF: YES.
+	}
+
+	function case_5()
+	{
+	    write("CASE 5: Assigning UNDEFINED to container's array elements.");
+
+	    for (var ii = 0; ii < containerOfMegs.length; ++ii)
+	        containerOfMegs[ii] = undefined;
+	    
+	    // Expected: Garbage collection.
+	    // Got GC?
+	    // IE: NO.
+	    // Chrome: NO.
+	    // FF: YES.
+	}
+
+	function case_6()
+	{
+	    write("Desperate CASE 6: Manually delete each and every element of the object's .alotOfBytes arrays.")
+
+	    for (var ii = 0; ii < containerOfMegs.length; ++ii)
+	            for (var kk = 0; kk < containerOfMegs[ii].alotOfBytes.length; ++kk)
+	                delete containerOfMegs[ii].alotOfBytes[kk];
+	    
+	    // Expected: Garbage collection.
+	    // Got GC?
+	    // IE: NO.
+	    // Chrome: No idea, browser hangs.
+	    // FF: NO.      <-- See that?
+	}
+
+	function case_7()
+	{
+	    write("j0-crazy-CASE 7: Do all cases!")
+	    
+	    case_6();  // foreach: delete containerOfMegs[ii].alotOfBytes[kk];
+	    case_3();  // foreach: delete containerOfMegs[ii].alotOfBytes;
+	    case_4();  // foreach: containerOfMegs[ii] = null;
+	    case_5();  // foreach: containerOfMegs[ii] = undefined;
+	    case_2();  // foreach: delete containerOfMegs[ii];
+	    case_1();  // delete containerOfMegs;
+	    
+	    // Expected: No not any longer.
+	    // Got GC?
+	    // IE: NO.
+	    // Chrome: No idea, browser hangs.
+	    // FF: YES.
+	}
+	
+	function playWithYourself()
+	{
+		write("Will now hang around for " + KEEP_ALIVE + " seconds.");
+		setTimeout(function () {
+			write("** all done **");
+		}, KEEP_ALIVE * 1000);
+	}
+}
+
+</script>
+
+</head>
+<body>
+</body>
+</html>
