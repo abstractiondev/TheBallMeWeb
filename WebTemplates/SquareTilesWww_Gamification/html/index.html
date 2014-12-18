@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Ball Gamification Prototype</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Ball Powered Gamification">
+    <meta name="author" content="Various Authors">
+
+    <link rel="stylesheet" href="../assets/css/foundation.css" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" media="all" href="../assets/css/whhg.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <script src="../assets/js/modernizr.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../assets/js/oipdynamicreplacer.js"></script>
+
+    <!-- other javascript -->
+
+</head>
+
+<body data-spy="scroll" data-target=".subnav" data-offset="50" style="height: 100%">
+<script src="../assets/js/dust-core-1.2.3.min.js"></script>
+<script src="../assets/js/dust-helpers-1.1.1.js"></script>
+<script src="nodetiles_dust.js"></script>
+<script src="textcontent_detailpane_dust.js"></script>
+<script src="../assets/js/rgbcolor.js"></script>
+
+<script src="../assets/js/foundation.min.js"></script>
+<!--<script src="js/foundation/foundation.js"></script>-->
+<script src="../assets/js/foundation/foundation.topbar.js"></script>
+<script src="../assets/js/jquery.isotope.js" type="text/javascript"></script>
+<script src="../assets/js/jquery.form.min.js"></script>
+<script src="../assets/js/jquery.htmlClean.min.js "></script>
+<script src="../assets/lib/markdowndeep/MarkdownDeepLib.min.js"></script>
+<script src="../assets/js/purl.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js"></script>
+<script src="../assets/js/index.js"></script>
+
+<style>
+
+    a.oipclicktoview > iframe {
+        pointer-events: none;
+    }
+
+    a.balllink {
+        color: mediumpurple;
+        font-weight: bolder;
+    }
+
+    a.balllink:hover {
+        color: purple;
+        font-weight: bolder;
+    }
+
+    .button.filter {
+        font-size: large;
+        padding:7px;
+        margin:2px;
+        border-radius: 3px;
+    }
+
+    iframe, object, embed {
+        max-width: 100%;
+        max-height: 100%;
+        /*height: 100%;*/
+    }
+
+    .contentbodyhost {
+        height: 100%;
+    }
+    .contentbodyhost > p {
+        height: 100%;
+    }
+
+    .remainingHeight {
+        /*background-color: gold;*/
+        height: 100%;
+        max-height: 100%;
+    }
+
+    .fullWidth {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100% !important;
+    }
+
+    .video-modal {
+        height: 99% !important;
+        width: 95% !important;
+        top: 2px !important;
+        margin-top: auto;
+    }
+
+    .reveal-modal {
+        padding: 0;
+        background: white;
+        border: 0px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .reveal-modal-inner {
+        max-height: 100%;
+        margin: 0 auto;
+        position: relative;
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+</style>
+
+<div class="row text-center show-for-large-up">
+    <div id="logocontainer-large" style="background-color: white; margin: 10px; border-color: purple;border-style: solid;border-width: 1px;height: 200px" class="logo-only">
+    </div>
+</div>
+<div class="row text-center show-for-medium-only">
+    <div id="logocontainer-medium" style="background-color: white; margin: 10px; border-color: purple;border-style: solid;border-width: 1px;height: 100px" class="logo-only">
+    </div>
+</div>
+
+
+<!-- start reading-pane -->
+<div id="SelectedContentContainer" class="container reading-pane">
+</div>
+<!-- end reading-pane -->
+
+<div class="container masonry" id="TileSection">
+    <img src="../assets/img/ajax-loader.gif">
+</div>
+<script type="text/javascript">
+
+    $(function() {
+        OipCloseDetailPane = function() {
+            $("#SelectedContentContainer").html('');
+        };
+        $(".oipmenuselector").on("click", function() {
+            var filterName = $(this).data("filtername");
+            var navigateto = $(this).data("locateto");
+            //alert(navigateto);
+            //var scrollPos = $(navigateto).offset().top;
+            //$(document).animate({ scrollTop : $(navigateto).offset().top}, 'slow');
+            //$(document).scrollTop($(navigateto).offset().top);
+            OipCloseDetailPane();
+            $("a[data-filter='" + filterName + "']").trigger('click');
+            $('[data-toggle="dropdown"]').parent().removeClass('open');
+            return true;
+        });
+
+        OipShowHtmlInDetailPaneWithClose = function(htmlContent) {
+            $("#SelectedContentContainer").html('<button id="paneclosebutton" type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>' +
+                    htmlContent + '</div>' + '</div>' );
+            $("#paneclosebutton").off("click");
+            $("#paneclosebutton").click(OipCloseDetailPane);
+        };
+        OipShowTextContentInDetailPaneWithClose = function(textContentObject) {
+            dust.render("textcontent_detailpane.dust", textContentObject, function (err, out) {
+                $("#SelectedContentContainer").html('<button id="paneclosebutton" type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>' +
+                        out + '</div>' + '</div>' );
+                $("#paneclosebutton").off("click");
+                $("#paneclosebutton").click(OipCloseDetailPane);
+            });
+        };
+
+
+        dust.helpers.iFrameLines = function (chunk, context, bodies, params) {
+            var value = context.current()[params.contextField];
+            var valueList = value.split("\n");
+            var writeValue = "";
+            for(var i = 0; i < valueList.length; i++)
+            {
+                writeValue += "<iframe " + valueList[i] + "></iframe>";
+            }
+            return chunk.write(writeValue);
+        };
+
+    });
+
+    var CurrNodeSummary;
+    var CurrLocations;
+    var CurrGroupContainer;
+
+    var getCategoriesOrderedAndFiltered = function(categoryCollection)
+    {
+        var categories = categoryCollection.CollectionContent;
+        var orderFilterIDList = categoryCollection.OrderFilterIDList;
+        var orderedCategories = [];
+        for(i = 0; i < orderFilterIDList.length; i++)
+        {
+            var currID = orderFilterIDList[i];
+            var result = $.grep(categories, function(candidate) { return candidate.ID == currID });
+            if(result.length == 0)
+                continue;
+            var cat = result[0];
+            orderedCategories.push(cat);
+        }
+        return orderedCategories;
+    };
+
+    var getRootCategories = function(categoryCollection)
+    {
+        var orderedCategories = getCategoriesOrderedAndFiltered(categoryCollection);
+        var rootCategories = $.grep(orderedCategories, function(candidate) { return !candidate.ParentCategoryID; });
+        return rootCategories;
+    };
+    var getCategoriesBasedByNamesOrIDs = function(categoryCollection, nameShortTextCollection, categoryIDList)
+    {
+        var orderedCategories = getCategoriesOrderedAndFiltered(categoryCollection);
+        var filteredCategories;
+        var alreadyInList = {};
+        if(categoryIDList)
+        {
+            var categoryIDArray = categoryIDList.split(",");
+            filteredCategories = $.grep(orderedCategories,
+                    function(candidate) {
+                        var foundList = $.grep(categoryIDArray, function(idCandidate) {
+                            return idCandidate === candidate.ID;
+                        });
+                        if(foundList.length > 0 && !alreadyInList[candidate.ID]) {
+                            alreadyInList[candidate.ID] = true;
+                            return true;
+                        }
+                        return false;
+                    });
+        } else {
+            filteredCategories = $.grep(orderedCategories,
+                    function(candidate) {
+                        var foundList = $.grep(nameShortTextCollection.CollectionContent, function(nameCandidate) {
+                            return nameCandidate.Content == candidate.CategoryName;
+                        });
+                        if(foundList.length > 0 && !alreadyInList[candidate.CategoryName]) {
+                            alreadyInList[candidate.CategoryName] = true;
+                            return true;
+                        }
+                        return false;
+                    });
+        }
+        filteredCategories = filteredCategories.sort(function(a,b) {
+            return a.CategoryName.localeCompare(b.CategoryName);
+        });
+        return filteredCategories;
+    }
+
+    var calcBrightness = function (color) {
+        return Math.sqrt(
+                color.r * color.r * .299 +
+                        color.g * color.g * .587 +
+                        color.b * color.b * .114);
+    }
+
+    var blackOrWhiteTextColorOnBGColor = function(bgColor)
+    {
+        var rgbColor = new RGBColor(bgColor);
+        var brightness = calcBrightness(rgbColor);
+        if(brightness < 130)
+            return "#FFFFFF";
+        return "#000000";
+    };
+
+    var stringToColour = function(str) {
+        // str to hash
+        for (var i = 0, hash = 0; i < str.length; hash = str.charCodeAt(i++) + ((hash << 5) - hash));
+        // int/hash to hex
+        for (var i = 0, colour = "#"; i < 3; colour += ("00" + ((hash >> i++ * 8) & 0xFF).toString(16)).slice(-2));
+        return colour;
+    }
+
+
+    $(function () {
+        var fetchDatas = [
+            "../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json",
+            "../../AaltoGlobalImpact.OIP/AddressAndLocationCollection/MasterCollection.json",
+            "../../AaltoGlobalImpact.OIP/GroupContainer/default.json"
+        ];
+        $.each(fetchDatas, function(index, value) {
+            fetchDatas[index] = $.ajax({ url: value, cache:false });
+        });
+        /*$.get("../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json", function ()jsonObject) {*/
+        $.when.apply($, fetchDatas).then(function() {
+
+            var nodeSummary = arguments[0][0];
+            CurrNodeSummary = nodeSummary;
+            CurrLocations = arguments[1][0];
+            CurrGroupContainer = arguments[2][0];
+
+            var imageData = CurrGroupContainer.GroupProfile.ProfileImage.ImageData;
+            if(imageData != null)
+            {
+                $("#logocontainer-large").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+                $("#logocontainer-medium").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+            }
+
+            var myObj = nodeSummary;
+            nodeSummary.RootCategories = getRootCategories(nodeSummary.NodeSourceCategories);
+            for(var nodeIX = 0; nodeIX < myObj.Nodes.CollectionContent.length; nodeIX++)
+            {
+                var nodeObj = myObj.Nodes.CollectionContent[nodeIX];
+                //console.log("Node: " + nodeObj.Title + " " + nodeObj.CategoryIDList);
+                nodeObj.Categories = getCategoriesBasedByNamesOrIDs(nodeSummary.NodeSourceCategories, nodeObj.CategoryNames, nodeObj.CategoryIDList);
+                ReplaceWithMarkdownRender(nodeObj, "Excerpt", "ExcerptRendered");
+            }
+            var base = dust.makeBase(
+                    {
+                        catTagColor: function(chunk, context) { return chunk.write(stringToColour(context.get("CategoryName")));},
+                        catFilterTagColor: function(chunk, context) { return chunk.write(stringToColour(context.get("Content")));},
+                        catTagTextColor: function(chunk, context) {
+                            var bgColor = stringToColour(context.get("CategoryName"));
+                            var textColor = blackOrWhiteTextColorOnBGColor(bgColor);
+                            chunk.write(textColor);
+                        },
+                        catFilterTagTextColor: function(chunk, context) {
+                            var bgColor = stringToColour(context.get("Content"));
+                            var textColor = blackOrWhiteTextColorOnBGColor(bgColor);
+                            chunk.write(textColor);
+                        },
+                        catName: function(chunk, context) {
+                            context.get("CategoryName");
+                        }
+                    });
+            dust.render("nodetiles.dust", base.push(myObj), function (err, out) {
+                $("#TileSection").html(out);
+            });
+        });
+    });
+</script>
+
+<footer class="footer" style="background-color:white;">
+    <div class="container">
+        <div class="span12" style="text-align: center;font-weight: 200;margin-bottom: 20px;color:black">
+            <!--<p class="pull-right"><a href="#">Back to top</a></p>-->
+            <p style="text-align: center;font-style: oblique;font-size: 24px;font-family: Georgia">You name your own game...</p>
+            <div style="text-align: center; color: lightseagreen"><a href="" style="color: lightseagreen"></a></div>
+        </div>
+    </div>
+</footer>
+
+<div id="ModalsHolderDiv-Content">
+    <div id="viewContentModal" class="reveal-modal xlarge video-modal" data-reveal>
+        <!--Begins contents of  div for the viewContentModal-->
+        <div class="row fullWidth">
+            <div class="show-for-large-up large-2 columns" id="categorypanel">
+            </div>
+            <div class="large-8 columns">
+                <div class="row">
+                    <div class="large-12 columns" style="width:100%;padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span id="viewContentModal-title" class="hugeTitleText"></span></strong>
+                    </div>
+                </div>
+                <div class="row show-for-large-up">
+                    <div class="large-12 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
+                </div>
+            </div>
+            <div class="large-2 columns show-for-large-up"><img src="../assets/img/1010_ball-thm.jpg">
+                <!--
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label class="discreetTextColor">Share:</label>
+                        <input type="text" placeholder="" id="articleShareURLinput"/>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+        <div class="row fullWidth">
+            <div class="large-12 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;"><div class="content-card-line"><hr></div></div>
+        </div>
+        <div class="row fullWidth remainingHeight">
+            <div class="large-12 columns articleText contentbodyhost" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
+        </div>
+        <div class="row">
+            <div id="viewContentModal-attachments"></div>
+        </div>
+        <div class="row">
+            <div id="viewContentModal-iframes"></div>
+        </div>
+        <div class="row fullWidth show-for-large-up">
+            <div class="large-4 columns">
+                <button class="button catnavaction previousContent">Previous</button>
+            </div>
+            <div class="large-4 columns">
+                <a class="button" style="display: block;" id="closeViewContentModal">Close</a>
+            </div>
+            <div class="large-4 columns">
+                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
+            </div>
+        </div>
+        <div class="row fullWidth show-for-medium-down">
+            <div class="medium-6 columns">
+                <button class="button catnavaction previousContent">Previous</button>
+            </div>
+            <div class="medium-6 columns">
+                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
+            </div>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div> <!--closes div for the viewContentModal-->
+</div>
+
+
+
+</body>
+
+</html>
+
