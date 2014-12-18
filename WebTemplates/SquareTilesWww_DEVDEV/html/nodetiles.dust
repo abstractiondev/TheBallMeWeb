@@ -13,11 +13,11 @@
     .badge {
         margin: 3px;
         padding: 3px;
-        border: 1px solid gold;
+        border: 1px solid purple;
 
     }
     .badge:hover{
-        background-color: gold;
+        background-color: mediumpurple;
     }
     html {
         overflow-y: auto;
@@ -28,7 +28,7 @@
         margin: 9px;
         border: solid;
         padding: 5px;
-        border: 1px solid gold;
+        border: 1px solid purple;
         /*border-radius: 7px;*/
         background-color: #f8fff8;
         /*background-color: blue;*/
