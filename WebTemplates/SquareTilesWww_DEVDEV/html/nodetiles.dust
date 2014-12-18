@@ -98,7 +98,7 @@
                                         {@eq key=TechnicalSource value="IMAGE"}
                                             <div>{Title}</div>
                                         {:else}
-                                            <a class="oipclicktoview goldlink" href="#" data-original-content-id="{OriginalContentID}">{Title}</a>
+                                            <a class="oipclicktoview balllink" href="#" data-original-content-id="{OriginalContentID}">{Title}</a>
                                         {/eq}
                                     {/eq}
                                 {/IsCategoryFilteringNode}
