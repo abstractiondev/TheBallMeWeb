@@ -145,6 +145,8 @@ var GetArticleTypeFromID = function(id) {
 };
 
 var GetPrevData = function(semanticContentID, categoryID, isDifferentCategory) {
+    if(isDifferentCategory) // Doesn't work right now
+        return null;
     var currentCategoryRanking = CategoryContentMap[categoryID];
     var currentIndex = _.findIndex(currentCategoryRanking, function(currItem) {
         return currItem.ContentID == semanticContentID;
@@ -163,6 +165,8 @@ var GetPrevData = function(semanticContentID, categoryID, isDifferentCategory) {
 };
 
 var GetNextData = function(semanticContentID, categoryID, isDifferentCategory) {
+    if(isDifferentCategory) // Doesn't work right now
+        return null;
     var currentCategoryRanking = CategoryContentMap[categoryID];
     var currentIndex = _.findIndex(currentCategoryRanking, function(currItem) {
         return currItem.ContentID == semanticContentID;
@@ -191,10 +195,15 @@ var GetNextData = function(semanticContentID, categoryID, isDifferentCategory) {
 };
 
 $(function () {
+    var isIntroductionSite = window.location.hostname == "www.onlinetaekwondo.net" || window.location.hostname == "localhost";
     var openArticleType = $.url().param("type");
     var openArticleID = $.url().param("id");
+    if(!openArticleID && !openArticleType && isIntroductionSite) {
+        openArticleType = "embedded";
+        openArticleID = "a4ee598e-ebda-43df-b2bd-122c54d7aeb5";
+    }
     if(openArticleType && openArticleID) {
-        window.history.pushState("string", "Aalto Global Impact", "index.html");
+        window.history.pushState("string", "Online Taekwondo", "index.html");
         openArticle(openArticleType, openArticleID);
     }
 
