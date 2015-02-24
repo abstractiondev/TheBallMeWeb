@@ -260,9 +260,6 @@
         return security;
     }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
 */
-    tUDG.RegisterDataURL("WEBSHOP", function(args) {
-        return { "WebShop": "Hello World!"};
-    });
 
     tUDG.RegisterDataURL("GROUPS", function(args) {
         var accountContainer = args[0];
@@ -287,6 +284,43 @@
             "Roles": accountContainer.AccountModule.Roles
         };
     }, [ "../../AaltoGlobalImpact.OIP/AccountContainer/default.json" ]);
+
+    tUDG.RegisterDataURL("WEBSHOP", function(args) {
+        var accountProfile = args[0];
+        var memberships = accountProfile.Roles.MemberInGroups ?
+                accountProfile.Roles.MemberInGroups.CollectionContent : [];
+
+        var groupMemberships = _.map(memberships, function(membership) {
+            var groupID = membership.URL.replace("/auth/grp/", "").replace("/", "");
+            return groupID;
+        });
+
+        var plans = {
+            ONLINE: {
+                Groups: [ "e710a1f8-94a3-4d38-85df-193936624ce4" ],
+                IsAvailable: true,
+                IsActive: false
+            },
+            ALLINCLUSIVE: {
+                Groups: [ "" ],
+                IsAvailable: false,
+                IsActive: false
+            }
+        };
+
+        _.each(plans, function(plan) {
+            var hasAllPlanMemberships = _.all(plan.Groups, function(groupID) {
+                return _.contains(groupMemberships, groupID);
+            });
+            plan.IsActive = hasAllPlanMemberships;
+            plan.IsAvailable = plan.IsAvailable && !plan.IsActive;
+        });
+
+        return {
+            Plans: plans
+        };
+    }, [ "GROUPS"]);
+
 
     require(["SimpleGroupsView/SimpleGroupsViewController"], function (vcClass) {
         var vc = new vcClass("groupsSection", tOP, tUDG);
