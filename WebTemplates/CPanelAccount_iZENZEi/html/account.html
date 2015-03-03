@@ -21,6 +21,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
     <script src="../assets/controlpanel/modules/lib/jquery-nestable/jquery.nestable.js"></script>
     <link rel="stylesheet" href="../assets/controlpanel/modules/lib/jquery-nestable/jquery-nestable.css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="../assets/controlpanel/js/jshashtable-3.0.js"></script>
+    <script src="../assets/controlpanel/js/jquery.numberformatter-1.2.4.min.js"></script>
 
     <script src="../assets/controlpanel/js/markdowndeep/MarkdownDeepLib.min.js"></script>
     <script src="../assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js"></script>
@@ -31,6 +34,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
     <script type="text/javascript" src="//s3.amazonaws.com/cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
+
+    <script src="../assets/ts/TheBall.Payments/TheBall.Payments.InformationObjects.js"></script>
+    <script src="../assets/instancespecific/constants.js"></script>
 
     <script>
         var wnd = window;
@@ -295,29 +301,19 @@
             return groupID;
         });
 
-        var plans = {
-            ONLINE: {
-                Groups: [ "e710a1f8-94a3-4d38-85df-193936624ce4" ],
-                IsAvailable: true,
-                IsActive: false
-            },
-            ALLINCLUSIVE: {
-                Groups: [ "" ],
-                IsAvailable: false,
-                IsActive: false
-            }
-        };
+        var plans = Constants.ActivePlans;
 
         _.each(plans, function(plan) {
-            var hasAllPlanMemberships = _.all(plan.Groups, function(groupID) {
+            var hasAllPlanMemberships = _.all(plan.GroupIDs, function(groupID) {
                 return _.contains(groupMemberships, groupID);
             });
             plan.IsActive = hasAllPlanMemberships;
-            plan.IsAvailable = plan.IsAvailable && !plan.IsActive;
+            //plan.IsAvailable = plan.IsAvailable && !plan.IsActive;
         });
 
         return {
-            Plans: plans
+            Plans: plans,
+            IsStripeTestUser: Constants.IsStripeTestUser
         };
     }, [ "GROUPS"]);
 

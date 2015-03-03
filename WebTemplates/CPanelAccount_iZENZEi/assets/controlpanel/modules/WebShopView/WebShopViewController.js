@@ -47,7 +47,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                                 //console.log("Token: " + JSON.stringify(token));
                                 //console.log("Args: " + JSON.stringify(args));
                                 token.currentproduct = me.currentProduct;
-                                me.currOPM.ExecuteOperationWithAjax("TheBall.Payments.ProcessPayment", token, function () {
+                                me.currOPM.ExecuteOperationWithAjax("TheBall.Payments.ActivateAndPayGroupSubscriptionPlan", token, function () {
                                     alert("Purchase succesful!");
                                 }, function () {
                                     alert("Purchase failed!");
@@ -60,41 +60,53 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             });
         };
 
+        WebShopViewController.prototype.getCurrentPlan = function (planName) {
+            var me = this;
+            return _.find(me.currentData.Plans, function (plan) {
+                return plan.PlanName == planName;
+            });
+        };
+
         WebShopViewController.prototype.VisibleTemplateRender = function () {
         };
 
         WebShopViewController.prototype.InvisibleTemplateRender = function () {
         };
 
-        WebShopViewController.prototype.OnlineSubscriptionCheckout = function ($source) {
+        WebShopViewController.prototype.CancelSubscription = function ($source) {
+            var me = this;
             var jq = $;
             var currentEmail = jq.cookie("TheBall_EMAIL");
+            var command_args = $source.attr("data-oip-command-args");
+            var planName = command_args;
+            var plan = me.getCurrentPlan(planName);
             var me = this;
-            me.currentProduct = "ONLINE";
-            me.StripeHandler.open({
-                name: 'iZENZEi',
-                image: "/about/assets/img/izenzei-logo.jpg",
-                description: 'Online Taekwondo Monthly Subscription (TEST ONLY)',
-                amount: 999,
-                currency: "EUR",
-                email: currentEmail,
-                label: "Subscribe!"
+            me.currOPM.ExecuteOperationWithAjax("TheBall.Payments.CancelGroupSubscriptionPlan", { PlanName: planName }, function () {
+                alert("Cancelling succesful!");
+            }, function () {
+                alert("Cancelling failed!");
             });
         };
 
-        WebShopViewController.prototype.AllInclusiveSubscriptionCheckout = function ($source) {
+        WebShopViewController.prototype.ActivateSubscription = function ($source) {
+            var me = this;
             var jq = $;
             var currentEmail = jq.cookie("TheBall_EMAIL");
+            var command_args = $source.attr("data-oip-command-args");
+            var planName = command_args;
+            var plan = me.getCurrentPlan(planName);
             var me = this;
-            me.currentProduct = "ALLINCLUSIVE";
+            var stripeProductName = "Subscription Plan: " + planName;
+            me.currentProduct = plan.PlanName;
+            var stripePrice = plan.Price * 100;
             me.StripeHandler.open({
-                name: 'iZENZEi',
+                name: stripeProductName,
                 image: "/about/assets/img/izenzei-logo.jpg",
-                description: 'All Inclusive Monthly Subscription (TEST ONLY)',
-                amount: 7500,
+                description: plan.Description,
+                amount: stripePrice,
                 currency: "EUR",
                 email: currentEmail,
-                label: "Subscribe!"
+                label: "Activate Subscription!"
             });
         };
         return WebShopViewController;

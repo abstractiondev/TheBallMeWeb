@@ -1,13 +1,26 @@
-<h4>Subscriptions Opening Soon!</h4>
-{!
-<h2>Payment Demo/Testing Page, no real purchases are made!</h2>
-<h4>You can try credit card number 4242 4242 4242 4242 with any valid validity and CCV code.</h4>
-<div class="row">
-    <div class="small-12 medium-6 large-6 columns">
-        {>"command_button.dust" command="OnlineSubscriptionCheckout" button_label="Subscribe to Online Taekwondo! (TEST ONLY)" /}
-    </div>
-    <div class="small-12 medium-6 large-6 columns">
-        {>"command_button.dust" command="AllInclusiveSubscriptionCheckout" button_label="Subscribe to All Inclusive! (TEST ONLY)" /}
-    </div>
-</div>
-!}
+{?IsStripeTestUser}
+
+    <table>
+{#Plans}
+    <tr>
+        <td>{PlanName}</td>
+        <td>{Description}</td>
+        <td>{PriceAsFormattedText}€</td>
+        <td>
+            {?IsAvailable}
+                {?IsActive}
+                    {>"command_button.dust" command="CancelSubscription" command_args="{PlanName}" button_label="Cancel Subscription" /}
+                {:else}
+                    {>"command_button.dust" command="ActivateSubscription" command_args="{PlanName}" button_label="Subscribe" /}
+                {/IsActive}
+            {:else}
+                Coming Soon!
+            {/IsAvailable}
+        </td>
+    </tr>
+{/Plans}
+    </table>
+{:else}
+    <h4>Subscriptions Opening Soon...</h4>
+{/IsStripeTestUser}
+
