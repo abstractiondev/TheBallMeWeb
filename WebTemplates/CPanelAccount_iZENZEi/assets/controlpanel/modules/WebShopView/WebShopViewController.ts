@@ -53,6 +53,8 @@ class WebShopViewController extends ViewControllerBase {
                             });
                         }
                     });
+                    var $container:any = $(".isotope-subscription-container");
+                    $container.isotope({ itemSelector: ".isotope-subscription-item", layoutMode: "fitRows" });
                     me.ControllerInitializeDone();
                 });
             });

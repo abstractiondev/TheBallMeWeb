@@ -1,12 +1,42 @@
 {?IsStripeTestUser}
 
-    <table>
+    <div class="isotope-subscription-container">
+
+<style>
+
+    .isotope-subscription-item {
+        width: 200px;
+        border: solid 1px gold;
+        border-radius: 4px;
+        margin: 10px;
+        padding: 5px;
+        background: #ffffff;
+        box-shadow: 0 0 12px #986000;
+        -moz-box-shadow: 0 0 12px #986000;
+        -webkit-box-shadow: 0 0 12px #986000;
+    }
+
+    .iframecontent {
+        width: 200px;
+        height: 200px;
+        overflow-y: hidden;
+    }
+
+    .linkbadge {
+
+    }
+
+</style>
+
 {#Plans}
-    <tr>
-        <td>{PlanName}</td>
-        <td>{Description}</td>
-        <td>{PriceAsFormattedText}€</td>
-        <td>
+    <div class="isotope-subscription-item">
+        <div>{PlanName}</div>
+        <br>
+        <div>{Description}</div>
+        <br>
+        <div>{PriceAsFormattedText}€</div>
+        <br>
+        <div>
             {?IsAvailable}
                 {?IsActive}
                     {>"command_button.dust" command="CancelSubscription" command_args="{PlanName}" button_label="Cancel Subscription" /}
@@ -16,10 +46,10 @@
             {:else}
                 Coming Soon!
             {/IsAvailable}
-        </td>
+        </div>
     </tr>
 {/Plans}
-    </table>
+    </div>
 {:else}
     <h4>Subscriptions Opening Soon...</h4>
 {/IsStripeTestUser}

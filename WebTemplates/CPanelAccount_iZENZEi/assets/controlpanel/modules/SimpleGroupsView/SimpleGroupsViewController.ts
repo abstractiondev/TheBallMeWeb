@@ -34,11 +34,7 @@ class SimpleGroupsViewController extends ViewControllerBase {
                     $hostDiv.empty();
                     $hostDiv.html(output);
                     var $container:any = $("#isotope-group-container");
-                    $container.isotope({ itemSelector: ".isotope-group", layoutMode: "fitRows",
-                        masonry: {
-                            columnWidth: 200
-                        }
-                    });
+                    $container.isotope({ itemSelector: ".isotope-group", layoutMode: "fitRows" });
                     me.ControllerInitializeDone();
                 });
             });

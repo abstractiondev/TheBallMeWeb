@@ -54,6 +54,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                                 });
                             }
                         });
+                        var $container = $(".isotope-subscription-container");
+                        $container.isotope({ itemSelector: ".isotope-subscription-item", layoutMode: "fitRows" });
                         me.ControllerInitializeDone();
                     });
                 });
