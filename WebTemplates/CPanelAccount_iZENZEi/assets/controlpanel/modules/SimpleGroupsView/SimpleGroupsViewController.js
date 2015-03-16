@@ -36,6 +36,13 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         var $hostDiv = $("#" + me.divID);
                         $hostDiv.empty();
                         $hostDiv.html(output);
+                        var $container = $("#isotope-group-container");
+                        $container.isotope({
+                            itemSelector: ".isotope-group", layoutMode: "fitRows",
+                            masonry: {
+                                columnWidth: 200
+                            }
+                        });
                         me.ControllerInitializeDone();
                     });
                 });

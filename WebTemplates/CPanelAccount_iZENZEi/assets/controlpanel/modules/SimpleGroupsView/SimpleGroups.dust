@@ -1,38 +1,60 @@
-<div class="row">
-    <div class="small-12 medium-6 large-6 columns">
-        <h4 class="boldieText">My Groups</h4>
-        <div>
-            <table id="collaborators-table" style="text-align: left;">
 {!
-                <tr>
-                    <th>View</th>
-                    <th>View URL</th>
-                    <th>Edit URL</th>
-                </tr>
-!}
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns">!}
+        <h4 class="boldieText">My Groups</h4>
+        <div id="isotope-group-container" class="isotope-group-container">
+
+<style>
+
+    .isotope-group {
+        width: 200px;
+        border: solid 1px gold;
+        border-radius: 4px;
+        margin: 10px;
+        padding: 5px;
+        background: #ffffff;
+        box-shadow: 0 0 12px #986000;
+        -moz-box-shadow: 0 0 12px #986000;
+        -webkit-box-shadow: 0 0 12px #986000;
+    }
+
+    .iframecontent {
+        width: 200px;
+        height: 200px;
+        overflow-y: hidden;
+    }
+
+    .linkbadge {
+
+    }
+
+</style>
+
 {#Roles}
 {#ModeratorInGroups}
     {#CollectionContent}
-        <tr>
-            <td style="width: 400px"><a href="{URL}"><iframe height="200px" src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></td>
-            <td style="text-transform: none !important;"><a href="{URL}webview/html/index.html">{Title}</a></td>
-            <td style="text-transform: none !important; font-style: italic;"><a href="{URL}">Edit {Title}</a></td>
-        </tr>
+        <div class="isotope-group" style="">
+            <div><a href="{URL}"><iframe class="iframecontent" scrolling="no" src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></div>
+            <div class="linkbadge"><a href="{URL}webview/html/index.html">{Title}</a></div>
+            <br>
+            <div class="linkbadge"><a href="{URL}">Edit {Title}</a></div>
+        </div>
     {/CollectionContent}
 {/ModeratorInGroups}
 {#MemberInGroups}
     {#CollectionContent}
-        <tr>
-            <td style="width: 400px"><a href="{URL}"><iframe src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></td>
-            <td style="text-transform: none !important;"><a href="{URL}webview/html/index.html">View</a></td>
+        <div class="isotope-group">
+            <div><a href="{URL}"><iframe class="iframecontent" scrolling="no" src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></div>
+            <div class="linkbadge"><a href="{URL}webview/html/index.html">Go!</a></div>
             {!
             <td style="text-transform: none !important; font-style: italic;"><a href="{URL}">Edit {Title}</a></td>
             !}
-        </tr>
+        </div>
     {/CollectionContent}
 {/MemberInGroups}
 {/Roles}
-            </table>
         </div>
+{!
     </div>
 </div>
+!}

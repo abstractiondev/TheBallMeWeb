@@ -12,6 +12,7 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ConnectionView/ConnectionViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/WebShopView/WebShopViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/SimpleGroupsView/SimpleGroupsViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/PersonalSecurityView/PersonalSecurityViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/FileManagerView/FileManagerViewController.js" />
@@ -27,11 +28,11 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/config.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/IViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ViewControllerBase.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ViewControllerBase.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ModuleCustomGlue.js" />
@@ -50,8 +51,8 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/IViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/config.js" />
-        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/ViewControllerBase.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/ModuleCustomGlue.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/PersonalInfoView/PersonalInfoViewController.js" />
@@ -96,11 +97,11 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/DynamicContentView/DynamicContentViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/config.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/SquareTilesWww_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/IViewController.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/config.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/ViewControllerBase.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js" />
@@ -119,8 +120,8 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/IViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/config.js" />
-      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/ViewControllerBase.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/ViewControllerBase.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/controlpanel/modules/GroupsView/GroupsViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_Diosphere/assets/controlpanel/modules/ModuleCustomGlue.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/CategoryView/CategoryViewController.js" />

@@ -110,6 +110,7 @@ class WebShopViewController extends ViewControllerBase {
             name: stripeProductName,
             image: "/about/assets/img/izenzei-logo.jpg",
             description: plan.Description,
+            "billing-address": "true",
             amount: stripePrice,
             currency: "EUR",
             email: currentEmail,

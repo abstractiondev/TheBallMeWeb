@@ -103,6 +103,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 name: stripeProductName,
                 image: "/about/assets/img/izenzei-logo.jpg",
                 description: plan.Description,
+                "billing-address": "true",
                 amount: stripePrice,
                 currency: "EUR",
                 email: currentEmail,
