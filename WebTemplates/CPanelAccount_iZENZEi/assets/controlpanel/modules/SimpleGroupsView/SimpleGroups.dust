@@ -25,7 +25,12 @@
     }
 
     .linkbadge {
-
+        font-size: larger;
+        font-weight: bold;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        align-content: center;
     }
 
 </style>
@@ -45,7 +50,7 @@
     {#CollectionContent}
         <div class="isotope-group">
             <div><a href="{URL}"><iframe class="iframecontent" scrolling="no" src="{URL}cpanel/html/statustile_account.html" frameborder="0" /></a></div>
-            <div class="linkbadge"><a href="{URL}webview/html/index.html">Go!</a></div>
+            <a href="{URL}webview/html/index.html"><div class="linkbadge">Go!</div></a>
             {!
             <td style="text-transform: none !important; font-style: italic;"><a href="{URL}">Edit {Title}</a></td>
             !}

@@ -183,6 +183,7 @@
     }
 
     var switchActiveCanvasSection = function(event) {
+        $('.off-canvas-wrap').removeClass('move-right');
         var sectionItemID = $(this).attr("data-section-id");
         var currentactive = $(".activeSection").attr("id");
         $("#" + currentactive).removeClass("activeSection");
