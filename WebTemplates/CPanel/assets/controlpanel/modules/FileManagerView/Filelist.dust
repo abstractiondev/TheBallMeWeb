@@ -12,7 +12,20 @@
     {#BinaryFiles}
         {#CollectionContent}
         <tr>
-            <td style='text-transform:uppercase !important;font-size: 18px;' class='boldieText fancyTextColor'>{Data.FileExt}</td>
+            {@select key="{Data.FileExt}"}
+                {@eq value=".notusedmp4"}
+                    <td>
+                        <video width="320" height="240">
+                            <source src="../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}{Data.FileExt}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </td>
+                    mpd4
+                {/eq}
+                {@default}
+                    <td style='text-transform:uppercase !important;font-size: 18px;' class='boldieText fancyTextColor'>{Data.FileExt}</td>
+                {/default}
+            {/select}
             {!
             <td style='text-transform:none !important;font-style:italic;font-size:11px;'><a href="../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}/{Title}{Data.FileExt}">../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}/{Title}{Data.FileExt}</a></td>
             !}
