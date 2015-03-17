@@ -18,7 +18,6 @@ class FileManagerViewController extends ViewControllerBase {
 
         // Required. Called when a user selects an item in the Chooser.
         success: function(files) {
-            alert("Here's the file link: " + files[0].link)
         },
 
         // Optional. Called when the user closes the dialog without selecting a file
@@ -30,11 +29,11 @@ class FileManagerViewController extends ViewControllerBase {
         // Optional. "preview" (default) is a preview link to the document for sharing,
         // "direct" is an expiring link to download the contents of the file. For more
         // information about link types, see Link types below.
-        linkType: "preview", // or "direct"
+        linkType: "direct", // "preview", // or "direct"
 
         // Optional. A value of false (default) limits selection to a single file, while
         // true enables multiple file selection.
-        multiselect: false, // or true
+        multiselect: false // or true
 
         // Optional. This is a list of file extensions. If specified, the user will
         // only be able to select files with these extensions. You may also specify
@@ -68,7 +67,7 @@ class FileManagerViewController extends ViewControllerBase {
                     $hostDiv.html(output);
                     var $fileInput = me.$getNamedFieldWithin("FileInput");
                     me.setFileInputEvent($fileInput);
-                    //me.initDropboxChooser();
+                    me.initDropboxChooser();
                     //me.initVideoUpload();
                     var nav:any = navigator;
                     nav.getUserMedia = (nav.getUserMedia ||
@@ -92,7 +91,25 @@ class FileManagerViewController extends ViewControllerBase {
         var $dropboxContainer = me.$getNamedFieldWithin("DropboxChooseContainer");
         var wnd:any = window;
         var dbox:any = wnd.Dropbox;
-        var dropboxButton = dbox.createChooseButton(me.DropBoxOptions);
+        var options = me.DropBoxOptions;
+        var jq:any = $;
+        options["success"] = function(files) {
+            _.each(files, function (file:any) {
+                jq.blockUI({ message: "<h2>Fetching file: " + file.name + "...</h2>"});
+                me.currOPM.ExecuteOperationWithForm("FetchURLAsGroupContent", {
+                        FileName: file.name,
+                        DataURL: file.link
+                }, function() {
+                        setTimeout(function() {
+                            jq.unblockUI();
+                            me.ReInitialize();
+                        }, 2500);
+                    },
+                me.CommonErrorHandler)
+            });
+        };
+
+        var dropboxButton = dbox.createChooseButton(options);
         $dropboxContainer.append(dropboxButton);
     }
 

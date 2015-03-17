@@ -23,6 +23,7 @@
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/instancespecific/constants.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/ts/TheBall.Payments/TheBall.Payments.InformationObjects.js" />
+        <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/IViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
         <item url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />
@@ -92,6 +93,7 @@
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/instancespecific/constants.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount/assets/controlpanel/modules/ViewControllerBase.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanelAccount_iZENZEi/assets/ts/TheBall.Payments/TheBall.Payments.InformationObjects.js" />
+      <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/IViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ViewControllerBase.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/MainContentView/MainContentViewController.js" />
       <root url="file://$PROJECT_DIR$/WebTemplates/CPanel/assets/controlpanel/modules/ModuleCustomGlue.js" />

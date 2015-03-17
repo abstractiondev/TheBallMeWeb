@@ -436,6 +436,7 @@ var ReConnectComments = function (parentItemID) {
 };
 
 function switchActiveCanvasSection(event) {
+    $('.off-canvas-wrap').removeClass('move-right');
     var triggerid = event.target.id;
     var currentactive = $(".activeSection").attr("id");
 
