@@ -1,0 +1,65 @@
+<!doctype html>
+<head>
+    <title>Olympic Taekwondo Member Area - Login</title>
+
+    <meta charset="UTF-8" />
+    <meta name="description" content="Online Taekwondo Member Area - Login Page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css"/>
+
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="assets/js/purl.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="page">
+        <header style="text-align: center;padding-top: 60px">
+            <img src="assets/img/welcomelogo.jpg" width="400px" style="max-width: 100%">
+        </header>
+        <div class="page-header" style="padding-top: 10px">
+        </div>
+        <div class="container clearfix" id="main-content">
+            <section class="body-background">
+                <div style="text-align: center">
+                    <!--
+                    <h3 style="font-weight: bold">Register or Sign in to Online Training Platform</h3>
+                    <p>
+                        with existing account on any of the following provider(s):
+                    </p>
+                    <a href="/TheBallLogin.aspx?idProviderUrl=https%3a%2f%2fwww.google.com%2faccounts%2fo8%2fid" class="authbtn"><img src="assets/img/google-login.png" width="200"></a>
+                    <a href="/TheBallLogin.aspx?idProviderUrl=https%3a%2f%2fme.yahoo.com" class="authbtn"><img src="assets/img/yahoo-login.png" width="200"></a>
+                    <br>
+                    -->
+                    <h2>Olympic Taekwondo Training Online</h2>
+                    <h3>Opening Soon!</h3>
+                </div>
+            </section>
+        </div>
+        <footer id="footer" class="clearfix" style="padding-top: 30px">
+            <h4 style="text-align: center"></h4>
+            <div style="text-align: center">
+                <section>
+                    <p>
+                        <span style="font-family: georgia;font-weight: bolder;font-style: italic;font-size: larger;color:gray">The Ball - The Information Ecosystem - for Online Training</span><br>
+                        <span style="color:gray;font-weight: bold">by Probroz Oy and its partners since 2014</span>
+                    </p>
+                </section>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        var currReturnUrl = $.url().param("ReturnUrl");
+
+        if(!currReturnUrl)
+            currReturnUrl = "/auth/account/";
+        currReturnUrl = "&ReturnUrl=" + encodeURIComponent(currReturnUrl);
+        $(".authbtn").each(function() {
+            $(this).attr("href", $(this).attr("href") + currReturnUrl );
+        });
+    });
+</script>
+</html>
