@@ -40,7 +40,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         var stripe = wnd.StripeCheckout;
                         var jq = $;
                         me.StripeHandler = stripe.configure({
-                            key: 'pk_test_2hAYdv2ZKDPQ6XRKWfOIC8bT',
+                            key: 'pk_test_CXbPmaZOvtu7jpuToB9z9wWh',
+                            //key: 'pk_test_2hAYdv2ZKDPQ6XRKWfOIC8bT',
                             //key: 'pk_test_dHdbBJQgFiKRW2J8PSMUcvDt',
                             //image: '/square-image.png',
                             token: function (token, args) {
@@ -98,7 +99,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var planName = command_args;
             var plan = me.getCurrentPlan(planName);
             var me = this;
-            var stripeProductName = "Subscription Plan: " + planName;
+            var stripeProductName = "Subscription Plan - " + planName;
             me.currentProduct = plan.PlanName;
             var stripePrice = plan.Price * 100;
             me.StripeHandler.open({

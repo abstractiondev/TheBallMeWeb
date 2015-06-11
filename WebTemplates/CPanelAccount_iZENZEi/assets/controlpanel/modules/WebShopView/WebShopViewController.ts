@@ -39,7 +39,8 @@ class WebShopViewController extends ViewControllerBase {
                     var stripe:any = wnd.StripeCheckout;
                     var jq:any = $;
                     me.StripeHandler = stripe.configure({
-                        key: 'pk_test_2hAYdv2ZKDPQ6XRKWfOIC8bT',
+                        key: 'pk_test_CXbPmaZOvtu7jpuToB9z9wWh',
+                        //key: 'pk_test_2hAYdv2ZKDPQ6XRKWfOIC8bT',
                         //key: 'pk_test_dHdbBJQgFiKRW2J8PSMUcvDt',
                         //image: '/square-image.png',
                         token: function(token, args) {
@@ -105,7 +106,7 @@ class WebShopViewController extends ViewControllerBase {
         var planName = command_args;
         var plan:any = me.getCurrentPlan(planName);
         var me = this;
-        var stripeProductName = "Subscription Plan: " + planName;
+        var stripeProductName = "Subscription Plan - " + planName;
         me.currentProduct = plan.PlanName;
         var stripePrice = plan.Price * 100;
         me.StripeHandler.open({
