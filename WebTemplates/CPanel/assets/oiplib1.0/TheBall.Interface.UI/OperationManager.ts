@@ -188,7 +188,6 @@ module TheBall.Interface.UI {
             $form.empty();
         }
 
-
         ExecuteOperationWithForm(operationName:string, operationParameters:any, successCallback?:any, failureCallback?:any) {
             var $form = this.$submitForm;
             $form.empty();
@@ -204,6 +203,7 @@ module TheBall.Interface.UI {
             $.ajax({
                 type: "POST",
                 data: $form.serialize(),
+                url: "../../op/" + operationName,
                 //dataType: "json",
                 success: function(responseData) {
                     if(successCallback != null)
@@ -295,7 +295,7 @@ module TheBall.Interface.UI {
                 var input:HTMLInputElement = <HTMLInputElement>this;
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
-                    reader.onload = function (e) {
+                    reader.onload = function (e:any) {
                         me.setPreviewImageSrc($imagePreview, e.target.result);
                         me.setImageValues($fileInput, $hiddenInput, fileFieldName);
                     };
@@ -412,7 +412,7 @@ module TheBall.Interface.UI {
             var reader = new FileReader();
             var deferred = $.Deferred();
 
-            reader.onload = function(event) {
+            reader.onload = function(event:any) {
                 deferred.resolve(new BinaryFileItem(fileInput, file, event.target.result));
             };
 

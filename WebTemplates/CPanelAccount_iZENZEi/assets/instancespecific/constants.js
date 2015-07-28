@@ -13,8 +13,7 @@ var ConstantsClass = (function () {
         this.IsStripeTestUser = this.getIsStripeTestUser();
 
         this.ActivePlans = [
-            new GroupSubscriptionPlan("ONLINE", "Online Taekwondo", ["1b466a35-49ad-4608-949a-a1b029dc87f4"], 14.90, {
-                //new GroupSubscriptionPlan("ONLINE", "Online Taekwondo", ["b22f0329-34f8-433d-bc44-b689627468cc"], 14.90, {
+            new GroupSubscriptionPlan("ONLINE", "Online Taekwondo", ["b22f0329-34f8-433d-bc44-b689627468cc"], 14.90, {
                 IsAvailable: true,
                 IsActive: false
             }),
