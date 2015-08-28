@@ -5,7 +5,7 @@
 if($) {
     $.ajaxSetup({
         beforeSend: function (x, settings) {
-            if (JS2MobileBridge) {
+            if (window.JS2MobileBridge) {
                 if (settings.type == "GET") {
                     if (x && x.overrideMimeType) {
                         x.overrideMimeType("application/json;charset=UTF-8");
