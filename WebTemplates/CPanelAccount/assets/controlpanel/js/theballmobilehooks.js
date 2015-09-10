@@ -5,14 +5,14 @@
 if($) {
     $.ajaxSetup({
         beforeSend: function (x, settings) {
-            if (window.JS2MobileBridge) {
+            if (window.TBJS2MobileBridge) {
                 if (settings.type == "GET") {
                     if (x && x.overrideMimeType) {
                         x.overrideMimeType("application/json;charset=UTF-8");
                     }
                     return true;
                 }
-                var result = JS2MobileBridge.ExecuteAjaxOperation(settings.url, settings.data);
+                var result = TBJS2MobileBridge.ExecuteAjaxOperation(settings.url, settings.data);
                 if (result && settings.success) {
                     var data = JSON.parse(result);
                     settings.success(data.OperationResult);
