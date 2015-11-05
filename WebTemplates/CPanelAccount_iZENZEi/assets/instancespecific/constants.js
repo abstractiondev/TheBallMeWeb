@@ -1,17 +1,16 @@
 /**
-* Created by Kalle on 1.3.2015.
-*/
+ * Created by Kalle on 1.3.2015.
+ */
 /// <reference path="../controlpanel/modules/jquery.d.ts" />
 /// <reference path="../controlpanel/modules/lodash.d.ts" />
 /// <reference path="../ts/TheBall.Payments/TheBall.Payments.InformationObjects.ts" />
 var ConstantsClass = (function () {
     function ConstantsClass() {
         this.StripeTestUserEmails = [
-            "theballdemo@gmail.com"
+            "theballdemo@gmail.com",
         ];
         window.console.log("Constants Initializing...");
         this.IsStripeTestUser = this.getIsStripeTestUser();
-
         this.ActivePlans = [
             new GroupSubscriptionPlan("ONLINE", "Online Taekwondo", ["b22f0329-34f8-433d-bc44-b689627468cc"], 14.90, {
                 IsAvailable: true,
@@ -32,5 +31,4 @@ var ConstantsClass = (function () {
     };
     return ConstantsClass;
 })();
-
 var Constants = new ConstantsClass();
