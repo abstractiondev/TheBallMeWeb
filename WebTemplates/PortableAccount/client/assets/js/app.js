@@ -8,15 +8,20 @@
     //foundation
     'foundation',
     'foundation.dynamicRouting',
-    'foundation.dynamicRouting.animations'
+    'foundation.dynamicRouting.animations',
+
+    // 3rd party
+    'angular-promise-cache',
+    'mm.foundation',
   ])
     .config(config)
+    .constant("_", window._)
     .run(run)
   ;
 
-  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+  config.$inject = ['$urlRouterProvider', '$locationProvider', '$controllerProvider'];
 
-  function config($urlProvider, $locationProvider) {
+  function config($urlProvider, $locationProvider, $controllerProvider) {
     $urlProvider.otherwise('/');
 
     $locationProvider.html5Mode({
@@ -27,7 +32,8 @@
     $locationProvider.hashPrefix('!');
   }
 
-  function run() {
+  function run($rootScope) {
+    $rootScope._ = window._;
     FastClick.attach(document.body);
   }
 
