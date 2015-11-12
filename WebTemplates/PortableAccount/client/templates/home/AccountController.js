@@ -1,0 +1,62 @@
+///<reference path="..\..\services\OperationService.ts"/>
+/// <reference path="../../../typings/angularjs/angular.d.ts" />
+/// <reference path="../../services/AccountService.ts"/>
+/// <reference path="../../../typings/lodash/lodash.d.ts" />
+var application;
+(function (application) {
+    var AccountController = (function () {
+        function AccountController($scope, accountService, operationService, foundationApi, $timeout) {
+            this.operationService = operationService;
+            this.foundationApi = foundationApi;
+            this.$timeout = $timeout;
+            this.groups = [];
+            this.LastOperationDump = "void";
+            this.scope = $scope;
+            $scope.vm = this;
+            $scope.progressMax = 300;
+            $scope.progressCurrent = 0;
+            //this.currentHost = this.hosts[2];
+            var me = this;
+            connectionService.getConnectionPrefillData().then(function (result) {
+                var data = result.data;
+                me.email = data.email;
+                me.hosts = data.hosts;
+            });
+            connectionService.getConnectionData().then(function (result) {
+                var data = result.data;
+                me.connections = data.connections;
+            });
+            $scope.$watch(function () { return me.groups; }, function () {
+                me.scope.$evalAsync(function () {
+                    me.refreshIsotope();
+                });
+            });
+        }
+        AccountController.prototype.hasGroups = function () {
+            return this.groups.length > 0;
+        };
+        AccountController.prototype.isCreateFirstGroupMode = function () {
+            return !this.hasGroups();
+        };
+        AccountController.prototype.isManageGroupsMode = function () {
+            return this.hasGroups();
+        };
+        AccountController.prototype.refreshIsotope = function () {
+            var elem = window.document.querySelector(".isotope-container");
+            if (!elem)
+                return;
+            var wnd = window;
+            var iso = new wnd.Isotope(elem, {});
+        };
+        AccountController.prototype.CreateGroup = function () {
+            var me = this;
+            var groupName = me.groupNameToCreate;
+            this.operationService.executeOperation("TheBall.CORE.CreateGroup", {
+                "name": groupName
+            }); /* .then(data => me.LastOperationDump = JSON.stringify(data));*/
+        };
+        AccountController.$inject = ['$scope'];
+        return AccountController;
+    })();
+    window.appModule.controller("AccountController", ["$scope", "AccountService", "OperationService", "FoundationApi", "$timeout", function ($scope, accountService, operationService, foundationApi, $timeout) { return new AccountController($scope, accountService, operationService, foundationApi, $timeout); }]);
+})(application || (application = {}));
