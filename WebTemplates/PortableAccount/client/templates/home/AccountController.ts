@@ -20,21 +20,24 @@ module application {
     scope:any;
     groupNameToCreate:string;
 
+    accountContainer:any;
+
     groups = [];
+    profile:any;
 
     email:string;
 
     LastOperationDump:string = "void";
 
-    hasGroups():Boolean {
+    hasGroups():boolean {
       return this.groups.length > 0;
     }
 
-    isCreateFirstGroupMode():Boolean {
+    isCreateFirstGroupMode():boolean {
       return !this.hasGroups();
     }
 
-    isManageGroupsMode():Boolean {
+    isManageGroupsMode():boolean {
       return this.hasGroups();
     }
 
@@ -45,21 +48,26 @@ module application {
       $scope.progressCurrent = 0;
       //this.currentHost = this.hosts[2];
       var me = this;
-      connectionService.getConnectionPrefillData().then(result => {
-        var data = result.data;
-        me.email = data.email;
-        me.hosts = data.hosts;
-      });
-      connectionService.getConnectionData().then(result => {
-        var data = result.data;
-        me.connections = data.connections;
-      });
-
       $scope.$watch(() => me.groups, function() {
         me.scope.$evalAsync(function() {
           me.refreshIsotope();
         });
       });
+      $scope.$watch(() => me.accountContainer, function() {
+        me.scope.$evalAsync(function() {
+          me.refreshAccountContainer();
+        });
+      });
+      accountService.getAccountData().then(result => {
+        me.accountContainer = result.data;
+      });
+    }
+
+    refreshAccountContainer()
+    {
+      //this.LastOperationDump = JSON.stringify(this.accountContainer);
+      this.profile = this.accountContainer.AccountModule.Profile;
+      this.groups = this.accountContainer.AccountModule.Roles.MemberInGroups.CollectionContent;
     }
 
     refreshIsotope()
@@ -122,6 +130,7 @@ module application {
     }
     */
   }
+
 
   (<any>window).appModule.controller("AccountController",
     ["$scope", "AccountService", "OperationService", "FoundationApi", "$timeout",

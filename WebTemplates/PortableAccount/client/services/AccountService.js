@@ -6,11 +6,11 @@ var application;
             this.$http = $http;
             this.promiseCache = promiseCache;
         }
-        AccountService.prototype.getConnectionData = function () {
+        AccountService.prototype.getAccountData = function () {
             var me = this;
             return this.promiseCache({
                 promise: function () {
-                    return me.$http.get('/data/Connections.json');
+                    return me.$http.get('/data/AaltoGlobalImpact.OIP/AccountContainer/default.json');
                 }
             });
         };

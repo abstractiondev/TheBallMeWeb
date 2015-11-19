@@ -17,19 +17,18 @@ var application;
             $scope.progressCurrent = 0;
             //this.currentHost = this.hosts[2];
             var me = this;
-            connectionService.getConnectionPrefillData().then(function (result) {
-                var data = result.data;
-                me.email = data.email;
-                me.hosts = data.hosts;
-            });
-            connectionService.getConnectionData().then(function (result) {
-                var data = result.data;
-                me.connections = data.connections;
-            });
             $scope.$watch(function () { return me.groups; }, function () {
                 me.scope.$evalAsync(function () {
                     me.refreshIsotope();
                 });
+            });
+            $scope.$watch(function () { return me.accountContainer; }, function () {
+                me.scope.$evalAsync(function () {
+                    me.refreshAccountContainer();
+                });
+            });
+            accountService.getAccountData().then(function (result) {
+                me.accountContainer = result.data;
             });
         }
         AccountController.prototype.hasGroups = function () {
@@ -40,6 +39,11 @@ var application;
         };
         AccountController.prototype.isManageGroupsMode = function () {
             return this.hasGroups();
+        };
+        AccountController.prototype.refreshAccountContainer = function () {
+            //this.LastOperationDump = JSON.stringify(this.accountContainer);
+            this.profile = this.accountContainer.AccountModule.Profile;
+            this.groups = this.accountContainer.AccountModule.Roles.MemberInGroups.CollectionContent;
         };
         AccountController.prototype.refreshIsotope = function () {
             var elem = window.document.querySelector(".isotope-container");

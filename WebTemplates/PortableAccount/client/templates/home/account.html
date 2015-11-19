@@ -5,6 +5,16 @@ controller: AccountController
 ---
 
 <div class="grid-container">
-  <h1>Welcome to Foundation for Apps!</h1>
-  <p class="lead">This is version <strong>1.1 Weisshorn</strong>.</p>
+  <h1>Welcome to Foundation for Apps!...</h1>
+  <p class="lead">This is version <strong>1.1 Weisshorn {{vm.profile.FirstName}}</strong>.</p>
+  <div class="isotope-container">
+    <div align="center" class="card tbisobox isotope-item" ng-repeat="group in vm.groups">
+      <h5 class="tbshadowtext">{{group.Title}}</h5>
+      <img src="../../assets/img/portal2_looping_giphy.gif" class="tbisoboximg">
+      <div><button class="button hollow large tbisoboximg" ng-click="vm.GoToConnection(connection.id)"><div class="tbshadowtext">Go To Connection</div></button></div>
+      <div><button class="button alert medium tbisoboximg" ng-click="vm.DeleteConnection(connection.id)"><div class="tbshadowtext">Remove</div></button></div>
+    </div>
+  </div>
+  <div>{{vm.LastOperationDump}}</div>
 </div>
+
