@@ -196,7 +196,7 @@ module TheBall.Interface.UI {
                 var $hiddenInput = this.getHiddenInput(key, operationParameters[key]);
                 $form.append($hiddenInput);
             }
-            $form.append(this.getHiddenInput("NORELOAD", true));
+            $form.append(this.getHiddenInput("NORELOAD", ""));
             //$form.submit();
             if(!failureCallback)
                 failureCallback = function() {};
