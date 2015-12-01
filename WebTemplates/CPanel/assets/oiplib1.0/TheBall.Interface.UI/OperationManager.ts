@@ -203,7 +203,7 @@ module TheBall.Interface.UI {
             $.ajax({
                 type: "POST",
                 data: $form.serialize(),
-                url: "../../op/" + operationName,
+                //url: "../../op/" + operationName,
                 //dataType: "json",
                 success: function(responseData) {
                     if(successCallback != null)
