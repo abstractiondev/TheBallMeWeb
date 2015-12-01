@@ -187,7 +187,7 @@ var TheBall;
                         var $hiddenInput = this.getHiddenInput(key, operationParameters[key]);
                         $form.append($hiddenInput);
                     }
-                    $form.append(this.getHiddenInput("NORELOAD", ""));
+                    $form.append(this.getHiddenInput("NORELOAD", true));
                     //$form.submit();
                     if (!failureCallback)
                         failureCallback = function () {
