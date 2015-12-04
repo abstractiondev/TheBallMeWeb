@@ -134,6 +134,5 @@ module application {
 
   (<any>window).appModule.controller("AccountController",
     ["$scope", "AccountService", "OperationService", "FoundationApi", "$timeout",
-      ($scope, accountService, operationService, foundationApi, $timeout)
-        => new AccountController($scope, accountService, operationService, foundationApi, $timeout)]);
+      ($scope, accountService, operationService, foundationApi, $timeout) => new AccountController($scope, accountService, operationService, foundationApi, $timeout)]);
 }

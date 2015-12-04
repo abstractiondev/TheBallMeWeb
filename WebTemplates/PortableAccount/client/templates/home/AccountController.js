@@ -62,5 +62,6 @@ var application;
         AccountController.$inject = ['$scope'];
         return AccountController;
     })();
-    window.appModule.controller("AccountController", ["$scope", "AccountService", "OperationService", "FoundationApi", "$timeout", function ($scope, accountService, operationService, foundationApi, $timeout) { return new AccountController($scope, accountService, operationService, foundationApi, $timeout); }]);
+    window.appModule.controller("AccountController", ["$scope", "AccountService", "OperationService", "FoundationApi", "$timeout",
+        function ($scope, accountService, operationService, foundationApi, $timeout) { return new AccountController($scope, accountService, operationService, foundationApi, $timeout); }]);
 })(application || (application = {}));

@@ -86,5 +86,7 @@ var application;
         return OperationService;
     })();
     application.OperationService = OperationService;
-    window.appModule.factory('OperationService', ["$http", "$location", "$q", "$timeout", "promiseCache", function ($http, $location, $q, $timeout, promiseCache) { return new OperationService($http, $location, $q, $timeout, promiseCache); }]);
+    window.appModule.factory('OperationService', ["$http", "$location", "$q", "$timeout", "promiseCache", function ($http, $location, $q, $timeout, promiseCache) {
+            return new OperationService($http, $location, $q, $timeout, promiseCache);
+        }]);
 })(application || (application = {}));
