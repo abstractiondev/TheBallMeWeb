@@ -1,0 +1,16 @@
+
+<div class="grid-container">
+  <div class="isotope-container">
+    <div align="center" class="card tbisobox isotope-item" ng-repeat="group in vm.groups">
+      <h5 class="tbshadowtext">{{group.Title}}</h5>
+      <!--
+      <iframe ng-src="/auth/grp/{{group.id}}/cpanel/html/statustile_account.html" frameborder="0" />
+      -->
+      <div><a class="button hollow large tbisoboximg" href="{{group.URL}}"><div class="tbshadowtext">Go To Group</div></a></div>
+    </div>
+  </div>
+  <!--
+  <div>{{vm.LastOperationDump}}</div>
+  -->
+</div>
+

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Ball Experiment</title>
+    <link href="./assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="./assets/js/foundation.js"></script>
+    <script src="./assets/js/templates.js"></script>
+    <script src="./assets/js/routes.js"></script>
+    <script src="./assets/js/app.js"></script>
+  </head>
+  <body>
+  <style>
+
+    .tbisoboximg {
+      width: 200px;
+      max-width: 200px;
+      border-radius: 5px;
+      /*border: none;*/
+      -webkit-box-shadow: 10px 10px 10px 0px rgba(100,100,100,0.5);
+      -moz-box-shadow: 10px 10px 10px 0px rgba(100,100,100,0.5);
+      box-shadow: 10px 10px 10px 0px rgba(100,100,100,0.5);
+    }
+
+    .tbisoboximg:active,
+    .tbisoboximg:focus {
+      background-image: none;
+      outline: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    .tbisobox {
+      -webkit-box-shadow: 10px 10px 10px 0px rgba(205,151,205,0.5);
+      -moz-box-shadow: 10px 10px 10px 0px rgba(205,151,205,0.5);
+      box-shadow: 10px 10px 10px 0px rgba(205,151,205,0.5);
+
+      /*
+      border-radius: 10px 10px 10px 10px;
+      -moz-border-radius: 10px 10px 10px 10px;
+      -webkit-border-radius: 10px 10px 10px 10px;*/
+
+
+      /*width: 200px;
+
+      background-color: #eeeeee;*/
+
+      margin: 10px;
+      padding: 10px;
+    }
+
+    .tbshadowtext {
+      text-shadow: 10px 10px 5px rgba(100,100,100,0.5)
+    }
+
+    .tbshadowtext:hover
+    {
+      text-shadow: 0px 0px 0px;
+    }
+  </style>
+    <div class="grid-frame vertical">
+      <div class="grid-content shrink" style="padding: 0;">
+        <ul class="primary condense menu-bar">
+          <li><a><strong>The Ball Experiment</strong></a></li>
+          <!--
+          <form>
+          <script
+            src="https://s3-eu-west-1.amazonaws.com/js.octobat.com/js/octobat-checkout-0.0.0.js" class="octobat-checkout-button"
+            data-octobat-pkey="oc_test_pkey_xJMsLscYvfDqaQTtxQi7UQtt"
+            data-supplier-name="ProtonIT"
+            data-description="The Ball Developer Plan (€10)"
+            data-plan="TBMONTHLY"
+            data-coupon="true"
+            data-taxes="excluded"
+            data-moss-compliance="true"
+            data-validate-tax-number="true"
+            data-billing-address="true">
+          </script>
+          </form>
+          -->
+        </ul>
+      </div>
+      <div ui-view class="grid-content">
+      </div>
+    </div>
+  </body>
+</html>
