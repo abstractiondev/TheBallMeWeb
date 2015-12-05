@@ -11,6 +11,7 @@ var application;
             return this.promiseCache({
                 promise: function () {
                     return me.$http.get('../../AaltoGlobalImpact.OIP/AccountContainer/default.json');
+                    //return me.$http.get('/data/AaltoGlobalImpact.OIP/AccountContainer/default.json');
                 }
             });
         };

@@ -41,9 +41,12 @@ var application;
             return this.hasGroups();
         };
         AccountController.prototype.refreshAccountContainer = function () {
+            if (!this.accountContainer)
+                return;
             //this.LastOperationDump = JSON.stringify(this.accountContainer);
+            var roles = this.accountContainer.AccountModule.Roles;
             this.profile = this.accountContainer.AccountModule.Profile;
-            this.groups = this.accountContainer.AccountModule.Roles.MemberInGroups.CollectionContent;
+            this.groups = _.union(roles.MemberInGroups.CollectionContent, roles.ModeratorInGroups.CollectionContent);
         };
         AccountController.prototype.refreshIsotope = function () {
             var elem = window.document.querySelector(".isotope-container");

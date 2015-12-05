@@ -1,11 +1,13 @@
 /**
-* Created by kalle on 10.2.2014.
-*/
+ * Created by kalle on 10.2.2014.
+ */
+/// <reference path="jquery.d.ts" />
+/// <reference path="DataConnectionManager.ts" />
 var TheBall;
 (function (TheBall) {
+    var Interface;
     (function (Interface) {
-        /// <reference path="jquery.d.ts" />
-        /// <reference path="DataConnectionManager.ts" />
+        var UI;
         (function (UI) {
             var BinaryFileItem = (function () {
                 function BinaryFileItem(inputElement, file, content) {
@@ -18,14 +20,12 @@ var TheBall;
                         return true;
                     return false;
                 };
-
                 BinaryFileItem.prototype.GetPropertyName = function () {
                     //var $inputElement = $(this.inputElement);
                     //var propName = $inputElement.attr("data-oipfile-propertyname");
                     var propName = this.inputElement.name;
                     return propName;
                 };
-
                 BinaryFileItem.prototype.GetEmbeddedPropertyContent = function () {
                     if (!this.file || !this.file.name || !this.content)
                         return null;
@@ -48,12 +48,12 @@ var TheBall;
                     this.DCM = dcm;
                     this.BinaryFileSelectorBase = binaryFileSelectorBase;
                     var $body = $("body");
-                    var formHtml = "<form style='margin:0px;width:0px;height:0px;background-color: transparent;border: 0px none transparent;padding: 0px;overflow: hidden;visibility:hidden'  enctype='multipart/form-data' id='OperationManager_DynamicIFrameForm' " + "method='post' target='OperationManager_IFrame'></form> ";
+                    var formHtml = "<form style='margin:0px;width:0px;height:0px;background-color: transparent;border: 0px none transparent;padding: 0px;overflow: hidden;visibility:hidden'  enctype='multipart/form-data' id='OperationManager_DynamicIFrameForm' " +
+                        "method='post' target='OperationManager_IFrame'></form> ";
                     var iFrameHtml = "<iframe style='margin:0px;width:0px;height:0px;background-color: transparent;border: 0px none transparent;padding: 0px;overflow: hidden;visibility: hidden' name='OperationManager_IFrame' src='about:blank'></iframe>";
                     $body.append(formHtml);
                     $body.append(iFrameHtml);
                     this.$submitForm = $("#OperationManager_DynamicIFrameForm");
-
                     if (typeof String.prototype["startsWith"] != 'function') {
                         // see below for better implementation!
                         String.prototype["startsWith"] = function (str) {
@@ -74,7 +74,6 @@ var TheBall;
                     $form.submit();
                     $form.empty();
                 };
-
                 OperationManager.prototype.SaveIndependentObject = function (objectID, objectRelativeLocation, objectETag, objectData, successCallback, failureCallback, keyNameResolver) {
                     var $form = this.$submitForm;
                     $form.empty();
@@ -97,11 +96,9 @@ var TheBall;
                         var $hiddenInput = this.getHiddenInput(realKey, objectData[key]);
                         $form.append($hiddenInput);
                     }
-
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
                     $.ajax({
                         type: "POST",
                         data: $form.serialize(),
@@ -121,7 +118,6 @@ var TheBall;
                         throw "Object ETag mismatch on save: " + objectID;
                     this.SaveIndependentObject(obj.ID, obj.RelativeLocation, obj.MasterETag, dataContents);
                 };
-
                 OperationManager.prototype.DeleteIndependentObject = function (domainName, objectName, objectID, successCallback, failureCallback) {
                     var $form = this.$submitForm;
                     $form.empty();
@@ -130,11 +126,9 @@ var TheBall;
                     $form.append(this.getHiddenInput("ObjectID", objectID));
                     $form.append(this.getHiddenInput("ExecuteOperation", "DeleteSpecifiedInformationObject"));
                     $form.append(this.getHiddenInput("NORELOAD", ""));
-
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
                     $.ajax({
                         type: "POST",
                         data: $form.serialize(),
@@ -147,7 +141,6 @@ var TheBall;
                     });
                     $form.empty();
                 };
-
                 OperationManager.prototype.DeleteObject = function (objectID) {
                     var obj = this.DCM.TrackedObjectStorage[objectID];
                     if (!obj)
@@ -158,7 +151,6 @@ var TheBall;
                     var objectName = obj.Name;
                     this.DeleteIndependentObject(domainName, objectName, objectID);
                 };
-
                 OperationManager.prototype.CreateObjectAjax = function (domainName, objectName, dataContents, successCallback, failureCallback) {
                     var $form = this.$submitForm;
                     $form.empty();
@@ -170,11 +162,9 @@ var TheBall;
                         var $hiddenInput = this.getHiddenInput(key, dataContents[key]);
                         $form.append($hiddenInput);
                     }
-
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
                     $.ajax({
                         type: "POST",
                         data: $form.serialize(),
@@ -187,7 +177,6 @@ var TheBall;
                     });
                     $form.empty();
                 };
-
                 OperationManager.prototype.ExecuteOperationWithForm = function (operationName, operationParameters, successCallback, failureCallback) {
                     var $form = this.$submitForm;
                     $form.empty();
@@ -197,11 +186,9 @@ var TheBall;
                         $form.append($hiddenInput);
                     }
                     $form.append(this.getHiddenInput("NORELOAD", ""));
-
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
                     $.ajax({
                         type: "POST",
                         data: $form.serialize(),
@@ -217,13 +204,10 @@ var TheBall;
                 OperationManager.prototype.ExecuteOperationWithAjax = function (operationFullName, contentObject, successCallback, failureCallback) {
                     var jsonData = JSON.stringify(contentObject);
                     if (!successCallback)
-                        successCallback = function () {
-                        };
+                        successCallback = function () { };
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
-                    $.ajax({
-                        type: "POST",
+                        failureCallback = function () { };
+                    $.ajax({ type: "POST",
                         url: "?operation=" + operationFullName,
                         dataType: "json",
                         contentType: "application/json",
@@ -232,37 +216,30 @@ var TheBall;
                         error: failureCallback
                     });
                 };
-
                 OperationManager.prototype.setButtonMode = function ($button, mode) {
                     var buttonText = mode == "add" ? "Add Image" : "Remove Image";
                     $button.attr('data-mode', mode);
                     $button.html(buttonText);
                 };
-
                 OperationManager.prototype.reset_field = function (e) {
                     e.wrap('<form>').parent('form').trigger('reset');
                     e.unwrap();
                 };
-
                 OperationManager.prototype.setImageValues = function ($file, $hidden, fileFieldName) {
                     //$hidden.attr('name', '');
                     $hidden.removeAttr('name');
                     $file.attr('name', fileFieldName);
                 };
-
                 OperationManager.prototype.clearImageValue = function ($file, $hidden, fileFieldName) {
                     $hidden.attr('name', fileFieldName);
-
                     //$file.attr('name', '');
                     $file.removeAttr('name');
                 };
-
                 OperationManager.prototype.setSelectFileButtonEvents = function ($selectButton, $fileInput) {
                     $selectButton.off("click.oip").on("click.oip", function () {
                         $fileInput.click();
                     });
                 };
-
                 OperationManager.prototype.setRemoveFileButtonEvents = function ($removeButton, $fileInput, $hiddenInput, $imagePreview) {
                     var me = this;
                     $removeButton.off("click.oip").on("click.oip", function () {
@@ -272,7 +249,6 @@ var TheBall;
                         me.clearImageValue($fileInput, $hiddenInput, fileFieldName);
                     });
                 };
-
                 OperationManager.prototype.setPreviewImageSrc = function ($imagePreview, srcContent) {
                     if (!srcContent) {
                         var noImageUrl = $imagePreview.attr("data-oipfile-noimageurl");
@@ -280,12 +256,12 @@ var TheBall;
                             $imagePreview.hide();
                         }
                         $imagePreview.attr('src', noImageUrl);
-                    } else {
+                    }
+                    else {
                         $imagePreview.attr('src', srcContent);
                         $imagePreview.show();
                     }
                 };
-
                 OperationManager.prototype.setFileInputEvents = function ($fileInput, $hiddenInput, $imagePreview) {
                     var me = this;
                     var fileFieldName = $fileInput.attr("data-oipfile-propertyname");
@@ -302,15 +278,12 @@ var TheBall;
                         }
                     });
                 };
-
                 OperationManager.prototype.InitiateBinaryFileElementsAroundInput = function ($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl) {
                     var jQueryClassSelector = this.BinaryFileSelectorBase;
                     var inputFileSelector = "input" + jQueryClassSelector + "[type='file']";
-
                     //var hiddenInputSelector = "input" + jQueryClassSelector + "[type='hidden']";
                     //var previewImgSelector = "img" + jQueryClassSelector;
                     var inputFileWithNameSelector = inputFileSelector + "[name]";
-
                     //var hiddenInputWithNameSelector = hiddenInputSelector + "[name]";
                     var fileGroupIDDataName = "oipfile-filegroupid";
                     var objectIDDataName = "oipfile-objectid";
@@ -320,7 +293,6 @@ var TheBall;
                     var buttonTypeRemove = "remove";
                     var dataAttrPrefix = "data-";
                     var imgPreviewNoImageUrlDataName = "oipfile-noimageurl";
-
                     $fileInput.addClass("oipfile");
                     $fileInput.hide();
                     $fileInput.width(0);
@@ -331,7 +303,6 @@ var TheBall;
                     this.reset_field($fileInput);
                     var currentGroupID = $fileInput.attr(dataAttrPrefix + fileGroupIDDataName);
                     var currentGroupDataSelectorString = "[data-" + fileGroupIDDataName + "='" + currentGroupID + "']";
-
                     var previewImgSelector = "img.oipfile" + currentGroupDataSelectorString;
                     var $previevImg = $(previewImgSelector);
                     if ($previevImg.length === 0) {
@@ -351,10 +322,10 @@ var TheBall;
                         $hiddenInput.insertBefore($fileInput);
                     }
                     $hiddenInput.removeAttr("name");
-
                     this.setFileInputEvents($fileInput, $hiddenInput, $previevImg);
-
-                    var selectButtonSelector = ".oipfile" + currentGroupDataSelectorString + "[data-" + buttonTypeDataName + "='" + buttonTypeSelect + "']";
+                    var selectButtonSelector = ".oipfile"
+                        + currentGroupDataSelectorString
+                        + "[data-" + buttonTypeDataName + "='" + buttonTypeSelect + "']";
                     var $selectButton = $(selectButtonSelector);
                     if ($selectButton.length === 0) {
                         // Create select button
@@ -364,7 +335,9 @@ var TheBall;
                         $selectButton.insertAfter($fileInput);
                     }
                     this.setSelectFileButtonEvents($selectButton, $fileInput);
-                    var removeButtonSelector = ".oipfile" + currentGroupDataSelectorString + "[data-" + buttonTypeDataName + "='" + buttonTypeRemove + "']";
+                    var removeButtonSelector = ".oipfile"
+                        + currentGroupDataSelectorString
+                        + "[data-" + buttonTypeDataName + "='" + buttonTypeRemove + "']";
                     var $removeButton = $(removeButtonSelector);
                     if ($removeButton.length === 0) {
                         // Create remove button
@@ -375,12 +348,10 @@ var TheBall;
                     }
                     this.setRemoveFileButtonEvents($removeButton, $fileInput, $hiddenInput, $previevImg);
                 };
-
                 OperationManager.prototype.InitiateBinaryFileElements = function (fileInputID, objectID, propertyName, initialPreviewUrl, noImageUrl) {
                     var $fileInput = $("#" + fileInputID);
                     this.InitiateBinaryFileElementsAroundInput($fileInput, objectID, propertyName, initialPreviewUrl, noImageUrl);
                 };
-
                 OperationManager.prototype.readFileFromInputAsync = function (fileInput) {
                     if (fileInput.files && fileInput.files[0]) {
                         var file = fileInput.files[0];
@@ -390,22 +361,18 @@ var TheBall;
                     emptyDeferred.resolve(new BinaryFileItem(fileInput, null, null));
                     return emptyDeferred.promise();
                 };
-
                 OperationManager.prototype.readFileAsync = function (fileInput, file) {
                     var reader = new FileReader();
                     var deferred = $.Deferred();
-
                     reader.onload = function (event) {
                         deferred.resolve(new BinaryFileItem(fileInput, file, event.target.result));
                     };
-
                     reader.onerror = function () {
                         deferred.reject(this);
                     };
                     reader.readAsDataURL(file);
                     return deferred.promise();
                 };
-
                 OperationManager.prototype.AppendBinaryFileValuesToData = function (objectID, data, callBack) {
                     this.PrepareBinaryFileContents(objectID, function (binaryFileItems) {
                         var imageFieldName;
@@ -422,26 +389,24 @@ var TheBall;
                         callBack();
                     });
                 };
-
                 OperationManager.prototype.PrepareBinaryFileContents = function (objectID, callBack) {
                     var me = this;
                     var jQueryClassSelector = this.BinaryFileSelectorBase;
-                    var inputFileSelector = "input.oipfile" + "[type='file'][data-oipfile-objectid='" + objectID + "' ]";
-
+                    var inputFileSelector = "input.oipfile"
+                        + "[type='file'][data-oipfile-objectid='" + objectID + "' ]";
                     var inputFileWithNameSelector = inputFileSelector + "[name]";
                     var inputFileWithoutNameSelector = inputFileSelector + ":not([name])";
                     var hiddenInputSelector = "input.oipfile[type='hidden']";
                     var hiddenInputWithNameSelector = hiddenInputSelector + "[name]";
-
                     var $hiddenInputsWithName = $();
                     var $inputFilesWithoutName = $(inputFileWithoutNameSelector);
                     $inputFilesWithoutName.each(function (index, element) {
                         var currentGroupID = $(this).attr("data-oipfile-filegroupid");
-                        var relativeHiddenWithNameSelector = hiddenInputWithNameSelector + "[data-oipfile-filegroupid='" + currentGroupID + "']";
+                        var relativeHiddenWithNameSelector = hiddenInputWithNameSelector
+                            + "[data-oipfile-filegroupid='" + currentGroupID + "']";
                         var $relativeHiddenWithName = $(relativeHiddenWithNameSelector);
                         $hiddenInputsWithName = $hiddenInputsWithName.add($relativeHiddenWithName);
                     });
-
                     var $filesToAdd = $(inputFileWithNameSelector);
                     var $fileReadingPromises = $filesToAdd.map(function (index, element) {
                         var inputElement = element;
@@ -461,8 +426,6 @@ var TheBall;
                 return OperationManager;
             })();
             UI.OperationManager = OperationManager;
-        })(Interface.UI || (Interface.UI = {}));
-        var UI = Interface.UI;
-    })(TheBall.Interface || (TheBall.Interface = {}));
-    var Interface = TheBall.Interface;
+        })(UI = Interface.UI || (Interface.UI = {}));
+    })(Interface = TheBall.Interface || (TheBall.Interface = {}));
 })(TheBall || (TheBall = {}));

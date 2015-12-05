@@ -97,8 +97,8 @@ module application {
   }
 
 
-  (<any>window).appModule.factory('OperationService', ["$http", "$location", "$q", "$timeout", "promiseCache", ($http, $location, $q, $timeout, promiseCache)
-    => new OperationService($http, $location, $q, $timeout, promiseCache)]);
+  (<any>window).appModule.factory('OperationService', ["$http", "$location", "$q", "$timeout", "promiseCache",
+    ($http, $location, $q, $timeout, promiseCache) => new OperationService($http, $location, $q, $timeout, promiseCache)]);
 
 }
 

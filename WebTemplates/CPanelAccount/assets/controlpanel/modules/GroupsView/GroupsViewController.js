@@ -1,13 +1,12 @@
 /**
-* Created by kalle on 3.6.2014.
-*/
-var __extends = this.__extends || function (d, b) {
+ * Created by kalle on 3.6.2014.
+ */
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", "../ViewControllerBase"], function(require, exports, ViewControllerBase) {
+define(["require", "exports", "../ViewControllerBase"], function (require, exports, ViewControllerBase) {
     var GroupsViewController = (function (_super) {
         __extends(GroupsViewController, _super);
         function GroupsViewController() {
@@ -16,8 +15,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         GroupsViewController.prototype.ControllerInitialize = function () {
             var _this = this;
             var me = this;
-            require([
-                "GroupsView/Groups_dust",
+            require(["GroupsView/Groups_dust",
                 "lib/dusts/command_button_begin_dust",
                 "lib/dusts/command_button_end_dust",
                 "lib/dusts/command_button_dust",
@@ -41,13 +39,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 });
             });
         };
-
         GroupsViewController.prototype.VisibleTemplateRender = function () {
         };
-
         GroupsViewController.prototype.InvisibleTemplateRender = function () {
         };
-
         GroupsViewController.prototype.SetAsDefaultGroup = function ($source) {
             var me = this;
             var groupURL = $source.attr("data-groupurl");
@@ -59,7 +54,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.ReInitialize();
             }, this.CommonErrorHandler);
         };
-
         GroupsViewController.prototype.ClearDefaultGroup = function ($source) {
             var me = this;
             var wnd = window;
@@ -69,18 +63,15 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.ReInitialize();
             }, this.CommonErrorHandler);
         };
-
         GroupsViewController.prototype.OpenCreateNewGroupModal = function ($source) {
             var me = this;
             var $modal = me.$getNamedFieldWithin("CreateNewGroupModal");
             me.$getNamedFieldWithinModal($modal, "GroupName").val("");
             $modal.foundation("reveal", "open");
         };
-
         GroupsViewController.prototype.Modal_CreateNewGroup = function ($modal) {
             var redirectUrlAfterCreation = "cpanel/html/cpanel.html";
             var templateNameList = "cpanel,categoriesandcontent";
-
             var me = this;
             var groupName = me.$getNamedFieldWithinModal($modal, "GroupName").val();
             var jq = $;
@@ -98,7 +89,5 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         };
         return GroupsViewController;
     })(ViewControllerBase);
-
-    
     return GroupsViewController;
 });

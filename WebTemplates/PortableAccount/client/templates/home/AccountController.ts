@@ -65,9 +65,12 @@ module application {
 
     refreshAccountContainer()
     {
+      if(!this.accountContainer)
+        return;
       //this.LastOperationDump = JSON.stringify(this.accountContainer);
+      var roles = this.accountContainer.AccountModule.Roles;
       this.profile = this.accountContainer.AccountModule.Profile;
-      this.groups = this.accountContainer.AccountModule.Roles.MemberInGroups.CollectionContent;
+      this.groups = _.union(roles.MemberInGroups.CollectionContent, roles.ModeratorInGroups.CollectionContent);
     }
 
     refreshIsotope()
