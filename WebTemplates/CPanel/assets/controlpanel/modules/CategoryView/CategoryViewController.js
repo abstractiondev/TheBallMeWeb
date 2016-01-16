@@ -1,13 +1,12 @@
 /**
-* Created by kalle on 31.5.2014.
-*/
-var __extends = this.__extends || function (d, b) {
+ * Created by kalle on 31.5.2014.
+ */
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", "../ViewControllerBase"], function(require, exports, ViewControllerBase) {
+define(["require", "exports", "../ViewControllerBase"], function (require, exports, ViewControllerBase) {
     var CategoryViewController = (function (_super) {
         __extends(CategoryViewController, _super);
         function CategoryViewController() {
@@ -15,8 +14,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         }
         CategoryViewController.prototype.ControllerInitialize = function () {
             var me = this;
-            require([
-                "CategoryView/CategoryEditor_dust",
+            require(["CategoryView/CategoryEditor_dust",
                 "CategoryView/CategoryView_Modals_dust",
                 "CategoryView/category_treeitem_dust",
                 "CategoryView/category_rowitem_dust",
@@ -45,7 +43,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 });
             });
         };
-
         CategoryViewController.prototype.VisibleTemplateRender = function () {
             var _this = this;
             $.when(this.DoneInitializedPromise()).then(function () {
@@ -53,31 +50,26 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 nestable.nestable({});
             });
         };
-
         CategoryViewController.prototype.InvisibleTemplateRender = function () {
             // alert("categories invisible renderer" + this.divID);
         };
-
         CategoryViewController.prototype.OpenModalCategoryHierarchyModal = function () {
             var $modal = this.$getNamedFieldWithin("CategoryHierarchyModal");
             $modal.foundation('reveal', 'open');
         };
-
         CategoryViewController.prototype.EditContentRanking = function ($source) {
             var me = this;
             var id = $source.data("objectid");
             var $modal = this.$getNamedFieldWithin("CategoryContentRankingModal");
             me.$getNamedFieldWithinModal($modal, "CategoryID").val(id);
-
             //alert(JSON.stringify(this.currentContentRanks[id]));
             //alert(JSON.stringify(this.currentContentRanks));
             /*
             var currRanks = me.currentContentRanks[id];
             if(!currRanks)
-            currRanks = [];
-            */
+                currRanks = [];
+                */
             var currChildren = me.currentSemantics[id];
-
             //var currUnranked = _.where(currChildren, item => _.every(currRanks, function(rItem:any) { return rItem.ContentID != item.ID }));
             //var allContent = { "RankItems":  _.union(currRanks, currUnranked) };
             var allContent = { "RankItems": currChildren };
@@ -91,12 +83,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 $modal.foundation("reveal", "open");
             });
         };
-
         CategoryViewController.prototype.OpenModalAddCategoryModal = function () {
             var $modal = this.$getNamedFieldWithin("AddCategoryModal");
             $modal.foundation('reveal', 'open');
         };
-
         CategoryViewController.prototype.getCategoryByID = function (id) {
             var categoryCollection = this.currentData.CategoriesWithChildren;
             for (var i = 0; i < categoryCollection.length; i++) {
@@ -106,7 +96,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             }
             return null;
         };
-
         CategoryViewController.prototype.EditCategory = function ($source) {
             var id = $source.data("objectid");
             var $modal = this.$getNamedFieldWithin("EditCategoryModal");
@@ -115,10 +104,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var currentID = currentObject.ID;
                 var currentETag = currentObject.MasterETag;
                 var currentRelativeLocation = currentObject.RelativeLocation;
-
                 var $imageDataInput = me.$getNamedFieldWithinModal($modal, "tmpCategoryImageData");
                 var imageSizeString = "256";
-                var currentImagePath = currentObject && currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
+                var currentImagePath = currentObject && currentObject.ImageData
+                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
+                    : null;
                 me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, id, "ImageData", currentImagePath, null, "categoryImageData");
                 me.$getNamedFieldWithinModal($modal, "title").val(currentObject.Title);
                 me.$getNamedFieldWithinModal($modal, "excerpt").val(currentObject.Excerpt);
@@ -128,30 +118,24 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 $modal.foundation("reveal", "open");
             });
         };
-
         CategoryViewController.prototype.DeleteObject = function ($source) {
             var id = $source.data("objectid");
             var domainName = $source.data("domainname");
             var objectName = $source.data("objectname");
-
             var me = this;
             var jq = $;
             jq.blockUI({ message: '<h2>Deleting...</h2>' });
             this.currOPM.DeleteIndependentObject(domainName, objectName, id, function (responseData) {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                me.ReInitialize();
             });
             /*
-            data-objectid="{ID}" data-objectname="{Name}" data-domainname="{SemanticDomainName}"
-            
-            */
+             data-objectid="{ID}" data-objectname="{Name}" data-domainname="{SemanticDomainName}"
+    
+             */
         };
-
         CategoryViewController.prototype.Modal_SaveCategoryRanking = function ($modal) {
             var $nestableList = this.$getNamedFieldWithinModal($modal, "nestableList");
-
             //var list:any = $nestableList.length ? $nestableList : $($nestableList);
             var list = $nestableList;
             var itemArray = [];
@@ -161,7 +145,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var itemID = liItem.data("id");
                 var semanticDomain = liItem.data("semanticdomain");
                 var semanticType = liItem.data("semantictype");
-
                 var contentItem = {
                     "ContentID": itemID,
                     "ContentSemanticType": semanticDomain + "." + semanticType,
@@ -177,37 +160,33 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 "RankingItems": itemArray
             };
             var jsonData = JSON.stringify(categoryRankingData);
-
             //var jsonData = JSON.stringify(list.nestable("serialize"));
             console.log(jsonData);
             var me = this;
             var jq = $;
             jq.blockUI({ message: "<h2>Saving...</h2>" });
+            var userSuccess = function () {
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            };
+            var userFailure = function () {
+                jq.unblockUI();
+                alert("Error Occurred at Save");
+                //window.location.reload(true);
+            };
             $.ajax({
                 type: "POST",
                 url: "?operation=AaltoGlobalImpact.OIP.SetCategoryContentRanking",
                 //dataType: "json", - this would require returning parseable json (on TODO list)
                 contentType: "application/json",
-                data: jsonData,
-                success: function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 2500);
-                },
-                error: function () {
-                    jq.unblockUI();
-                    alert("Error Occurred at Save");
-                    //window.location.reload(true);
-                }
-            });
+                data: jsonData
+            }).done(function (response) { return me.currOPM.AjaxPollingOperation(response, userSuccess); }).fail(userFailure);
+            ;
         };
-
         CategoryViewController.prototype.Modal_SaveCategoryHierarchy = function ($modal) {
             var $nestableTree = this.$getNamedFieldWithinModal($modal, "nestableTree");
             var list = $nestableTree.length ? $nestableTree : $($nestableTree);
-
             /*output = list.data('output');*/
             var jsonData;
             jsonData = JSON.stringify(list.nestable('serialize'));
@@ -215,27 +194,25 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var me = this;
             var jq = $;
             jq.blockUI({ message: '<h2>Saving...</h2>' });
-            $.ajax({
-                type: "POST",
+            var userSuccess = function () {
+                setTimeout(function () {
+                    jq.unblockUI();
+                    $modal.foundation('reveal', 'close');
+                    me.ReInitialize();
+                }, 2500);
+            };
+            var userFailure = function () {
+                jq.unblockUI();
+                alert("Error Occurred at Save");
+                //window.location.reload(true);
+            };
+            $.ajax({ type: "POST",
                 url: "?operation=AaltoGlobalImpact.OIP.SetCategoryHierarchyAndOrderInNodeSummary",
                 //dataType: "json", - this would require returning parseable json (on TODO list)
                 contentType: "application/json",
-                data: jsonData,
-                success: function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 2500);
-                },
-                error: function () {
-                    jq.unblockUI();
-                    alert("Error Occurred at Save");
-                    //window.location.reload(true);
-                }
-            });
+                data: jsonData
+            }).done(function (response) { return me.currOPM.AjaxPollingOperation(response, userSuccess); }).fail(userFailure);
         };
-
         CategoryViewController.prototype.AddNewCategories = function () {
             var categoryList = this.$getNamedFieldWithin("addNewCategoriesTitles");
             var operationData = {
@@ -246,16 +223,13 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var jq = $;
             jq.blockUI({ message: '<h2>Saving...</h2>' });
             this.currOPM.ExecuteOperationWithForm("AddCategories", operationData, function () {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                me.ReInitialize();
             }, function () {
                 jq.unblockUI();
                 alert("Category add error!");
             });
         };
-
         CategoryViewController.prototype.Modal_SaveNew = function ($modal, $source) {
             var title = this.$getNamedFieldWithinModal($modal, "title").val();
             var excerpt = this.$getNamedFieldWithinModal($modal, "excerpt").val();
@@ -267,17 +241,14 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var jq = $;
             jq.blockUI({ message: '<h2>Saving...</h2>' });
             this.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "Category", saveData, function (obj) {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
             }, function () {
                 jq.unblockUI();
                 alert("Save failed!");
             });
         };
-
         CategoryViewController.prototype.Modal_SaveExisting = function ($modal, $source) {
             var id = this.$getNamedFieldWithinModal($modal, "ID").val();
             var objectRelativeLocation = this.$getNamedFieldWithinModal($modal, "RelativeLocation").val();
@@ -292,14 +263,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var me = this;
             this.currOPM.AppendBinaryFileValuesToData(id, saveData, function () {
                 jq.blockUI({ message: '<h2>Saving...</h2>' });
-
                 //alert(JSON.stringify(saveData));
                 me.currOPM.SaveIndependentObject(id, objectRelativeLocation, eTag, saveData, function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 2500);
+                    jq.unblockUI();
+                    $modal.foundation('reveal', 'close');
+                    me.ReInitialize();
                 }, function () {
                     alert("Save failed!");
                     jq.unblockUI();
@@ -308,7 +276,5 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         };
         return CategoryViewController;
     })(ViewControllerBase);
-
-    
     return CategoryViewController;
 });

@@ -286,12 +286,10 @@ class DynamicContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Adding new dynamic content group...</h2>' });
         me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "DynamicContentGroup", saveData, function() {
-            setTimeout(function () {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
-        }, me.CommonErrorHandler);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
     Modal_SaveExistingDynamicContentGroup($modal) {
@@ -316,12 +314,10 @@ class DynamicContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Saving Dynamic Content Group...</h2>' });
         me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function() {
-            setTimeout(function () {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
-        }, me.CommonErrorHandler);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
 
@@ -356,12 +352,10 @@ class DynamicContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Adding new dynamic content...</h2>' });
         me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "DynamicContent", saveData, function() {
-            setTimeout(function () {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
-        }, me.CommonErrorHandler);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
     Modal_SaveExistingDynamicContent($modal) {
@@ -398,12 +392,10 @@ class DynamicContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Saving Dynamic Content...</h2>' });
         me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function() {
-            setTimeout(function () {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
-        }, me.CommonErrorHandler);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
     DeleteObject($source) {
@@ -414,11 +406,9 @@ class DynamicContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Deleting...</h2>' });
         this.currOPM.DeleteIndependentObject(domainName, objectName, id, function(responseData) {
-            setTimeout(function() {
-                jq.unblockUI();
-                me.ReInitialize();
-            }, 2500);
-        });
+            jq.unblockUI();
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
     SavePageContent($source) {

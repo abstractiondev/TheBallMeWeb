@@ -338,10 +338,8 @@ var saveNewComment = function (commentText, parentTextContentID) {
     };
     $.blockUI({ message: "<h3>Adding new comment...</h3>"});
     tOP.CreateObjectAjax("AaltoGlobalImpact.OIP", "Comment", saveData, function() {
-        setTimeout(function () {
-            ReConnectComments(parentTextContentID);
-            $.unblockUI();
-        }, 4000);
+        ReConnectComments(parentTextContentID);
+        $.unblockUI();
     }, function()
     {
         $.unblockUI();
@@ -371,10 +369,8 @@ var deleteComment = function () {
     var parentObjectID = $(this).data("ParentObjectID");
     $.blockUI({ message: "<h3>Deleting comment...</h3>"});
     tOP.DeleteIndependentObject("AaltoGlobalImpact.OIP", "Comment", commentID, function() {
-        setTimeout(function () {
-            ReConnectComments(parentObjectID);
-            $.unblockUI();
-        }, 4000);
+        ReConnectComments(parentObjectID);
+        $.unblockUI();
     }, function()
     {
         $.unblockUI();
@@ -617,12 +613,11 @@ function triggerToolTipUploadPhoto() {
 
 function submit_contentDelete_confirm() {
     var objectID = $("#alert-contentDelete-confirm-ID").data("DeleteID");
-    tOP.DeleteIndependentObject("AaltoGlobalImpact.OIP", "TextContent", objectID);
-    setTimeout(function () {
+    var afterOperation = function() {
         $('#alert-contentDelete-confirm').foundation('reveal', 'close');
         location.reload();
-        return false;
-    }, 3000);
+    };
+    tOP.DeleteIndependentObject("AaltoGlobalImpact.OIP", "TextContent", objectID, afterOperation, afterOperation);
 }
 
 function close_contentDelete_confirm() {

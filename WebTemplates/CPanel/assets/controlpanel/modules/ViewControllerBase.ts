@@ -70,6 +70,12 @@ class ViewControllerBase implements IViewController{
         jq.blockUI({ message: "<h3>" + waitingText + "</h3>"});
     }
 
+    CommonOperationErrorHandler(errorObject)
+    {
+        var wnd:any = window;
+        wnd.DisplayErrorDialog("Error", errorObject.ErrorCode, errorObject.ErrorMessage);
+    }
+
     CommonErrorHandler(jqXhr, textStatus, errorThrown) {
         var errorObject = JSON.parse(jqXhr.responseText);
         var wnd:any = window;

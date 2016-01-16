@@ -370,12 +370,10 @@ class MainContentViewController extends ViewControllerBase {
         this.currOPM.AppendBinaryFileValuesToData("000", saveData, function () {
             jq.blockUI({ message: '<h2>Adding new content...</h2><br>(If no image was given, fetching thumbnail image will take around 30 seconds)' });
             me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "LinkToContent", saveData, function() {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 4000);
-            }, me.CommonErrorHandler);
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            }, me.CommonOperationErrorHandler);
         });
     }
 
@@ -401,12 +399,10 @@ class MainContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Saving content...</h2>' });
         me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "EmbeddedContent", saveData, function() {
-            setTimeout(function () {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
-        }, me.CommonErrorHandler);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
     Modal_SaveExistingLinkToContent($modal) {
@@ -436,12 +432,10 @@ class MainContentViewController extends ViewControllerBase {
             jq.blockUI({ message: '<h2>Saving Link To Content...</h2><br>(If no image was given, fetching thumbnail image will take around 30 seconds)' });
             console.log("Saving existing LinkToContent: " + JSON.stringify(saveData));
             me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function() {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 4000);
-            }, me.CommonErrorHandler);
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            }, me.CommonOperationErrorHandler);
         });
     }
 
@@ -470,12 +464,10 @@ class MainContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Saving content...</h2>' });
         me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function() {
-            setTimeout(function () {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
-        }, me.CommonErrorHandler);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
     OpenModalAddNewContentModal() {
@@ -742,12 +734,10 @@ class MainContentViewController extends ViewControllerBase {
                 jq.blockUI({ message: '<h2>Removing attached content...</h2>' });
                 me.currOPM.DeleteIndependentObject("AaltoGlobalImpact.OIP", "BinaryFile", sourceID,
                     function() {
-                        setTimeout(function() {
-                            jq.unblockUI();
-                            me.RefreshAttachments($modal, objectDomain, objectName, objectID);
-                        }, 4000);
-                    }, me.CommonErrorHandler);
-            }, me.CommonErrorHandler);
+                        jq.unblockUI();
+                        me.RefreshAttachments($modal, objectDomain, objectName, objectID);
+                    }, me.CommonOperationErrorHandler);
+            }, me.CommonOperationErrorHandler);
     }
 
     SaveAsBinaryAttachment(objectDomain:string, objectName:string, objectID:string, attachmentBinarySaveData:any, $modalToRefreshAttachmentsAfter?:any)
@@ -772,14 +762,12 @@ class MainContentViewController extends ViewControllerBase {
                     function(attachedDataResponse)
                     {
                         if($modalToRefreshAttachmentsAfter) {
-                            setTimeout(function() {
                                 jq.unblockUI();
                                 me.RefreshAttachments($modalToRefreshAttachmentsAfter, objectDomain, objectName, objectID);
-                            }, 4000);
                         } else
                             jq.unblockUI();
-                    }, me.CommonErrorHandler);
-            }, me.CommonErrorHandler);
+                    }, me.CommonOperationErrorHandler);
+            }, me.CommonOperationErrorHandler);
     }
 
     ViewContent($source) {
@@ -911,7 +899,7 @@ class MainContentViewController extends ViewControllerBase {
         this.currOPM.ExecuteOperationWithForm("PublishGroupToWww",
             { },
             this.CommonSuccessHandler,
-            this.CommonErrorHandler);
+            this.CommonOperationErrorHandler);
     }
 
     PublishConnection($this)
@@ -923,7 +911,7 @@ class MainContentViewController extends ViewControllerBase {
         this.currOPM.ExecuteOperationWithForm("PublishToConnection",
             { ConnectionID: id },
             this.CommonSuccessHandler,
-            this.CommonErrorHandler);
+            this.CommonOperationErrorHandler);
     }
 
     DeleteContent($this)
@@ -935,10 +923,8 @@ class MainContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Deleting Content...</h2>' });
         this.currOPM.DeleteIndependentObject(domainName, objectName, id, function(responseData) {
-            setTimeout(function() {
                 jq.unblockUI();
                 me.ReInitialize();
-            }, 2500);
         });
     }
 
@@ -951,10 +937,8 @@ class MainContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Deleting Content...</h2>' });
         this.currOPM.DeleteIndependentObject(domainName, objectName, id, function(responseData) {
-            setTimeout(function() {
-                jq.unblockUI();
-                me.ReInitialize();
-            }, 2500);
+            jq.unblockUI();
+            me.ReInitialize();
         });
     }
 
@@ -967,10 +951,8 @@ class MainContentViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Deleting Content...</h2>' });
         this.currOPM.DeleteIndependentObject(domainName, objectName, id, function(responseData) {
-            setTimeout(function() {
-                jq.unblockUI();
-                me.ReInitialize();
-            }, 2500);
+            jq.unblockUI();
+            me.ReInitialize();
         });
     }
 
@@ -1001,13 +983,12 @@ class MainContentViewController extends ViewControllerBase {
         var jq:any = $;
         this.currOPM.AppendBinaryFileValuesToData(id, saveData, function () {
             jq.blockUI({ message: '<h2>Saving content...</h2>' });
-            me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function() {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 2500);
-            }, me.CommonErrorHandler);
+            me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function(response) {
+                console.log("Done failed OK!");
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            }, me.CommonOperationErrorHandler);
         });
     }
 
@@ -1036,12 +1017,10 @@ class MainContentViewController extends ViewControllerBase {
         this.currOPM.AppendBinaryFileValuesToData("000", saveData, function () {
             jq.blockUI({ message: '<h2>Adding new content...</h2>' });
             me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "TextContent", saveData, function() {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 2500);
-            }, me.CommonErrorHandler);
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            }, me.CommonOperationErrorHandler);
         });
     }
 }

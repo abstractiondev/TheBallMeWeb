@@ -1,13 +1,12 @@
 /**
-* Created by kalle on 3.6.2014.
-*/
-var __extends = this.__extends || function (d, b) {
+ * Created by kalle on 3.6.2014.
+ */
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", "../ViewControllerBase"], function(require, exports, ViewControllerBase) {
+define(["require", "exports", "../ViewControllerBase"], function (require, exports, ViewControllerBase) {
     var GroupMemberViewController = (function (_super) {
         __extends(GroupMemberViewController, _super);
         function GroupMemberViewController() {
@@ -16,8 +15,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         GroupMemberViewController.prototype.ControllerInitialize = function () {
             var _this = this;
             var me = this;
-            require([
-                "GroupMemberView/GroupMembers_dust",
+            require(["GroupMemberView/GroupMembers_dust",
                 "lib/dusts/command_button_begin_dust",
                 "lib/dusts/command_button_end_dust",
                 "lib/dusts/command_button_dust",
@@ -41,29 +39,24 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 });
             });
         };
-
         GroupMemberViewController.prototype.VisibleTemplateRender = function () {
         };
-
         GroupMemberViewController.prototype.InvisibleTemplateRender = function () {
         };
-
         GroupMemberViewController.prototype.InviteNewMember = function () {
             var $emailField = this.$getNamedFieldWithin("InviteNewMemberEmail");
             var emailAddress = $emailField.val();
             this.CommonWaitForOperation("Inviting new member...");
-            this.currOPM.ExecuteOperationWithForm("InviteMemberToGroup", { "EmailAddress": emailAddress }, this.CommonSuccessHandler, this.CommonErrorHandler);
+            this.currOPM.ExecuteOperationWithForm("InviteMemberToGroup", { "EmailAddress": emailAddress }, this.CommonSuccessHandler, this.CommonOperationErrorHandler);
             $emailField.val("");
         };
-
         GroupMemberViewController.prototype.InviteNewMemberToPlatform = function () {
             var $emailField = this.$getNamedFieldWithin("InviteNewMemberEmail");
             var emailAddress = $emailField.val();
             this.CommonWaitForOperation("Inviting new member...");
-            this.currOPM.ExecuteOperationWithForm("InviteMemberToGroupAndPlatform", { "EmailAddress": emailAddress }, this.CommonSuccessHandler, this.CommonErrorHandler);
+            this.currOPM.ExecuteOperationWithForm("InviteMemberToGroupAndPlatform", { "EmailAddress": emailAddress }, this.CommonSuccessHandler, this.CommonOperationErrorHandler);
             $emailField.val("");
         };
-
         GroupMemberViewController.prototype.OpenModalRemoveMemberModal = function ($source) {
             var accountID = $source.attr("data-accountid");
             var collaborators = this.currentData.Collaborators.CollectionContent;
@@ -84,25 +77,22 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             $accountIDField.val(accountID);
             $removeMemberModal.foundation("reveal", "open");
         };
-
         GroupMemberViewController.prototype.Modal_RemoveCollaborator = function ($modal) {
             var accountID = this.$getNamedFieldWithinModal($modal, "AccountID").val();
             var wnd = window;
             this.CommonWaitForOperation("Removing member...");
-            this.currOPM.ExecuteOperationWithForm("RemoveCollaboratorFromGroup", { "AccountID": accountID }, this.CommonSuccessHandler, this.CommonErrorHandler);
+            this.currOPM.ExecuteOperationWithForm("RemoveCollaboratorFromGroup", { "AccountID": accountID }, this.CommonSuccessHandler, this.CommonOperationErrorHandler);
             /*
             var saveData = {
-            GroupName: groupName,
-            Description: description,
-            OrganizationsAndGroupsLinkedToUs: organizationsAndGroupsLinkedToUs,
-            WwwSiteToPublishTo: wwwSiteToPublishTo
+                GroupName: groupName,
+                Description: description,
+                OrganizationsAndGroupsLinkedToUs: organizationsAndGroupsLinkedToUs,
+                WwwSiteToPublishTo: wwwSiteToPublishTo
             };
             this.currOPM.SaveIndependentObject(objectID, objectRelativeLocation, eTag, saveData);
             */
         };
         return GroupMemberViewController;
     })(ViewControllerBase);
-
-    
     return GroupMemberViewController;
 });

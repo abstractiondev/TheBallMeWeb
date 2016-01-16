@@ -55,7 +55,7 @@ class GroupMemberViewController extends ViewControllerBase {
         this.currOPM.ExecuteOperationWithForm("InviteMemberToGroup",
             { "EmailAddress": emailAddress},
                 this.CommonSuccessHandler,
-                this.CommonErrorHandler);
+                this.CommonOperationErrorHandler);
         $emailField.val("");
     }
 
@@ -66,7 +66,7 @@ class GroupMemberViewController extends ViewControllerBase {
         this.currOPM.ExecuteOperationWithForm("InviteMemberToGroupAndPlatform",
             { "EmailAddress": emailAddress},
             this.CommonSuccessHandler,
-            this.CommonErrorHandler);
+            this.CommonOperationErrorHandler);
         $emailField.val("");
     }
 
@@ -100,7 +100,7 @@ class GroupMemberViewController extends ViewControllerBase {
         this.currOPM.ExecuteOperationWithForm("RemoveCollaboratorFromGroup",
             {"AccountID": accountID},
             this.CommonSuccessHandler,
-            this.CommonErrorHandler);
+            this.CommonOperationErrorHandler);
         /*
         var saveData = {
             GroupName: groupName,

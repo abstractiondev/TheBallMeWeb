@@ -51,8 +51,7 @@ var TheBall;
                     this.LastProcessedTick = "";
                     this.InitialTick = "";
                     var initialStatusFetch = $.ajax({
-                        url: "../../TheBall.Interface/StatusSummary/default.json",
-                        cache: true,
+                        url: "../../TheBall.Interface/StatusSummary/default.json", cache: true,
                         async: false
                     });
                     $.when(initialStatusFetch).then(function (data) {
@@ -109,7 +108,8 @@ var TheBall;
                         var currModification = currItem.substr(0, 1);
                         var currTracked = this.TrackedObjectStorage[currID];
                         if (currTracked && currTracked.UIExtension && currTracked.UIExtension.LastUpdatedTick) {
-                            console.log("Checking for update basis: " + currTracked.ID + " " + currTracked.UIExtension.LastUpdatedTick + " vs " + currTimestamp);
+                            console.log("Checking for update basis: " + currTracked.ID + " " +
+                                currTracked.UIExtension.LastUpdatedTick + " vs " + currTimestamp);
                         }
                         else {
                             console.log("Not tracked update for id: " + currID);
@@ -127,8 +127,7 @@ var TheBall;
                 DataConnectionManager.prototype.PerformAsyncPoll = function () {
                     var priv = this;
                     $.ajax({
-                        url: "../../TheBall.Interface/StatusSummary/default.json",
-                        cache: true,
+                        url: "../../TheBall.Interface/StatusSummary/default.json", cache: true,
                         success: function (data) {
                             //console.log("Polled status...");
                             priv.ProcessStatusData(data);
@@ -148,8 +147,7 @@ var TheBall;
                 };
                 DataConnectionManager.prototype.FetchAndProcessJSONData = function (dataUrl) {
                     $.ajax({
-                        url: dataUrl,
-                        cache: true,
+                        url: dataUrl, cache: true,
                         success: this.ProcessFetchedData
                     });
                 };

@@ -100,12 +100,10 @@ class FileManagerViewController extends ViewControllerBase {
                         FileName: file.name,
                         DataURL: file.link
                 }, function() {
-                        setTimeout(function() {
-                            jq.unblockUI();
-                            me.ReInitialize();
-                        }, 2500);
+                        jq.unblockUI();
+                        me.ReInitialize();
                     },
-                me.CommonErrorHandler)
+                me.CommonOperationErrorHandler)
             });
         };
 
@@ -179,12 +177,10 @@ class FileManagerViewController extends ViewControllerBase {
                 //alert("Created: " + fileName + " " + currentReadCount + " " + totalCount);
                 me.currUploaded++;
                 if(me.currUploaded == totalCount) {
-                    setTimeout(function() {
-                        jq.unblockUI();
-                        me.ReInitialize();
-                    }, 2500);
+                    jq.unblockUI();
+                    me.ReInitialize();
                 }
-            }, me.CommonErrorHandler);
+            }, me.CommonOperationErrorHandler);
     }
 
     VisibleTemplateRender() {
@@ -373,12 +369,10 @@ class FileManagerViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Saving content...</h2>' });
         me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function() {
-            setTimeout(function () {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
-        }, me.CommonErrorHandler);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
 
@@ -391,11 +385,9 @@ class FileManagerViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Deleting Content...</h2>' });
         this.currOPM.DeleteIndependentObject(domainName, objectName, id, function(responseData) {
-            setTimeout(function() {
-                jq.unblockUI();
-                me.ReInitialize();
-            }, 2500);
-        });
+            jq.unblockUI();
+            me.ReInitialize();
+        }, me.CommonOperationErrorHandler);
     }
 
 

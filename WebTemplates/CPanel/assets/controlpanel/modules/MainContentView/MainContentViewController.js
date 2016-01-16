@@ -1,13 +1,12 @@
 /**
-* Created by kalle on 14.6.2014.
-*/
-var __extends = this.__extends || function (d, b) {
+ * Created by kalle on 14.6.2014.
+ */
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", "../ViewControllerBase"], function(require, exports, ViewControllerBase) {
+define(["require", "exports", "../ViewControllerBase"], function (require, exports, ViewControllerBase) {
     var MainContentViewController = (function (_super) {
         __extends(MainContentViewController, _super);
         function MainContentViewController() {
@@ -17,8 +16,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var _this = this;
             var me = this;
             var wnd = window;
-            require([
-                "MainContentView/MainContent_dust",
+            require(["MainContentView/MainContent_dust",
                 "MainContentView/Modals_dust",
                 "MainContentView/TextContent_Modals_dust",
                 "MainContentView/LinkToContent_Modals_dust",
@@ -53,16 +51,15 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             });
             /*
             require(["GroupInfoView/GroupInfo_dust"], (template) => {
-            dust.render("GroupInfo.dust", {
-            }, (error, output) =>  {
-            var $hostDiv = $("#" + me.divID);
-            $hostDiv.empty();
-            $hostDiv.html(output);
-            me.ControllerInitializeDone();
-            });
+                dust.render("GroupInfo.dust", {
+                }, (error, output) =>  {
+                    var $hostDiv = $("#" + me.divID);
+                    $hostDiv.empty();
+                    $hostDiv.html(output);
+                    me.ControllerInitializeDone();
+                });
             });*/
         };
-
         MainContentViewController.prototype.VisibleTemplateRender = function () {
             var me = this;
             $.when(this.DoneInitializedPromise()).then(function () {
@@ -76,23 +73,22 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 });
             });
         };
-
         /*
         function getAndPopulateCategoryOptions() {
-        $.getJSON('../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json', function (contentData) {
-        var categoryoptions = "";
-        for (var i in contentData.CollectionContent) {
-        var currentObject = contentData.CollectionContent[i];
-        var currentID = currentObject.ID;
-        var currentTitle = currentObject.Title ? currentObject.Title : "";
-        categoryoptions += "<option value='" + currentID + "'>" + currentTitle + "</option>";
-        }//ends FOR loop
-        $("#addNewContentCategorySelect").empty();
-        $("#addNewContentCategorySelect").append(categoryoptions);
-        $("#editContentModal-categories").empty();
-        $("#editContentModal-categories").append(categoryoptions);
-        return false;
-        })//ends getJson
+            $.getJSON('../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json', function (contentData) {
+                var categoryoptions = "";
+                for (var i in contentData.CollectionContent) {
+                    var currentObject = contentData.CollectionContent[i];
+                    var currentID = currentObject.ID;
+                    var currentTitle = currentObject.Title ? currentObject.Title : "";
+                    categoryoptions += "<option value='" + currentID + "'>" + currentTitle + "</option>";
+                }//ends FOR loop
+                $("#addNewContentCategorySelect").empty();
+                $("#addNewContentCategorySelect").append(categoryoptions);
+                $("#editContentModal-categories").empty();
+                $("#editContentModal-categories").append(categoryoptions);
+                return false;
+            })//ends getJson
         }*/
         MainContentViewController.prototype.EditLinkToContent = function ($source) {
             var $modal = this.$getNamedFieldWithin("EditLinkToContentModal");
@@ -111,7 +107,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var currentDescription = currentObject.Description;
                 var currentAuthor = currentObject.Author;
                 var currentPublishedDate = wnd.ParseRawTimestampToISOString(currentObject.Published);
-
                 var selectedCategories = [];
                 if (currentObject.Categories && currentObject.Categories.CollectionContent) {
                     for (var categoryIX = 0; categoryIX < currentObject.Categories.CollectionContent.length; categoryIX++) {
@@ -119,30 +114,27 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         selectedCategories.push(item.ID);
                     }
                 }
-
                 var categoryoptions = "<option value=''>(None)</option>";
                 for (var i in me.currData.Categories.CollectionContent) {
                     var categoryObject = me.currData.Categories.CollectionContent[i];
                     var categoryID = categoryObject.ID;
                     var categoryTitle = categoryObject.UI_TitleIndented;
                     categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
-                }
+                } //ends FOR loop
                 var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
                 $categoriesSelect.empty();
                 $categoriesSelect.append(categoryoptions);
                 $categoriesSelect.val(selectedCategories);
-
                 // Image support content initiation
                 var imageSizeString = "256";
-                var currentImagePath = currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
-
+                var currentImagePath = currentObject.ImageData
+                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
+                    : null;
                 // Initiate binary file elements for image
                 var noImageUrl = "../assets/controlpanel/images/lightGray.jpg";
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
-
                 //$imageDataFileInput.attr("data-oipfile-filegroupid", "linkModal");
                 me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "linkModal");
-
                 me.$getNamedFieldWithinModal($modal, "ID").val(currentID);
                 me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
                 me.$getNamedFieldWithinModal($modal, "RelativeLocation").val(currentRelativeLocation);
@@ -154,7 +146,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 $modal.foundation('reveal', 'open');
             }); //ends getJson
         };
-
         MainContentViewController.prototype.OpenModalAddLinkToContentModal = function () {
             var wnd = window;
             wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
@@ -166,7 +157,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             this.$getNamedFieldWithinModal($modal, "Author").val("");
             var currentPublished = wnd.ParseRawTimestampToISOString(null);
             this.$getNamedFieldWithinModal($modal, "Published").val(currentPublished);
-
             var categoryoptions = "<option value=''>(None)</option>";
             for (var i in this.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
@@ -177,17 +167,13 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
             $categoriesSelect.empty();
             $categoriesSelect.append(categoryoptions);
-
             var $newupdatefileinput = this.$getNamedFieldWithinModal($modal, "ImageData");
             $newupdatefileinput.replaceWith($newupdatefileinput = $newupdatefileinput.clone(true));
-
             var $imageDataInput = this.$getNamedFieldWithinModal($modal, "ImageData");
-
             //$imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
             this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg", "imageDataImage");
             $modal.foundation('reveal', 'open');
         };
-
         MainContentViewController.prototype.ViewLinkToContent = function ($source) {
             var $modal = this.$getNamedFieldWithin("ViewLinkToContentModal");
             var me = this;
@@ -202,7 +188,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var currentDescription = currentObject.Description;
                 var currentAuthor = currentObject.Author;
                 var currentPublishedDate = wnd.ParseRawTimestampToDateString(currentObject.Published);
-
                 var selectedCategories = [];
                 if (currentObject.Categories && currentObject.Categories.CollectionContent) {
                     for (var categoryIX = 0; categoryIX < currentObject.Categories.CollectionContent.length; categoryIX++) {
@@ -210,11 +195,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         selectedCategories.push(item.ID);
                     }
                 }
-
                 // Image support content initiation
                 var imageSizeString = "256";
-                var currentImagePath = currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : "../assets/controlpanel/images/lightGray.jpg";
-
+                var currentImagePath = currentObject.ImageData
+                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
+                    : "../assets/controlpanel/images/lightGray.jpg";
                 // Initiate binary file elements for image
                 me.$getNamedFieldWithinModal($modal, "ImageData").attr("src", currentImagePath);
                 me.$getNamedFieldWithinModal($modal, "LinkToURL").html(currentURL);
@@ -226,7 +211,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 $modal.foundation('reveal', 'open');
             }); //ends getJson
         };
-
         MainContentViewController.prototype.ViewEmbeddedContent = function ($source) {
             var $modal = this.$getNamedFieldWithin("ViewEmbeddedContentModal");
             var me = this;
@@ -241,7 +225,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var currentDescription = currentObject.Description;
                 var currentAuthor = currentObject.Author;
                 var currentPublishedDate = wnd.ParseRawTimestampToDateString(currentObject.Published);
-
                 var selectedCategories = [];
                 if (currentObject.Categories && currentObject.Categories.CollectionContent) {
                     for (var categoryIX = 0; categoryIX < currentObject.Categories.CollectionContent.length; categoryIX++) {
@@ -249,7 +232,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         selectedCategories.push(item.ID);
                     }
                 }
-
                 me.$getNamedFieldWithinModal($modal, "IFrameHost").html("<iframe " + iFrameTagContents + "></iframe>");
                 me.$getNamedFieldWithinModal($modal, "Title").html(currentTitle);
                 me.$getNamedFieldWithinModal($modal, "Description").html(currentDescription);
@@ -258,7 +240,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 $modal.foundation('reveal', 'open');
             }); //ends getJson
         };
-
         MainContentViewController.prototype.EditEmbeddedContent = function ($source) {
             var $modal = this.$getNamedFieldWithin("EditEmbeddedContentModal");
             var me = this;
@@ -276,7 +257,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var currentDescription = currentObject.Description;
                 var currentAuthor = currentObject.Author;
                 var currentPublishedDate = wnd.ParseRawTimestampToISOString(currentObject.Published);
-
                 var selectedCategories = [];
                 if (currentObject.Categories && currentObject.Categories.CollectionContent) {
                     for (var categoryIX = 0; categoryIX < currentObject.Categories.CollectionContent.length; categoryIX++) {
@@ -284,19 +264,17 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         selectedCategories.push(item.ID);
                     }
                 }
-
                 var categoryoptions = "<option value=''>(None)</option>";
                 for (var i in me.currData.Categories.CollectionContent) {
                     var categoryObject = me.currData.Categories.CollectionContent[i];
                     var categoryID = categoryObject.ID;
                     var categoryTitle = categoryObject.UI_TitleIndented;
                     categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
-                }
+                } //ends FOR loop
                 var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
                 $categoriesSelect.empty();
                 $categoriesSelect.append(categoryoptions);
                 $categoriesSelect.val(selectedCategories);
-
                 me.$getNamedFieldWithinModal($modal, "ID").val(currentID);
                 me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
                 me.$getNamedFieldWithinModal($modal, "RelativeLocation").val(currentRelativeLocation);
@@ -308,13 +286,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 $modal.foundation('reveal', 'open');
             }); //ends getJson
         };
-
         MainContentViewController.prototype.OpenPreviewOnNewTab = function () {
             var wnd = window;
             wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
             window.open("../../wwwsite/html/index.html");
         };
-
         MainContentViewController.prototype.OpenModalAddEmbeddedContentModal = function () {
             var wnd = window;
             wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
@@ -326,7 +302,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             this.$getNamedFieldWithinModal($modal, "Author").val("");
             var currentPublished = wnd.ParseRawTimestampToISOString(null);
             this.$getNamedFieldWithinModal($modal, "Published").val(currentPublished);
-
             var categoryoptions = "<option value=''>(None)</option>";
             for (var i in this.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
@@ -337,10 +312,8 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
             $categoriesSelect.empty();
             $categoriesSelect.append(categoryoptions);
-
             $modal.foundation('reveal', 'open');
         };
-
         MainContentViewController.prototype.Modal_SaveNewLinkToContent = function ($modal) {
             var url = this.$getNamedFieldWithinModal($modal, "URL").val();
             var title = this.$getNamedFieldWithinModal($modal, "Title").val();
@@ -348,7 +321,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
             var published = this.$getNamedFieldWithinModal($modal, "Published").val();
             var author = this.$getNamedFieldWithinModal($modal, "Author").val();
-
             var saveData = {
                 Title: title,
                 URL: url,
@@ -357,21 +329,17 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Author: author,
                 Object_Categories: categories
             };
-
             var me = this;
             var jq = $;
             this.currOPM.AppendBinaryFileValuesToData("000", saveData, function () {
                 jq.blockUI({ message: '<h2>Adding new content...</h2><br>(If no image was given, fetching thumbnail image will take around 30 seconds)' });
                 me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "LinkToContent", saveData, function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 4000);
-                }, me.CommonErrorHandler);
+                    jq.unblockUI();
+                    $modal.foundation('reveal', 'close');
+                    me.ReInitialize();
+                }, me.CommonOperationErrorHandler);
             });
         };
-
         MainContentViewController.prototype.Modal_SaveNewEmbeddedContent = function ($modal) {
             var iFrameTagContents = this.$getNamedFieldWithinModal($modal, "IFrameTagContents").val();
             var title = this.$getNamedFieldWithinModal($modal, "Title").val();
@@ -379,7 +347,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
             var published = this.$getNamedFieldWithinModal($modal, "Published").val();
             var author = this.$getNamedFieldWithinModal($modal, "Author").val();
-
             var saveData = {
                 Title: title,
                 IFrameTagContents: iFrameTagContents,
@@ -388,19 +355,15 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Author: author,
                 Object_Categories: categories
             };
-
             var me = this;
             var jq = $;
             jq.blockUI({ message: '<h2>Saving content...</h2>' });
             me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "EmbeddedContent", saveData, function () {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 2500);
-            }, me.CommonErrorHandler);
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            }, me.CommonOperationErrorHandler);
         };
-
         MainContentViewController.prototype.Modal_SaveExistingLinkToContent = function ($modal) {
             var id = this.$getNamedFieldWithinModal($modal, "ID").val();
             var etag = this.$getNamedFieldWithinModal($modal, "ETag").val();
@@ -411,7 +374,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var author = this.$getNamedFieldWithinModal($modal, "Author").val();
             var description = this.$getNamedFieldWithinModal($modal, "Description").val();
             var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
-
             var saveData = {
                 Title: title,
                 URL: url,
@@ -420,22 +382,18 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Author: author,
                 Object_Categories: categories
             };
-
             var me = this;
             var jq = $;
             this.currOPM.AppendBinaryFileValuesToData(id, saveData, function () {
                 jq.blockUI({ message: '<h2>Saving Link To Content...</h2><br>(If no image was given, fetching thumbnail image will take around 30 seconds)' });
                 console.log("Saving existing LinkToContent: " + JSON.stringify(saveData));
                 me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 4000);
-                }, me.CommonErrorHandler);
+                    jq.unblockUI();
+                    $modal.foundation('reveal', 'close');
+                    me.ReInitialize();
+                }, me.CommonOperationErrorHandler);
             });
         };
-
         MainContentViewController.prototype.Modal_SaveExistingEmbeddedContent = function ($modal) {
             var id = this.$getNamedFieldWithinModal($modal, "ID").val();
             var etag = this.$getNamedFieldWithinModal($modal, "ETag").val();
@@ -446,7 +404,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var author = this.$getNamedFieldWithinModal($modal, "Author").val();
             var description = this.$getNamedFieldWithinModal($modal, "Description").val();
             var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
-
             var saveData = {
                 Title: title,
                 IFrameTagContents: iFrameTagContents,
@@ -455,23 +412,18 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Author: author,
                 Object_Categories: categories
             };
-
             var me = this;
             var jq = $;
             jq.blockUI({ message: '<h2>Saving content...</h2>' });
             me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function () {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 2500);
-            }, me.CommonErrorHandler);
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            }, me.CommonOperationErrorHandler);
         };
-
         MainContentViewController.prototype.OpenModalAddNewContentModal = function () {
             var $modal = this.$getNamedFieldWithin("AddNewContentModal");
             var me = this;
-
             //clearing the fields of the New Content Modal Form
             this.$getNamedFieldWithinModal($modal, "Content").val();
             this.$getNamedFieldWithinModal($modal, "Title").val();
@@ -481,45 +433,36 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             this.$getNamedFieldWithinModal($modal, "textareaDivHolder").empty();
             var textarea = $("<textarea name='Content' style='height: 300px;'>");
             this.$getNamedFieldWithinModal($modal, "textareaDivHolder").append(textarea);
-
             var categoryoptions = "<option value=''>(None)</option>";
             for (var i in this.currData.Categories.CollectionContent) {
                 var categoryObject = me.currData.Categories.CollectionContent[i];
                 var categoryID = categoryObject.ID;
                 var categoryTitle = categoryObject.UI_TitleIndented;
                 categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
-            }
+            } //ends FOR loop
             var $categoriesSelect = this.$getNamedFieldWithinModal($modal, "Categories");
             $categoriesSelect.empty();
             $categoriesSelect.append(categoryoptions);
-
             var contentJQ = this.$getNamedFieldWithinModal($modal, "Content");
-            contentJQ.redactor({
-                minHeight: 300,
+            contentJQ.redactor({ minHeight: 300,
                 maxHeight: 350,
                 autoresize: false,
                 buttons: ['bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'image', 'video', "link"]
             });
-
             //clearing the fileInput
             var $newupdatefileinput = this.$getNamedFieldWithinModal($modal, "ImageData");
             $newupdatefileinput.replaceWith($newupdatefileinput = $newupdatefileinput.clone(true));
-
             //here the "cleaning" or reseting of the input fields ends.
             this.$getNamedFieldWithinModal($modal, "AttachmentAlertHolder").empty();
             var wnd = window;
             wnd.global_uploaded_attachments = 0;
-
             //wnd.getAndPopulateCategoryOptions();
             $("#addNewContentModal-ImageData").attr("data-oipfile-filegroupid", "addModal");
             var currentPublished = wnd.ParseRawTimestampToISOString(null);
             this.$getNamedFieldWithinModal($modal, "Published").val(currentPublished);
-
             var $imageDataInput = this.$getNamedFieldWithinModal($modal, "ImageData");
-
             //$imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
             this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg", "imageDataImage");
-
             //var $attachmentBinaryDataInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
             ////$attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
             //this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null,
@@ -527,7 +470,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             //***************ends the inputfile elment for the attachments on the "add new content" modal
             $modal.foundation('reveal', 'open');
         };
-
         MainContentViewController.prototype.EditContent = function ($source) {
             var $modal = this.$getNamedFieldWithin("EditContentModal");
             var me = this;
@@ -545,63 +487,56 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var currentExcerpt = currentObject.Excerpt;
                 var currentAuthor = currentObject.Author;
                 var currentPublishedDate = wnd.ParseRawTimestampToISOString(currentObject.Published);
-
                 var selectedCategories = [];
                 if (currentObject.Categories && currentObject.Categories.CollectionContent) {
                     for (var categoryIX = 0; categoryIX < currentObject.Categories.CollectionContent.length; categoryIX++) {
                         var item = currentObject.Categories.CollectionContent[categoryIX];
-
                         //me.CategoriesListed += item.ID + ",";
                         selectedCategories.push(item.ID);
                     }
                 }
-
                 var categoryoptions = "<option value=''>(None)</option>";
                 for (var i in me.currData.Categories.CollectionContent) {
                     var categoryObject = me.currData.Categories.CollectionContent[i];
                     var categoryID = categoryObject.ID;
                     var categoryTitle = categoryObject.UI_TitleIndented;
                     categoryoptions += "<option value='" + categoryID + "'>" + categoryTitle + "</option>";
-                }
+                } //ends FOR loop
                 var $categoriesSelect = me.$getNamedFieldWithinModal($modal, "Categories");
                 $categoriesSelect.empty();
                 $categoriesSelect.append(categoryoptions);
                 $categoriesSelect.val(selectedCategories);
-
                 // Image support content initiation
                 var imageSizeString = "256";
-                var currentImagePath = currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
-
+                var currentImagePath = currentObject.ImageData
+                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
+                    : null;
                 // Initiate binary file elements for image
                 var noImageUrl = "../assets/controlpanel/images/lightGray.jpg";
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
-
                 //$imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
                 me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "editModal");
-
                 if (currentObject.RawHtmlContent) {
                     currentObject.BodyRendered = currentObject.RawHtmlContent;
-                } else if (currentObject.Body) {
+                }
+                else if (currentObject.Body) {
                     var markdown = new wnd.MarkdownDeep.Markdown();
                     markdown.SafeMode = true;
                     currentObject.BodyRendered = markdown.Transform(currentObject.Body);
-                } else
+                }
+                else
                     currentObject.BodyRendered = "";
-
                 var currentArticleBody = currentObject.BodyRendered;
-
                 // Kalle's contemplate fix to Hugo's raw management =>
                 // the raw html is at BodyRendered as is, the current markdown rendering is as well now
                 // previous problem: if there was markdown-entered data in the article it wasn't working in rawhtml
                 var rawbody = currentArticleBody;
-
                 me.$getNamedFieldWithinModal($modal, "ID").val(currentID);
                 me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
                 me.$getNamedFieldWithinModal($modal, "RelativeLocation").val(currentRelativeLocation);
                 me.$getNamedFieldWithinModal($modal, "Title").val(currentTitle);
                 me.$getNamedFieldWithinModal($modal, "Published").val(currentPublishedDate);
                 me.$getNamedFieldWithinModal($modal, "Excerpt").val(currentExcerpt);
-
                 /*getAndPopulate_Isotope_Filter_Categories ();*/
                 //getAndPopulateCategoryOptions();
                 //check if the "field" Author exists in the JSON file
@@ -610,9 +545,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                     queryValue = "";
                 else
                     queryValue = currentAuthor;
-
                 me.$getNamedFieldWithinModal($modal, "Author").val(queryValue);
-
                 //suggested Content rendering by Kalle:  queryValue=currentArticleBody;
                 //My suggestion: cleaning the "old" articles with markdown and extra styling
                 rawbody = rawbody.replace(new RegExp("div", "g"), 'p');
@@ -622,7 +555,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                     removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike", "u"],
                     format: true
                 });
-
                 //var currentArticleBodyVHugo = rawbody;
                 //ends cleaning the "old" articles with markdown and extra styling
                 var textarea = $("<textarea name='Content' style='min-height: 300px;'>");
@@ -631,13 +563,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 $TextAreaDivHolder.append(textarea);
                 var $content = me.$getNamedFieldWithinModal($modal, "Content");
                 $content.val(currentArticleBodyVHugo);
-                $content.redactor({
-                    minHeight: 300,
+                $content.redactor({ minHeight: 300,
                     maxHeight: 350,
                     autoresize: false,
                     buttons: ['bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'image', 'video', "link"]
                 });
-
                 //queryValue = currentImagePath;
                 //$('#editContentModal-imagePath').val(queryValue);
                 //send the correspondent image to the placeholder, but clean its containing div first
@@ -647,13 +577,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 me.RefreshAttachments($modal, "AaltoGlobalImpact.OIP", "TextContent", currentID);
                 $modal.foundation('reveal', 'open');
             }); //ends getJson
-        };
-
+        }; //ends function editContent
         MainContentViewController.prototype.Modal_EditContentUploadAttachment = function ($modal) {
             var $fileInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
             var currContentID = this.$getNamedFieldWithinModal($modal, "ID").val();
             var me = this;
-
             var input = $fileInput[0];
             if (input.files && input.files[0]) {
                 var firstFile = input.files[0];
@@ -672,7 +600,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 reader.readAsDataURL(input.files[0]);
             }
         };
-
         MainContentViewController.prototype.RefreshAttachments = function ($modal, objectDomain, objectName, objectID) {
             var me = this;
             var $attachmentFile = me.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
@@ -683,27 +610,36 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             $.getJSON("../../AaltoGlobalImpact.OIP/AttachedToObjectCollection/MasterCollection.json", function (attachments) {
                 for (var i = 0; i < attachments.CollectionContent.length; i++) {
                     var currAttachment = attachments.CollectionContent[i];
-                    if (currAttachment.TargetObjectDomain != objectDomain || currAttachment.TargetObjectName != objectName || currAttachment.TargetObjectID != objectID)
+                    if (currAttachment.TargetObjectDomain != objectDomain ||
+                        currAttachment.TargetObjectName != objectName ||
+                        currAttachment.TargetObjectID != objectID)
                         continue;
                     var binaryFile = me.getObjectByID(me.currData.BinaryFiles.CollectionContent, currAttachment.SourceObjectID);
                     if (binaryFile) {
-                        var $deleteButton = $("<a class='oip-modalbutton' data-oip-command='RemoveAndDeleteAttachment' " + "data-attachmentid='" + currAttachment.ID + "' " + "data-sourceid='" + currAttachment.SourceObjectID + "' " + "data-objectid='" + objectID + "' " + "data-objectname='" + objectName + "' " + "data-objectdomain='" + objectDomain + "' " + "><i class='icon-remove-sign'></i></a>");
+                        var $deleteButton = $("<a class='oip-modalbutton' data-oip-command='RemoveAndDeleteAttachment' " +
+                            "data-attachmentid='" + currAttachment.ID + "' " +
+                            "data-sourceid='" + currAttachment.SourceObjectID + "' " +
+                            "data-objectid='" + objectID + "' " +
+                            "data-objectname='" + objectName + "' " +
+                            "data-objectdomain='" + objectDomain + "' " +
+                            "><i class='icon-remove-sign'></i></a>");
                         $deleteButton.on("click", wnd.ControllerCommon.ModalButtonClick);
-                        $attachmentListDiv.append("<div>" + binaryFile.OriginalFileName + "</div>");
+                        $attachmentListDiv.append("<div>" + binaryFile.OriginalFileName +
+                            "</div>");
                         $attachmentListDiv.append($deleteButton);
                         $attachmentListDiv.append("<br>");
-                    } else {
+                    }
+                    else {
                         /*
                         $attachmentListDiv.append("<div>" + currAttachment.SourceObjectDomain + "/"
-                        + currAttachment.SourceObjectName + "/"
-                        + currAttachment.SourceObjectID + "</div>");
-                        */
+                            + currAttachment.SourceObjectName + "/"
+                            + currAttachment.SourceObjectID + "</div>");
+                            */
                         $attachmentListDiv.append("<div style='font-weight: bolder;color: Red'>Save content to refresh attachment details</div>");
                     }
                 }
             });
         };
-
         MainContentViewController.prototype.Modal_RemoveAndDeleteAttachment = function ($modal, $source) {
             var attachmentID = $source.attr("data-attachmentid");
             var sourceID = $source.attr("data-sourceid");
@@ -716,14 +652,11 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             me.currOPM.DeleteIndependentObject("AaltoGlobalImpact.OIP", "AttachedToObject", attachmentID, function () {
                 jq.blockUI({ message: '<h2>Removing attached content...</h2>' });
                 me.currOPM.DeleteIndependentObject("AaltoGlobalImpact.OIP", "BinaryFile", sourceID, function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        me.RefreshAttachments($modal, objectDomain, objectName, objectID);
-                    }, 4000);
-                }, me.CommonErrorHandler);
-            }, me.CommonErrorHandler);
+                    jq.unblockUI();
+                    me.RefreshAttachments($modal, objectDomain, objectName, objectID);
+                }, me.CommonOperationErrorHandler);
+            }, me.CommonOperationErrorHandler);
         };
-
         MainContentViewController.prototype.SaveAsBinaryAttachment = function (objectDomain, objectName, objectID, attachmentBinarySaveData, $modalToRefreshAttachmentsAfter) {
             var me = this;
             var jq = $;
@@ -742,16 +675,14 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 };
                 me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "AttachedToObject", attachedToData, function (attachedDataResponse) {
                     if ($modalToRefreshAttachmentsAfter) {
-                        setTimeout(function () {
-                            jq.unblockUI();
-                            me.RefreshAttachments($modalToRefreshAttachmentsAfter, objectDomain, objectName, objectID);
-                        }, 4000);
-                    } else
                         jq.unblockUI();
-                }, me.CommonErrorHandler);
-            }, me.CommonErrorHandler);
+                        me.RefreshAttachments($modalToRefreshAttachmentsAfter, objectDomain, objectName, objectID);
+                    }
+                    else
+                        jq.unblockUI();
+                }, me.CommonOperationErrorHandler);
+            }, me.CommonOperationErrorHandler);
         };
-
         MainContentViewController.prototype.ViewContent = function ($source) {
             var me = this;
             var id = $source.attr("data-oip-command-args");
@@ -767,61 +698,53 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var currentMainCategory;
                 var currentPublishedDate = wnd.ParseRawTimestampToDateString(currentObject.Published);
                 var rawbody = currentObject.Body;
-                var currentImagePath = currentObject.ImageData ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt : null;
-
+                var currentImagePath = currentObject.ImageData
+                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
+                    : null;
                 currentAuthor = currentObject.Author;
                 if (!currentAuthor)
                     currentAuthor = "";
-
                 var md = wnd.MarkdownDeep;
                 if (currentObject.RawHtmlContent) {
                     currentObject.BodyRendered = currentObject.RawHtmlContent;
-                } else if (currentObject.Body) {
+                }
+                else if (currentObject.Body) {
                     var markdown = new md.Markdown();
                     markdown.SafeMode = true;
                     currentObject.BodyRendered = markdown.Transform(currentObject.Body);
-                } else
+                }
+                else
                     currentObject.BodyRendered = "";
                 var currentArticleBody = currentObject.BodyRendered;
                 rawbody = currentArticleBody;
-
                 //cleaning the "old" articles with markdown and extra styling
                 rawbody = rawbody.replace(new RegExp("div", "g"), 'p');
                 rawbody = rawbody.replace(new RegExp("<span>", "g"), '');
                 rawbody = rawbody.replace(new RegExp("</span>", "g"), '');
-
                 var jq = $;
-
                 var currentArticleBodyVHugo = jq.htmlClean(rawbody, {
                     removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike", "u"],
                     format: true
                 });
-
                 //var currentArticleBodyVHugo = rawbody;
                 //ends cleaning the "old" articles with markdown and extra styling
                 var $modalTitle = me.$getNamedFieldWithinModal($modal, "Title");
                 $modalTitle.empty().append(currentTitle);
-
                 $("#viewContentModal-Author").empty();
                 $('#viewContentModal-Author').append(currentAuthor);
-
                 $("#viewContentModal-Date").empty();
                 $('#viewContentModal-Date').append(currentPublishedDate);
-
                 var queryValue = "<p>" + currentExcerpt + "</p>";
                 $("#viewContentModal-excerpt").empty();
                 $('#viewContentModal-excerpt').append(queryValue);
-
                 if (!currentObject.Categories || !currentObject.Categories.CollectionContent)
                     currentMainCategory = "NEWS";
                 else
                     currentMainCategory = currentObject.Categories.CollectionContent[0].Title;
                 $("#viewContentModal-categories").empty();
                 $('#viewContentModal-categories').append(currentMainCategory);
-
                 $("#viewContentModal-content").empty();
                 $('#viewContentModal-content').append(currentArticleBodyVHugo);
-
                 //send the correspondent image to the placeholder, but clean its containing div first
                 $("#viewContentModal-image").empty(); //clean the image Placeholder in the form
                 queryValue = "<img src='" + currentImagePath + "' style='width:auto;height:auto;max-height:450px;margin-left:auto;margin-right:auto;'>";
@@ -836,7 +759,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                     });
                     this.src = this.src;
                 });
-
                 $("#viewContentModal-attachments").empty();
                 var myAttachments = wnd.getObjectAttachments(currentID);
                 if (myAttachments.length > 0) {
@@ -863,28 +785,23 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                         $("#viewContentModal-attachments").append(binaryLinkTag);
                     }
                 }
-
                 wnd.ReConnectComments(currentID);
-
                 $modal.foundation('reveal', 'open');
             });
         };
-
         MainContentViewController.prototype.PublishToWww = function () {
             var wnd = window;
             wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
             this.CommonWaitForOperation("Publishing content... please wait");
-            this.currOPM.ExecuteOperationWithForm("PublishGroupToWww", {}, this.CommonSuccessHandler, this.CommonErrorHandler);
+            this.currOPM.ExecuteOperationWithForm("PublishGroupToWww", {}, this.CommonSuccessHandler, this.CommonOperationErrorHandler);
         };
-
         MainContentViewController.prototype.PublishConnection = function ($this) {
             var id = $this.attr("data-object-id");
             var wnd = window;
             wnd.Foundation.libs.dropdown.close($("#drop-PostAndPublish"));
             this.CommonWaitForOperation("Publishing connection... please wait");
-            this.currOPM.ExecuteOperationWithForm("PublishToConnection", { ConnectionID: id }, this.CommonSuccessHandler, this.CommonErrorHandler);
+            this.currOPM.ExecuteOperationWithForm("PublishToConnection", { ConnectionID: id }, this.CommonSuccessHandler, this.CommonOperationErrorHandler);
         };
-
         MainContentViewController.prototype.DeleteContent = function ($this) {
             var id = $this.attr("data-objectid");
             var domainName = "AaltoGlobalImpact.OIP";
@@ -893,13 +810,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var jq = $;
             jq.blockUI({ message: '<h2>Deleting Content...</h2>' });
             this.currOPM.DeleteIndependentObject(domainName, objectName, id, function (responseData) {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                me.ReInitialize();
             });
         };
-
         MainContentViewController.prototype.DeleteLinkToContent = function ($this) {
             var id = $this.attr("data-objectid");
             var domainName = "AaltoGlobalImpact.OIP";
@@ -908,13 +822,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var jq = $;
             jq.blockUI({ message: '<h2>Deleting Content...</h2>' });
             this.currOPM.DeleteIndependentObject(domainName, objectName, id, function (responseData) {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                me.ReInitialize();
             });
         };
-
         MainContentViewController.prototype.DeleteEmbeddedContent = function ($this) {
             var id = $this.attr("data-objectid");
             var domainName = "AaltoGlobalImpact.OIP";
@@ -923,13 +834,10 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var jq = $;
             jq.blockUI({ message: '<h2>Deleting Content...</h2>' });
             this.currOPM.DeleteIndependentObject(domainName, objectName, id, function (responseData) {
-                setTimeout(function () {
-                    jq.unblockUI();
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                me.ReInitialize();
             });
         };
-
         MainContentViewController.prototype.Modal_SaveExistingContent = function ($modal) {
             var id = this.$getNamedFieldWithinModal($modal, "ID").val();
             var etag = this.$getNamedFieldWithinModal($modal, "ETag").val();
@@ -941,7 +849,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var author = this.$getNamedFieldWithinModal($modal, "Author").val();
             var content = this.$getNamedFieldWithinModal($modal, "Content").val();
             content = $('<div/>').text(content).html();
-
             var saveData = {
                 Title: title,
                 Published: published,
@@ -950,21 +857,18 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Object_Categories: categories,
                 Author: author
             };
-
             var me = this;
             var jq = $;
             this.currOPM.AppendBinaryFileValuesToData(id, saveData, function () {
                 jq.blockUI({ message: '<h2>Saving content...</h2>' });
-                me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 2500);
-                }, me.CommonErrorHandler);
+                me.currOPM.SaveIndependentObject(id, objectRelativeLocation, etag, saveData, function (response) {
+                    console.log("Done failed OK!");
+                    jq.unblockUI();
+                    $modal.foundation('reveal', 'close');
+                    me.ReInitialize();
+                }, me.CommonOperationErrorHandler);
             });
         };
-
         MainContentViewController.prototype.Modal_SaveNewContent = function ($modal) {
             var title = this.$getNamedFieldWithinModal($modal, "Title").val();
             var published = this.$getNamedFieldWithinModal($modal, "Published").val();
@@ -973,7 +877,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             var author = this.$getNamedFieldWithinModal($modal, "Author").val();
             var content = this.$getNamedFieldWithinModal($modal, "Content").val();
             content = $('<div/>').text(content).html();
-
             var saveData = {
                 Title: title,
                 Published: published,
@@ -982,23 +885,18 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 Object_Categories: categories,
                 Author: author
             };
-
             var me = this;
             var jq = $;
             this.currOPM.AppendBinaryFileValuesToData("000", saveData, function () {
                 jq.blockUI({ message: '<h2>Adding new content...</h2>' });
                 me.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "TextContent", saveData, function () {
-                    setTimeout(function () {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 2500);
-                }, me.CommonErrorHandler);
+                    jq.unblockUI();
+                    $modal.foundation('reveal', 'close');
+                    me.ReInitialize();
+                }, me.CommonOperationErrorHandler);
             });
         };
         return MainContentViewController;
     })(ViewControllerBase);
-
-    
     return MainContentViewController;
 });

@@ -48,7 +48,8 @@ var TheBall;
                     this.DCM = dcm;
                     this.BinaryFileSelectorBase = binaryFileSelectorBase;
                     var $body = $("body");
-                    var formHtml = "<form style='margin:0px;width:0px;height:0px;background-color: transparent;border: 0px none transparent;padding: 0px;overflow: hidden;visibility:hidden'  enctype='multipart/form-data' id='OperationManager_DynamicIFrameForm' " + "method='post' target='OperationManager_IFrame'></form> ";
+                    var formHtml = "<form style='margin:0px;width:0px;height:0px;background-color: transparent;border: 0px none transparent;padding: 0px;overflow: hidden;visibility:hidden'  enctype='multipart/form-data' id='OperationManager_DynamicIFrameForm' " +
+                        "method='post' target='OperationManager_IFrame'></form> ";
                     var iFrameHtml = "<iframe style='margin:0px;width:0px;height:0px;background-color: transparent;border: 0px none transparent;padding: 0px;overflow: hidden;visibility: hidden' name='OperationManager_IFrame' src='about:blank'></iframe>";
                     $body.append(formHtml);
                     $body.append(iFrameHtml);
@@ -60,19 +61,6 @@ var TheBall;
                         };
                     }
                 }
-                OperationManager.prototype.CreateObject = function (domainName, objectName, dataContents) {
-                    var $form = this.$submitForm;
-                    $form.empty();
-                    $form.append(this.getHiddenInput("ObjectDomainName", domainName));
-                    $form.append(this.getHiddenInput("ObjectName", objectName));
-                    $form.append(this.getHiddenInput("ExecuteOperation", "CreateSpecifiedInformationObjectWithValues"));
-                    for (var key in dataContents) {
-                        var $hiddenInput = this.getHiddenInput(key, dataContents[key]);
-                        $form.append($hiddenInput);
-                    }
-                    $form.submit();
-                    $form.empty();
-                };
                 OperationManager.prototype.SaveIndependentObject = function (objectID, objectRelativeLocation, objectETag, objectData, successCallback, failureCallback, keyNameResolver) {
                     var $form = this.$submitForm;
                     $form.empty();
@@ -97,18 +85,41 @@ var TheBall;
                     }
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
+                    var userFailure = failureCallback;
+                    var userSuccess = function (responseData) {
+                        if (successCallback)
+                            successCallback(responseData);
+                    };
+                    var me = this;
                     $.ajax({
                         type: "POST",
-                        data: $form.serialize(),
-                        success: function (responseData) {
-                            if (successCallback)
-                                successCallback(responseData);
-                        },
-                        error: failureCallback
-                    });
+                        data: $form.serialize()
+                    }).done(function (response) { me.AjaxPollingOperation(response, userSuccess, userFailure); }).fail(userFailure);
                     $form.empty();
+                };
+                OperationManager.prototype.AjaxPollingOperation = function (response, userSuccess, userFailure) {
+                    var totalSecs = 0;
+                    var operationID = response.OperationID;
+                    var opPollUrl = "../../TheBall.Interface/InterfaceOperation/" + operationID + ".json";
+                    var pollFunc = function (retryFunc, finishFunc) {
+                        $.ajax(opPollUrl).done(function (response) {
+                            if (response && response.ErrorMessage) {
+                                console.log("OP Error: " + totalSecs);
+                                var errorObject = {
+                                    ErrorCode: response.ErrorCode,
+                                    ErrorMessage: response.ErrorMessage
+                                };
+                                userFailure(errorObject);
+                            }
+                            else {
+                                console.log("OP Retrying in 1 sec... total count: " + totalSecs);
+                                totalSecs++;
+                                setTimeout(function () { retryFunc(retryFunc, finishFunc); }, 1000);
+                            }
+                        }).fail(finishFunc);
+                    };
+                    pollFunc(pollFunc, userSuccess);
                 };
                 OperationManager.prototype.SaveObject = function (objectID, objectETag, dataContents) {
                     var obj = this.DCM.TrackedObjectStorage[objectID];
@@ -128,18 +139,17 @@ var TheBall;
                     $form.append(this.getHiddenInput("NORELOAD", ""));
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
+                    var userFailure = failureCallback;
+                    var userSuccess = function (responseData) {
+                        if (successCallback)
+                            successCallback(responseData);
+                    };
+                    var me = this;
                     $.ajax({
                         type: "POST",
-                        data: $form.serialize(),
-                        //dataType: "json",
-                        success: function (responseData) {
-                            if (successCallback)
-                                successCallback(responseData);
-                        },
-                        error: failureCallback
-                    });
+                        data: $form.serialize()
+                    }).done(function (response) { me.AjaxPollingOperation(response, userSuccess, userFailure); }).fail(userFailure);
                     $form.empty();
                 };
                 OperationManager.prototype.DeleteObject = function (objectID) {
@@ -165,18 +175,17 @@ var TheBall;
                     }
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
+                    var userFailure = failureCallback;
+                    var userSuccess = function (responseData) {
+                        if (successCallback)
+                            successCallback(responseData);
+                    };
+                    var me = this;
                     $.ajax({
                         type: "POST",
-                        data: $form.serialize(),
-                        //dataType: "json",
-                        success: function (responseData) {
-                            if (successCallback)
-                                successCallback(responseData);
-                        },
-                        error: failureCallback
-                    });
+                        data: $form.serialize()
+                    }).done(function (response) { me.AjaxPollingOperation(response, userSuccess, userFailure); }).fail(userFailure);
                     $form.empty();
                 };
                 OperationManager.prototype.ExecuteOperationWithForm = function (operationName, operationParameters, successCallback, failureCallback) {
@@ -190,32 +199,34 @@ var TheBall;
                     $form.append(this.getHiddenInput("NORELOAD", ""));
                     //$form.submit();
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
+                        failureCallback = function () { };
+                    var userFailure = failureCallback;
+                    var userSuccess = function (responseData) {
+                        if (successCallback)
+                            successCallback(responseData);
+                    };
+                    var me = this;
                     $.ajax({
                         type: "POST",
-                        data: $form.serialize(),
-                        //url: "../../op/" + operationName,
-                        //dataType: "json",
-                        success: function (responseData) {
-                            if (successCallback != null)
-                                successCallback(responseData);
-                        },
-                        error: failureCallback
-                    });
+                        data: $form.serialize()
+                    }).done(function (response) { me.AjaxPollingOperation(response, userSuccess, userFailure); }).fail(userFailure);
                     $form.empty();
                 };
                 OperationManager.prototype.ExecuteOperationWithAjax = function (operationFullName, contentObject, successCallback, failureCallback) {
                     var jsonData = JSON.stringify(contentObject);
-                    if (!successCallback)
-                        successCallback = function () {
-                        };
                     if (!failureCallback)
-                        failureCallback = function () {
-                        };
-                    $.ajax({ type: "POST", url: "?operation=" + operationFullName, 
-                    //dataType: "json",
-                    contentType: "application/json", data: jsonData, success: successCallback, error: failureCallback });
+                        failureCallback = function () { };
+                    var userFailure = failureCallback;
+                    var userSuccess = function (responseData) {
+                        if (successCallback)
+                            successCallback(responseData);
+                    };
+                    var me = this;
+                    $.ajax({ type: "POST",
+                        url: "?operation=" + operationFullName,
+                        contentType: "application/json",
+                        data: jsonData
+                    }).done(function (response) { me.AjaxPollingOperation(response, userSuccess, userFailure); }).fail(userFailure);
                 };
                 OperationManager.prototype.setButtonMode = function ($button, mode) {
                     var buttonText = mode == "add" ? "Add Image" : "Remove Image";
@@ -337,7 +348,9 @@ var TheBall;
                     }
                     $hiddenInput.removeAttr("name");
                     this.setFileInputEvents($fileInput, $hiddenInput, $previevImg);
-                    var selectButtonSelector = ".oipfile" + currentGroupDataSelectorString + "[data-" + buttonTypeDataName + "='" + buttonTypeSelect + "']";
+                    var selectButtonSelector = ".oipfile"
+                        + currentGroupDataSelectorString
+                        + "[data-" + buttonTypeDataName + "='" + buttonTypeSelect + "']";
                     var $selectButton = $(selectButtonSelector);
                     if ($selectButton.length === 0) {
                         // Create select button
@@ -347,7 +360,9 @@ var TheBall;
                         $selectButton.insertAfter($fileInput);
                     }
                     this.setSelectFileButtonEvents($selectButton, $fileInput);
-                    var removeButtonSelector = ".oipfile" + currentGroupDataSelectorString + "[data-" + buttonTypeDataName + "='" + buttonTypeRemove + "']";
+                    var removeButtonSelector = ".oipfile"
+                        + currentGroupDataSelectorString
+                        + "[data-" + buttonTypeDataName + "='" + buttonTypeRemove + "']";
                     var $removeButton = $(removeButtonSelector);
                     if ($removeButton.length === 0) {
                         // Create remove button
@@ -405,7 +420,8 @@ var TheBall;
                 OperationManager.prototype.PrepareBinaryFileContents = function (objectID, callBack) {
                     var me = this;
                     var jQueryClassSelector = this.BinaryFileSelectorBase;
-                    var inputFileSelector = "input.oipfile" + "[type='file'][data-oipfile-objectid='" + objectID + "' ]";
+                    var inputFileSelector = "input.oipfile"
+                        + "[type='file'][data-oipfile-objectid='" + objectID + "' ]";
                     var inputFileWithNameSelector = inputFileSelector + "[name]";
                     var inputFileWithoutNameSelector = inputFileSelector + ":not([name])";
                     var hiddenInputSelector = "input.oipfile[type='hidden']";
@@ -414,7 +430,8 @@ var TheBall;
                     var $inputFilesWithoutName = $(inputFileWithoutNameSelector);
                     $inputFilesWithoutName.each(function (index, element) {
                         var currentGroupID = $(this).attr("data-oipfile-filegroupid");
-                        var relativeHiddenWithNameSelector = hiddenInputWithNameSelector + "[data-oipfile-filegroupid='" + currentGroupID + "']";
+                        var relativeHiddenWithNameSelector = hiddenInputWithNameSelector
+                            + "[data-oipfile-filegroupid='" + currentGroupID + "']";
                         var $relativeHiddenWithName = $(relativeHiddenWithNameSelector);
                         $hiddenInputsWithName = $hiddenInputsWithName.add($relativeHiddenWithName);
                     });

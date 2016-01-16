@@ -138,10 +138,8 @@ class CategoryViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Deleting...</h2>' });
         this.currOPM.DeleteIndependentObject(domainName, objectName, id, function(responseData) {
-            setTimeout(function() {
-                jq.unblockUI();
-                me.ReInitialize();
-            }, 2500);
+            jq.unblockUI();
+            me.ReInitialize();
         });
         /*
          data-objectid="{ID}" data-objectname="{Name}" data-domainname="{SemanticDomainName}"
@@ -181,25 +179,23 @@ class CategoryViewController extends ViewControllerBase {
         var me = this;
         var jq:any = $;
         jq.blockUI({ message: "<h2>Saving...</h2>"});
+        var userSuccess = function() {
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
+        };
+        var userFailure = function(){
+            jq.unblockUI();
+            alert("Error Occurred at Save");
+            //window.location.reload(true);
+        };
         $.ajax({
             type: "POST",
             url: "?operation=AaltoGlobalImpact.OIP.SetCategoryContentRanking",
             //dataType: "json", - this would require returning parseable json (on TODO list)
             contentType: "application/json",
             data: jsonData,
-            success: function() {
-                setTimeout(function() {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 2500);
-            },
-            error: function(){
-                jq.unblockUI();
-                alert("Error Occurred at Save");
-                //window.location.reload(true);
-            }
-        });
+        }).done(response => me.currOPM.AjaxPollingOperation(response, userSuccess)).fail(userFailure);;
     }
 
     Modal_SaveCategoryHierarchy($modal) {
@@ -212,26 +208,26 @@ class CategoryViewController extends ViewControllerBase {
         var me = this;
         var jq:any = $;
         jq.blockUI({ message: '<h2>Saving...</h2>' });
+        var userSuccess = function() {
+            setTimeout(function() {
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
+            }, 2500);
+        };
+        var userFailure =function() {
+            jq.unblockUI();
+            alert("Error Occurred at Save");
+            //window.location.reload(true);
+        };
         $.ajax(
             { type: "POST",
                 url: "?operation=AaltoGlobalImpact.OIP.SetCategoryHierarchyAndOrderInNodeSummary",
                 //dataType: "json", - this would require returning parseable json (on TODO list)
                 contentType: "application/json",
                 data: jsonData,
-                success: function() {
-                    setTimeout(function() {
-                        jq.unblockUI();
-                        $modal.foundation('reveal', 'close');
-                        me.ReInitialize();
-                    }, 2500);
-                },
-                error: function(){
-                    jq.unblockUI();
-                    alert("Error Occurred at Save");
-                    //window.location.reload(true);
-                }
             }
-        );
+        ).done(response => me.currOPM.AjaxPollingOperation(response, userSuccess)).fail(userFailure);
     }
 
     AddNewCategories() {
@@ -245,10 +241,8 @@ class CategoryViewController extends ViewControllerBase {
         jq.blockUI({ message: '<h2>Saving...</h2>' });
         this.currOPM.ExecuteOperationWithForm("AddCategories", operationData,
             function() {
-                setTimeout(function() {
-                    jq.unblockUI();
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                me.ReInitialize();
             },
             function() {
                 jq.unblockUI();
@@ -267,11 +261,9 @@ class CategoryViewController extends ViewControllerBase {
         var jq:any = $;
         jq.blockUI({ message: '<h2>Saving...</h2>' });
         this.currOPM.CreateObjectAjax("AaltoGlobalImpact.OIP", "Category", saveData, function(obj) {
-            setTimeout(function() {
-                jq.unblockUI();
-                $modal.foundation('reveal', 'close');
-                me.ReInitialize();
-            }, 2500);
+            jq.unblockUI();
+            $modal.foundation('reveal', 'close');
+            me.ReInitialize();
         }, function() {
             jq.unblockUI();
             alert("Save failed!");
@@ -294,11 +286,9 @@ class CategoryViewController extends ViewControllerBase {
             jq.blockUI({ message: '<h2>Saving...</h2>' });
             //alert(JSON.stringify(saveData));
             me.currOPM.SaveIndependentObject(id, objectRelativeLocation, eTag, saveData, function() {
-                setTimeout(function() {
-                    jq.unblockUI();
-                    $modal.foundation('reveal', 'close');
-                    me.ReInitialize();
-                }, 2500);
+                jq.unblockUI();
+                $modal.foundation('reveal', 'close');
+                me.ReInitialize();
             }, function() {
                 alert("Save failed!");
                 jq.unblockUI();
