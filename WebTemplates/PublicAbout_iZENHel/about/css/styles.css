@@ -1,0 +1,235 @@
+body {
+	background: #EEEEEE;
+}
+
+body#login {
+	background-image: url('../img/background.jpeg');
+	background-position: contain;
+	background-repeat: no-repeat;
+}
+
+
+#login-box {
+	background-color: #FFF;
+	border-top: 3px solid #00395A;
+	border-left: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	border-radius: 2px;
+	box-shadow: 1px 5px 10px black;
+	padding: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.login-area {
+
+	padding: 0px;
+
+}
+
+#login-box img.logo {
+	text-align: center;
+	height: 75px;
+	margin: 0px auto;
+	display: block;
+}
+
+#login-box img.social-media {
+	width: 70px;
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+#login-box img.social-media:last-child {
+	margin-right: 0px;
+}
+
+
+.line {
+	width: 100%;
+	border-bottom: 1px solid #CCC;
+}
+
+
+#login-box .padder {
+	padding: 10px;
+}
+
+#login-box .login-heading {
+	text-align: center;
+	font-size: 18px;
+	text-transform: uppercase;
+}
+
+
+
+.clear {
+	margin: 1px;
+	clear: both;
+}
+
+
+
+
+.btn.btn-primary {
+	background: #00395A;
+}
+
+.btn.btn-primary:hover {
+	background: #005687;
+}
+
+
+
+
+.navbar {
+	border-radius: 0px !important;
+	background-color: #00395A;
+}
+
+.navbar-default .navbar-nav>li>a {
+	font-size: 12px;
+}
+
+.navbar-default {
+	border-bottom: 2px solid #ef6e6c !important;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+	background-color: #00395A !important;
+}
+
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+	background-color: #00395A !important;
+}
+
+.navbar-default .navbar-toggle {
+	color: white !important;
+}
+
+
+.well {
+	border: 1px solid #00395A;
+}
+
+.choosable-well:hover {
+	cursor: pointer;
+	border: 1px solid blue;
+}
+
+
+
+.new-monitor-column:hover {
+	cursor: pointer;
+	border-color: blue;
+}
+
+
+
+#calendar {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#calendar .calendarName {
+	text-align: center;
+	font-size: 30px;
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+
+table.access-control-calendar {
+	width: 100%;
+}
+
+table.access-control-calendar tr th {
+	background: #CCC;
+	text-align: center;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	border: 1px solid black;
+	max-width: 12.5%;
+	min-width: 12.5%;
+	width: 12.5%;
+}
+
+table.access-control-calendar tr th.clock {
+	max-width: 10% !important;
+}
+
+
+
+.container .caption {
+	width: 100%;
+	border-bottom: 1px solid #CCC;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.container .caption span {
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+
+
+table.table {
+	background: white;
+}
+
+
+
+.user-icon {
+	height: 40px;
+	margin-right: 10px;
+	margin-left: 10px;
+	border-radius: 100px;
+	margin-top: 10px;
+}
+
+
+a {
+	color: #fff;
+}
+
+a:hover, a:focus {
+	color: #fff;
+}
+
+
+h1, h2, h3, h4 {
+	color: #ef6e6c;
+}
+
+
+.panel.panel-default > .panel-heading {
+	background: #00395A;
+	color: white;
+}
+
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background: #00395A;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: white
+}
+
+.navbar-collapse {
+	max-height: 300px;
+	overflow-y: auto;
+	border-bottom: 0px solid #ef6e6c;
+}
+
+
+@media(max-width:767px) {
+
+	.navbar-collapse {
+		border-bottom: 2px solid #ef6e6c;
+	}
+
+}
