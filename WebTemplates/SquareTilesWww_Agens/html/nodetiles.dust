@@ -1,15 +1,24 @@
-<div class="row-fluid filter option-set clearfix " data-filter-group="DynCat">
-<div class="filter-box">
-        <button type="button" class="btn btn-filter" data-toggle="collapse" data-target=".isotope-sort">Filter</button>
-        <ul class="isotope-sort categories">
-            <li class="isotope-sort-item"><a href="#" class="filter badge active " style="color: black;font-size: large" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a></li>
+<div class="row text-center" id="isotope_content_row">
+    <div class="filter-box">
+        <div class="isotope-sort categories">
+            <a href="#" class="isotope-sort-filter filter button" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a>
             {#RootCategories}
-                <li class="isotope-sort-item"><a href="#"  class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}; font-size: large"
-                                                 data-filter-value=".{CategoryName}">{Title}</a></li>
+                <a href="#"  class="isotope-sort-filter filter button"
+                   data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
             {/RootCategories}
-        </ul>
+        </div>
     </div>
 <style type="text/css">
+
+    .badge {
+        margin: 3px;
+        padding: 3px;
+        border: 1px solid gold;
+
+    }
+    .badge:hover{
+        background-color: gold;
+    }
     html {
         overflow-y: auto;
         overflow-x: hidden;
@@ -19,7 +28,7 @@
         margin: 9px;
         border: solid;
         padding: 5px;
-        border: 1px solid lightgreen;
+        border: 1px solid gold;
         /*border-radius: 7px;*/
         background-color: #f8fff8;
         /*background-color: blue;*/
@@ -44,85 +53,93 @@
     }
 </style>
     <div id="container">
-    {#Nodes}
-    <div class=""><!-- three_col four_col two_col -->
-        {#CollectionContent}
-            <div class="nodetile {?Categories}{#Categories}{CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
-            {?ImageBaseUrl}
-            <div class="tileimagecontainer">
-            {?IsCategoryFilteringNode}
-                <a class="hover filter" href="#" data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">
-                    <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                </a>
-            {:else}
-                {@eq key=TechnicalSource value="LINKTOCONTENT"}
-                    <a class="hover" href="{ActualContentUrl}">
-                        <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                    </a>
-                {:else}
-                    {@eq key=TechnicalSource value="IMAGE"}
-                        <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                    {:else}
-                        <a class="hover oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">
-                            <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
-                        </a>
-                    {/eq}
-                {/eq}
-            {/IsCategoryFilteringNode}
+        {#Nodes}
+            <div class=""><!-- three_col four_col two_col -->
+                {#CollectionContent}
+                    <div data-title="{Title}" class="nodetile {?Categories}{#Categories}cat{ID} {CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
+                        {?ImageBaseUrl}
+                            <div class="tileimagecontainer">
+                                {?IsCategoryFilteringNode}
+                                    <a class="hover filter" href="#" data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">
+                                        <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                    </a>
+                                {:else}
+                                    {@eq key=TechnicalSource value="LINKTOCONTENT"}
+                                        <a class="hover" href="{ActualContentUrl}">
+                                            <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                        </a>
+                                    {:else}
+                                        {@eq key=TechnicalSource value="IMAGE"}
+                                            <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                        {:else}
+                                            <a class="hover oipclicktoview" href="#" data-original-content-id="{OriginalContentID}">
+                                                <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
+                                            </a>
+                                        {/eq}
+                                    {/eq}
+                                {/IsCategoryFilteringNode}
+                            </div>
+                        {:else}
+                            {@eq key=TechnicalSource value="EMBEDDEDCONTENT"}
+                                <a style="max-height: 150px" href="#" class="oipclicktoview" data-original-content-id="{OriginalContentID}">
+                                    <iframe style="width: 100%;height: 100%" {ActualContentUrl|s}></iframe>
+                                </a>
+                            {/eq}
+                        {/ImageBaseUrl}
+                        <div class="entry-summary">
+                            <h4>
+                                {?IsCategoryFilteringNode}
+                                    <a class="filter button filter" href="#"
+                                       data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">{Title}</a>
+                                {:else}
+                                    {@eq key=TechnicalSource value="LINKTOCONTENT"}
+                                        <a href="{ActualContentUrl}">{Title}</a>
+                                    {:else}
+                                        {@eq key=TechnicalSource value="IMAGE"}
+                                            <div>{Title}</div>
+                                        {:else}
+                                            <a class="oipclicktoview goldlink" href="#" data-original-content-id="{OriginalContentID}">{Title}</a>
+                                        {/eq}
+                                    {/eq}
+                                {/IsCategoryFilteringNode}
+                            </h4>
+                            <div class="excerpt">{ExcerptRendered|s}</div>
+                            {?IsCategoryFilteringNode}
+                            {:else}
+                                <p class="w5">
+                                    {#Categories}
+                                        <a href="#" class="filter button filter" data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
+                                    {/Categories}
+                                </p>
+                            {/IsCategoryFilteringNode}
+                        </div>
+                    </div>
+                {/CollectionContent}
             </div>
-            {:else}
-                {@eq key=TechnicalSource value="EMBEDDEDCONTENT"}
-                    <iframe style="width: 100%;height: 100%" {ActualContentUrl|s}></iframe>
-                {/eq}
-            {/ImageBaseUrl}
-            <div class="entry-summary">
-                <h4>
-            {?IsCategoryFilteringNode}
-                <a class="filter badge" href="#"
-                    {#CategoryFilters.CollectionContent}
-                   style="background-color: {#catFilterTagColor}{/catFilterTagColor}; color:{#catFilterTagTextColor}{/catFilterTagTextColor}"
-                    {/CategoryFilters.CollectionContent}
-                   data-filter-value="{#CategoryFilters.CollectionContent}.{Content}{/CategoryFilters.CollectionContent}">{Title}</a>
-            {:else}
-                {@eq key=TechnicalSource value="LINKTOCONTENT"}
-                    <a href="{ActualContentUrl}">{Title}</a>
-                {:else}
-                    {@eq key=TechnicalSource value="IMAGE"}
-                        <div>{Title}</div>
-                    {:else}
-                        <a class="oipclicktoview" href="#" data-contenturl="{ActualContentUrl}.json">{Title}</a>
-                    {/eq}
-                {/eq}
-            {/IsCategoryFilteringNode}
-                </h4>
-                <div class="excerpt">{ExcerptRendered|s}</div>
-                <p class="w5">
-                    <i class="icon-tag"></i>
-                    {#Categories}
-                        <a href="#" class="filter badge" style="background-color: {#catTagColor}{/catTagColor}; color:{#catTagTextColor}{/catTagTextColor}" data-filter-value=".{CategoryName}">{Title}</a>
-                    {/Categories}
-                    <br>
-                    <span><i class="icon-group"></i></span> {#Authors}{#CollectionContent}{Content} {/CollectionContent}{/Authors}
-                    <br>
-                    <span><i class="icon-calendar"></i></span>{TimestampText}
-                </p>
-            </div>
-        </div>
-        {/CollectionContent}
+        {/Nodes}
     </div>
-    {/Nodes}
-    </div>
+
 </div>
-<script src='../assets/js/jquery.isotope.min.js'></script><!--filter and masonry script-->
-<script src='../assets/js/jquery.isotope.init.js'></script><!--custom settings-->
 <script>
     $(function(){
         var $container = $('#container'),
-        filters = {};
+                filters = {};
 
         $container.isotope({
             itemSelector : '.nodetile',
-            filter: '.ROOTCATEGORY'
+            filter: '.ROOTCATEGORY',
+            getSortData: {
+                rankFunc: function($item) {
+                    var title = $item.data("title");
+                    if(!CurrentCategoryID)
+                        return title;
+                    var rankObjects = CategoryContentMap[CurrentCategoryID];
+                    var myIndex = _.findIndex(rankObjects, function(rItem) {
+                        return rItem.Title == title;
+                    });
+                    return myIndex;
+                }
+            }
         });
 
         var loaded = 0;
@@ -137,30 +154,45 @@
         /* filter buttons */
         $('a.filter').click(function(){
             var $this = $(this);
+            var categoryID = $this.data("categoryid");
+            CurrentCategoryID = categoryID;
             /* don't proceed if already selected */
             if ( $this.hasClass('selected') ) {
+                console.log("Already selected, skipping...");
                 return false;
             }
             /*
             alert("FILTERING!");
             */
-            var $optionSet = $this.parents('.option-set');
+            var $optionSet = $this.parents('.isotope-sort');
             /* change selected class */
             $optionSet.find('.selected').removeClass('selected');
+            $(".contentfilter-selected").removeClass("selected").removeClass(".contentfilter-selected");
             $this.addClass('selected');
+            $this.addClass("contentfilter-selected");
             /*
             // store filter value in object
             // i.e. filters.color = 'red'
             */
+            /*
             var group = $optionSet.attr('data-filter-group');
+            console.log("Group: " + group);
             filters[ group ] = $this.attr('data-filter-value');
-            /* // convert object into array */
             var isoFilters = [];
             for ( var prop in filters ) {
                 isoFilters.push( filters[ prop ] )
             }
             var selector = isoFilters.join('');
-            $container.isotope({ filter: selector });
+            */
+            var filterValue = $this.attr("data-filter-value");
+            console.log("Applying filter selector: " + filterValue);
+            $container.isotope({ filter: filterValue });
+            if(CurrentCategoryID) {
+                $container.isotope('updateSortData', $(".nodetile"));
+                $container.isotope({ sortBy: "rankFunc" });
+            } else {
+                $container.isotope({ sortBy: "original-order"});
+            }
             return false;
         });
 
