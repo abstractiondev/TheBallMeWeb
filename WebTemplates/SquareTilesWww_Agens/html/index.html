@@ -7,6 +7,10 @@
     <meta name="description" content="Agens - Sopien">
     <meta name="author" content="Agens">
 
+    <link rel="stylesheet" href="../assets/css/foundation.css" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" media="all" href="../assets/css/whhg.css" />
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <!-- Le styles -->
     <link href="../assets/css/www-style.css" rel="stylesheet">
     <link href="../assets/css/www-responsive.css" rel="stylesheet">
@@ -54,17 +58,102 @@
 <script src="nodetiles_dust.js"></script>
 <script src="textcontent_detailpane_dust.js"></script>
 <script src="../assets/js/rgbcolor.js"></script>
+
+<script src="../assets/js/foundation.min.js"></script>
+<!--<script src="js/foundation/foundation.js"></script>-->
+<script src="../assets/js/foundation/foundation.topbar.js"></script>
+
+
+<script src="../assets/js/purl.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js"></script>
+<script src="../assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js"></script>
 <script src="../assets/js/index.js"></script>
 
-<div class="navbar navbar-static-top">
-    <div>
-        <div class="subnavbar-inner" style="background-color:#d3d3d3">
-            <div id="logocontainer" class="container logo-only">
-            </div>
-        </div>
+<style>
+
+    a.oipclicktoview > iframe {
+        pointer-events: none;
+    }
+
+    a.goldlink {
+        color: #cc983c;
+        font-weight: bolder;
+    }
+
+    a.goldlink:hover {
+        color: #ebc500;
+        font-weight: bolder;
+    }
+
+    .button.filter {
+        font-size: large;
+        padding:7px;
+        margin:2px;
+        border-radius: 3px;
+    }
+
+    iframe, object, embed {
+        max-width: 100%;
+        max-height: 100%;
+        /*height: 100%;*/
+    }
+
+    .contentbodyhost {
+        height: 100%;
+    }
+    .contentbodyhost > p {
+        height: 100%;
+    }
+
+    .remainingHeight {
+        /*background-color: gold;*/
+        height: 100%;
+        max-height: 100%;
+    }
+
+    .fullWidth {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100% !important;
+    }
+
+    .video-modal {
+        height: 99% !important;
+        width: 95% !important;
+        top: 2px !important;
+        margin-top: auto;
+    }
+
+    .reveal-modal {
+        padding: 0;
+        background: white;
+        border: 0px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .reveal-modal-inner {
+        max-height: 100%;
+        margin: 0 auto;
+        position: relative;
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+</style>
+
+<div class="row text-center show-for-large-up">
+    <div id="logocontainer-large" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px;height: 200px" class="logo-only">
     </div>
 </div>
-
+<div class="row text-center show-for-medium-only">
+    <div id="logocontainer-medium" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px;height: 100px" class="logo-only">
+    </div>
+</div>
 
 <!-- start reading-pane -->
 <div id="SelectedContentContainer" class="container reading-pane">
