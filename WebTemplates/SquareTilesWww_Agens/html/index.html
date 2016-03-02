@@ -12,11 +12,6 @@
     <link rel="stylesheet" type="text/css" media="all" href="../assets/css/whhg.css" />
     <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <!-- Le styles -->
-    <link href="../assets/css/www-style.css" rel="stylesheet">
-    <link href="../assets/css/www-responsive.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-
-
 
     <link href="../assets/css/leaflet.css" rel="stylesheet"/>
     <!-- get a fresh copy live at 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />-->
@@ -42,13 +37,6 @@
     <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
     <![endif]-->
 
-    <!-- Markdown on browser -->
-    <link rel="stylesheet" href="../assets/lib/markdowndeep/mdd_styles.css">
-    <script type="text/javascript" src="../assets/lib/markdowndeep/MarkdownDeepLib.min.js"></script>
-
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
 </head>
 
 <body data-spy="scroll" data-target=".subnav" data-offset="50">
@@ -62,8 +50,10 @@
 <script src="../assets/js/foundation.min.js"></script>
 <!--<script src="js/foundation/foundation.js"></script>-->
 <script src="../assets/js/foundation/foundation.topbar.js"></script>
-
-
+<script src="../assets/js/jquery.isotope.js" type="text/javascript"></script>
+<script src="../assets/js/jquery.form.min.js"></script>
+<script src="../assets/js/jquery.htmlClean.min.js "></script>
+<script src="../assets/lib/markdowndeep/MarkdownDeepLib.min.js"></script>
 <script src="../assets/js/purl.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
@@ -375,71 +365,70 @@
 <!-- end oip-modal-collection.txt -->
 <!-- ========== End: www-public\..\oip-containers\../oip-modals/oip-modal-collection.txt ========== -->
 
-<!-- OIP specific -->
-<script src="../assets/js/modal-id-actions.js"></script>
+<div id="ModalsHolderDiv-Content">
+    <div id="viewContentModal" class="reveal-modal xlarge video-modal" data-reveal>
+        <!--Begins contents of  div for the viewContentModal-->
+        <div class="row fullWidth">
+            <div class="show-for-large-up large-2 columns" id="categorypanel">
+            </div>
+            <div class="large-8 columns">
+                <div class="row">
+                    <div class="large-12 columns" style="width:100%;padding-bottom: 12px;padding-right:10px;padding-top:10px;"><strong><span id="viewContentModal-title" class="hugeTitleText"></span></strong>
+                    </div>
+                </div>
+                <div class="row show-for-large-up">
+                    <div class="large-12 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
+                </div>
+            </div>
+            <div class="large-2 columns show-for-large-up"><img src="../assets/img/izenzei-logo.jpg">
+                <!--
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label class="discreetTextColor">Share:</label>
+                        <input type="text" placeholder="" id="articleShareURLinput"/>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+        <div class="row fullWidth">
+            <div class="large-12 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;"><div class="content-card-line"><hr></div></div>
+        </div>
+        <div class="row fullWidth remainingHeight">
+            <div class="large-12 columns articleText contentbodyhost" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
+        </div>
+        <div class="row">
+            <div id="viewContentModal-attachments"></div>
+        </div>
+        <div class="row">
+            <div id="viewContentModal-iframes"></div>
+        </div>
+        <div class="row fullWidth show-for-large-up">
+            <div class="large-4 columns">
+                <button class="button catnavaction previousContent">Previous</button>
+            </div>
+            <div class="large-4 columns">
+                <a class="button" style="display: block;" id="closeViewContentModal">Close</a>
+            </div>
+            <div class="large-4 columns">
+                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
+            </div>
+        </div>
+        <div class="row fullWidth show-for-medium-down">
+            <div class="medium-6 columns">
+                <button class="button catnavaction previousContent">Previous</button>
+            </div>
+            <div class="medium-6 columns">
+                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
+            </div>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div> <!--closes div for the viewContentModal-->
+</div>
+
+
+
 </body>
-
-<script type="text/javascript">
-
-    String.prototype.replaceAll = function(strReplace, strWith) {
-        var reg = new RegExp(strReplace, 'ig');
-        return this.replace(reg, strWith);
-    };
-
-    var ReplaceWithMarkdownRender = function(containingObj, sourceField, targetField)
-    {
-        var markdown = new MarkdownDeep.Markdown();
-        markdown.SafeMode = true;
-        if(containingObj == false)
-            return;
-        var sourceData = containingObj[sourceField];
-        var renderedData;
-        if(sourceData)
-            renderedData = markdown.Transform(sourceData.replaceAll("javascript:", ""));
-        else
-            renderedData = "";
-        containingObj[targetField] = renderedData;
-    };
-
-    OipOpenArticle = function(urlarg, addRelativePath) {
-        var targeturl = $(this).data('contenturl');
-        if (targeturl == null) {
-            targeturl = urlarg;
-            if(addRelativePath)
-                targeturl = "../" + targeturl;
-        }
-        else
-            targeturl = "../" + targeturl;
-        if (targeturl == null) {
-            return;
-        }
-        $.ajax({
-            url: targeturl,
-            cache: false,
-            success: function (jsonContent) {
-                /*
-                 var markdown = new MarkdownDeep.Markdown();
-                 markdown.SafeMode = true;
-                 if(jsonContent.Body == undefined)
-                 jsonContent.Body = "";
-                 var rendered = markdown.Transform(jsonContent.Body.replaceAll("javascript:", ""));
-                 jsonContent.BodyRendered = rendered;
-                 */
-                if(jsonContent.RawHtmlContent)
-                    jsonContent.BodyRendered = jsonContent.RawHtmlContent;
-                else
-                    ReplaceWithMarkdownRender(jsonContent, "Body", "BodyRendered");
-                OipShowTextContentInDetailPaneWithClose(jsonContent);
-                $(document).scrollTop(0);
-            }
-        });
-        return;
-    };
-    $(function() {
-        /*$(".oipclicktoview").on('click', OipOpenArticle);*/
-        $(document).on("click", ".oipclicktoview", OipOpenArticle);
-    });
-</script>
 
 </html>
 
