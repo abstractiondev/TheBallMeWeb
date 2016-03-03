@@ -1,12 +1,10 @@
 /**
- * Created by kalle on 12.5.2014.
- */
+* Created by kalle on 12.5.2014.
+*/
 /// <reference path="jquery.d.ts" />
 var TheBall;
 (function (TheBall) {
-    var Interface;
     (function (Interface) {
-        var UI;
         (function (UI) {
             var ResourceLocatedObject = (function () {
                 function ResourceLocatedObject(isJSONUrl, urlKey, constructData, onUpdate, boundToElements, boundToObjects, dataSourceObjects) {
@@ -26,6 +24,7 @@ var TheBall;
                 return ResourceLocatedObject;
             })();
             UI.ResourceLocatedObject = ResourceLocatedObject;
+
             var UpdatingDataGetter = (function () {
                 function UpdatingDataGetter() {
                     this.TrackedURLDictionary = {};
@@ -42,9 +41,11 @@ var TheBall;
                         }
                     });
                 };
+
                 UpdatingDataGetter.prototype.isJSONUrl = function (url) {
                     return url.indexOf("/") != -1;
                 };
+
                 UpdatingDataGetter.prototype.getOrRegisterUrl = function (url) {
                     var rlObj = this.TrackedURLDictionary[url];
                     if (!rlObj) {
@@ -54,6 +55,7 @@ var TheBall;
                     }
                     return rlObj;
                 };
+
                 UpdatingDataGetter.prototype.RegisterAndBindDataToElements = function (boundToElements, url, onUpdate, sourceUrls) {
                     var _this = this;
                     if (sourceUrls)
@@ -65,6 +67,7 @@ var TheBall;
                         });
                     }
                 };
+
                 UpdatingDataGetter.prototype.RegisterDataURL = function (url, onConstruct, sourceUrls) {
                     var me = this;
                     var rlObj = me.getOrRegisterUrl(url);
@@ -77,10 +80,12 @@ var TheBall;
                     }
                     return rlObj;
                 };
+
                 UpdatingDataGetter.prototype.UnregisterDataUrl = function (url) {
                     if (this.TrackedURLDictionary[url])
                         delete this.TrackedURLDictionary[url];
                 };
+
                 UpdatingDataGetter.prototype.GetData = function (url, callback) {
                     var rlObj = this.TrackedURLDictionary[url];
                     if (!rlObj)
@@ -89,14 +94,14 @@ var TheBall;
                         $.getJSON(url, function (content) {
                             callback(content);
                         });
-                    }
-                    else {
+                    } else {
                         var prom = this.getDataPromise(url);
                         $.when(prom).then(function (content) {
                             return callback(content);
                         });
                     }
                 };
+
                 UpdatingDataGetter.prototype.getDataPromise = function (url) {
                     var me = this;
                     var rlObj = this.TrackedURLDictionary[url];
@@ -105,8 +110,7 @@ var TheBall;
                     var result;
                     if (rlObj.isJSONUrl) {
                         result = $.ajax({ url: url });
-                    }
-                    else {
+                    } else {
                         var promises = rlObj.dataSourceObjects.map(function (dsObj) {
                             return me.getDataPromise(dsObj.urlKey);
                         });
@@ -122,6 +126,8 @@ var TheBall;
                 return UpdatingDataGetter;
             })();
             UI.UpdatingDataGetter = UpdatingDataGetter;
-        })(UI = Interface.UI || (Interface.UI = {}));
-    })(Interface = TheBall.Interface || (TheBall.Interface = {}));
+        })(Interface.UI || (Interface.UI = {}));
+        var UI = Interface.UI;
+    })(TheBall.Interface || (TheBall.Interface = {}));
+    var Interface = TheBall.Interface;
 })(TheBall || (TheBall = {}));
