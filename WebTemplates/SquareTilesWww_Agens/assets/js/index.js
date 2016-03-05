@@ -285,6 +285,9 @@ OipOpenArticle = function(urlarg, addRelativePath) {
             var categoryID = CurrentCategoryID;
             var $catPanel = $("#categorypanel");
             $catPanel.empty();
+
+            $("#viewContentModal-content").empty();
+
             if(categoryID && CategoriesMap[categoryID]) {
                 var prevData = GetPrevData(currentID, categoryID);
                 if(prevData) {
@@ -366,9 +369,6 @@ OipOpenArticle = function(urlarg, addRelativePath) {
                 var lastSlashIndex = articleUrl.lastIndexOf("/");
                 var lastExtIndex = articleUrl.lastIndexOf(".json");
                 var articleIDFromArticleUrl = articleUrl.substring(lastSlashIndex + 1, lastExtIndex);
-                var currentURL = "http://www.onlinetaekwondo.com/html/index.html?type=text&id="+ articleIDFromArticleUrl;
-                $("#articleShareURLinput").attr("placeholder",currentURL);
-                $("#articleShareURLinput").val(currentURL);
 
                 if ((contentData.CollectionContent[i].Author===null)||(!contentData.CollectionContent[i].Author) )
                     var currentAuthor="Aalto Global Impact";

@@ -58,7 +58,6 @@
 <script src="../assets/js/rgbcolor.js"></script>
 
 <script src="../assets/js/foundation.min.js"></script>
-<!--<script src="js/foundation/foundation.js"></script>-->
 <script src="../assets/js/foundation/foundation.topbar.js"></script>
 <script src="../assets/js/jquery.isotope.js" type="text/javascript"></script>
 <script src="../assets/js/jquery.form.min.js"></script>
@@ -100,19 +99,6 @@
         max-width: 100%;
         max-height: 100%;
         /*height: 100%;*/
-    }
-
-    .contentbodyhost {
-        height: 100%;
-    }
-    .contentbodyhost > p {
-        height: 100%;
-    }
-
-    .remainingHeight {
-        /*background-color: gold;*/
-        height: 100%;
-        max-height: 100%;
     }
 
     .fullWidth {
@@ -164,6 +150,18 @@
     <img src="../assets/img/ajax-loader.gif">
 </div>
 <script type="text/javascript">
+
+    var ensureModalClose = function() {
+        var $modal = $("#viewContentModal");
+        if($modal)
+        {
+            $modal.foundation('reveal', 'close');
+        }
+    };
+
+    window.onpopstate = function(event) {
+        ensureModalClose();
+    };
 
     $(function() {
         OipCloseDetailPane = function() {
@@ -367,7 +365,7 @@
     <div class="container">
         <div class="span12" style="text-align: center;font-weight: 200;margin-bottom: 20px;color:black">
             <!--<p class="pull-right"><a href="#">Back to top</a></p>-->
-            <p style="text-align: center;font-style: oblique;font-size: 24px;font-family: Georgia" id="PoweredBy">Your partner in digital business</p>
+            <p style="text-align: center;font-style: oblique;font-size: 24px;font-family: Georgia" id="PoweredBy">Agens - Sopien</p>
             <div style="text-align: center; color: lightseagreen"><a href="" style="color: lightseagreen"></a></div>
         </div>
     </div>
@@ -376,7 +374,7 @@
 <!-- ========== End: www-public\..\oip-containers\../oip-modals/oip-modal-collection.txt ========== -->
 
 <div id="ModalsHolderDiv-Content">
-    <div id="viewContentModal" class="reveal-modal xlarge video-modal" data-reveal>
+    <div id="viewContentModal" class="reveal-modal xlarge" data-reveal>
         <!--Begins contents of  div for the viewContentModal-->
         <div class="row fullWidth">
             <div class="show-for-large-up large-2 columns" id="categorypanel">
@@ -390,7 +388,7 @@
                     <div class="large-12 columns" style="padding-right:15px;"><span  id="viewContentModal-excerpt" class="contentCardExcerpt bigTitleText discreetTextColor"></span></div>
                 </div>
             </div>
-            <div class="large-2 columns show-for-large-up"><img src="../assets/img/izenzei-logo.jpg">
+            <div class="large-2 columns show-for-large-up"><img src="../assets/img/Agens-small-rez320.png">
                 <!--
                 <div class="row">
                     <div class="large-12 columns">
@@ -404,8 +402,11 @@
         <div class="row fullWidth">
             <div class="large-12 columns" style="padding-right:0;padding-top: 0;padding-bottom:0;"><div class="content-card-line"><hr></div></div>
         </div>
-        <div class="row fullWidth remainingHeight">
-            <div class="large-12 columns articleText contentbodyhost" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
+        <div class="row">
+            <div class="large-12 columns" style="height:20px;"></div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns articleText" id="viewContentModal-content" style="padding-left: 15px !important; padding-right: 15px !important;"></div>
         </div>
         <div class="row">
             <div id="viewContentModal-attachments"></div>
@@ -413,23 +414,19 @@
         <div class="row">
             <div id="viewContentModal-iframes"></div>
         </div>
-        <div class="row fullWidth show-for-large-up">
-            <div class="large-4 columns">
-                <button class="button catnavaction previousContent">Previous</button>
-            </div>
-            <div class="large-4 columns">
-                <a class="button" style="display: block;" id="closeViewContentModal">Close</a>
-            </div>
-            <div class="large-4 columns">
-                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
+        <!--
+        <div class="row">
+            <div class="large-12 columns">
+                <br>
+                <label class="discreetTextColor">Share:</label>
+                <input type="text" placeholder="" id="articleShareURLinput"/>
             </div>
         </div>
-        <div class="row fullWidth show-for-medium-down">
-            <div class="medium-6 columns">
-                <button class="button catnavaction previousContent">Previous</button>
-            </div>
-            <div class="medium-6 columns">
-                <button class="button catnavaction nextContent" style="float:right !important;">Next</button>
+        -->
+        <div class="row">
+            <div class="large-12">
+                <br>
+                <a class="button" id="closeViewContentModal" style="float:right !important;">Close</a>
             </div>
         </div>
         <a class="close-reveal-modal">&#215;</a>

@@ -1,10 +1,12 @@
 /**
-* Created by kalle on 27.1.2014.
-*/
+ * Created by kalle on 27.1.2014.
+ */
+/// <reference path="jquery.d.ts" />
 var TheBall;
 (function (TheBall) {
+    var Interface;
     (function (Interface) {
-        /// <reference path="jquery.d.ts" />
+        var UI;
         (function (UI) {
             var StatusData = (function () {
                 function StatusData() {
@@ -12,7 +14,6 @@ var TheBall;
                 return StatusData;
             })();
             UI.StatusData = StatusData;
-
             var TrackingExtension = (function () {
                 function TrackingExtension() {
                     this.ChangeListeners = [];
@@ -27,26 +28,23 @@ var TheBall;
                     return currObject.RelativeLocation;
                 };
                 TrackedObject.UpdateObject = function (currObject, triggeredTick, dcm) {
-                    currObject.UIExtension.ChangeListeners.forEach(function (func) {
-                        return func(currObject, triggeredTick);
-                    });
+                    currObject.UIExtension.ChangeListeners.forEach(function (func) { return func(currObject, triggeredTick); });
                     //var fetchUrl = TrackedObject.GetRelativeUrl(currObject);
                     //var templateDataSource =
                     /*
-                    var fetchUrl = currObject.UIExtension.FetchedUrl;
-                    console.log("Fetching from url: " + fetchUrl);
-                    $.ajax( { url : fetchUrl, cache: false,
-                    success: function(updatedObject:TrackedObject) {
-                    dcm.SetObjectInStorage(updatedObject);
-                    updatedObject.UIExtension.LastUpdatedTick = triggeredTick;
-                    updatedObject.UIExtension.ChangeListeners.forEach(func => func(updatedObject));
-                    }
-                    });*/
+                     var fetchUrl = currObject.UIExtension.FetchedUrl;
+                     console.log("Fetching from url: " + fetchUrl);
+                     $.ajax( { url : fetchUrl, cache: false,
+                     success: function(updatedObject:TrackedObject) {
+                     dcm.SetObjectInStorage(updatedObject);
+                     updatedObject.UIExtension.LastUpdatedTick = triggeredTick;
+                     updatedObject.UIExtension.ChangeListeners.forEach(func => func(updatedObject));
+                     }
+                     });*/
                 };
                 return TrackedObject;
             })();
             UI.TrackedObject = TrackedObject;
-
             var DataConnectionManager = (function () {
                 function DataConnectionManager() {
                     this.TrackedObjectStorage = {};
@@ -73,7 +71,6 @@ var TheBall;
                     }
                     this.setInnerObjectsInStorage(obj);
                 };
-
                 DataConnectionManager.prototype.setInnerObjectsInStorage = function (obj) {
                     var dcm = this;
                     if (typeof obj == "object") {
@@ -92,7 +89,6 @@ var TheBall;
                         });
                     }
                 };
-
                 DataConnectionManager.prototype.ProcessStatusData = function (statusData) {
                     var idList = statusData.ChangeItemTrackingList;
                     var currTimestamp;
@@ -105,7 +101,6 @@ var TheBall;
                                 break;
                             continue;
                         }
-
                         // If curr processed is undefined, we set it from here, thus it will be last
                         if (!currProcessedTick)
                             currProcessedTick = currTimestamp;
@@ -113,8 +108,10 @@ var TheBall;
                         var currModification = currItem.substr(0, 1);
                         var currTracked = this.TrackedObjectStorage[currID];
                         if (currTracked && currTracked.UIExtension && currTracked.UIExtension.LastUpdatedTick) {
-                            console.log("Checking for update basis: " + currTracked.ID + " " + currTracked.UIExtension.LastUpdatedTick + " vs " + currTimestamp);
-                        } else {
+                            console.log("Checking for update basis: " + currTracked.ID + " " +
+                                currTracked.UIExtension.LastUpdatedTick + " vs " + currTimestamp);
+                        }
+                        else {
                             console.log("Not tracked update for id: " + currID);
                         }
                         if (currTracked && currTracked.UIExtension && currTracked.UIExtension.LastUpdatedTick < currTimestamp) {
@@ -127,7 +124,6 @@ var TheBall;
                         this.LastProcessedTick = currProcessedTick;
                     }
                 };
-
                 DataConnectionManager.prototype.PerformAsyncPoll = function () {
                     var priv = this;
                     $.ajax({
@@ -138,7 +134,6 @@ var TheBall;
                         }
                     });
                 };
-
                 DataConnectionManager.prototype.ProcessFetchedData = function (jsonData) {
                     if (jsonData.RelativeLocation) {
                         var currTracked = this.TrackedObjectStorage[jsonData.ID];
@@ -150,7 +145,6 @@ var TheBall;
                         }
                     }
                 };
-
                 DataConnectionManager.prototype.FetchAndProcessJSONData = function (dataUrl) {
                     $.ajax({
                         url: dataUrl, cache: true,
@@ -160,8 +154,6 @@ var TheBall;
                 return DataConnectionManager;
             })();
             UI.DataConnectionManager = DataConnectionManager;
-        })(Interface.UI || (Interface.UI = {}));
-        var UI = Interface.UI;
-    })(TheBall.Interface || (TheBall.Interface = {}));
-    var Interface = TheBall.Interface;
+        })(UI = Interface.UI || (Interface.UI = {}));
+    })(Interface = TheBall.Interface || (TheBall.Interface = {}));
 })(TheBall || (TheBall = {}));

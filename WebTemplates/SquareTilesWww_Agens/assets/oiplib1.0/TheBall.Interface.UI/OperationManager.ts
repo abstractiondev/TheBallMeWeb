@@ -296,7 +296,7 @@ module TheBall.Interface.UI {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        me.setPreviewImageSrc($imagePreview, e.target.result);
+                        me.setPreviewImageSrc($imagePreview, (<any>(e.target)).result);
                         me.setImageValues($fileInput, $hiddenInput, fileFieldName);
                     };
                     reader.readAsDataURL(input.files[0]);
@@ -413,7 +413,7 @@ module TheBall.Interface.UI {
             var deferred = $.Deferred();
 
             reader.onload = function(event) {
-                deferred.resolve(new BinaryFileItem(fileInput, file, event.target.result));
+                deferred.resolve(new BinaryFileItem(fileInput, file, (<any>(event.target)).result));
             };
 
             reader.onerror = function() {
