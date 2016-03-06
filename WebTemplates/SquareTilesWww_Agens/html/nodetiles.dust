@@ -3,7 +3,7 @@
         <div class="isotope-sort categories">
             <a href="#" class="isotope-sort-filter filter button" data-filter-value=".ROOTCATEGORY"><i class="icon-home"></i></a>
             {#RootCategories}
-                <a href="#"  class="isotope-sort-filter filter button"
+                <a href="#"  class="isotope-sort-filter filter button boxshadow"
                    data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
             {/RootCategories}
         </div>
@@ -24,12 +24,12 @@
         overflow-x: hidden;
     }
     .nodetile {
-        width: 200px;
+        width: 220px;
         margin: 9px;
         border: solid;
         padding: 5px;
         border: 1px solid gold;
-        /*border-radius: 7px;*/
+        border-radius: 7px;
         background-color: #f8fff8;
         /*background-color: blue;*/
         /*
@@ -90,7 +90,7 @@
                         <div class="entry-summary">
                             <h4>
                                 {?IsCategoryFilteringNode}
-                                    <a class="filter button filter" href="#"
+                                    <a class="filter button filter boxshadow" href="#"
                                        data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">{Title}</a>
                                 {:else}
                                     {@eq key=TechnicalSource value="LINKTOCONTENT"}
@@ -109,7 +109,7 @@
                             {:else}
                                 <p class="w5">
                                     {#Categories}
-                                        <a href="#" class="filter button filter" data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
+                                        <a href="#" class="filter button filter boxshadow" data-categoryid="{ID}" data-filter-value=".cat{ID}">{Title}</a>
                                     {/Categories}
                                 </p>
                             {/IsCategoryFilteringNode}
