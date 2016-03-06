@@ -32,9 +32,10 @@
         /*border-radius: 7px;*/
         background-color: #f8fff8;
         /*background-color: blue;*/
+        /*
         box-shadow: 0 0 12px #81674d;
         -moz-box-shadow: 0 0 12px #81674d;
-        -webkit-box-shadow: 0 0 12px #81674d;
+        -webkit-box-shadow: 0 0 12px #81674d;*/
     }
     div.excerpt {
         font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -56,7 +57,7 @@
         {#Nodes}
             <div class=""><!-- three_col four_col two_col -->
                 {#CollectionContent}
-                    <div data-title="{Title}" class="nodetile {?Categories}{#Categories}cat{ID} {CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
+                    <div data-title="{Title}" class="nodetile boxshadow {?Categories}{#Categories}cat{ID} {CategoryName} {/Categories}{:else}ROOTCATEGORY{/Categories} ">
                         {?ImageBaseUrl}
                             <div class="tileimagecontainer">
                                 {?IsCategoryFilteringNode}

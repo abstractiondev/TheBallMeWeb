@@ -130,14 +130,39 @@
         -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
         box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
+
+    .boxshadow {
+        -webkit-box-shadow: 10px 10px 10px 0px rgba(205,205,205,0.5);
+        -moz-box-shadow: 10px 10px 10px 0px rgba(205,205,205,0.5);
+        box-shadow: 10px 10px 10px 0px rgba(205,205,205,0.5);
+    }
+
+    .logomedium
+    {
+        background-color: white;
+        margin: 10px;
+        border-color: gold;
+        border-style: solid;
+        border-width: 1px;
+
+    }
+
+    .logolargeup
+    {
+        background-color: white;
+        margin: 10px;
+        border-color: gold;
+        border-style: solid;
+        border-width: 1px;
+    }
 </style>
 
 <div class="row text-center show-for-large-up">
-    <div id="logocontainer-large" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px;height: 200px" class="logo-only">
+    <div id="logocontainer-large" class="logolargeup boxshadow">
     </div>
 </div>
 <div class="row text-center show-for-medium-only">
-    <div id="logocontainer-medium" style="background-color: white; margin: 10px; border-color: gold;border-style: solid;border-width: 1px;height: 100px" class="logo-only">
+    <div id="logocontainer-medium" class="logomedium boxshadow">
     </div>
 </div>
 
@@ -363,7 +388,7 @@
 <!--</div>-->
 <footer class="footer" style="background-color:white;">
     <div class="container">
-        <div class="span12" style="text-align: center;font-weight: 200;margin-bottom: 20px;color:black">
+        <div class="span12" style="text-align: center;font-weight: 200;margin-bottom: 20px; margin-top: 40px;color:black">
             <!--<p class="pull-right"><a href="#">Back to top</a></p>-->
             <p style="text-align: center;font-style: oblique;font-size: 24px;font-family: Georgia" id="PoweredBy">Agens - Sopien</p>
             <div style="text-align: center; color: lightseagreen"><a href="" style="color: lightseagreen"></a></div>
