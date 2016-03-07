@@ -147,6 +147,16 @@
         border-width: 1px;
     }
 
+    .logosmall
+    {
+        margin: 10px;
+        width: 220px;
+        background-color: white;
+        border-color: gold;
+        border-style: solid;
+        border-width: 1px;
+    }
+
     .logolargeup
     {
         margin: 10px;
@@ -158,12 +168,16 @@
     }
 </style>
 
-<div class="row show-for-large-up">
+<div class="row text-center show-for-large-up">
     <div id="logocontainer-large" class="logolargeup boxshadow">
     </div>
 </div>
-<div class="row show-for-medium-only">
+<div class="row text-center show-for-medium-only">
     <div id="logocontainer-medium" class="logomedium boxshadow">
+    </div>
+</div>
+<div class="row text-center show-for-small-only">
+    <div id="logocontainer-small" class="logosmall boxshadow">
     </div>
 </div>
 
@@ -347,6 +361,7 @@
             {
                 $("#logocontainer-large").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
                 $("#logocontainer-medium").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+                $("#logocontainer-small").html("<img src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
             }
 
             var myObj = nodeSummary;
