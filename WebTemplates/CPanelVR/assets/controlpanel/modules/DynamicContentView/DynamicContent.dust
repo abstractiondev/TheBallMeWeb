@@ -1,0 +1,24 @@
+<div class="small-12-5 medium-2-5 large-2-5 columns noPaddingRight" style="float:none !important; display:inline-block !important;">
+    <button style="margin-bottom: 0;!important" data-dropdown="drop-SelectDynamicContentPage">Select Page...</button><br>
+    <ul id="drop-SelectDynamicContentPage" class="f-dropdown" data-dropdown-content>
+{#Templates}
+    {#Keys}
+        <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="SetActiveSection" data-templatename="{.}">{.}</a></li>
+    {/Keys}
+{/Templates}
+        <li><a href="#" style="background-color: red" class="button oip-controller-command oip-dropdown-button" data-oip-command="SetActiveSection" data-templatename="AdvancedSection">Page Template Management</a></li>
+    </ul>
+</div>
+<br>
+
+{#Templates}
+    {#Array}
+        {>"DynamicContentPageHost.dust" /}
+    {/Array}
+{/Templates}
+
+<div style="display: none" class="oipdynamiccontenteditorsection" name="AdvancedSection">
+    {>"DynamicContentAdvanced.dust" /}
+</div>
+
+{>"DynamicContentView_Modals.dust" /}

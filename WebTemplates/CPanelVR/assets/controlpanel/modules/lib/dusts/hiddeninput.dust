@@ -1,0 +1,1 @@
+<input name="{?field_name}{field_name}{/field_name}" {?field_id}id="{field_id}"{/field_id} type="hidden">

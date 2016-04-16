@@ -1,0 +1,18 @@
+{>"TextContent_Modals.dust" /}
+{>"LinkToContent_Modals.dust" /}
+{>"EmbeddedContent_Modals.dust" /}
+{>"modal_begin.dust" modal_name="AlertContentDeleteConfirm" /}
+    <h3>Are you sure you want to delete this item?
+    </h3>
+    {>"hiddeninput.dust" field_name="ID" /}
+    {>"hiddeninput.dust" field_name="ObjectName" /}
+    {>"hiddeninput.dust" field_name="DomainName" /}
+    <div name="ContentDescription"/>
+    <div class="row" style="margin-top: 20px;">
+        <div class="large-12 columns">
+            {>"insidemodal_button.dust" command="Common_CloseOpenModal" button_label="Cancel" style="float: right;" /}
+            <div style="width: 10px;float: right;">&nbsp;</div>
+            {>"insidemodal_button.dust" command="DeleteContent" button_label="Delete" style="float:right;font-color:Red" /}
+        </div>
+    </div>
+{>"modal_end.dust" /}

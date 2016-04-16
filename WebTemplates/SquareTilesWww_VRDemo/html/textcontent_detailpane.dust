@@ -1,0 +1,47 @@
+<div class="header clearfix">
+    <h2 class="clearfix">
+        {Title}
+        <br>
+        {?ImageData}
+            <img src="../../AaltoGlobalImpact.OIP/MediaContent/{ImageData.ID}_320x240_crop{ImageData.AdditionalFormatFileExt}" />
+        {/ImageData}
+        {?SubTitle}
+            <small>
+                {SubTitle}
+            </small>
+        {/SubTitle}
+    </h2>
+
+    <div class="border border-news clearfix">
+        {?Categories}
+        <span class="label label-news">{#Categories.CollectionContent}{Title}{/Categories.CollectionContent}</span>
+        {/Categories}
+    </div>
+</div>
+
+<div class="content">
+    <div class="multicolumnElement" style="padding-left:15px;padding-right:15px;">
+        {BodyRendered|s}
+    </div>
+</div>
+
+{?IFrameSources}
+<div class="content">
+    {@iFrameLines contextField="IFrameSources" /}
+</div>
+{/IFrameSources}
+
+<div class="reading-pane-footer">
+    <p></p>
+    <p>
+        <i class="icon-user"></i>  <a href="#">{?Author}{Author}{/Author}</a>
+        | <i class="icon-calendar"></i>
+        | <i class="icon-bookmark"></i> <input class="text input-xxlarge" id="DirectLink_{ID}" name="share_url" value="">
+    </p>
+</div>
+
+
+<script>
+    var urlTarget = "http://" + window.location.hostname + "/html/index.html?type=textcontent&id={ID}";
+    $("#DirectLink_{ID}").val(urlTarget);
+</script>

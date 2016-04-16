@@ -1,0 +1,44 @@
+{#DynamicContentGroups}
+    <h3>Content Groups</h3>
+    <table>
+        <tr><th colspan="2">Act</th><th>Page</th><th>Header</th><th>Sort Value</th><th>Location</th><th>Content Items</th><th>Page Position</th><th>Del</th></tr>
+        {#CollectionContent}
+            <tr class="oiphover-showlocation" data-pagelocation="{PageLocation}">
+                <td>{>"command_icon.dust" command="EditDynamicContentGroup" command_args="{ID}" icon_class_name="icon-edit" /}</td>
+                <td>{>"command_icon.dust" command="ViewDynamicContentGroup" command_args="{ID}" icon_class_name="icon-eye-open" /}</td>
+                <td>{HostName}</td>
+                <td>{GroupHeader}</td>
+                <td>{SortValue}</td>
+                <td>{PageLocation}</td>
+                <td><div style="word-wrap: break-word; max-width: 300px">{ContentItemNames}</div></td>
+                <td class="oipcanvas-showlocation" data-pagelocation="{PageLocation}"><canvas style="border: solid;border-color:lightslategray;padding: 0px" width="160" height="120"></canvas></td>
+                <td>{>"objectdeleteicon.dust" object_delete_title="{ContentName}" /}</td>
+            </tr>
+        {/CollectionContent}
+    </table>
+    {>"command_button.dust" button_label="Add New Dynamic Content Group" command="OpenAddDynamicContentGroupModal" /}
+{/DynamicContentGroups}
+<br>
+<canvas class="oipdynamiccontentlocationview" width="320" height="240" style="background-color: white; border: solid;border-color: lightslategray;border-width: 1px">
+</canvas>
+<br>
+{#DynamicContents}
+<h3>Dynamic Content Items</h3>
+<table>
+    <tr><th colspan="2">Act</th><th>Page</th><th>Name</th><th>Query</th><th>EditType</th><th>Description</th><th>Del</th></tr>
+    {#CollectionContent}
+        <tr class="oiphover-showlocation" data-pagelocation="{PageLocation}">
+            <td>{>"command_icon.dust" command="EditDynamicContent" command_args="{ID}" icon_class_name="icon-edit" /}</td>
+            <td>{>"command_icon.dust" command="ViewDynamicContent" command_args="{ID}" icon_class_name="icon-eye-open" /}</td>
+            <td>{HostName}</td>
+            <td>{ContentName}</td>
+            <td>{ElementQuery}</td>
+            <td>{EditType}</td>
+            <td>{Description}</td>
+            <td>{>"objectdeleteicon.dust" object_delete_title="{ContentName}" /}</td>
+        </tr>
+    {/CollectionContent}
+</table>
+{>"command_button.dust" button_label="Add New Dynamic Content" command="OpenAddDynamicContentModal" /}
+{/DynamicContents}
+

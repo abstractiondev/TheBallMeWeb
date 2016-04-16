@@ -151,11 +151,35 @@
     </div>
 </div>
 
+<button id="Testbutton">Testinappi...</button>
+
 
 <!-- Footer -->
 <!-- End Footer -->
 
 <script>
+
+    $(function() {
+        var submitTest = function() {
+            /*
+
+             CreateObjectAjax(domainName:string, objectName:string, dataContents:any, successCallback?:any, failureCallback?:any) {
+
+             */
+            console.log("Creating object...");
+            //tOP.ExecuteOperationWithAjax("ProBroz.OnlineTraining.CreateMember", { "FirstName": "Etunimi", "LastName": "Sukunimi", "BirthDay": "\/Date(" + Date.now() + ")\/" },
+            tOP.ExecuteOperationWithAjax("ProBroz.OnlineTraining.SyncPlansAndPaymentOptionsFromStripe", null,
+                    function() {
+                console.log("Successful add!")
+            }, function(errdata) {
+                console.log("Error on creation...");
+                console.log(JSON.stringify(errdata));
+                console.log("Logging done!");
+            });
+        };
+        $("#Testbutton").on("click", submitTest);
+    });
+
 
 
     var parseRawTimestampToDate = function (value) {

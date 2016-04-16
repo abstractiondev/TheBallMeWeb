@@ -346,7 +346,7 @@
             "../../AaltoGlobalImpact.OIP/GroupContainer/default.json"
         ];
         $.each(fetchDatas, function(index, value) {
-            fetchDatas[index] = $.ajax({ url: value, cache:false });
+            fetchDatas[index] = $.ajax({ url: value, cache:true });
         });
         /*$.get("../../AaltoGlobalImpact.OIP/NodeSummaryContainer/default.json", function ()jsonObject) {*/
         $.when.apply($, fetchDatas).then(function() {

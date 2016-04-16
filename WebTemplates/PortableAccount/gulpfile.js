@@ -50,8 +50,9 @@ var paths = {
     'bower_components/isotope/dist/isotope.pkgd.min.js',
     'bower_components/lodash/lodash.min.js',
     'bower_components/angular-underscore-module/angular-underscore-module.js',
-    'bower_components/angular-foundation/mm-foundation-tpls.min.js'
-
+    'bower_components/angular-foundation/mm-foundation-tpls.min.js',
+    'bower_components/tb-jslib/TheBall.Interface.UI/DataConnectionManager.js',
+    'bower_components/tb-jslib/TheBall.Interface.UI/OperationManager.js',
   ],
   // These files are for your app's JavaScript
   appJS: [

@@ -1,13 +1,12 @@
 /**
-* Created by kalle on 3.6.2014.
-*/
-var __extends = this.__extends || function (d, b) {
+ * Created by kalle on 3.6.2014.
+ */
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", "../ViewControllerBase"], function(require, exports, ViewControllerBase) {
+define(["require", "exports", "../ViewControllerBase"], function (require, exports, ViewControllerBase) {
     var WebShopViewController = (function (_super) {
         __extends(WebShopViewController, _super);
         function WebShopViewController() {
@@ -16,8 +15,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         WebShopViewController.prototype.ControllerInitialize = function () {
             var _this = this;
             var me = this;
-            require([
-                "WebShopView/WebShop_dust",
+            require(["WebShopView/WebShop_dust",
                 "lib/dusts/command_button_begin_dust",
                 "lib/dusts/command_button_end_dust",
                 "lib/dusts/command_button_dust",
@@ -62,20 +60,16 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 });
             });
         };
-
         WebShopViewController.prototype.getCurrentPlan = function (planName) {
             var me = this;
             return _.find(me.currentData.Plans, function (plan) {
                 return plan.PlanName == planName;
             });
         };
-
         WebShopViewController.prototype.VisibleTemplateRender = function () {
         };
-
         WebShopViewController.prototype.InvisibleTemplateRender = function () {
         };
-
         WebShopViewController.prototype.CancelSubscription = function ($source) {
             var me = this;
             var jq = $;
@@ -90,7 +84,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 alert("Cancelling failed!");
             });
         };
-
         WebShopViewController.prototype.ActivateSubscription = function ($source) {
             var me = this;
             var jq = $;
@@ -115,7 +108,5 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         };
         return WebShopViewController;
     })(ViewControllerBase);
-
-    
     return WebShopViewController;
 });

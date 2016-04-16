@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-dashboard.css">
+	<link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/styles.css">
+
+
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
+	<script src="../assets/oiplib1.0/TheBall.Interface.UI/TemplateModuleManager.js"></script>
+	<script src="../assets/oiplib1.0/TheBall.Interface.UI/DataConnectionManager.js"></script>
+	<script src="../assets/oiplib1.0/TheBall.Interface.UI/OperationManager.js"></script>
+	<script src="../assets/oiplib1.0/TheBall.Interface.UI/UpdatingDataGetter.js"></script>
+
+	<title>Asiakashallinta</title>
+
+
+</head>
+
+
+
+<body>
+
+<script>
+
+	var tUI = TheBall.Interface.UI;
+	var tDCM = new tUI.DataConnectionManager();
+	var tOP = new tUI.OperationManager(tDCM);
+	var tUDG = new tUI.UpdatingDataGetter();
+
+
+$(function() {
+	var submitTest = function() {
+		/*
+
+		 CreateObjectAjax(domainName:string, objectName:string, dataContents:any, successCallback?:any, failureCallback?:any) {
+
+		 */
+		console.log("Creating object...");
+		tOP.ExecuteOperationWithAjax("ProBroz.OnlineTraining.CreateMember", { "FirstName": "Etunimi", "LastName": "Sukunimi", "BirthDay": "\/Date(" + Date.now() + ")\/" }, function() {
+			console.log("Successful add!");
+		}, function(errdata) {
+			console.log("Error on creation...");
+			console.log(JSON.stringify(errdata));
+			console.log("Logging done!");
+		});
+	};
+	$("#Testbutton").on("click", submitTest);
+
+	var stripeInit = function() {
+		tOP.ExecuteOperationWithAjax("ProBroz.OnlineTraining.SyncPlansAndPaymentOptionsFromStripe", {}, function() {
+			console.log("Succesful sync!");
+		}, function(errdata) {
+			console.log("Error on creation...");
+			console.log(JSON.stringify(errdata));
+			console.log("Logging done!");
+		});
+	};
+
+	$("#InitStripePlans").on("click", stripeInit);
+
+	var modifyStripeTest = function() {
+		$(".octobat-checkout-button").attr("data-supplier-name", "Test iZ");
+		$(".octobat-checkout-button").attr("data-plan", "FAM_MINI_4M");
+		$(".octobat-checkout-button").attr("data-description", "Family Mini 4 Months Deal (payment monthly)");
+		$(".octobat-checkout-button").attr("data-validate-tax-number", "false");
+		$(".octobat-checkout-button").attr("data-billing-address", "false");
+		$(".octobat-checkout-button").attr("data-moss-compliance", "false");
+	};
+
+	$("#AlterStripePlan").on("click", modifyStripeTest);
+
+});
+
+</script>
+<button id="Testbutton">Create Test Member</button>
+<button id="InitStripePlans">Init Plans from Stripe</button>
+<button id="AlterStripePlan">Alter Payment for Stripe</button>
+
+<div>Octobat / Stripe form test</div>
+<form>
+	<script
+			src="https://s3-eu-west-1.amazonaws.com/js.octobat.com/js/octobat-checkout-0.0.0.js" class="octobat-checkout-button"
+			data-octobat-pkey="oc_test_pkey_xJMsLscYvfDqaQTtxQi7UQtt"
+			data-supplier-name="iZENZEi"
+			data-description="Family Mini 1 Month"
+			data-plan="FAM_MINI_1M"
+			data-coupon="true"
+			data-taxes="included"
+			data-moss-compliance="true"
+			data-validate-tax-number="true"
+			data-billing-address="true">
+	</script>
+</form>
+
+</body>
+</html>

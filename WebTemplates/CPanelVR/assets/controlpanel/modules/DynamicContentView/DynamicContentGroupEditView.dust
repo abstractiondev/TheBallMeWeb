@@ -1,0 +1,57 @@
+<form>
+    {!
+    <div class="small-12 medium-12 large-12 columns"><h5 class="boldieText fancyTextColor">{GroupHeader}</h5></div>
+    !}
+    <div class="small-12 medium-12 large-12 columns"><h5 class="boldieText">{GroupHeader}</h5></div>
+    {#Items}
+    <div class="small-12 medium-12 large-12 columns">
+        <label><span class="boldieText darkTextColor">{Title}</span>
+            {@select key=EditType}
+                {@eq value="RICHTEXT"}
+                    <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
+                              title="{Description}" class="oipdynamiceditinput oipdynamicedit-richtextarea"
+                              style="height: 75px;">
+                        {Content}
+                    </textarea>
+                    <br>
+                {/eq}
+                {@eq value="RAWLINE"}
+                    <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
+                           title="{Description}" class="oipdynamiceditinput oipdynamicedit-inputtext" value="{RawContent}">
+                {/eq}
+                {@eq value="RAWMULTILINE"}
+                    <textarea data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
+                           title="{Description}" class="oipdynamiceditinput oipdynamicedit-textarea" rows="10">
+                        {RawContent}
+                    </textarea>
+                {/eq}
+                {@eq value="IMAGESMALL"}
+                    <a style="padding: 7px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="select" data-oipfile-filegroupid="Image{ID}">Select</a>
+                    <a style="padding: 7px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="remove" data-oipfile-filegroupid="Image{ID}">Remove</a>
+                    <br>
+                    <img style="height: 128px" class="oipfile" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="Image{ID}"
+                         data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg">
+                    <input type="file" data-contentid="{ID}" class="oipdynamiceditinput oipdynamicedit-imageinput" name="ImageDataFileInput{ID}">
+                {/eq}
+                {@eq value="IMAGELARGE"}
+                    <br>
+                    <a style="padding: 10px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="select" data-oipfile-filegroupid="Image{ID}">Select</a>
+                    <a style="padding: 10px;margin: 3px" class="button small oipfile" data-oipfile-buttontype="remove" data-oipfile-filegroupid="Image{ID}">Remove</a>
+                    <br>
+                    <img style="height: 512px" class="oipfile" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="Image{ID}"
+                         data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg">
+                    <input type="file" data-contentid="{ID}" class="oipdynamiceditinput oipdynamicedit-imageinput" name="ImageDataFileInput{ID}">
+                    <br>
+                    <br>
+                    <br>
+                {/eq}
+                {@eq value=""}
+                    <input type="text" data-contentid="{ID}" data-contentetag="{MasterETag}" data-contentrelativelocation="{RelativeLocation}"
+                           title="{Description}" class="oipdynamiceditinput oipdynamicedit-inputtext" value="{RawContent}"/>
+                {/eq}
+            {/select}
+        </label>
+    </div>
+    {/Items}
+    <!--Closes the div researchPageSave&PreviewAllDIV-->
+</form>

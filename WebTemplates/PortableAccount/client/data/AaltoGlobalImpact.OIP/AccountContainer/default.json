@@ -1,0 +1,356 @@
+{
+  "AccountModule": {
+    "GeneratedByProcessID": null,
+    "ID": "39fa3f3b-a1b9-4fd0-8486-c001a2fd52a0",
+    "LocationCollection": {
+      "CollectionContent": [],
+      "GeneratedByProcessID": null,
+      "ID": "79ea96d5-ed2d-4344-acf0-0282ba04e97a",
+      "IsCollectionFiltered": true,
+      "MasterETag": null,
+      "Name": "AddressAndLocationCollection",
+      "OrderFilterIDList": [],
+      "OwnerID": "00000000-0000-0000-0000-000000000000",
+      "RelativeLocation": "acc\/3667159f-3d00-4005-98e8-21353a91765d\/AaltoGlobalImpact.OIP\/AddressAndLocationCollection\/79ea96d5-ed2d-4344-acf0-0282ba04e97a",
+      "SemanticDomainName": "AaltoGlobalImpact.OIP"
+    },
+    "MasterETag": null,
+    "Name": "AccountModule",
+    "OwnerID": "00000000-0000-0000-0000-000000000000",
+    "Profile": {
+      "Address": {
+        "Country": null,
+        "GeneratedByProcessID": null,
+        "ID": "9e7ea6d8-1ef8-421e-8c62-56d5132795b9",
+        "MasterETag": null,
+        "Name": "StreetAddress",
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/StreetAddress\/9e7ea6d8-1ef8-421e-8c62-56d5132795b9",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP",
+        "Street": null,
+        "Town": null,
+        "ZipCode": null
+      },
+      "FirstName": null,
+      "GeneratedByProcessID": null,
+      "ID": "54573dbb-42e2-408b-93ee-9de43aa96c9a",
+      "IsSimplifiedAccount": false,
+      "LastName": null,
+      "MasterETag": null,
+      "Name": "AccountProfile",
+      "OwnerID": "00000000-0000-0000-0000-000000000000",
+      "ProfileImage": {
+        "Caption": null,
+        "Categories": {
+          "CollectionContent": [],
+          "GeneratedByProcessID": null,
+          "ID": "ad49a491-3a70-49f2-9630-b58205a73d3d",
+          "IsCollectionFiltered": false,
+          "MasterETag": null,
+          "Name": "CategoryCollection",
+          "OrderFilterIDList": [],
+          "OwnerID": "00000000-0000-0000-0000-000000000000",
+          "RelativeLocation": "AaltoGlobalImpact.OIP\/CategoryCollection\/ad49a491-3a70-49f2-9630-b58205a73d3d",
+          "SemanticDomainName": "AaltoGlobalImpact.OIP"
+        },
+        "Description": null,
+        "GeneratedByProcessID": null,
+        "ID": "98694c44-762a-40bb-a946-87d261dbecab",
+        "ImageData": {
+          "AdditionalFormatFileExt": null,
+          "ContentLength": 0,
+          "FileExt": null,
+          "GeneratedByProcessID": null,
+          "ID": "ff6030d6-a54c-4dfa-bda9-95c1d1cdcc28",
+          "MasterETag": null,
+          "Name": "MediaContent",
+          "OriginalFileName": null,
+          "OwnerID": "00000000-0000-0000-0000-000000000000",
+          "RelativeLocation": "AaltoGlobalImpact.OIP\/MediaContent\/ff6030d6-a54c-4dfa-bda9-95c1d1cdcc28",
+          "SemanticDomainName": "AaltoGlobalImpact.OIP"
+        },
+        "Locations": {
+          "CollectionContent": [],
+          "GeneratedByProcessID": null,
+          "ID": "25dce1e7-ddeb-4576-b6f0-5083b5c40819",
+          "IsCollectionFiltered": false,
+          "MasterETag": null,
+          "Name": "AddressAndLocationCollection",
+          "OrderFilterIDList": [],
+          "OwnerID": "00000000-0000-0000-0000-000000000000",
+          "RelativeLocation": "AaltoGlobalImpact.OIP\/AddressAndLocationCollection\/25dce1e7-ddeb-4576-b6f0-5083b5c40819",
+          "SemanticDomainName": "AaltoGlobalImpact.OIP"
+        },
+        "MasterETag": null,
+        "Name": "Image",
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "ReferenceToInformation": {
+          "GeneratedByProcessID": null,
+          "ID": "5b6830d2-1b0e-44de-9174-c23c43c74d97",
+          "MasterETag": null,
+          "Name": "ReferenceToInformation",
+          "OwnerID": "00000000-0000-0000-0000-000000000000",
+          "RelativeLocation": "AaltoGlobalImpact.OIP\/ReferenceToInformation\/5b6830d2-1b0e-44de-9174-c23c43c74d97",
+          "SemanticDomainName": "AaltoGlobalImpact.OIP",
+          "Title": null,
+          "URL": null
+        },
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/Image\/98694c44-762a-40bb-a946-87d261dbecab",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP",
+        "Title": null
+      },
+      "RelativeLocation": "AaltoGlobalImpact.OIP\/AccountProfile\/54573dbb-42e2-408b-93ee-9de43aa96c9a",
+      "SemanticDomainName": "AaltoGlobalImpact.OIP",
+      "SimplifiedAccountEmail": null,
+      "SimplifiedAccountGroupID": null
+    },
+    "RelativeLocation": "AaltoGlobalImpact.OIP\/AccountModule\/39fa3f3b-a1b9-4fd0-8486-c001a2fd52a0",
+    "Roles": {
+      "GeneratedByProcessID": null,
+      "ID": "692800c3-0e98-4e30-96dd-a93704d54adf",
+      "MasterETag": null,
+      "MemberInGroups": {
+        "CollectionContent": [
+          {
+            "GeneratedByProcessID": null,
+            "ID": "9ca5b91f-554d-419f-9051-ca544f0ca384",
+            "MasterETag": null,
+            "Name": "ReferenceToInformation",
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/ReferenceToInformation\/9ca5b91f-554d-419f-9051-ca544f0ca384",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP",
+            "Title": "Diosphere Test Room - Collaborator",
+            "URL": "\/auth\/grp\/ebffe2e7-d44c-44ce-b522-584390429c9d\/"
+          },
+          {
+            "GeneratedByProcessID": null,
+            "ID": "107d4b68-e720-4896-807a-16a4ddad0b70",
+            "MasterETag": null,
+            "Name": "ReferenceToInformation",
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/ReferenceToInformation\/107d4b68-e720-4896-807a-16a4ddad0b70",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP",
+            "Title": "MeNowHere - Collaborator",
+            "URL": "\/auth\/grp\/daebb5ee-a1a3-47f9-8d1b-daa56bc30880\/"
+          }
+        ],
+        "GeneratedByProcessID": null,
+        "ID": "3f9fdd90-cb71-46f6-b3c9-0b87609fc986",
+        "IsCollectionFiltered": false,
+        "MasterETag": null,
+        "Name": "ReferenceCollection",
+        "OrderFilterIDList": [],
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/ReferenceCollection\/3f9fdd90-cb71-46f6-b3c9-0b87609fc986",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP"
+      },
+      "ModeratorInGroups": {
+        "CollectionContent": [
+          {
+            "GeneratedByProcessID": null,
+            "ID": "80fa9fdc-e44b-42bb-8a05-632a6cd69b99",
+            "MasterETag": null,
+            "Name": "ReferenceToInformation",
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/ReferenceToInformation\/80fa9fdc-e44b-42bb-8a05-632a6cd69b99",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP",
+            "Title": "Kalle's Test Group - Initiator",
+            "URL": "\/auth\/grp\/67557f3f-1cbe-4c39-875b-0df5d2f6e170\/"
+          }
+        ],
+        "GeneratedByProcessID": null,
+        "ID": "5ecaf49f-10f3-4e3e-a945-79c4e4716a67",
+        "IsCollectionFiltered": false,
+        "MasterETag": null,
+        "Name": "ReferenceCollection",
+        "OrderFilterIDList": [],
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/ReferenceCollection\/5ecaf49f-10f3-4e3e-a945-79c4e4716a67",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP"
+      },
+      "Name": "AccountRoles",
+      "OrganizationsImPartOf": null,
+      "OwnerID": "00000000-0000-0000-0000-000000000000",
+      "RelativeLocation": "AaltoGlobalImpact.OIP\/AccountRoles\/692800c3-0e98-4e30-96dd-a93704d54adf",
+      "SemanticDomainName": "AaltoGlobalImpact.OIP"
+    },
+    "Security": {
+      "EmailCollection": {
+        "CollectionContent": [
+          {
+            "EmailAddress": "kalle.launiala@gmail.com",
+            "GeneratedByProcessID": null,
+            "ID": "1c9f35bf-6e07-454a-b0dc-0e99be65d70f",
+            "MasterETag": null,
+            "Name": "TBEmail",
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/TBEmail\/1c9f35bf-6e07-454a-b0dc-0e99be65d70f",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP",
+            "ValidatedAt": "\/Date(1416576912803+0000)\/"
+          }
+        ],
+        "GeneratedByProcessID": null,
+        "ID": "b9d0d5f7-8e9d-4cea-b1fd-979ba701b0fa",
+        "IsCollectionFiltered": false,
+        "MasterETag": null,
+        "Name": "TBEmailCollection",
+        "OrderFilterIDList": [],
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/TBEmailCollection\/b9d0d5f7-8e9d-4cea-b1fd-979ba701b0fa",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP"
+      },
+      "GeneratedByProcessID": null,
+      "ID": "1df1e0db-f54a-4207-bf37-b452508620dd",
+      "LoginInfoCollection": {
+        "CollectionContent": [
+          {
+            "GeneratedByProcessID": null,
+            "ID": "907debb1-fca8-4bc4-bb15-59649696fba0",
+            "MasterETag": null,
+            "Name": "TBLoginInfo",
+            "OpenIDUrl": "https:\/\/www.google.com\/accounts\/o8\/id?id=AItOawmr7izdyK_a0hM1GK5LBF5OYpbSKWUcgag",
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/TBLoginInfo\/907debb1-fca8-4bc4-bb15-59649696fba0",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP"
+          }
+        ],
+        "GeneratedByProcessID": null,
+        "ID": "ffbc9b31-0d9f-4853-b1f4-5ba842fc0986",
+        "IsCollectionFiltered": false,
+        "MasterETag": null,
+        "Name": "TBLoginInfoCollection",
+        "OrderFilterIDList": [],
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/TBLoginInfoCollection\/ffbc9b31-0d9f-4853-b1f4-5ba842fc0986",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP"
+      },
+      "MasterETag": null,
+      "Name": "AccountSecurity",
+      "OwnerID": "00000000-0000-0000-0000-000000000000",
+      "RelativeLocation": "AaltoGlobalImpact.OIP\/AccountSecurity\/1df1e0db-f54a-4207-bf37-b452508620dd",
+      "SemanticDomainName": "AaltoGlobalImpact.OIP"
+    },
+    "SemanticDomainName": "AaltoGlobalImpact.OIP"
+  },
+  "AccountSummary": {
+    "GeneratedByProcessID": null,
+    "GroupSummary": {
+      "GeneratedByProcessID": null,
+      "GroupCollection": {
+        "CollectionContent": [],
+        "GeneratedByProcessID": null,
+        "ID": "e9a8dfe0-6ec1-4f98-a410-f81c28fe9a3e",
+        "IsCollectionFiltered": false,
+        "MasterETag": null,
+        "Name": "GroupCollection",
+        "OrderFilterIDList": [],
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/GroupCollection\/e9a8dfe0-6ec1-4f98-a410-f81c28fe9a3e",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP"
+      },
+      "GroupSummaryIndex": {
+        "GeneratedByProcessID": null,
+        "ID": "51bc3c3a-d6b7-443d-b32e-85e4b6dc30f2",
+        "Icon": {
+          "Caption": null,
+          "Categories": {
+            "CollectionContent": [],
+            "GeneratedByProcessID": null,
+            "ID": "034c1d1d-e94e-4350-8850-c527d742d2c6",
+            "IsCollectionFiltered": false,
+            "MasterETag": null,
+            "Name": "CategoryCollection",
+            "OrderFilterIDList": [],
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/CategoryCollection\/034c1d1d-e94e-4350-8850-c527d742d2c6",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP"
+          },
+          "Description": null,
+          "GeneratedByProcessID": null,
+          "ID": "9a956f3f-2a39-466b-b2c3-a50594cbe980",
+          "ImageData": {
+            "AdditionalFormatFileExt": null,
+            "ContentLength": 0,
+            "FileExt": null,
+            "GeneratedByProcessID": null,
+            "ID": "dcde96d5-94a2-4325-acf0-3469596710c1",
+            "MasterETag": null,
+            "Name": "MediaContent",
+            "OriginalFileName": null,
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/MediaContent\/dcde96d5-94a2-4325-acf0-3469596710c1",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP"
+          },
+          "Locations": {
+            "CollectionContent": [],
+            "GeneratedByProcessID": null,
+            "ID": "4aea75cb-fe22-4032-a9fe-10d8228cdd57",
+            "IsCollectionFiltered": false,
+            "MasterETag": null,
+            "Name": "AddressAndLocationCollection",
+            "OrderFilterIDList": [],
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/AddressAndLocationCollection\/4aea75cb-fe22-4032-a9fe-10d8228cdd57",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP"
+          },
+          "MasterETag": null,
+          "Name": "Image",
+          "OwnerID": "00000000-0000-0000-0000-000000000000",
+          "ReferenceToInformation": {
+            "GeneratedByProcessID": null,
+            "ID": "86d822c6-0e5f-4251-b64f-b78ade0a5c24",
+            "MasterETag": null,
+            "Name": "ReferenceToInformation",
+            "OwnerID": "00000000-0000-0000-0000-000000000000",
+            "RelativeLocation": "AaltoGlobalImpact.OIP\/ReferenceToInformation\/86d822c6-0e5f-4251-b64f-b78ade0a5c24",
+            "SemanticDomainName": "AaltoGlobalImpact.OIP",
+            "Title": null,
+            "URL": null
+          },
+          "RelativeLocation": "AaltoGlobalImpact.OIP\/Image\/9a956f3f-2a39-466b-b2c3-a50594cbe980",
+          "SemanticDomainName": "AaltoGlobalImpact.OIP",
+          "Title": null
+        },
+        "Introduction": null,
+        "MasterETag": null,
+        "Name": "GroupIndex",
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/GroupIndex\/51bc3c3a-d6b7-443d-b32e-85e4b6dc30f2",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP",
+        "Summary": null,
+        "Title": null
+      },
+      "ID": "75ef426b-dedc-4520-91c6-c53ab68ada5a",
+      "Introduction": {
+        "Body": null,
+        "GeneratedByProcessID": null,
+        "ID": "c5cb128f-12d8-4e7a-80e1-3950099c996a",
+        "MasterETag": null,
+        "Name": "Introduction",
+        "OwnerID": "00000000-0000-0000-0000-000000000000",
+        "RelativeLocation": "AaltoGlobalImpact.OIP\/Introduction\/c5cb128f-12d8-4e7a-80e1-3950099c996a",
+        "SemanticDomainName": "AaltoGlobalImpact.OIP",
+        "Title": null
+      },
+      "MasterETag": null,
+      "Name": "GroupSummaryContainer",
+      "OwnerID": "00000000-0000-0000-0000-000000000000",
+      "RelativeLocation": "AaltoGlobalImpact.OIP\/GroupSummaryContainer\/75ef426b-dedc-4520-91c6-c53ab68ada5a",
+      "SemanticDomainName": "AaltoGlobalImpact.OIP",
+      "SummaryBody": null
+    },
+    "ID": "57de851f-6aea-4839-a84e-4db74b9a8e72",
+    "MasterETag": null,
+    "Name": "AccountSummary",
+    "OwnerID": "00000000-0000-0000-0000-000000000000",
+    "RelativeLocation": "AaltoGlobalImpact.OIP\/AccountSummary\/57de851f-6aea-4839-a84e-4db74b9a8e72",
+    "SemanticDomainName": "AaltoGlobalImpact.OIP"
+  },
+  "GeneratedByProcessID": null,
+  "ID": "fea120bf-3d4c-4dc6-9319-774eed5b7da3",
+  "MasterETag": "\"0x8D2678429698CEE\"",
+  "Name": "AccountContainer",
+  "OwnerID": "00000000-0000-0000-0000-000000000000",
+  "RelativeLocation": "acc\/3667159f-3d00-4005-98e8-21353a91765d\/AaltoGlobalImpact.OIP\/AccountContainer\/default",
+  "SemanticDomainName": "AaltoGlobalImpact.OIP"
+}

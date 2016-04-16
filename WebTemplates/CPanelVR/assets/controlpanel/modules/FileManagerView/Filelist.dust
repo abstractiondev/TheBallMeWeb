@@ -1,0 +1,52 @@
+<table id="filemanager-table" style='table-layout:fixed;width:100%;'>
+    <thead>
+        <tr>
+            <th style='width:20%;max-width: 130px;'>Preview</th>
+            <th class='breakwords'>URL</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th style="width: 40px">Act</th>
+        </tr>
+    </thead>
+    <tbody>
+    {#BinaryFiles}
+        {#CollectionContent}
+        <tr>
+            {@select key="{Data.FileExt}"}
+                {@eq value=".notusedmp4"}
+                    <td>
+                        <video width="320" height="240">
+                            <source src="../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}{Data.FileExt}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </td>
+                    mpd4
+                {/eq}
+                {@default}
+                    <td style='text-transform:uppercase !important;font-size: 18px;' class='boldieText fancyTextColor'>{Data.FileExt}</td>
+                {/default}
+            {/select}
+            {!
+            <td style='text-transform:none !important;font-style:italic;font-size:11px;'><a href="../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}/{Title}{Data.FileExt}">../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}/{Title}{Data.FileExt}</a></td>
+            !}
+            <td style='text-transform:none !important;font-style:italic;font-size:11px;'><a href="../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}{Data.FileExt}">../../AaltoGlobalImpact.OIP/MediaContent/{Data.ID}{Data.FileExt}</a></td>
+            <td style='text-transform:none !important;font-style:italic;font-size:11px;'>{Title}</td>
+            <td style='text-transform:none !important;font-style:italic;font-size:11px;'>{Description}</td>
+            <td>{>"command_icon.dust" command="EditBinaryFile" command_args="{Data.FileExt}" icon_class_name="icon-edit" /}<br><br>{>"objectdeleteicon.dust" object_delete_title="{Title}" /}</td>
+        </tr>
+        {/CollectionContent}
+    {/BinaryFiles}
+    {#ImageFiles.CollectionContent}
+        <tr>
+            <td style='text-transform:uppercase !important;font-size: 18px;' class='boldieText fancyTextColor'>
+                <img src="../../AaltoGlobalImpact.OIP/MediaContent/{ImageData.ID}_64x64_crop{ImageData.FileExt}">
+            </td>
+            <td style='text-transform:none !important;font-style:italic;font-size:11px;'><a target="_blank" href="../../AaltoGlobalImpact.OIP/MediaContent/{ImageData.ID}{ImageData.FileExt}">../../AaltoGlobalImpact.OIP/MediaContent/{ImageData.ID}{ImageData.FileExt}</a></td>
+            <td style='text-transform:none !important;font-style:italic;font-size:11px;'>{Title}</td>
+            <td style='text-transform:none !important;font-style:italic;font-size:11px;'>{Description}</td>
+            <td>{>"command_icon.dust" command="EditImageFile" command_args="{ImageData.FileExt}" icon_class_name="icon-edit" /}<br><br>{>"objectdeleteicon.dust" object_delete_title="{Title}" /}</td>
+        </tr>
+    {/ImageFiles.CollectionContent}
+    </tbody>
+</table>
+

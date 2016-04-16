@@ -1,0 +1,6 @@
+<div class="row" id="isotope_content_row">
+    <!-- +++Isotope content starts +++++++++++++++++++++++++++++++++++++++++++++ -->
+    <div class="portfolioFilter" id="portfolioFilterDivContainer"></div>
+    <div class="large-12 columns" id="contentDivContainer" style="width:100%; margin: auto !important;"></div>
+    <!-- +++Isotope content ends +++++++++++++++++++++++++++++++++++++++++++++ -->
+</div>

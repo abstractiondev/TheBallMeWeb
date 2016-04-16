@@ -1,0 +1,75 @@
+{#Connections}
+<div class="row">
+    <div class="small-12 medium-6 large-6 columns">
+        <h4 class="boldieText">Current Connections</h4>
+        <div>
+            <table id="categories-table" style="text-align: left;">
+                <tr>
+                    <th width="5%">Act</th>
+                    <th width="30%">Host / Group Connection</th>
+                    <th width="80%">Description</th>
+                    <th width="5%">Delete</th>
+                </tr>
+{#CollectionContent}
+                <tr>
+                    {!
+                    <td>{>"command_icon.dust" command="ConnectionAction" command_args="{ID}" icon_class_name="icon-edit" /}</td>
+                    !}
+                    <td><a href="#" class="small button dropdown" data-dropdown="drop-Connection{ID}">Do...</a>
+                        <ul id="drop-Connection{ID}" data-dropdown-content class="f-dropdown">
+                            {#AvailableCommands}
+                            <li><a href="#" class="button oip-controller-command oip-dropdown-button" data-oip-command="{Command}" data-object-id="{ID}">{Label}</a></li>
+                            {/AvailableCommands}
+                        </ul>
+                    </td>
+                    <td style='text-transform:none !important;' class='fancyTextColor'>{ConnectionURL}</td>
+                    <td style='text-transform:none !important;font-style:italic;font-size: 12px;'>{Description}</td>
+                    <td>{>"objectdeleteicon.dust" object_delete_title="{Title}" /}</td>
+                </tr>
+{/CollectionContent}
+            </table>
+        </div>
+    </div>
+    <div class="small-12 medium-6 large-6 columns show-for-medium-up"><h6 class="discreetTextColor"></h6></div>
+</div>
+{/Connections}
+
+{!
+{#Connections}
+    <dl class="accordion" data-accordion>
+        {#CollectionContent}
+            <dd id="dd{ID}">
+                <a href="#" class="connectionAccordion">{Description}</a>
+                <div id="conAcc{ID}" class="content">
+                    {^OtherSideConnectionID}
+                        <button onclick="FinalizeConnection('{ID}')">Finalize connection</button>
+                    {:else}
+                        <button onclick="SynchronizeConnectionCategories('{ID}')">Synchronize Categories</button>
+                        {?ThisSideCategories.length} !}
+                        {!
+                            <button onClick="PopulateTreeConnectors('{ID}')">Populate Tree Connectors</button>
+                        !}
+{!                            <script type="text/javascript">
+                                PopulateTreeConnectors('{ID}');
+                            </script>
+                            <button onclick="SetCategoryLinksFromTreeSelections('{ID}')">Set Category Links</button>
+                            <table>
+                                <tr><th>Linking Info</th></tr>
+                                {#CategoryLinks}
+                                    <tr><td>{SourceCategoryID} - {TargetCategoryID} - {LinkingType}</td></tr>
+                                {/CategoryLinks}
+
+                            </table>
+                        {/ThisSideCategories.length}
+                    {/OtherSideConnectionID}
+                    <div id="LeftSideConnectionTree{ID}" style="width: 50%;display: inline-block"></div><div id="RightSideConnectionTree{ID}" style="width: 50%;display: inline-block"></div>
+                    <button onclick="DeleteConnection('{ID}')">Delete connection</button>
+                </div>
+            </dd>
+        {/CollectionContent}
+    </dl>
+{/Connections}!}
+
+{>"command_button.dust" button_label="Add New Connection" command="OpenAddConnectionModal" command_args="{ID}" /}
+
+{>"ConnectionView_Modals.dust" /}
