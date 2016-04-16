@@ -1,0 +1,29 @@
+
+<div class="grid-container">
+  <label>Gender
+    <input type="radio" name="gender" value="employee">I'm an employee (I work for the company)<br>
+    <input type="radio" name="gender" value="partner">I'm a business partner (I work with the company)<br>
+  </label>
+  <label>Date of Birth
+    <input type="text" placeholder="1.1.2000">
+  </label>
+  <label>Country / Location
+    <input type="text">
+  </label>
+  <label>Email address
+    <input type="text">
+  </label>
+  <div class="isotope-container">
+    <div align="center" class="card tbisobox isotope-item" ng-repeat="group in vm.groups">
+      <h5 class="tbshadowtext">{{group.Title}}</h5>
+      <!--
+      <iframe ng-src="/auth/grp/{{group.id}}/cpanel/html/statustile_account.html" frameborder="0" />
+      -->
+      <div><a class="button hollow large tbisoboximg" href="{{group.URL}}"><div class="tbshadowtext">Go To Group</div></a></div>
+    </div>
+  </div>
+  <!--
+  <div>{{vm.LastOperationDump}}</div>
+  -->
+</div>
+
