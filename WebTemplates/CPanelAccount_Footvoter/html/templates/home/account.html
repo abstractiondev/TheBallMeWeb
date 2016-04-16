@@ -1,6 +1,7 @@
 
 <div class="grid-container">
-  <label>Gender
+  <title>Submit Voter</title>
+  <label>Gender<br>
     <input type="radio" name="gender" value="female">Female<br>
     <input type="radio" name="gender" value="male">Male
     <input type="radio" name="gender" value="other">Other<br>
@@ -8,12 +9,13 @@
   <label>Date of Birth
     <input type="text" placeholder="1.1.2000">
   </label>
-  <label>Country / Location
+  <label>Country
     <input type="text">
   </label>
   <label>Email address
     <input type="text">
   </label>
+  <a href="../votesummary.html" class="button">Submit</a>
   <div class="isotope-container">
     <div align="center" class="card tbisobox isotope-item" ng-repeat="group in vm.groups">
       <h5 class="tbshadowtext">{{group.Title}}</h5>
