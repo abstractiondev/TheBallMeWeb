@@ -160,23 +160,38 @@
     .logolargeup
     {
         margin: 10px;
-        width: 320px;
+        height: 50%;
+        /*width: 320px;*/
         background-color: white;
         border-color: gold;
         border-style: solid;
         border-width: 1px;
     }
+
+    .logolargeuprow
+    {
+        height: 100%;
+    }
+
+    .logomediumrow
+    {
+        height: 50%;
+    }
+    .logosmallrow
+    {
+        height: 50%;
+    }
 </style>
 
-<div class="row text-center show-for-large-up">
+<div class="row text-center show-for-large-up logolargeuprow">
     <div id="logocontainer-large" class="logolargeup boxshadow">
     </div>
 </div>
-<div class="row text-center show-for-medium-only">
+<div class="row text-center show-for-medium-only logomediumrow">
     <div id="logocontainer-medium" class="logomedium boxshadow">
     </div>
 </div>
-<div class="row text-center show-for-small-only">
+<div class="row text-center show-for-small-only logosmallrow">
     <div id="logocontainer-small" class="logosmall boxshadow">
     </div>
 </div>
