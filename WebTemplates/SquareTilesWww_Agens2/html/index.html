@@ -353,16 +353,12 @@
 
             var nodeSummary = arguments[0][0];
             CurrNodeSummary = nodeSummary;
+            CurrCategories = nodeSummary.NodeSourceCategories.CollectionContent;
             CurrLocations = arguments[1][0];
             CurrGroupContainer = arguments[2][0];
 
             var imageData = CurrGroupContainer.GroupProfile.ProfileImage.ImageData;
-            if(imageData != null)
-            {
-                $("#logocontainer-large").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
-                $("#logocontainer-medium").html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
-                $("#logocontainer-small").html("<img src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
-            }
+            updateLogoFromImageData(imageData);
 
             var myObj = nodeSummary;
             nodeSummary.RootCategories = getRootCategories(nodeSummary.NodeSourceCategories);
@@ -395,6 +391,41 @@
             });
         });
     });
+
+    var updateLogoFromImageData = function(imageData)
+    {
+        var $logoLarge = $("#logocontainer-large");
+        var $logoMedium = $("#logocontainer-medium");
+        var $logoSmall = $("#logocontainer-small");
+        if(imageData != null)
+        {
+            $logoLarge.html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+            $logoMedium.html("<img style='height:100%;' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+            $logoSmall.html("<img src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + imageData.FileExt + "' />");
+        } else {
+            $logoLarge.html("");
+            $logoMedium.html("");
+            $logoSmall.html("");
+        }
+    };
+
+    var findCategory = function(categoryID)
+    {
+        var matchingCats = $.grep(CurrCategories, function(cat) {
+            return cat.ID == categoryID;
+        });
+        if(matchingCats.length >= 1)
+            return matchingCats[0];
+        return null;
+    };
+
+    var updateMainLogo = function(categoryID)
+    {
+        console.log("Updating logo with: " + categoryID);
+        var category = findCategory(categoryID);
+        var imageData = category != null ? category.ImageData : null;
+        updateLogoFromImageData(imageData);
+    };
 </script>
 
 <!--<div class="container clearfix">-->

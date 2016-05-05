@@ -171,26 +171,14 @@
             $(".contentfilter-selected").removeClass("selected").removeClass(".contentfilter-selected");
             $this.addClass('selected');
             $this.addClass("contentfilter-selected");
-            /*
-            // store filter value in object
-            // i.e. filters.color = 'red'
-            */
-            /*
-            var group = $optionSet.attr('data-filter-group');
-            console.log("Group: " + group);
-            filters[ group ] = $this.attr('data-filter-value');
-            var isoFilters = [];
-            for ( var prop in filters ) {
-                isoFilters.push( filters[ prop ] )
-            }
-            var selector = isoFilters.join('');
-            */
+
             var filterValue = $this.attr("data-filter-value");
             console.log("Applying filter selector: " + filterValue);
             $container.isotope({ filter: filterValue });
             if(CurrentCategoryID) {
                 $container.isotope('updateSortData', $(".nodetile"));
                 $container.isotope({ sortBy: "rankFunc" });
+                updateMainLogo(CurrentCategoryID);
             } else {
                 $container.isotope({ sortBy: "original-order"});
             }
