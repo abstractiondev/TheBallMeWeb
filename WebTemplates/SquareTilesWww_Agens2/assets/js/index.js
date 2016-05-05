@@ -3,7 +3,6 @@
  */
 var tUI = TheBall.Interface.UI;
 var tDCM = new tUI.DataConnectionManager();
-var tOP = new tUI.OperationManager(tDCM);
 var tUDG = new tUI.UpdatingDataGetter();
 
 tUDG.RegisterDataURL("SEMANTICCONTENT", function(args) {

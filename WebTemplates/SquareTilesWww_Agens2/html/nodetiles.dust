@@ -77,18 +77,38 @@
 <script>
 
     var applyIndexStyleClasses = function() {
-        var $nodetiles = $(".nodetile").not(".isotope-hidden");
+        var $nodetiles = $(".nodetile").not(".isotope-hidden").sort(function(elem1, elem2) {
+            var $e1 = $(elem1);
+            var $e2 = $(elem2);
+            var pos1 = $e1.data("isotope-item-position");
+            var pos2 = $e2.data("isotope-item-position");
+            var val1 = pos1.x;
+            var val2 = pos2.x;
+            if(val1 == val2)
+                return 0;
+            return val1 < val2 ? -1 : 1;
+        }).sort(function(elem1, elem2) {
+            var $e1 = $(elem1);
+            var $e2 = $(elem2);
+            var pos1 = $e1.data("isotope-item-position");
+            var pos2 = $e2.data("isotope-item-position");
+            var val1 = pos1.y;
+            var val2 = pos2.y;
+            if(val1 == val2)
+                return 0;
+            return val1 < val2 ? -1 : 1;
+        });
         console.log("Styling total tiles: " + $nodetiles.length);
 
         var currIX = 0;
         $nodetiles.each(function(ix, elem) {
             var $elem = $(elem);
-            var position = $elem.data("isotope-item-position");
+            /*var position = $elem.data("isotope-item-position");
             var xIndex = parseInt(position.x / $elem.width());
             var yIndex = parseInt(position.y / $elem.height());
             var posIX = xIndex + yIndex;
             console.log("X: " + xIndex + " Y: " + yIndex + " Posix: " + posIX);
-            currIX = posIX % 4;
+            currIX = posIX % 4;*/
             console.log("CurrIX: " + currIX);
             var className = "styleix" + currIX;
             $elem.addClass(className);
