@@ -76,47 +76,14 @@
 </div>
 <script>
 
-    var applyIndexStyleClasses = function() {
-        var $nodetiles = $(".nodetile").not(".isotope-hidden").sort(function(elem1, elem2) {
-            var $e1 = $(elem1);
-            var $e2 = $(elem2);
-            var pos1 = $e1.data("isotope-item-position");
-            var pos2 = $e2.data("isotope-item-position");
-            var val1 = pos1.x;
-            var val2 = pos2.x;
-            if(val1 == val2)
-                return 0;
-            return val1 < val2 ? -1 : 1;
-        }).sort(function(elem1, elem2) {
-            var $e1 = $(elem1);
-            var $e2 = $(elem2);
-            var pos1 = $e1.data("isotope-item-position");
-            var pos2 = $e2.data("isotope-item-position");
-            var val1 = pos1.y;
-            var val2 = pos2.y;
-            if(val1 == val2)
-                return 0;
-            return val1 < val2 ? -1 : 1;
-        });
-        console.log("Styling total tiles: " + $nodetiles.length);
-
-        var currIX = 0;
-        $nodetiles.each(function(ix, elem) {
-            var $elem = $(elem);
-            /*var position = $elem.data("isotope-item-position");
-            var xIndex = parseInt(position.x / $elem.width());
-            var yIndex = parseInt(position.y / $elem.height());
-            var posIX = xIndex + yIndex;
-            console.log("X: " + xIndex + " Y: " + yIndex + " Posix: " + posIX);
-            currIX = posIX % 4;*/
-            console.log("CurrIX: " + currIX);
-            var className = "styleix" + currIX;
-            $elem.addClass(className);
-            currIX = (currIX + 1) % 4;
-        });
-    };
-
     $(function(){
+
+        $(window).resize(function() {
+            resizeMasonryArea();
+        });
+
+        resizeMasonryArea();
+
         var $container = $('#tilecontainer');
         var filters = {};
 
@@ -124,6 +91,7 @@
             itemSelector : '.nodetile',
             filter: '.ROOTCATEGORY',
             itemPositionDataEnabled: true,
+            transitionDuration: 0,
             getSortData: {
                 rankFunc: function($item) {
                     var title = $item.data("title");
@@ -137,6 +105,9 @@
                 }
             }
         });
+        setTimeout(function() {
+            $(window).resize();
+        }, 1);
 
         var loaded = 0;
         var numImages = $("img").length;
@@ -171,15 +142,25 @@
 
             var filterValue = $this.attr("data-filter-value");
             console.log("Applying filter selector: " + filterValue);
-            $container.isotope({ filter: filterValue });
+            $container.isotope({ filter: filterValue,
+                transitionDuration: 0,
+            });
+            resizeMasonryArea();
             if(CurrentCategoryID) {
                 $container.isotope('updateSortData', $(".nodetile"));
-                $container.isotope({ sortBy: "rankFunc" });
+                $container.isotope({ sortBy: "rankFunc",
+                    transitionDuration: 0,
+                });
                 updateMainLogo(CurrentCategoryID);
             } else {
-                $container.isotope({ sortBy: "original-order"});
+                $container.isotope({ sortBy: "original-order",
+                    transitionDuration: 0,
+                });
             }
             applyIndexStyleClasses();
+            setTimeout(function() {
+                $(window).resize();
+            }, 1);
             return false;
         });
 
@@ -187,7 +168,8 @@
         {
             $container.imagesLoaded( function() {
                 $container.isotope({
-                    filter : '.ROOTCATEGORY'
+                    filter : '.ROOTCATEGORY',
+                    transitionDuration: 0,
                 });
             });
         }
