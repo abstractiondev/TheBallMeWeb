@@ -178,14 +178,36 @@
 
     .contenttilerow {
         height: 40%;
+        margin:auto;
     }
 
     .contenttilerowcentered {
-        margin: auto;
+        background: white;
     }
 
     .footerrow {
-        height: 10%;
+
+    }
+
+
+    .footer {
+        height: auto;
+        width: 100%;
+        background: white;
+        text-align: center;
+        font-weight: 200;
+        color:dimgray;
+        font-style: oblique;
+        font-size: 24px;
+        font-family: Georgia;
+        margin: auto;
+        display: table;
+    }
+
+    .footertext {
+        display: table-cell;
+        vertical-align: bottom;
+        padding: 5px;;
     }
 
     .logoimg {
@@ -269,7 +291,7 @@
     }
 
     .styleix0 {
-        background: white !important;
+        background: whitesmoke !important;
         color: dimgray !important;;
     }
 
@@ -297,11 +319,11 @@
 
     .styleix3 {
         background: black !important;
-        color: white !important;
+        color: lightgrey !important;
     }
 
     .styleix3 .stylelink {
-        color: white;
+        color: lightgrey;
     }
 </style>
 
@@ -320,8 +342,8 @@
         </div>
     </div>
 
-    <div class="contenttilerowcentered">
-        <div class="row contenttilerow">
+    <div class="row contenttilerowcentered">
+        <div class="contenttilerow">
             <div class="masonry" id="TileSection">
                 <img src="../assets/img/ajax-loader.gif">
             </div>
@@ -334,17 +356,9 @@
         </div>
     </div>
     <div class="row footerrow">
-        <footer class="footer" style="background-color:white;">
-            <div class="span12"
-                 style="text-align: center;font-weight: 200;margin-bottom: 20px; margin-top: 40px;color:black">
-                <!--<p class="pull-right"><a href="#">Back to top</a></p>-->
-                <p style="text-align: center;font-style: oblique;font-size: 24px;font-family: Georgia" id="PoweredBy">
-                    Agens - Sopien</p>
-
-                <div style="text-align: center; color: lightseagreen"><a href="" style="color: lightseagreen"></a></div>
-            </div>
-        </footer>
-
+        <div class="span12 footer">
+            <div class="footertext">Agens - Sopien</div>
+        </div>
     </div>
     <script type="text/javascript">
 
@@ -410,9 +424,29 @@
             var setWidth = 220 * fittingX;
             var paddingToReduce = parseInt($(".footerrow").css('padding-right')) * 2;
             setWidth -= paddingToReduce;
-            $(".contenttilerowcentered").css("maxWidth", setWidth + "px");
+            $(".contenttilerow").css("maxWidth", setWidth + "px");
+            resizeFooter();
         };
 
+        var noresizes = 0;
+        var resizeFooter = function() {
+            var $footer = $(".footer");
+            var windowHeight = $(window).height();
+            var footerPos = $footer.position();
+            var footerTop = footerPos.top;
+            var footerRemaining = parseInt(windowHeight - footerTop) - 1;
+            if(footerRemaining < 26)
+                footerRemaining = 26;
+            var heightToSet = footerRemaining + "px";
+            var existingHeight = $footer.css("height");
+            if(heightToSet != existingHeight) {
+                noresizes = 0;
+                $footer.css("height", heightToSet);
+            } else
+                noresizes++;
+            if(noresizes < 100)
+                setTimeout(resizeFooter, 1);
+        };
 
         var ensureModalClose = function () {
             var $modal = $("#viewContentModal");

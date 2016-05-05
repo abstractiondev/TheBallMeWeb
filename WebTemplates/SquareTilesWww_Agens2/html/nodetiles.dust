@@ -80,6 +80,7 @@
 
         $(window).resize(function() {
             resizeMasonryArea();
+            resizeFooter();
         });
 
         resizeMasonryArea();
@@ -158,6 +159,7 @@
                 });
             }
             applyIndexStyleClasses();
+            resizeFooter();
             setTimeout(function() {
                 $(window).resize();
             }, 1);
