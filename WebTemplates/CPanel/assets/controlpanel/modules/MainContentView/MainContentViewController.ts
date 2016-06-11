@@ -569,8 +569,8 @@ class MainContentViewController extends ViewControllerBase {
             //$imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
             me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "editModal");
 
-            var $articleImageDataInput = this.$getNamedFieldWithinModal($modal, "ArticleImageData");
-            this.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentImagePath,
+            var $articleImageDataInput = me.$getNamedFieldWithinModal($modal, "ArticleImageData");
+            me.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentImagePath,
                 noImageUrl, "articleImageDataImage");
 
             if (currentObject.RawHtmlContent) {

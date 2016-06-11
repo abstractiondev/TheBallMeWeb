@@ -501,8 +501,8 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
                 //$imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
                 me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "editModal");
-                var $articleImageDataInput = this.$getNamedFieldWithinModal($modal, "ArticleImageData");
-                this.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentImagePath, noImageUrl, "articleImageDataImage");
+                var $articleImageDataInput = me.$getNamedFieldWithinModal($modal, "ArticleImageData");
+                me.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentImagePath, noImageUrl, "articleImageDataImage");
                 if (currentObject.RawHtmlContent) {
                     currentObject.BodyRendered = currentObject.RawHtmlContent;
                 }
