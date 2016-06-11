@@ -3,6 +3,7 @@
 
 <div class="row">
     <div class="large-6 columns">
+        <div>Tile Image</div>
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
             <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
                 <input type="file" name="ImageData">
@@ -16,6 +17,7 @@
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
             <form id="form-addNewContentModal" method='POST' enctype='multipart/form-data' data-abide="ajax">
                 <div class="title-field"><label>Title<input type="text" name="Title" required/></label><small class="error">A title to this update is required.</small></div>
+                <div class="title-field"><label>Open Article Button Title<input type="text" name="OpenArticleTitle"/></label><small class="error">A title to this update is required.</small></div>
                 <div class="published-field hide"><label>Published<input type="text" name="Published" required/></label><small class="error">Published date this update is required.</small></div>
                 <div class="author-field"><label>Author<input type="text" name="Author" required/></label><small class="error">Please type the author of this update.</small></div>
                 <!--<div class="categories-field"><label>Categories</label> <input type="text" id="addNewContentModal-categories"/></div>-->
@@ -40,19 +42,27 @@
 </div>
 <div class="row">
     <div class="large-12 columns right textAreaEditorDiv"><label>Content</label>
-        <!--
-                                            <textarea id="addNewContentModal-content" cols="50"style="height: 300px;"></textarea>
-                                           <textarea cols="50" id="area4">HTML <b>content</b> <i>default</i> in textarea</textarea>
-        -->
         <div name="textareaDivHolder"><textarea name="Content" style="height: 300px;"></textarea></div>
     </div>
 </div>
-
+<div class="row">
+    <div class="large-6 columns">
+        <div>Article Image</div>
+        <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
+                <input type="file" name="ArticleImageData">
+                <a class="button small oipfile" data-oipfile-filegroupid="articleImageDataImage" data-oipfile-buttontype="select">Select</a>
+                <a class="button small oipfile" data-oipfile-filegroupid="articleImageDataImage" data-oipfile-buttontype="remove">Remove</a>
+                <img class="oipfile" style="max-height: 247px;width: 100%" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="articleImageDataImage">
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row" name="attachmentRow" style="margin:10px auto 0 auto;background-color: rgb(244, 244, 244); width:95% !important;">
     <div class="small-6 medium-6 large-6 columns">
         <div>Attachments can be added after post is initially saved and opened for edit.</div>
     </div>
-</div> <!--Closes addNewPost-attachmenRow-->
+</div>
 
 <div class="row" style="margin-top: 20px;">
     <div class="large-12 columns">
@@ -77,6 +87,7 @@
         <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
             <form id="form-editContentModal" method='POST' enctype='multipart/form-data' data-abide="ajax">
                 <div class="title-field"><label>Title<input type="text" name="Title"required/></label><small class="error">A title to this update is required.</small></div>
+                <div class="title-field"><label>Open Article Button Title<input type="text" name="OpenArticleTitle"/></label><small class="error">A title to this update is required.</small></div>
                 <div class="published-field"><label>Published<input type="text" name="Published" required/></label><small class="error">A published date is required.</small></div>
                 <div class="author-field"><label>Author<input type="text" name="Author"></label></div>
                 <div class="categories-field">
@@ -101,10 +112,20 @@
         </div>
     </div>
 </div>
-
 <div class="row"><div class="large-12 columns right textAreaEditorDiv"><label>Content</label><div name="TextAreaDivHolder"></div></div></div>
-
-
+<div class="row">
+    <div class="large-6 columns">
+        <div>Article Image</div>
+        <div style="width: 100%; height: auto;margin: 0px;padding: 0px;">
+            <div style="width: 100%;margin: 0px;padding: 0px;height:300px; background-color:#c7c7c7;text-align: center">
+                <input type="file" name="ArticleImageData">
+                <a class="button small oipfile" data-oipfile-filegroupid="articleImageDataImage" data-oipfile-buttontype="select">Select</a>
+                <a class="button small oipfile" data-oipfile-filegroupid="articleImageDataImage" data-oipfile-buttontype="remove">Remove</a>
+                <img class="oipfile" style="max-height: 247px;width: 100%" src="../assets/controlpanel/images/lightGray.jpg" data-oipfile-noimageurl="../assets/controlpanel/images/lightGray.jpg" data-oipfile-filegroupid="articleImageDataImage">
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row" name="attachmentRow" style="margin:10px auto 0 auto;background-color: rgb(244, 244, 244); width:95% !important;">
     <div class="large-12 columns" name="AttachmentListDiv">
     </div>

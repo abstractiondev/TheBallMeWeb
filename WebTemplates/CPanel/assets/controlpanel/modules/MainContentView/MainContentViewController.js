@@ -73,23 +73,6 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                 });
             });
         };
-        /*
-        function getAndPopulateCategoryOptions() {
-            $.getJSON('../../AaltoGlobalImpact.OIP/CategoryCollection/MasterCollection.json', function (contentData) {
-                var categoryoptions = "";
-                for (var i in contentData.CollectionContent) {
-                    var currentObject = contentData.CollectionContent[i];
-                    var currentID = currentObject.ID;
-                    var currentTitle = currentObject.Title ? currentObject.Title : "";
-                    categoryoptions += "<option value='" + currentID + "'>" + currentTitle + "</option>";
-                }//ends FOR loop
-                $("#addNewContentCategorySelect").empty();
-                $("#addNewContentCategorySelect").append(categoryoptions);
-                $("#editContentModal-categories").empty();
-                $("#editContentModal-categories").append(categoryoptions);
-                return false;
-            })//ends getJson
-        }*/
         MainContentViewController.prototype.EditLinkToContent = function ($source) {
             var $modal = this.$getNamedFieldWithin("EditLinkToContentModal");
             var me = this;
@@ -427,6 +410,7 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
             //clearing the fields of the New Content Modal Form
             this.$getNamedFieldWithinModal($modal, "Content").val();
             this.$getNamedFieldWithinModal($modal, "Title").val();
+            this.$getNamedFieldWithinModal($modal, "OpenArticleTitle").val();
             this.$getNamedFieldWithinModal($modal, "Excerpt").val();
             this.$getNamedFieldWithinModal($modal, "Author").val();
             this.$getNamedFieldWithinModal($modal, "Content").val();
@@ -452,22 +436,22 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
             //clearing the fileInput
             var $newupdatefileinput = this.$getNamedFieldWithinModal($modal, "ImageData");
             $newupdatefileinput.replaceWith($newupdatefileinput = $newupdatefileinput.clone(true));
+            $newupdatefileinput = this.$getNamedFieldWithinModal($modal, "ArticleImageData");
+            $newupdatefileinput.replaceWith($newupdatefileinput = $newupdatefileinput.clone(true));
             //here the "cleaning" or reseting of the input fields ends.
             this.$getNamedFieldWithinModal($modal, "AttachmentAlertHolder").empty();
             var wnd = window;
             wnd.global_uploaded_attachments = 0;
             //wnd.getAndPopulateCategoryOptions();
-            $("#addNewContentModal-ImageData").attr("data-oipfile-filegroupid", "addModal");
             var currentPublished = wnd.ParseRawTimestampToISOString(null);
             this.$getNamedFieldWithinModal($modal, "Published").val(currentPublished);
             var $imageDataInput = this.$getNamedFieldWithinModal($modal, "ImageData");
-            //$imageDataInput.attr("data-oipfile-filegroupid", "imageDataImage");
+            console.log("Image datas: " + $imageDataInput.length);
             this.currOPM.InitiateBinaryFileElementsAroundInput($imageDataInput, "000", "ImageData", null, "../assets/controlpanel/images/lightGray.jpg", "imageDataImage");
-            //var $attachmentBinaryDataInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
-            ////$attachmentBinaryDataInput.attr("data-oipfile-filegroupid", "attachmentBinaryData");
-            //this.currOPM.InitiateBinaryFileElementsAroundInput($attachmentBinaryDataInput, "000", "AttachmentBinaryData", null,
-            //    "../assets/controlpanel/images/lightGray.jpg", "attachmentBinaryData");
-            //***************ends the inputfile elment for the attachments on the "add new content" modal
+            $("#addNewContentModal-ArticleImageData").attr("data-oipfile-filegroupid", "addModal");
+            var $articleImageDataInput = this.$getNamedFieldWithinModal($modal, "ArticleImageData");
+            console.log("Article image datas: " + $articleImageDataInput.length);
+            this.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, "000", "ArticleImageData", null, "../assets/controlpanel/images/lightGray.jpg", "articleImageDataImage");
             $modal.foundation('reveal', 'open');
         };
         MainContentViewController.prototype.EditContent = function ($source) {
@@ -484,6 +468,7 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                 var currentETag = currentObject.MasterETag;
                 var currentRelativeLocation = currentObject.RelativeLocation;
                 var currentTitle = currentObject.Title;
+                var currentOpenArticleTitle = currentObject.OpenArticleTitle;
                 var currentExcerpt = currentObject.Excerpt;
                 var currentAuthor = currentObject.Author;
                 var currentPublishedDate = wnd.ParseRawTimestampToISOString(currentObject.Published);
@@ -516,6 +501,8 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
                 //$imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
                 me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "editModal");
+                var $articleImageDataInput = this.$getNamedFieldWithinModal($modal, "ArticleImageData");
+                this.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentImagePath, noImageUrl, "articleImageDataImage");
                 if (currentObject.RawHtmlContent) {
                     currentObject.BodyRendered = currentObject.RawHtmlContent;
                 }
@@ -535,6 +522,7 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                 me.$getNamedFieldWithinModal($modal, "ETag").val(currentETag);
                 me.$getNamedFieldWithinModal($modal, "RelativeLocation").val(currentRelativeLocation);
                 me.$getNamedFieldWithinModal($modal, "Title").val(currentTitle);
+                me.$getNamedFieldWithinModal($modal, "OpenArticleTitle").val(currentOpenArticleTitle);
                 me.$getNamedFieldWithinModal($modal, "Published").val(currentPublishedDate);
                 me.$getNamedFieldWithinModal($modal, "Excerpt").val(currentExcerpt);
                 /*getAndPopulate_Isotope_Filter_Categories ();*/
@@ -568,16 +556,10 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                     autoresize: false,
                     buttons: ['bold', 'italic', 'alignment', 'unorderedlist', 'orderedlist', 'image', 'video', "link"]
                 });
-                //queryValue = currentImagePath;
-                //$('#editContentModal-imagePath').val(queryValue);
-                //send the correspondent image to the placeholder, but clean its containing div first
-                //$("#editContentModal-image").empty(); //clean the image Placeholder in the form
-                //queryValue = "<img src='" + currentImagePath + "' style='width:auto;height:auto;max-height:300px;margin-left:auto;margin-right:auto;'>";
-                //$("#editContentModal-image").append(queryValue);
                 me.RefreshAttachments($modal, "AaltoGlobalImpact.OIP", "TextContent", currentID);
                 $modal.foundation('reveal', 'open');
-            }); //ends getJson
-        }; //ends function editContent
+            });
+        };
         MainContentViewController.prototype.Modal_EditContentUploadAttachment = function ($modal) {
             var $fileInput = this.$getNamedFieldWithinModal($modal, "AttachmentBinaryData");
             var currContentID = this.$getNamedFieldWithinModal($modal, "ID").val();
@@ -843,6 +825,7 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
             var etag = this.$getNamedFieldWithinModal($modal, "ETag").val();
             var objectRelativeLocation = this.$getNamedFieldWithinModal($modal, "RelativeLocation").val();
             var title = this.$getNamedFieldWithinModal($modal, "Title").val();
+            var openArticleTitle = this.$getNamedFieldWithinModal($modal, "OpenArticleTitle").val();
             var published = this.$getNamedFieldWithinModal($modal, "Published").val();
             var excerpt = this.$getNamedFieldWithinModal($modal, "Excerpt").val();
             var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
@@ -851,6 +834,7 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
             content = $('<div/>').text(content).html();
             var saveData = {
                 Title: title,
+                OpenArticleTitle: openArticleTitle,
                 Published: published,
                 Excerpt: excerpt,
                 "ENC.RawHtmlContent": content,
@@ -871,6 +855,7 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
         };
         MainContentViewController.prototype.Modal_SaveNewContent = function ($modal) {
             var title = this.$getNamedFieldWithinModal($modal, "Title").val();
+            var openArticleTitle = this.$getNamedFieldWithinModal($modal, "OpenArticleTitle").val();
             var published = this.$getNamedFieldWithinModal($modal, "Published").val();
             var excerpt = this.$getNamedFieldWithinModal($modal, "Excerpt").val();
             var categories = this.$getNamedFieldWithinModal($modal, "Categories").val();
@@ -879,6 +864,7 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
             content = $('<div/>').text(content).html();
             var saveData = {
                 Title: title,
+                OpenArticleTitle: openArticleTitle,
                 Published: published,
                 Excerpt: excerpt,
                 "ENC.RawHtmlContent": content,
