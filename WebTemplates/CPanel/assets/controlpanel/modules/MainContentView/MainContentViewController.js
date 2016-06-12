@@ -496,13 +496,17 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                 var currentImagePath = currentObject.ImageData
                     ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currentObject.ImageData.AdditionalFormatFileExt
                     : null;
+                var currentArticleImagePath = currentObject.ArticleImageData
+                    ? "../../AaltoGlobalImpact.OIP/MediaContent/" + currentObject.ArticleImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop"
+                        + currentObject.ArticleImageData.AdditionalFormatFileExt
+                    : null;
                 // Initiate binary file elements for image
                 var noImageUrl = "../assets/controlpanel/images/lightGray.jpg";
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
                 //$imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
                 me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "editModal");
                 var $articleImageDataInput = me.$getNamedFieldWithinModal($modal, "ArticleImageData");
-                me.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentImagePath, noImageUrl, "articleImageDataImage");
+                me.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentArticleImagePath, noImageUrl, "articleImageDataImage");
                 if (currentObject.RawHtmlContent) {
                     currentObject.BodyRendered = currentObject.RawHtmlContent;
                 }
