@@ -64,7 +64,7 @@
                             <div class="excerpt">{ExcerptRendered|s}</div>
                             {?IsCategoryFilteringNode}
                             {:else}
-                                <a class="pricetag oipclicktoview button" href="#" data-original-content-id="{OriginalContentID}">{#Authors}{#CollectionContent}{Content}{/CollectionContent}{/Authors}</a>
+                                <a class="pricetag oipclicktoview button" href="#" data-original-content-id="{OriginalContentID}">{OpenNodeTitle}</a>
                             {/IsCategoryFilteringNode}
                         </div>
                     </div>
