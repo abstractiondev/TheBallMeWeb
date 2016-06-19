@@ -284,8 +284,10 @@ OipOpenArticle = function(urlarg, addRelativePath) {
             var categoryID = CurrentCategoryID;
             var $catPanel = $("#categorypanel");
             var $articleImagePanel = $("#articleImagePanel");
+            var $authorPanel = $("#authorPanel");
             $catPanel.empty();
             $articleImagePanel.empty();
+            $authorPanel.empty();
 
             $("#viewContentModal-content").empty();
 
@@ -312,14 +314,23 @@ OipOpenArticle = function(urlarg, addRelativePath) {
                 if(currActiveCategory.ImageData) {
                     var imageSizeString = 256;
                     var imageUrl = "../../AaltoGlobalImpact.OIP/MediaContent/" + currActiveCategory.ImageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + currActiveCategory.ImageData.AdditionalFormatFileExt;
-                    $catPanel.append("<img src=\"" + imageUrl + "\"><br>");
+                    $catPanel.append("<img src=\"" + imageUrl + "\">");
                 }
-                $catPanel.append("<div>" + currActiveCategory.Title + "</div>");
+                //$catPanel.append("<br><div>" + currActiveCategory.Title + "</div>");
                 if(textContent) {
                     var imageData = textContent.ImageData;
                     var imageSizeString = 256;
                     var imageUrl = "../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + imageData.AdditionalFormatFileExt;
                     $articleImagePanel.append("<img src=\"" + imageUrl + "\"><br>");
+
+                    var authorImageData = textContent.ArticleImageData;
+                    if(authorImageData)
+                    {
+                        var imageUrl =
+                            "../../AaltoGlobalImpact.OIP/MediaContent/" + authorImageData.ID + "_480x640_whole" + authorImageData.AdditionalFormatFileExt;
+                        $authorPanel.append("<img src=\"" + imageUrl + "\"><br>");
+                        $authorPanel.append("<br><div>" + textContent.Author + "</div>");
+                    }
                 }
             }
 
