@@ -115,8 +115,13 @@
         padding: 0;
         background: white;
         border: 0px;
+        border-radius: 20px;
         -webkit-box-shadow: none;
         box-shadow: none;
+    }
+
+    .readingimagepanel {
+        padding: 10px;
     }
 
     .reveal-modal-inner {
@@ -325,6 +330,7 @@
     .styleix3 .stylelink {
         color: lightgrey;
     }
+
 </style>
 
 
@@ -611,7 +617,9 @@
                 CurrGroupContainer = arguments[2][0];
 
                 var imageData = CurrGroupContainer.GroupProfile.ProfileImage.ImageData;
-                updateLogoFromImageData(imageData);
+                CurrGroupImageData = imageData;
+                updateMainLogo(null);
+                //updateLogoFromImageData(imageData);
 
                 var myObj = nodeSummary;
                 nodeSummary.RootCategories = getRootCategories(nodeSummary.NodeSourceCategories);
@@ -675,7 +683,7 @@
         var updateMainLogo = function (categoryID) {
             console.log("Updating logo with: " + categoryID);
             var category = findCategory(categoryID);
-            var imageData = category != null ? category.ImageData : null;
+            var imageData = category != null ? category.ImageData : CurrGroupImageData;
             updateLogoFromImageData(imageData);
         };
     </script>
@@ -683,10 +691,18 @@
     <!-- ========== End: www-public\..\oip-containers\../oip-modals/oip-modal-collection.txt ========== -->
 
     <div id="ModalsHolderDiv-Content">
-        <div id="viewContentModal" class="reveal-modal xlarge" data-reveal>
+        <div id="viewContentModal" class="reveal-modal xlarge agensreadingpane" data-reveal>
             <!--Begins contents of  div for the viewContentModal-->
             <div class="row fullWidth">
-                <div class="show-for-large-up large-2 columns" id="categorypanel">
+                <div class="large-2 columns show-for-large-up readingimagepanel" id="articleImagePanel">
+                    <!--
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label class="discreetTextColor">Share:</label>
+                            <input type="text" placeholder="" id="articleShareURLinput"/>
+                        </div>
+                    </div>
+                    -->
                 </div>
                 <div class="large-8 columns">
                     <div class="row">
@@ -701,15 +717,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="large-2 columns show-for-large-up"><img src="../assets/img/Agens-small-rez320.png">
-                    <!--
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <label class="discreetTextColor">Share:</label>
-                            <input type="text" placeholder="" id="articleShareURLinput"/>
-                        </div>
-                    </div>
-                    -->
+                <div class="show-for-large-up large-2 columns readingimagepanel" id="categorypanel">
                 </div>
             </div>
             <div class="row fullWidth">
