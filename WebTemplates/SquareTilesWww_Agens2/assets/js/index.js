@@ -55,12 +55,12 @@ tUDG.RegisterDataURL("SEMANTICCONTENT", function(args) {
 
 tUDG.RegisterDataURL("CATEGORYRANKS", function (args) {
     var contentCategoryRanks = args[0][0];
-    console.log(JSON.stringify(contentCategoryRanks));
+    //console.log(JSON.stringify(contentCategoryRanks));
     var semanticObjects = args[1];
     var semanticContents = semanticObjects.SemanticCollection;
     var manualRanks = _.where(contentCategoryRanks.CollectionContent, { "RankName": "MANUAL" } );
-    console.log("Unfiltered: " + contentCategoryRanks.CollectionContent);
-    console.log(JSON.stringify(manualRanks));
+    //console.log("Unfiltered: " + contentCategoryRanks.CollectionContent);
+    //console.log(JSON.stringify(manualRanks));
     manualRanks = _.sortBy(manualRanks, function(item) {
         return item.RankValue;
     });

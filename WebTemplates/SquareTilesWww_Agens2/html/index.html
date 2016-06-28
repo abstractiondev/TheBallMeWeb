@@ -88,7 +88,7 @@
         font-size: large;
         padding: 7px;
         margin: 2px;
-        border-radius: 3px;
+        border-radius: 0px;
     }
 
     iframe, object, embed {
@@ -157,7 +157,7 @@
     }
 
     .logolargeup {
-        height: 100%;
+        /*height: 100%;*/
         background-color: white;
         /*
         border-color: gold;
@@ -167,14 +167,20 @@
 
     .logolargeuprow {
         height: 50%;
+        padding-bottom: 10px;
+        background-color: white;
     }
 
     .logomediumrow {
         height: 50%;
+        padding-bottom: 10px;
+        background-color: white;
     }
 
     .logosmallrow {
         height: 50%;
+        padding-bottom: 10px;
+        background-color: white;
     }
 
     .rootcontainer {
@@ -216,7 +222,9 @@
     }
 
     .logoimg {
-        height: 100%;
+        /*position: relative;*/
+        bottom:  0px;
+        /*height: 50%;*/
     }
 </style>
 
@@ -225,7 +233,7 @@
     .badge {
         margin: 3px;
         padding: 3px;
-        border: 1px solid gold;
+        border: 1px solid rgb(249, 199, 58);
 
     }
 
@@ -240,9 +248,11 @@
 
     .nodetile {
         width: 220px;
+        height: 500px;
         /*margin: 9px;*/
         /*border: solid;*/
-        padding: 5px;
+        /*padding: 5px;*/
+
         /*border: 1px solid gold;*/
         /*border-radius: 2px;*/
         /*background-color: #f8fff8;*/
@@ -273,14 +283,41 @@
 
     .tileimage {
         width: 100%;
+        border: 1px solid whitesmoke;
+    }
+
+    .tiletextarea {
+        width: 100%;
+        border: 1px solid whitesmoke;
+        height: 100%;
+    }
+
+    .tiletitlebottombar {
+        border-width: 0px 0px 15px 0px;
+        margin: 10px 35px 0px 35px;
+        border-style: solid;
+        border-color: rgb(249, 199, 58);
+    }
+
+    .tiletitle {
+        width: 100%;
+    }
+
+    .categorytiletitle {
+        width: 95%;
+        /*margin: 5px !important;*/
     }
 
     .embedimage {
         width: 100%;
         height: 176px;
+        border: 1px solid whitesmoke;
     }
 
     .pricetag {
+        position: absolute;
+        bottom: 0px;
+        left: 45px;
         align-content: stretch;
         padding-top: 35px;
         padding-left: 17px;
@@ -289,10 +326,11 @@
         -webkit-border-radius: 65px !important;
         -moz-border-radius: 65px !important;
         border-radius: 65px !important;
-        background: #cc983c;
+        /*background: #cc983c;*/
+        background: rgb(249, 199, 58);
         color: white;
         font-weight: bolder !important;
-        font-size: large;
+        font-size: xx-large;
     }
 
     .styleix0 {
@@ -417,6 +455,27 @@
 
         };
 
+
+        var resizeLogo = function(width) {
+            var $logo = $(".logoimg:visible");
+            var currLogoHeight = $logo.height();
+            var currLogoWidth = $logo.width();
+            //$logo.width(width);
+            $logo.css('max-width', width);
+            var $parentRow = $logo.closest(".row");
+            console.log("Found parents: " + $parentRow.length);
+            var parentHeight = $parentRow.outerHeight();
+            console.log("Setting height: " + parentHeight);
+            //$logo.css('max-height', parentHeight);
+            var logoHeight = $logo.height();
+            var logoWidth = $logo.width();
+            $parentRow.height(logoHeight);
+            var afterLogoHeight = logoHeight;
+            var afterLogoWidth = logoWidth;
+            return currLogoHeight != afterLogoHeight || currLogoWidth != afterLogoWidth;
+        };
+
+
         var resizeMasonryArea = function() {
             var $nodetiles = getVisibleTilesInOrder();
             var totalItems = $nodetiles.length;
@@ -432,6 +491,10 @@
             setWidth -= paddingToReduce;
             $(".contenttilerow").css("maxWidth", setWidth + "px");
             resizeFooter();
+            do {
+                var logoResized = resizeLogo(setWidth);
+            } while(logoResized);
+            return logoResized;
         };
 
         var noresizes = 0;

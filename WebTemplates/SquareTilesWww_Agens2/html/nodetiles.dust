@@ -44,10 +44,10 @@
                                 </a>
                             {/eq}
                         {/ImageBaseUrl}
-                        <div class="entry-summary">
+                        <div class="entry-summary tiletextarea">
                             <h4>
                                 {?IsCategoryFilteringNode}
-                                    <a class="filter button filter" href="#"
+                                    <a class="filter button categorytiletitle" href="#"
                                        data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">{Title}</a>
                                 {:else}
                                     {@eq key=TechnicalSource value="LINKTOCONTENT"}
@@ -56,7 +56,8 @@
                                         {@eq key=TechnicalSource value="IMAGE"}
                                             <div>{Title}</div>
                                         {:else}
-                                            <a class="oipclicktoview stylelink" href="#" data-original-content-id="{OriginalContentID}">{Title}</a>
+                                            <a class="oipclicktoview stylelink tiletitle" href="#" data-original-content-id="{OriginalContentID}">{Title}</a>
+                                            <div class="tiletitlebottombar"></div>
                                         {/eq}
                                     {/eq}
                                 {/IsCategoryFilteringNode}
