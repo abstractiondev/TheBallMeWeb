@@ -166,7 +166,7 @@
     }
 
     .logolargeuprow {
-        height: 50%;
+        height: auto !important;
         padding-bottom: 10px;
         background-color: white;
     }
@@ -183,8 +183,59 @@
         background-color: white;
     }
 
+    .marginborders {
+        /*
+        position: absolute; top:0px; left:0px; !important;
+        -webkit-transition: padding 2s;
+        -moz-transition: padding 2s;
+        -ms-transition: padding 2s;
+        -o-transition: padding 2s;
+        transition: padding 2s;
+        -webkit-transition: margin-left 2s;
+        -moz-transition: margin-left 2s;
+        -ms-transition: margin-left 2s;
+        -o-transition: margin-left 2s;
+        transition: margin-left 2s;
+        -webkit-transition: margin-right 2s;
+        -moz-transition: margin-right 2s;
+        -ms-transition: margin-right 2s;
+        -o-transition: margin-right 2s;
+        transition: margin-right 2s;
+        */
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -ms-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        background: white;
+    }
+
+    @media (min-width: 1200px) {
+        .marginborders {
+            margin: 0px 20% 0px;
+            width: 60%;
+            padding: 30px 30px 30px;
+        }
+    }
+    @media (min-width: 800px) and (max-width: 1200px) {
+        .marginborders {
+            margin: 0 10%;
+            width: 80%;
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .marginborders {
+            margin: 0px 5% 0px;
+            padding: 10px;
+        }
+    }
+
     .rootcontainer {
-        height: 100%;
+        border: solid 1px darkgray;
+        padding: 5px;
+        /*height: auto !important;*/
     }
 
     .contenttilerow {
@@ -197,28 +248,29 @@
     }
 
     .footerrow {
-
+        height: 60px;
     }
 
 
     .footer {
-        height: auto;
         width: 100%;
         background: white;
         text-align: center;
-        font-weight: 200;
+        font-weight: 100;
         color:dimgray;
-        font-style: oblique;
         font-size: 24px;
-        font-family: Georgia;
         margin: auto;
         display: table;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .footertext {
         display: table-cell;
         vertical-align: bottom;
-        padding: 5px;;
+        padding: 5px;
+        text-transform: uppercase;
     }
 
     .logoimg {
@@ -226,6 +278,11 @@
         bottom:  0px;
         /*height: 50%;*/
     }
+
+    * {
+        font-family: Myriad;
+    }
+
 </style>
 
 <style type="text/css">
@@ -283,12 +340,12 @@
 
     .tileimage {
         width: 100%;
-        border: 1px solid whitesmoke;
+        border: 1px solid white;
     }
 
     .tiletextarea {
         width: 100%;
-        border: 1px solid whitesmoke;
+        border: 1px solid white;
         height: 100%;
     }
 
@@ -311,7 +368,7 @@
     .embedimage {
         width: 100%;
         height: 176px;
-        border: 1px solid whitesmoke;
+        border: 1px solid white;
     }
 
     .pricetag {
@@ -371,8 +428,8 @@
 
 </style>
 
-
-<div class="container rootcontainer">
+<div class="marginborders">
+    <div class="rootcontainer">
     <div class="row text-center show-for-large-up logolargeuprow">
         <div id="logocontainer-large" class="logolargeup">
         </div>
@@ -397,11 +454,6 @@
             <!--&lt;!&ndash; '../oip-containers/oip-container-contact-oip.txt' &ndash;&gt;&lt;!&ndash; UseInformationObjectAsRoot:AaltoGlobalImpact.OIP.ContactOipContainer  &ndash;&gt;-->
             <!--</section>-->
             <!--</div>-->
-        </div>
-    </div>
-    <div class="row footerrow">
-        <div class="span12 footer">
-            <div class="footertext">Agens - Sopien</div>
         </div>
     </div>
     <script type="text/javascript">
@@ -457,6 +509,7 @@
 
 
         var resizeLogo = function(width) {
+            return;
             var $logo = $(".logoimg:visible");
             var currLogoHeight = $logo.height();
             var currLogoWidth = $logo.width();
@@ -491,10 +544,8 @@
             setWidth -= paddingToReduce;
             $(".contenttilerow").css("maxWidth", setWidth + "px");
             resizeFooter();
-            do {
-                var logoResized = resizeLogo(setWidth);
-            } while(logoResized);
-            return logoResized;
+            //var logoResized = resizeLogo(setWidth);
+            //return logoResized;
         };
 
         var noresizes = 0;
@@ -754,7 +805,7 @@
     <!-- ========== End: www-public\..\oip-containers\../oip-modals/oip-modal-collection.txt ========== -->
 
     <div id="ModalsHolderDiv-Content">
-        <div id="viewContentModal" class="reveal-modal xlarge agensreadingpane" data-reveal>
+        <div id="viewContentModal" class="reveal-modal small agensreadingpane" data-reveal>
             <!--Begins contents of  div for the viewContentModal-->
             <div class="row fullWidth">
                 <div class="large-2 columns show-for-large-up readingimagepanel" id="articleImagePanel">
@@ -825,8 +876,13 @@
     </div>
 
 
+    </div>
+    <div class="footerrow">
+        <div class="footer">
+            <div class="footertext">Agens - Sopien</div>
+        </div>
+    </div>
 </div>
-
 
 </body>
 

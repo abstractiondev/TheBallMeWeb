@@ -1,4 +1,9 @@
 @font-face {
+    font-family: 'Myriad';
+    src: url('../font/ufonts.com_myriad-mm.woff')
+}
+
+@font-face {
     font-family: 'WebHostingHub-Glyphs';
     src: url('../font/webhostinghub-glyphs.eot');
     src: url('../font/webhostinghub-glyphs.eot?#iefix') format('embedded-opentype'),
