@@ -70,17 +70,42 @@
 
 <style>
 
+    .agensreadingpane p a {
+        background-color: rgb(249,199,58);
+        color: whitesmoke;
+        padding: 20px;
+        margin-left: 20%;
+        margin-right: 20%;
+        display: block;
+        text-align: center;
+        border: solid rgb(249,199,58) 1px;
+    }
+
+    .agensreadingpane p a:hover {
+        background-color: #ffd700;
+    }
+
+    .paneclosexbutton {
+        padding: 10px;
+        background-color: rgb(249,199,58);
+    }
+
+    .paneclosexbutton:hover {
+        background-color: #ffd700;
+    }
+
+
     a.oipclicktoview > iframe {
         pointer-events: none;
     }
 
     a.goldlink {
-        color: #cc983c;
+        color: rgb(249,199,58);
         font-weight: bolder;
     }
 
     a.goldlink:hover {
-        color: #ebc500;
+        color: #ffd700;
         font-weight: bolder;
     }
 
@@ -865,13 +890,15 @@
                 </div>
             </div>
             -->
+            <!--
             <div class="row">
                 <div class="large-12">
                     <br>
                     <a class="button" id="closeViewContentModal" style="float:right !important;">Close</a>
                 </div>
             </div>
-            <a class="close-reveal-modal">&#215;</a>
+            -->
+            <a class="close-reveal-modal paneclosexbutton">&#215;</a>
         </div> <!--closes div for the viewContentModal-->
     </div>
 
