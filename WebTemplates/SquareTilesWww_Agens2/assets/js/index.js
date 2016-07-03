@@ -5,6 +5,13 @@ var tUI = TheBall.Interface.UI;
 var tDCM = new tUI.DataConnectionManager();
 var tUDG = new tUI.UpdatingDataGetter();
 
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position){
+        position = position || 0;
+        return this.substr(position, searchString.length) === searchString;
+    };
+}
+
 tUDG.RegisterDataURL("SEMANTICCONTENT", function(args) {
     var textContentCollection = args[0][0];
     var linkToContentCollection = args[1][0];
@@ -192,6 +199,81 @@ var GetNextData = function(semanticContentID, categoryID, isDifferentCategory) {
     }
     return { IsDifferentCategory : isDifferentCategory, Data : nextData };
 };
+
+
+var InitInitialIsotope = function($container) {
+    $container.isotope({
+        itemSelector : '.nodetile',
+        filter: '.ROOTCATEGORY',
+        itemPositionDataEnabled: true,
+        transitionDuration: 0,
+        getSortData: {
+            rankFunc: function($item) {
+                var title = $item.data("title");
+                if(!CurrentCategoryID) {
+                    var rootCategories = CurrRootCategories;
+                    var myIndex = _.findIndex(rootCategories, function(rItem) {
+                        return rItem.Title == title;
+                    });
+                    return myIndex;
+                }
+                var rankObjects = CategoryContentMap[CurrentCategoryID];
+                var myIndex = _.findIndex(rankObjects, function(rItem) {
+                    return rItem.Title == title;
+                });
+                return myIndex;
+            }
+        }
+    });
+};
+
+var PrepareIsotope = function() {
+
+    $(window).resize(function() {
+        resizeMasonryArea();
+        resizeFooter();
+    });
+
+    resizeMasonryArea();
+
+    var $container = $('#tilecontainer');
+    InitInitialIsotope($container);
+
+    var filters = {};
+
+    setTimeout(function() {
+        $(window).resize();
+    }, 1);
+
+    var loaded = 0;
+    var numImages = $("img").length;
+    $("img").load(function() {
+        ++loaded;
+        if (loaded === numImages) {
+            $container.isotope('reLayout');
+        }
+    });
+
+    applyIndexStyleClasses();
+
+    /* filter buttons */
+    $('a.filter').click(function(){
+        $LastClickedCategoryFilter = $(this);
+    });
+
+    if(navigator.appName != 'Microsoft Internet Explorer')
+    {
+        $container.imagesLoaded( function() {
+            $container.isotope({
+                filter : '.ROOTCATEGORY',
+                transitionDuration: 0,
+            });
+        });
+    }
+    $("#TileDefaultFilter").trigger('click');
+};
+
+
 
 $(function () {
 

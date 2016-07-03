@@ -12,14 +12,14 @@ var TheBall;
                 function StatusData() {
                 }
                 return StatusData;
-            })();
+            }());
             UI.StatusData = StatusData;
             var TrackingExtension = (function () {
                 function TrackingExtension() {
                     this.ChangeListeners = [];
                 }
                 return TrackingExtension;
-            })();
+            }());
             UI.TrackingExtension = TrackingExtension;
             var TrackedObject = (function () {
                 function TrackedObject() {
@@ -43,7 +43,7 @@ var TheBall;
                      });*/
                 };
                 return TrackedObject;
-            })();
+            }());
             UI.TrackedObject = TrackedObject;
             var DataConnectionManager = (function () {
                 function DataConnectionManager() {
@@ -152,7 +152,7 @@ var TheBall;
                     });
                 };
                 return DataConnectionManager;
-            })();
+            }());
             UI.DataConnectionManager = DataConnectionManager;
         })(UI = Interface.UI || (Interface.UI = {}));
     })(Interface = TheBall.Interface || (TheBall.Interface = {}));

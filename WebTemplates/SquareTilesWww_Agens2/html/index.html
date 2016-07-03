@@ -653,6 +653,7 @@
         var CurrNodeSummary;
         var CurrLocations;
         var CurrGroupContainer;
+        var CurrRootCategories;
 
         var getCategoriesOrderedAndFiltered = function (categoryCollection) {
             var categories = categoryCollection.CollectionContent;
@@ -755,6 +756,7 @@
                 CurrCategories = nodeSummary.NodeSourceCategories.CollectionContent;
                 CurrLocations = arguments[1][0];
                 CurrGroupContainer = arguments[2][0];
+                CurrRootCategories = getRootCategories(nodeSummary.NodeSourceCategories);
 
                 var imageData = CurrGroupContainer.GroupProfile.ProfileImage.ImageData;
                 CurrGroupImageData = imageData;
@@ -762,7 +764,7 @@
                 //updateLogoFromImageData(imageData);
 
                 var myObj = nodeSummary;
-                nodeSummary.RootCategories = getRootCategories(nodeSummary.NodeSourceCategories);
+                nodeSummary.RootCategories = CurrRootCategories;
                 for (var nodeIX = 0; nodeIX < myObj.Nodes.CollectionContent.length; nodeIX++) {
                     var nodeObj = myObj.Nodes.CollectionContent[nodeIX];
                     nodeObj.Categories = getCategoriesBasedByNamesOrIDs(nodeSummary.NodeSourceCategories, nodeObj.CategoryNames, nodeObj.CategoryIDList);
@@ -793,6 +795,7 @@
                 dust.render("nodetiles.dust", base.push(myObj), function (err, out) {
                     $("#TileSection").html(out);
                 });
+                PrepareIsotope();
                 setTimeout(OnHashChange, 100);
             });
         });

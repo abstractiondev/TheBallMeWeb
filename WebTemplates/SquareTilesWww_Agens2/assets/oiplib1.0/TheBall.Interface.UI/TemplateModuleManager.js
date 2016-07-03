@@ -20,7 +20,7 @@ var TheBall;
                     this.hiddenElementRendering = hiddenElementRendering;
                 }
                 return TemplateHook;
-            })();
+            }());
             UI.TemplateHook = TemplateHook;
             var TimestampedFetch = (function () {
                 function TimestampedFetch(Timestamp, FetchUrl, FetchCallBack) {
@@ -36,7 +36,7 @@ var TheBall;
                     return this.ajaxPromise;
                 };
                 return TimestampedFetch;
-            })();
+            }());
             UI.TimestampedFetch = TimestampedFetch;
             var TemplateDataSource = (function () {
                 function TemplateDataSource() {
@@ -54,7 +54,7 @@ var TheBall;
                     this.TMM.RefreshNamedTemplates(currTimestamp, this.UsedInTemplates);
                 };
                 return TemplateDataSource;
-            })();
+            }());
             UI.TemplateDataSource = TemplateDataSource;
             var TemplateModuleManager = (function () {
                 function TemplateModuleManager(dcm) {
@@ -215,7 +215,7 @@ var TheBall;
                     }
                 };
                 return TemplateModuleManager;
-            })();
+            }());
             UI.TemplateModuleManager = TemplateModuleManager;
         })(UI = Interface.UI || (Interface.UI = {}));
     })(Interface = TheBall.Interface || (TheBall.Interface = {}));
