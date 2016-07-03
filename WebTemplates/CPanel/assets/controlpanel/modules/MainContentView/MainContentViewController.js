@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 define(["require", "exports", "../ViewControllerBase"], function (require, exports, ViewControllerBase) {
+    "use strict";
     var MainContentViewController = (function (_super) {
         __extends(MainContentViewController, _super);
         function MainContentViewController() {
@@ -505,8 +506,8 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
                 var $imageDataFileInput = me.$getNamedFieldWithinModal($modal, "ImageDataFileInput");
                 //$imageDataFileInput.attr("data-oipfile-filegroupid", "editModal");
                 me.currOPM.InitiateBinaryFileElementsAroundInput($imageDataFileInput, currentID, "ImageData", currentImagePath, noImageUrl, "editModal");
-                var $articleImageDataInput = me.$getNamedFieldWithinModal($modal, "ArticleImageData");
-                me.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentArticleImagePath, noImageUrl, "articleImageDataImage");
+                var $articleImageDataInput = me.$getNamedFieldWithinModal($modal, "ArticleImageDataFileInput");
+                me.currOPM.InitiateBinaryFileElementsAroundInput($articleImageDataInput, currentID, "ArticleImageData", currentImagePath, noImageUrl, "articleImageDataImage");
                 if (currentObject.RawHtmlContent) {
                     currentObject.BodyRendered = currentObject.RawHtmlContent;
                 }
@@ -887,6 +888,6 @@ define(["require", "exports", "../ViewControllerBase"], function (require, expor
             });
         };
         return MainContentViewController;
-    })(ViewControllerBase);
+    }(ViewControllerBase));
     return MainContentViewController;
 });

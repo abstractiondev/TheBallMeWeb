@@ -32,7 +32,7 @@ var TheBall;
                     return this.file.name + ":" + this.content;
                 };
                 return BinaryFileItem;
-            })();
+            }());
             UI.BinaryFileItem = BinaryFileItem;
             var OperationManager = (function () {
                 function OperationManager(dcm, binaryFileSelectorBase) {
@@ -452,7 +452,7 @@ var TheBall;
                     });
                 };
                 return OperationManager;
-            })();
+            }());
             UI.OperationManager = OperationManager;
         })(UI = Interface.UI || (Interface.UI = {}));
     })(Interface = TheBall.Interface || (TheBall.Interface = {}));

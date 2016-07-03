@@ -1,13 +1,13 @@
 /**
-* Created by kalle on 31.5.2014.
-*/
-var __extends = this.__extends || function (d, b) {
+ * Created by kalle on 31.5.2014.
+ */
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports", "../ViewControllerBase"], function(require, exports, ViewControllerBase) {
+define(["require", "exports", "../ViewControllerBase"], function (require, exports, ViewControllerBase) {
+    "use strict";
     var PersonalSecurityViewController = (function (_super) {
         __extends(PersonalSecurityViewController, _super);
         function PersonalSecurityViewController() {
@@ -16,8 +16,7 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
         PersonalSecurityViewController.prototype.ControllerInitialize = function () {
             var _this = this;
             var me = this;
-            require([
-                "PersonalSecurityView/PersonalSecurity_dust",
+            require(["PersonalSecurityView/PersonalSecurity_dust",
                 "lib/dusts/command_button_begin_dust",
                 "lib/dusts/command_button_end_dust",
                 "lib/dusts/command_button_dust",
@@ -42,7 +41,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 });
             });
         };
-
         PersonalSecurityViewController.prototype.VisibleTemplateRender = function () {
             var me = this;
             $.when(me.DoneInitializedPromise()).then(function () {
@@ -50,22 +48,20 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 var $emailRegistrationGuide = me.$getNamedFieldWithin("EmailRegistrationNotification");
                 if (hasAnyEmails) {
                     $emailRegistrationGuide.hide();
-                } else {
+                }
+                else {
                     $emailRegistrationGuide.show();
                 }
             });
         };
-
         PersonalSecurityViewController.prototype.InvisibleTemplateRender = function () {
         };
-
         PersonalSecurityViewController.prototype.OpenRegisterNewEmailModal = function ($source) {
             var me = this;
             var $modal = me.$getNamedFieldWithin("RegisterNewEmailModal");
             me.$getNamedFieldWithinModal($modal, "EmailAddress").val("");
             $modal.foundation("reveal", "open");
         };
-
         PersonalSecurityViewController.prototype.UnRegisterEmail = function ($source) {
             var me = this;
             var emailAddress = $source.attr("data-oip-command-args");
@@ -80,7 +76,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 }, 2500);
             }, me.CommonErrorHandler);
         };
-
         PersonalSecurityViewController.prototype.Modal_RegisterNewEmail = function ($modal) {
             var me = this;
             var emailAddress = me.$getNamedFieldWithinModal($modal, "EmailAddress").val();
@@ -96,7 +91,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
                 }, 2500);
             }, me.CommonErrorHandler);
         };
-
         PersonalSecurityViewController.prototype.Modal_MergeAccountsByEmail = function ($modal) {
             var me = this;
             var emailAddress = me.$getNamedFieldWithinModal($modal, "EmailAddress").val();
@@ -113,8 +107,6 @@ define(["require", "exports", "../ViewControllerBase"], function(require, export
             }, me.CommonErrorHandler);
         };
         return PersonalSecurityViewController;
-    })(ViewControllerBase);
-
-    
+    }(ViewControllerBase));
     return PersonalSecurityViewController;
 });

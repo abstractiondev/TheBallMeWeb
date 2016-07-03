@@ -24,7 +24,7 @@ var TheBall;
                     this.dataSourceObjects = dataSourceObjects || [];
                 }
                 return ResourceLocatedObject;
-            })();
+            }());
             UI.ResourceLocatedObject = ResourceLocatedObject;
             var UpdatingDataGetter = (function () {
                 function UpdatingDataGetter() {
@@ -120,7 +120,7 @@ var TheBall;
                     return result;
                 };
                 return UpdatingDataGetter;
-            })();
+            }());
             UI.UpdatingDataGetter = UpdatingDataGetter;
         })(UI = Interface.UI || (Interface.UI = {}));
     })(Interface = TheBall.Interface || (TheBall.Interface = {}));

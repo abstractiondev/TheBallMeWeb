@@ -2,6 +2,7 @@
  * Created by kalle on 31.5.2014.
  */
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     var ViewControllerBase = (function () {
         function ViewControllerBase(divID, currOPM, currUDG) {
             this.divID = divID;
@@ -157,6 +158,6 @@ define(["require", "exports"], function (require, exports) {
             return $hostDiv.find("[name='" + controlName + "']");
         };
         return ViewControllerBase;
-    })();
+    }());
     return ViewControllerBase;
 });
