@@ -568,13 +568,14 @@
             var paddingToReduce = parseInt($(".footerrow").css('padding-right')) * 2;
             setWidth -= paddingToReduce;
             $(".contenttilerow").css("maxWidth", setWidth + "px");
-            resizeFooter();
+            //resizeFooter();
             //var logoResized = resizeLogo(setWidth);
             //return logoResized;
         };
 
         var noresizes = 0;
         var resizeFooter = function() {
+            return;
             var $footer = $(".footer");
             var windowHeight = $(window).height();
             var footerPos = $footer.position();

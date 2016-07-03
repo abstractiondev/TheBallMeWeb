@@ -194,7 +194,12 @@ var GetNextData = function(semanticContentID, categoryID, isDifferentCategory) {
 };
 
 $(function () {
+
+    $(window).on('hashchange', OnHashChange);
+
     var isIntroductionSite = window.location.hostname == "www.onlinetaekwondo.net" || window.location.hostname == "localhost";
+    OnHashChange();
+    /*
     var openArticleType = $.url().param("type");
     var openArticleID = $.url().param("id");
     if(!openArticleID && !openArticleType && isIntroductionSite) {
@@ -213,7 +218,7 @@ $(function () {
         //var articleType = "text";
         CurrentCategoryID = openCategoryID;
         openArticle(articleType, openContentID);
-    }
+    }*/
 });
 
 
@@ -242,10 +247,36 @@ var ReplaceWithMarkdownRender = function(containingObj, sourceField, targetField
     containingObj[targetField] = renderedData;
 };
 
+var OnHashChange = function() {
+    var hashPart = $.url().attr("fragment");
+    if(!hashPart)
+    {
+        $("#viewContentModal").foundation("reveal", "close");
+        console.log("No hash");
+        return;
+    }
+    if(hashPart.startsWith("con")) {
+        var parts = hashPart.split("&");
+        var typePart = parts[1];
+        var idPart = parts[2];
+        var type = typePart.split("=")[1];
+        var contentID = idPart.split("=")[1];
+        console.log("Opening article: " + type + " / " + contentID);
+        openArticle(type, contentID);
+    }
+    //console.log("CAT: " + openCategoryID);
+    //console.log("CON: " + openContentID);
+    console.log("HASH: " + hashPart);
+};
+
 var OipOpenNodeClick = function() {
     var contentID = $(this).data("original-content-id");
     var articleType = GetArticleTypeFromID(contentID);;
-    openArticle(articleType, contentID);
+    var hashValue = "con&type=" + articleType + "&contentID=" + contentID;
+    console.log("Changing hash: " + hashValue)
+    window.location.hash = hashValue;
+    OnHashChange();
+    //openArticle(articleType, contentID);
 };
 
 OipOpenArticle = function(urlarg, addRelativePath) {
@@ -533,17 +564,19 @@ $(function() {
             reveal : {
                 animation: 'fadeAndPop',
                 animation_speed: 250,
-                close_on_background_click: false
+                close_on_background_click: false,
+                close_on_esc: false,
             }
 
         }
     );
     $(".close-reveal-modal").on("click", function() {
-
+        window.location.hash = "";
     });
 
     $("#closeViewContentModal").on("click", function() {
-        $("#viewContentModal").foundation("reveal", "close");
+        //$("#viewContentModal").foundation("reveal", "close");
+        window.location.hash = "";
     });
 
     $(".catnavaction").on("click", function() {
@@ -556,7 +589,7 @@ $(function() {
 
 var openArticle = function (articleType, articleID) {
     var articleUrl;
-    if(articleType == "text")
+    if(articleType == "text" || articleType == "TEXTCONTENT")
         articleUrl = "../../AaltoGlobalImpact.OIP/TextContent/" + articleID + ".json";
     if(articleType == "embedded")
         articleUrl = "../../AaltoGlobalImpact.OIP/EmbeddedContent/" + articleID + ".json";
