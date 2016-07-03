@@ -793,6 +793,7 @@
                 dust.render("nodetiles.dust", base.push(myObj), function (err, out) {
                     $("#TileSection").html(out);
                 });
+                setTimeout(OnHashChange, 100);
             });
         });
 
@@ -812,6 +813,8 @@
         };
 
         var findCategory = function (categoryID) {
+            if(categoryID == null)
+                return null;
             var matchingCats = $.grep(CurrCategories, function (cat) {
                 return cat.ID == categoryID;
             });

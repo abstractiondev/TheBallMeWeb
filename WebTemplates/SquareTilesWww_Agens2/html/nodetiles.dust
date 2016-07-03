@@ -18,7 +18,7 @@
                         {?ImageBaseUrl}
                             <div class="tileimagecontainer">
                                 {?IsCategoryFilteringNode}
-                                    <a class="hover filter" href="#" data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">
+                                    <a class="hover filter" href="#cat&categoryID={OriginalContentID}" data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">
                                         <img class="tileimage" src="{ImageBaseUrl}_320x240_crop{ImageExt}" alt="" /><span class="plus"></span>
                                     </a>
                                 {:else}
@@ -47,7 +47,7 @@
                         <div class="entry-summary tiletextarea">
                             <h4>
                                 {?IsCategoryFilteringNode}
-                                    <a class="filter button categorytiletitle" href="#"
+                                    <a class="filter button categorytiletitle" href="#cat&categoryID={OriginalContentID}"
                                        data-filter-value=".cat{OriginalContentID}" data-categoryid="{OriginalContentID}">{Title}</a>
                                 {:else}
                                     {@eq key=TechnicalSource value="LINKTOCONTENT"}
@@ -65,7 +65,7 @@
                             <div class="excerpt">{ExcerptRendered|s}</div>
                             {?IsCategoryFilteringNode}
                             {:else}
-                                <a class="pricetag oipclicktoview button" href="#" data-original-content-id="{OriginalContentID}">{OpenNodeTitle}</a>
+                                <a class="pricetag button" href="#con&type={TechnicalSource}&contentID={OriginalContentID}" data-original-content-id="{OriginalContentID}">{OpenNodeTitle}</a>
                             {/IsCategoryFilteringNode}
                         </div>
                     </div>
@@ -77,18 +77,7 @@
 </div>
 <script>
 
-    $(function(){
-
-        $(window).resize(function() {
-            resizeMasonryArea();
-            resizeFooter();
-        });
-
-        resizeMasonryArea();
-
-        var $container = $('#tilecontainer');
-        var filters = {};
-
+    var InitInitialIsotope = function($container) {
         $container.isotope({
             itemSelector : '.nodetile',
             filter: '.ROOTCATEGORY',
@@ -107,6 +96,22 @@
                 }
             }
         });
+    };
+
+    $(function(){
+
+        $(window).resize(function() {
+            resizeMasonryArea();
+            resizeFooter();
+        });
+
+        resizeMasonryArea();
+
+        var $container = $('#tilecontainer');
+        InitInitialIsotope($container);
+
+        var filters = {};
+
         setTimeout(function() {
             $(window).resize();
         }, 1);
@@ -124,47 +129,7 @@
 
         /* filter buttons */
         $('a.filter').click(function(){
-            var $this = $(this);
-            var categoryID = $this.data("categoryid");
-            CurrentCategoryID = categoryID;
-            /* don't proceed if already selected */
-            if ( $this.hasClass('selected') ) {
-                console.log("Already selected, skipping...");
-                return false;
-            }
-            /*
-            alert("FILTERING!");
-            */
-            var $optionSet = $this.parents('.isotope-sort');
-            /* change selected class */
-            $optionSet.find('.selected').removeClass('selected');
-            $(".contentfilter-selected").removeClass("selected").removeClass(".contentfilter-selected");
-            $this.addClass('selected');
-            $this.addClass("contentfilter-selected");
-
-            var filterValue = $this.attr("data-filter-value");
-            console.log("Applying filter selector: " + filterValue);
-            $container.isotope({ filter: filterValue,
-                transitionDuration: 0,
-            });
-            resizeMasonryArea();
-            if(CurrentCategoryID) {
-                $container.isotope('updateSortData', $(".nodetile"));
-                $container.isotope({ sortBy: "rankFunc",
-                    transitionDuration: 0,
-                });
-                updateMainLogo(CurrentCategoryID);
-            } else {
-                $container.isotope({ sortBy: "original-order",
-                    transitionDuration: 0,
-                });
-            }
-            applyIndexStyleClasses();
-            resizeFooter();
-            setTimeout(function() {
-                $(window).resize();
-            }, 1);
-            return false;
+            $LastClickedCategoryFilter = $(this);
         });
 
         if(navigator.appName != 'Microsoft Internet Explorer')

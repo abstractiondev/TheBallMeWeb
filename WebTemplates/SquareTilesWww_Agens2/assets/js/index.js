@@ -198,7 +198,7 @@ $(function () {
     $(window).on('hashchange', OnHashChange);
 
     var isIntroductionSite = window.location.hostname == "www.onlinetaekwondo.net" || window.location.hostname == "localhost";
-    OnHashChange();
+    //OnHashChange();
     /*
     var openArticleType = $.url().param("type");
     var openArticleID = $.url().param("id");
@@ -247,12 +247,15 @@ var ReplaceWithMarkdownRender = function(containingObj, sourceField, targetField
     containingObj[targetField] = renderedData;
 };
 
+var $LastClickedCategoryFilter = null;
+
 var OnHashChange = function() {
     var hashPart = $.url().attr("fragment");
     if(!hashPart)
     {
         $("#viewContentModal").foundation("reveal", "close");
         console.log("No hash");
+        applyCategoryFilter(null);
         return;
     }
     if(hashPart.startsWith("con")) {
@@ -264,9 +267,60 @@ var OnHashChange = function() {
         console.log("Opening article: " + type + " / " + contentID);
         openArticle(type, contentID);
     }
+    if(hashPart.startsWith("cat")) {
+        console.log("Applying category filter: " + hashPart);
+        var parts = hashPart.split("&");
+        var idPart = parts[1];
+        var categoryID = idPart.split("=")[1];
+        applyCategoryFilter(categoryID);
+    }
     //console.log("CAT: " + openCategoryID);
     //console.log("CON: " + openContentID);
     console.log("HASH: " + hashPart);
+};
+
+
+var applyCategoryFilter = function(categoryID) {
+    var $container = $('#tilecontainer');
+    var $this = $(".cat" + categoryID);
+    CurrentCategoryID = categoryID;
+    /* don't proceed if already selected */
+    if ( $this.hasClass('selected') ) {
+        console.log("Already selected, skipping...");
+        return false;
+    }
+    /*
+     alert("FILTERING!");
+     */
+    var $optionSet = $this.parents('.isotope-sort');
+    /* change selected class */
+    $optionSet.find('.selected').removeClass('selected');
+    $(".contentfilter-selected").removeClass("selected").removeClass(".contentfilter-selected");
+    $this.addClass('selected');
+    $this.addClass("contentfilter-selected");
+
+    //var filterValue = $this.attr("data-filter-value");
+    if(CurrentCategoryID) {
+        var filterValue = ".cat" + CurrentCategoryID;
+        console.log("Applying filter selector: " + filterValue);
+        $container.isotope({ filter: filterValue,
+            transitionDuration: 0,
+        });
+    } else {
+        InitInitialIsotope($container);
+    }
+    resizeMasonryArea();
+    $container.isotope('updateSortData', $(".nodetile"));
+    $container.isotope({ sortBy: "rankFunc",
+        transitionDuration: 0,
+    });
+    updateMainLogo(CurrentCategoryID);
+    applyIndexStyleClasses();
+    resizeFooter();
+    setTimeout(function() {
+        $(window).resize();
+    }, 1);
+    return false;
 };
 
 var OipOpenNodeClick = function() {
@@ -571,12 +625,12 @@ $(function() {
         }
     );
     $(".close-reveal-modal").on("click", function() {
-        window.location.hash = "";
+        window.history.back();
     });
 
     $("#closeViewContentModal").on("click", function() {
         //$("#viewContentModal").foundation("reveal", "close");
-        window.location.hash = "";
+        window.history.back();
     });
 
     $(".catnavaction").on("click", function() {
