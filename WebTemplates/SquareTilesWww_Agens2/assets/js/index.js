@@ -207,6 +207,7 @@ var InitInitialIsotope = function($container) {
         filter: '.ROOTCATEGORY',
         itemPositionDataEnabled: true,
         transitionDuration: 0,
+        layoutMode: "perfectMasonry",
         getSortData: {
             rankFunc: function($item) {
                 var title = $item.data("title");

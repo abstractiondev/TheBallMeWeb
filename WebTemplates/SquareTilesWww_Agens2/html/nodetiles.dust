@@ -10,7 +10,7 @@
         </div>
         -->
     </div>
-    <div id="tilecontainer">
+    <div id="tilecontainer" class="isotopetilecontainer">
         {#Nodes}
             <div class=""><!-- three_col four_col two_col -->
                 {#CollectionContent}
