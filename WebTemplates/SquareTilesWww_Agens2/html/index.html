@@ -164,15 +164,23 @@
     }
 
     .logomedium {
-        height: 20vw;
+        /*height: 20vw;*/
+        border-bottom: solid 1px lightgrey;
+        margin-bottom: 10px;
+        height: 30vw;
     }
 
     .logosmall {
-        height: 30vw;
+        height: 50vw;
+        border-bottom: solid 1px lightgrey;
+        margin-bottom: 10px;
+        /*width: 80vw;*/
     }
 
     .logolargeup {
         height: 20vw;
+        border-bottom: solid 1px lightgrey;
+        margin-bottom: 15px;
     }
 
     .logoimg {
@@ -200,14 +208,14 @@
         background: white;
     }
 
-    @media (min-width: 1200px) {
+    @media (min-width: 64.063em) {
         .marginborders {
             margin: 0px 20% 0px;
             width: 60%;
             padding: 30px 30px 30px;
         }
     }
-    @media (min-width: 800px) and (max-width: 1200px) {
+    @media (min-width: 40.063em) and (max-width: 64em) {
         .marginborders {
             margin: 0 10%;
             width: 80%;
@@ -215,7 +223,7 @@
         }
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 40em) {
         .marginborders {
             margin: 0px 5% 0px;
             padding: 10px;
@@ -515,7 +523,6 @@
 
 
         var resizeMasonryArea = function() {
-            return;
             var $nodetiles = getVisibleTilesInOrder();
             var totalItems = $nodetiles.length;
             var maxX = totalItems > 4 ? 4 : totalItems;
@@ -528,7 +535,7 @@
             if(fittingX > maxX)
                 fittingX = maxX;
             var setWidth = 220 * fittingX;
-            var paddingToReduce = parseInt($(".footerrow").css('padding-right')) * 2 + 2;
+            var paddingToReduce = parseInt($(".footerrow").css('padding-right')) * 2;
             setWidth -= paddingToReduce;
             $(".contenttilerow").css("maxWidth", setWidth + "px");
             console.log("setWidth: " + setWidth);

@@ -497,9 +497,11 @@ OipOpenArticle = function(urlarg, addRelativePath) {
                 //$catPanel.append("<br><div>" + currActiveCategory.Title + "</div>");
                 if(textContent) {
                     var imageData = textContent.ImageData;
-                    var imageSizeString = 256;
-                    var imageUrl = "../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + imageData.AdditionalFormatFileExt;
-                    $articleImagePanel.append("<img src=\"" + imageUrl + "\"><br>");
+                    if(imageData) {
+                        var imageSizeString = 256;
+                        var imageUrl = "../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_" + imageSizeString + "x" + imageSizeString + "_crop" + imageData.AdditionalFormatFileExt;
+                        $articleImagePanel.append("<img src=\"" + imageUrl + "\"><br>");
+                    }
 
                     var authorImageData = textContent.ArticleImageData;
                     if(authorImageData)
