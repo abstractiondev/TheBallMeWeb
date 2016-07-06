@@ -223,11 +223,20 @@ var InitInitialIsotope = function($container) {
                 });
                 return myIndex;
             }
-        }
+        },
+        masonry: CurrentMasonryOptions
     });
 };
 
+var CurrentMasonryOptions;
+
 var PrepareIsotope = function() {
+
+    CurrentMasonryOptions = {
+        columnWidth: 220,
+        fitWidth: true
+    };
+
 
     $(window).resize(function() {
         resizeMasonryArea();
@@ -267,6 +276,7 @@ var PrepareIsotope = function() {
             $container.isotope({
                 filter : '.ROOTCATEGORY',
                 transitionDuration: 0,
+                masonry: CurrentMasonryOptions
             });
         });
     }
@@ -387,6 +397,7 @@ var applyCategoryFilter = function(categoryID) {
         console.log("Applying filter selector: " + filterValue);
         $container.isotope({ filter: filterValue,
             transitionDuration: 0,
+            masonry: CurrentMasonryOptions,
         });
     } else {
         InitInitialIsotope($container);

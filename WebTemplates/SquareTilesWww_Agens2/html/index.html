@@ -164,69 +164,34 @@
     }
 
     .logomedium {
-        height: 100%;
-        background-color: white;
-        /*
-        border-color: gold;
-        border-style: solid;
-        border-width: 1px;*/
+        height: 20vw;
     }
 
     .logosmall {
-        height: 100%;
-        background-color: white;
-        /*
-        border-color: gold;
-        border-style: solid;
-        border-width: 1px;*/
+        height: 30vw;
     }
 
     .logolargeup {
-        /*height: 100%;*/
+        height: 20vw;
+    }
+
+    .logoimg {
+        padding-top: 10px;
+        padding-bottom: 20px;
         background-color: white;
-        /*
-        border-color: gold;
-        border-style: solid;
-        border-width: 1px;*/
+        bottom: 0px;
     }
 
     .logolargeuprow {
-        height: auto !important;
-        padding-bottom: 10px;
-        background-color: white;
     }
 
     .logomediumrow {
-        height: 50%;
-        padding-bottom: 10px;
-        background-color: white;
     }
 
     .logosmallrow {
-        height: 50%;
-        padding-bottom: 10px;
-        background-color: white;
     }
 
     .marginborders {
-        /*
-        position: absolute; top:0px; left:0px; !important;
-        -webkit-transition: padding 2s;
-        -moz-transition: padding 2s;
-        -ms-transition: padding 2s;
-        -o-transition: padding 2s;
-        transition: padding 2s;
-        -webkit-transition: margin-left 2s;
-        -moz-transition: margin-left 2s;
-        -ms-transition: margin-left 2s;
-        -o-transition: margin-left 2s;
-        transition: margin-left 2s;
-        -webkit-transition: margin-right 2s;
-        -moz-transition: margin-right 2s;
-        -ms-transition: margin-right 2s;
-        -o-transition: margin-right 2s;
-        transition: margin-right 2s;
-        */
         -webkit-transition: all 0.5s;
         -moz-transition: all 0.5s;
         -ms-transition: all 0.5s;
@@ -265,11 +230,12 @@
 
     .contenttilerow {
         height: 40%;
-        margin:auto;
+        margin: 0px auto !important;
     }
 
     .contenttilerowcentered {
         background: white;
+        margin: 0px auto !important;
     }
 
     .footerrow {
@@ -296,12 +262,6 @@
         vertical-align: bottom;
         padding: 5px;
         text-transform: uppercase;
-    }
-
-    .logoimg {
-        /*position: relative;*/
-        bottom:  0px;
-        /*height: 50%;*/
     }
 
     * {
@@ -555,19 +515,23 @@
 
 
         var resizeMasonryArea = function() {
+            return;
             var $nodetiles = getVisibleTilesInOrder();
             var totalItems = $nodetiles.length;
             var maxX = totalItems > 4 ? 4 : totalItems;
             if(maxX == 0)
                 maxX = 4;
             var windowWidth = $(window).width();
+            //var boundary = 0.1 * windowWidth + 26;
+            //windowWidth -= boundary;
             var fittingX = parseInt(windowWidth / 220);
             if(fittingX > maxX)
                 fittingX = maxX;
             var setWidth = 220 * fittingX;
-            var paddingToReduce = parseInt($(".footerrow").css('padding-right')) * 2;
+            var paddingToReduce = parseInt($(".footerrow").css('padding-right')) * 2 + 2;
             setWidth -= paddingToReduce;
             $(".contenttilerow").css("maxWidth", setWidth + "px");
+            console.log("setWidth: " + setWidth);
             //resizeFooter();
             //var logoResized = resizeLogo(setWidth);
             //return logoResized;
@@ -805,9 +769,9 @@
             var $logoMedium = $("#logocontainer-medium");
             var $logoSmall = $("#logocontainer-small");
             if (imageData != null) {
-                $logoLarge.html("<img class='logoimg' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_1280x720_whole" + imageData.FileExt + "' />");
-                $logoMedium.html("<img class='logoimg' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_640x360_whole" + imageData.FileExt + "' />");
-                $logoSmall.html("<img class='logoimg' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_640x360_whole" + imageData.FileExt + "' />");
+                $logoLarge.html("<img class='logoimg logolargeup' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_1280x720_whole" + imageData.FileExt + "' />");
+                $logoMedium.html("<img class='logoimg logomedium' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_640x360_whole" + imageData.FileExt + "' />");
+                $logoSmall.html("<img class='logoimg logosmall' src='../../AaltoGlobalImpact.OIP/MediaContent/" + imageData.ID + "_640x360_whole" + imageData.FileExt + "' />");
             } else {
                 $logoLarge.html("");
                 $logoMedium.html("");
