@@ -289,9 +289,6 @@ var PrepareIsotope = function() {
 $(function () {
 
     $(window).on('hashchange', OnHashChange);
-
-    var isIntroductionSite = window.location.hostname == "www.onlinetaekwondo.net" || window.location.hostname == "localhost";
-    //OnHashChange();
     /*
     var openArticleType = $.url().param("type");
     var openArticleID = $.url().param("id");
@@ -377,14 +374,6 @@ var applyCategoryFilter = function(categoryID) {
     var $container = $('#tilecontainer');
     var $this = $(".cat" + categoryID);
     CurrentCategoryID = categoryID;
-    /* don't proceed if already selected */
-    if ( $this.hasClass('selected') ) {
-        console.log("Already selected, skipping...");
-        return false;
-    }
-    /*
-     alert("FILTERING!");
-     */
     var $optionSet = $this.parents('.isotope-sort');
     /* change selected class */
     $optionSet.find('.selected').removeClass('selected');
